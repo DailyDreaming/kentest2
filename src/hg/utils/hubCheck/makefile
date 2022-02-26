@@ -1,5 +1,5 @@
 kentSrc = ../../..
-include ../../../inc/common.mk
+include $(kentSrc)/inc/common.mk
 
 L += ${HALLIBS} ${MYSQLLIBS} -lm
 MYLIBDIR = ../../../lib/${MACHTYPE}
@@ -22,6 +22,14 @@ cgi:: compile
 	fi
 	rm -f ${CGI_BIN}-${USER}/loader/$A
 	mv $A${EXE} ${CGI_BIN}-${USER}/loader/$A
+
+install:: compile
+	chmod a+rx $A${EXE}
+	@if [ ! -d "${CGI_BIN}/loader" ]; then \
+		${MKDIR} ${CGI_BIN}/loader; \
+	fi
+	rm -f ${CGI_BIN}/loader/$A
+	mv $A${EXE} ${CGI_BIN}/loader/$A
 
 alpha:: compile
 	chmod a+rx $A${EXE}
