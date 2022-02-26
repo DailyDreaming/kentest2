@@ -1,0 +1,23 @@
+<h2>Description</h2>
+<p>
+Replace this text with a summary describing the concepts or analysis represented by 
+your data.</p>
+
+<h2>Methods</h2>
+<p>
+Replace this text with a description of the methods used to generate and analyze the 
+data.</p>
+
+<h2>Verification</h2>
+<p>
+Replace this text with a description of the methods used to verify the data.</p>
+
+<h2>Credits</h2>
+<p>
+Replace this text with a list of the individuals and/or organizations who contributed 
+to the collection and analysis of the data.</p>
+
+<h2>References</h2>
+<p>
+Replace this text with a list of relevant literature references and/or websites that 
+provide background or supporting information about the data.</p>

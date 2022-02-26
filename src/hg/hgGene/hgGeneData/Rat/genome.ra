@@ -1,0 +1,5 @@
+name global
+summaryTables hgFixed.refSeqSummary knownToRefSeq
+summarySql select summary from hgFixed.refSeqSummary,knownToRefSeq where knownToRefSeq.name='%s' and (hgFixed.refSeqSummary.mrnaAcc=knownToRefSeq.value)
+summaryIdSql select value from knownToRefSeq where name='%s'
+summarySource RefSeq Summary

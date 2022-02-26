@@ -1,0 +1,76 @@
+track nowakowskiGeneExp
+release alpha
+type bigBarChart
+maxLimit 8000
+barChartLabel Cell types
+barChartUnit GPM
+# Get the barChartLabels from the last line in the bed file.
+barChartBars \
+		IPC1 IPC2 IPC3 IPC4 IPC5 NiN1 NiN2 NiN3 NiN4 NiN5 RG1 RG2 RG3 RG4 RG5 \
+		RG6 RG7 VP1 VP2 VP3 VP4 VP5 VP6 eN1 eN2 eN3 eN4 eN5 eN6 eN7 eN8 eN9 iN1 \
+		iN2 iN3 iN4 iN5 other1 other10 other2 other3 other4 other5 other6 other7 \
+		other8 other9
+barChartDataUrl /gbdb/hgFixed/human/expMatrix/nowakowskiMatrix.tsv
+barChartSampleUrl /gbdb/hgFixed/human/expMatrix/pollenSamples2.tsv
+shortLabel Nowakowski brain cell types
+longLabel Nowakowski gene expression (Gencode 23) in brain by cell type
+defaultLabelFields name2
+labelFields name2, name
+group expression
+spectrum on
+bigDataUrl /gbdb/hgFixed/human/expMatrix/nowakowskiGeneExp2.bb
+
+track quakeExpr
+release alpha
+superTrack on 
+type bigBarChart
+group expression
+shortLabel Quake Expression
+longLabel Quake Lab Gene and Trancscript Expression in Brain by Cell Type
+html quakeExpr
+
+	track quakeTranscExpr
+	parent quakeExpr	
+	release alpha
+	type bigBarChart
+	maxLimit 14000
+	barChartLabel Cell types
+	barChartUnit TPM
+	# Get the barChartLabels from the last line in the bed file.
+	barChartBars \
+			Astrocytes Endothelial Hybrid Microglia Neurons OPC Oligodendrocytes
+	barChartColors \
+			\#F5DE81 #DD9FA2 #C8C8C8 #44773C #B70C15 #5C80BE #E6AB13
+	barChartDataUrl /gbdb/hgFixed/human/expMatrix/cleanQuakeTranscMatrix.tab
+	barChartSampleUrl /gbdb/hgFixed/human/expMatrix/cleanQuakeSamples.tab
+	shortLabel Quake TranscExpr 
+	longLabel Quake Lab Transcript Expression in Brain by Cell Type
+	defaultLabelFields name2
+	labelFields name2, name
+	group expression
+	bigDataUrl /gbdb/hgFixed/human/expMatrix/quakeTranscExpr.bb
+	html quakeExpr
+
+	track quakeGeneExpr
+	parent quakeExpr	
+	release alpha
+	type bigBarChart
+	maxLimit 14000
+	barChartLabel Cell types
+	barChartUnit GPM
+	# Get the barChartLabels from the last line in the bed file.
+	barChartBars \
+			Astrocytes Endothelial Hybrid Microglia Neurons OPC Oligodendrocytes
+	barChartColors \
+			\#F5DE81 #DD9FA2 #C8C8C8 #44773C #B70C15 #5C80BE #E6AB13
+	barChartDataUrl /gbdb/hgFixed/human/expMatrix/cleanQuakeGeneMatrix.tab
+	barChartSampleUrl /gbdb/hgFixed/human/expMatrix/cleanQuakeSamples.tab
+	shortLabel Quake GeneExpr
+	longLabel Quake Lab Gene Expression in Brain by Cell Type
+	defaultLabelFields name2
+	labelFields name2, name
+	group expression
+	visibility pack
+	bigDataUrl /gbdb/hgFixed/human/expMatrix/quakeGeneExpr.bb
+	html quakeExpr
+

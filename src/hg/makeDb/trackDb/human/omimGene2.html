@@ -1,0 +1,212 @@
+<H2>Description</H2>
+
+<!--#insert file="omimDescriptionText.html"-->
+
+<P>
+This track shows the genomic positions of all <B>gene entries</B> in the Online Mendelian
+Inheritance in Man (<A HREF="https://www.omim.org/" TARGET=_blank>OMIM</A>) database.
+</P>
+
+<H2>Display Conventions and Configuration</H2>
+
+<P>Genomic locations of OMIM gene entries are displayed as solid blocks.  The entries are colored
+according to the associated <b>OMIM phenotype map key</b> (if any):
+<UL>
+<LI><B><FONT COLOR="#AAC4AA">Lighter Green</FONT></B> for phenotype map key 1 OMIM records
+-  the disorder has been placed on the map based on its association with
+a gene, but the underlying defect is not known.
+<LI><B><FONT COLOR="#669666">Light Green</FONT></B> for phenotype map key 2 OMIM records
+- the disorder has been placed on the map by linkage; no mutation has
+been found.
+<LI><B><FONT COLOR="#005000">Dark Green</FONT></B> for phenotype map key 3 OMIM records
+- the molecular basis for the disorder is known; a mutation has been
+found in the gene.
+<LI><B><FONT COLOR="#69329B">Purple</FONT></B> for phenotype map key 4 OMIM records
+- a contiguous gene deletion or duplication syndrome; multiple genes
+are deleted or duplicated causing the phenotype.
+<LI><B><FONT COLOR="#BEBEBE">Light Gray</FONT></B> for Others
+- no associated OMIM phenotype map key info available.
+</UL>
+<P><b>Gene symbol</b>, <b>phenotype</b>, and <b>inheritance</b> information, when available, are 
+displayed on the details page for an item, and links to related RefSeq Genes and UCSC Genes are 
+given. The descriptions of the OMIM entries are shown on the main browser display when mousing over
+each entry.
+</P>
+<P>
+<table class="stdTbl">
+  <tr>
+    <th>Mode of Inheritance</th>
+    <th>Abbreviation</th>
+  </tr>
+  <tr>
+    <td>Autosomal Dominant</td>
+    <td>AD</td>
+  </tr>
+  <tr>
+    <td>Autosomal Recessive</td>
+    <td>AR</td>
+  </tr>
+  <tr>
+    <td>Digenic Dominant</td>
+    <td> DD </td>
+  </tr>
+  <tr>
+    <td>Digenic Recessive</td>
+    <td>DR</td>
+  </tr>
+  <tr>
+    <td>Isolated Cases</td>
+    <td>IC</td>
+  </tr>
+  <tr>
+    <td>Mitochondrial</td>
+    <td>Mi</td>
+  </tr>
+  <tr>
+    <td>Multifactorial</td>
+    <td>Mu</td>
+  </tr>
+  <tr>
+    <td>Pseudoautosomal Dominant</td>
+    <td>PADom</td>
+  </tr>
+  <tr>
+    <td>Pseudoautosomal Recessive</td>
+    <td>PARec </td>
+  </tr>
+  <tr>
+    <td>Somatic Mosaicism</td>
+    <td>SomMos</td>
+  </tr>
+  <tr>
+    <td>Somatic Mutation</td>
+    <td>SMu</td>
+  </tr>
+<tr>
+    <td>X-Linked</td>
+    <td>XL</td>
+  </tr>
+<tr>
+    <td>X-Linked Dominant</td>
+    <td>XLD</td>
+  </tr>
+<tr>
+    <td>X-Linked Recessive</td>
+    <td>XLR</td>
+  </tr>
+<tr>
+    <td>Y-Linked</td>
+    <td>YL</td>
+  </tr>
+</table>
+</P>
+<P>
+<b>Brackets, "[ ]"</b>, before the phenotype name indicate "nondiseases," mainly genetic variations that
+lead to apparently abnormal laboratory test values (e.g., dysalbuminemic euthyroidal 
+hyperthyroxinemia).
+</P>
+<P>
+<b>Braces, "{ }"</b>, indicate mutations that contribute to susceptibility to multifactorial disorders
+(e.g., diabetes, asthma) or to susceptibility to infection (e.g., malaria).
+</P>
+<P>
+<b>Question marks, "?"</b>, indicate that the relationship between the phenotype and gene is provisional.
+More details about this relationship are provided in the comment field of the map and in the gene
+and phenotype OMIM entries.
+</P>
+
+<H2>Methods</H2>
+<P>
+The mappings displayed in this track are based on OMIM gene entries, their Entrez Gene IDs, and
+the corresponding RefSeq Gene locations:
+<UL>
+<LI>The data file <TT>genemap.txt</TT> from OMIM was loaded into the MySQL table <TT>omimGeneMap</TT>.
+<LI>The data file <TT>mim2gene.txt</TT> from OMIM was processed and loaded into the MySQL table <TT>omim2gene</TT>.
+<LI>Entries in <TT>genemap.txt</TT> having disorder info were parsed and loaded into the 
+<TT>omimPhenotype</TT> table.
+<LI>For each OMIM gene in the <TT>omim2gene</TT> table, the
+<A HREF="https://www.ncbi.nlm.nih.gov/gene" TARGET=_blank>Entrez Gene ID</A> was used to get the
+corresponding <a href="https://www.ncbi.nlm.nih.gov/refseq/" target="_blank">RefSeq Gene ID</a> via
+the <TT>refLink</TT> table, and the RefSeq ID was used to get the genomic location from the
+<TT>refGene</TT> table.* The OMIM gene IDs and corresponding RefSeq Gene locations were loaded into
+the <TT>omimGene2</tt> table, the primary table for this track.
+</P>
+</UL>
+<P>
+*The locations in the <TT>refGene</TT> table are from alignments of RefSeq Genes to the reference
+genome using BLAT.
+</P>
+
+<h2>Data Access</h2>
+<p>
+Because OMIM has only allowed Data queries within individual chromosomes, no download files are
+available from the Genome Browser. Full genome datasets can be downloaded directly from the
+<a href="https://omim.org/downloads/" target="_blank">OMIM Downloads page</a>.
+All genome-wide downloads are freely available from OMIM after registration.</p>
+<p>
+If you need the OMIM data in exactly the format of the UCSC Genome Browser,
+for example if you are running a UCSC Genome Browser local installation (a partial &quot;mirror&quot;),
+please create a user account on omim.org and contact OMIM via
+<a href="https://omim.org/contact" target="_blank">https://omim.org/contact</a>. Send them your OMIM
+account name and request access to the UCSC Genome Browser &quot;entitlement&quot;. They will
+then grant you access to a MySQL/MariaDB data dump that contains all UCSC
+Genome Browser OMIM tables.</p>
+<p>
+UCSC offers queries within chromosomes from 
+<a href="hgTables" target=_blank>Table Browser</a> that include a variety
+of filtering options and cross-referencing other datasets using our
+<a href="hgIntegrator" target=_blank>Data Integrator</a> tool. 
+UCSC also has an <a href="../goldenPath/help/api.html" target=_blank>API</a>
+that can be used to retrieve data in JSON format from a particular chromosome range.</p>
+<p>
+Please refer to our searchable
+<A HREF="https://groups.google.com/a/soe.ucsc.edu/forum/?hl=en&fromgroups#!search/download+snps"
+target=_blank>mailing list archives</a>
+for more questions and example queries, or our
+<a HREF="../FAQ/FAQdownloads.html#download36" target=_blank>Data Access FAQ</a>
+for more information.</p>
+
+<h4>Example: Retrieve phenotype, Mode of Inheritance, and other OMIM data within a range</h4>
+<ol>
+<li>Go to <a href="hgTables">Table Browser</a>, make sure the right dataset is selected:
+group: Phenotype and Literature, track: OMIM Genes, table: <tt>omimGene2</tt>.</li>
+<li>Define region of interest by entering coordinates or a gene symbol into the &quot;Position&quot; textbox, such as
+chr1:11,166,591-11,322,608 or MTOR, or upload a list.</li>
+<li>Format your data by setting the &quot;Output format&quot; dropdown to &quot;selected fields from primary 
+and related Tables&quot; and click <button>get output</button>. This 
+brings up the data field and linked table selection page.</li>
+<li>Select chrom, chromStart, chromEnd, and name from <tt>omimGene2</tt> table. Then select the related tables <tt>omim2gene</tt> 
+and <tt>omimPhenotype</tt> and click <button>allow selection from check tables</button>.
+This brings up the fields of the linked tables, where you can select approvedGeneSymbol,
+omimID, description, omimPhenotypeMapKey, and inhMode. </li>
+<li>Click on the <button>get output</button> to proceed to the results page:
+<pre>chr1	11166591	11322608    601231  Gene: MTOR, Synonyms: FRAP1, SKS, Phenotypes: Smith-Kingsmore syndrome, AD, 3; Focal cortical dysplasia, type II, somatic, 3 </pre></li></ol>
+<p>For a quick link to pre-fill these options, click 
+<a href="hgTables?hgS_doOtherUser=submit&hgS_otherUserName=dschmelt&hgS_otherUserSessionName=omimPhenotypeTableBrowserEx19">
+this session link</a>.
+
+
+<H2>Credits</H2>
+<P>
+Thanks to OMIM and NCBI for the use of their data. This track was
+constructed by Fan Hsu, Robert Kuhn, and Brooke Rhead of the UCSC Genome Bioinformatics Group.</P> 
+
+<H2>References</H2>
+<p>
+Amberger J, Bocchini CA, Scott AF, Hamosh A.
+<a href="https://academic.oup.com/nar/article/37/suppl_1/D793/1003813" target="_blank">
+McKusick's Online Mendelian Inheritance in Man (OMIM)</a>.
+<em>Nucleic Acids Res</em>. 2009 Jan;37(Database issue):D793-6.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/18842627" target="_blank">18842627</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2686440/" target="_blank">PMC2686440</a>
+</p>
+
+<p>
+Hamosh A, Scott AF, Amberger JS, Bocchini CA, McKusick VA.
+<a href="https://academic.oup.com/nar/article/33/suppl_1/D514/2505259" target="_blank">
+Online Mendelian Inheritance in Man (OMIM), a knowledgebase of human genes and genetic
+disorders</a>.
+<em>Nucleic Acids Res</em>. 2005 Jan 1;33(Database issue):D514-7.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/15608251" target="_blank">15608251</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC539987/" target="_blank">PMC539987</a>
+</p>

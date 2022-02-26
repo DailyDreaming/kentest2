@@ -1,0 +1,218 @@
+#!/usr/bin/env python2.7
+# addMetaDataToJson
+"""
+Add meta data to a .json clustered file, ie a .json created by expMatrixToJson.  
+By default only fields with 2-26 unique values are added, this is due to graphical
+restrains.  If you would like to override this then List the fields that you would 
+like using the fields option.  
+"""
+import os
+import sys
+import collections
+import argparse
+import json 
+# import the UCSC kent python library
+sys.path.append(os.path.join(os.path.dirname(__file__), 'pyLib'))
+import common
+
+def parseArgs(args):
+    """
+    Parse the command line arguments.
+    """
+    parser= argparse.ArgumentParser(description = __doc__)
+    parser.add_argument ("jsonFile",
+    help = " The input json file. ",
+    type = argparse.FileType("r"))
+    parser.add_argument ("metaDataFile",
+    help = " The input meta data file ",
+    action = "store")
+    parser.add_argument ("outputJson",
+    help = " The output file. ",
+    type =argparse.FileType("w"))
+    parser.add_argument ("--keyCol",
+    help = " The meta data key column. Defaults to 'meta' column. ",
+    type = int)
+    parser.add_argument ("--override",
+    help = " Override the field limit (26) for a specified field",
+    nargs="+",
+    action = "store")
+    parser.add_argument ("--verbose",
+    help = " Spit out messages during runtime. ",
+    action = "store_true")
+    
+    parser.set_defaults(verbose = False)
+    parser.set_defaults(override = [])
+    parser.set_defaults(keyCol = None)
+    parser.set_defaults(fields = None) 
+    if (len(sys.argv) == 1): 
+        parser.print_help()
+        exit(1)
+    options = parser.parse_args()
+    return options
+
+def findLastQuotation(string):
+    """
+    Input:
+        string - A string.
+    Output
+        result - An int.
+    Returns the location of the last quotation mark in the string. 
+    Returns -1 if not found. 
+    """
+    count = 0
+    for char in string[::-1]:
+        if (char == "\""):
+            return len(string) - count
+        count +=1
+    return -1 
+
+def addJsonNameValPair(string, name, val):
+    """
+    Input:
+        string - A string
+        name - A string
+        val - A string
+    Output:
+        result - A string
+    Add a name value pair to a .json entry. Keep the json ending since 
+    json format is picky about commas. 
+    """
+    result = string[:findLastQuotation(string)]
+    nameVal = ",\"%s\":\"%s\""%(name,val)
+    result += nameVal + string[findLastQuotation(string):]
+    return result
+
+def updateJsonOld(jsonFile, metaData, metaFieldToCol, fields, outputJson):
+    """
+    Input:
+        jsonFile - An opened file like object
+        metaData - A dict of tuples
+        metaFieldToCol - A dict
+        fields - A list
+        outputJson - An opened file like object
+    Go through the jsonFile and identify the json entries with corresponding metaData entries. 
+    Add the elements in fields and their corresponding values to the json. The output is printed
+    to outputJson.  
+        
+    """
+    doOnce = True
+    for line in jsonFile: # Lets abuse python's string manipulation a bit...
+        if "name" in line: 
+            elements = line.split(",")
+            name = elements[0].split(":")[1].replace("\"","").replace(" ","")
+            if name != "": # This is a leaf node, it's name is a 'meta' tag value for the submission.   
+                if metaData.get(name): # We're here! This is the json entries that correspond to the leaf nodes...
+                    newLine = line[:-1]
+                    count = 0
+                    for item in fields: # Add in the new meta data fields to the json entry
+                        swap = addJsonNameValPair(newLine, item, metaData[name][metaFieldToCol[item]])
+                        newLine = swap 
+                        count +=1
+                    doOnce = False
+                    outputJson.write(newLine+"\n") # Print the json entry
+                    continue 
+            outputJson.write(line) # Print everything else
+
+def updateJson(jsonFile, metaData, metaFieldToCol, fields, outputJson):
+    """
+    Input:
+        jsonFile - An opened file like object
+        metaData - A dict of tuples
+        metaFieldToCol - A dict
+        fields - A list
+        outputJson - An opened file like object
+    Go through the jsonFile and identify the json entries with corresponding metaData entries. 
+    Add the elements in fields and their corresponding values to the json. The output is printed
+    to outputJson. IMPORTANT NOTE: This is heavily contingent on the line breaks in the initial .json
+    file. This script assumes that each object will be on its own line and have a variable 'name'. In some ways
+    this greatly simplifies the code. I took a crack at loading it in with the .json module but
+    adding the values correctly got increasingly difficult.  
+        
+    """
+    humanMap = common.dictFromTwoTabFile(os.environ['CIRM']+"annotation/ensToHugo/genes.hg38", False)
+    mouseMap = common.dictFromTwoTabFile(os.environ['CIRM']+"annotation/ensToHugo/genes.mm10", False)
+    for line in jsonFile: # Lets abuse python's string manipulation a bit...
+        if  "name" in line: 
+            elements = line.split(",")
+            name = elements[0].split(":")[1].replace("\"","").replace(" ","")
+            if name != "": # This is a leaf node, it's name is a 'meta' tag value for the submission.   
+                if metaData.get(name): # We're here! This is the json entries that correspond to the leaf nodes...
+                    newLine = line[:-1]
+                    count = 0
+                    for item in fields: # Add in the new meta data fields to the json entry
+                        swap = addJsonNameValPair(newLine, item, metaData[name][metaFieldToCol[item]])
+                        newLine = swap 
+                        count +=1
+                    outputJson.write(newLine+"\n") # Print the json entry
+                    continue 
+            else: # This is an internal node, update the gene names
+                output =  line[:-1].split("geneList")[0] + "geneList\":{"
+                totalGenes = len(line[:-1].split("geneList")[1].split("{")[1].split("}")[0].split(","))
+                geneCount =0
+                for item in line[:-1].split("geneList")[1].split("{")[1].split("}")[0].split(","): 
+                    ++geneCount
+                    gene = item.split(":")[0].strip("\"")
+                    val = item.split(":")[1]
+                    if humanMap.get(gene): # Check for human gene names first (hg38)
+                        output+=  "\"" + humanMap[gene] + "\":" + val 
+                    elif mouseMap.get(item.split(":")[0].strip("\"")): # Next look for mouse gene names (mm10)
+                        output+=  "\"" + mouseMap[gene] + "\":" + val 
+                    else: # Finally give up and slap an 'unknown_' tag in front of the gene name. 
+                        output+=  "\"" + "unknown_"+gene + "\":" + val 
+                    if geneCount > totalGenes: 
+                        output+= ","
+                output += "}"+line[:-1].split("geneList")[1].split("{")[1].split("}")[1]
+            outputJson.write(output + "\n")
+            continue 
+        outputJson.write(line) # Print everything else
+
+def main(args):
+    """
+    Initialized options and calls other functions.
+    """
+    options = parseArgs(args)
+    if (options.verbose): print ("Start adding meta data to the clustered .json and .html files.")
+    
+    # Read in the header line of the meta data table, store the columns as a list
+    with open(options.metaDataFile, "r") as f:
+        line = f.readline()
+        metaFields = line[:-1].strip("#").split("\t")
+
+    # Read in the meta data table as a dict of tuples
+    metaData = common.readInTable(open(options.metaDataFile, "r"), metaFields.index("meta"), "\t")
+    if (options.fields != None): 
+        metaFields = options.fields
+
+
+    metaFieldToCol = dict()
+    newMetaFields = []
+    count = 0 
+    # Go through the meta data and identify the columns with between 2-26 unique values. These will 
+    # be added to the json file. This can be overwritten with the fields command. 
+    for item in metaFields: 
+        seenElements = []
+        for j in metaData.values(): 
+            if (j[count] == "n/a"): continue 
+            if (j[count] in seenElements): 
+                continue
+            else: seenElements.append(j[count])
+        numUniqueElems = len(seenElements)
+        if (item in options.override):
+            metaFieldToCol.setdefault(item,metaFields.index(item))
+            newMetaFields.append(item)
+        elif (numUniqueElems <= 26 and numUniqueElems > 1):
+            metaFieldToCol.setdefault(item,metaFields.index(item))
+            newMetaFields.append(item)
+        elif options.verbose: print ("The meta field %s has %i unique values, only fields with 2-26 unique values are accepted."%(item, numUniqueElems))
+        count += 1
+        #print (item, metaFields.index(item), numUniqueElems, metaFieldToCol) 
+                #metaFieldToCol, metaData)
+        #exit(1)
+
+
+    updateJson(options.jsonFile, metaData, metaFieldToCol, sorted(newMetaFields), options.outputJson)
+
+    if (options.verbose): print ("Completed adding meta data to the clustered .json and .html files.")
+
+if __name__ == "__main__" : 
+    sys.exit(main(sys.argv))

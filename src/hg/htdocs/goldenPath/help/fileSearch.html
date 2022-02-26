@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser File Search" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<!-- File Search Help Page -- linked from the hgFileSearch cgi -->
+
+<h1>File Search</h1>
+<p> 
+The Genome Browser's File Search feature allows users to find downloadable ENCODE files of interest 
+quickly and easily.</p> 
+
+<h2>Searching</h2> 
+<p> 
+Downloadable ENCODE files can be found by entering terms of interest in the free-text Track Name and
+Description fields, by selecting the appropriate Group or Data Format from the drop-down menus, 
+and/or by using the &quot;ENCODE terms&quot; drop-down filters.</p>
+<p>
+<strong>ENCODE terms</strong>: The filters in this section allow users to search (or refine their 
+search) for files based on the metadata associated with the ENCODE downloadable files. By default,
+there are two rows of ENCODE metadata search criteria, but more can be added by clicking the 
+&quot;+&quot; button. To remove an added metadata search row, click the &quot;-&quot; button. Each
+row is comprised of two menus. The first is a drop-down menu that contains the searchable metadata
+categories. Please note that because the metadata categories are assembly dependent, the options 
+may vary from assembly to assembly.Some metadata categories have a link on the far right of the 
+row that provides more information about that category. The second menu is usually a multi-select 
+drop-down menu containing the the metadata terms available for the category selected (in the first
+drop-down). The default is usually set to &quot;Any&quot;. Clicking on &quot;Any&quot; opens up 
+the multi-select drop-down with the possible options. Multiple options can be selected by clicking
+multiple checkboxes. For a few of the metadata categories in the first drop-down menu, the second
+menu is a free-text field in which the desired term must be entered.</p>
+
+<h2>Results</h2> 
+<p> 
+After clicking the &quot;Search&quot; button, the files that meet the search criteria (up to a 
+maximum of 1000 files) are displayed in a table, one file per row. If the displayed search results 
+have been limited to the first 1000 files, a message stating this restriction will be displayed 
+above the results.</p>
+<p>
+<strong>Results Header</strong>: The first column of the header contains the number of files found
+(up to a maximum of 1000 files) and the subsequent columns contain a title for the information 
+displayed in that column. The list of files can be sorted by clicking on the header of the column.
+The files can be sorted on up to 5 attributes.</p> 
+<p>
+<strong>Files</strong>: Click the &quot;Download&quot; button to download a file. Click the 
+<img class="gbsInlineImg" src="../../images/folderC.png" width="15" height="12"> icon to go to the 
+downloads page to view that file and all other files associated with the track.</p> 
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

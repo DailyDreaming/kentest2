@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser Error 500" -->
+<!--#set var="ROOT" value=".." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Error 500: Internal Server Error</h1>
+<!--#if expr='"$SERVER_NAME" != /.*.ucsc.edu/ && "$SERVER_NAME" != /.*.sdsc.edu/ && "$SERVER_NAME" != /browser/'-->
+<!-- 'browser' = GBiB -->
+  <p>
+  The page you requested resulted in a server problem on this system.</p>
+  <p> 
+  <strong>This website <!--#echo var="HTTP_HOST" --> is a &quot;mirror&quot; not managed by 
+  UCSC.</strong> You may want to contact the person who manages this server with information about 
+  this error. If you are unable to resolve the problem, you can contact support for Genome Browser 
+  mirror websites at
+  <a href="mailto:&#103;&#101;&#110;&#111;&#109;e&#45;m&#105;&#114;&#114;&#111;r&#64;&#115;&#111;&#101;.u&#99;&#115;&#99;.e&#100;&#117;">&#103;&#101;&#110;&#111;&#109;e&#45;m&#105;&#114;&#114;&#111;r&#64;&#115;&#111;&#101;.u&#99;&#115;&#99;.e&#100;&#117;</a>. Please include this mirror's address 
+  "http://<!--#echo var="HTTP_HOST" -->" in the email.</p>
+  <!-- above address is genome-mirror at soe.ucsc.edu -->
+  <p> 
+  If you are unable to access commonly used features on our website, it is possible that you may 
+  need to reset your Genome Browser with the following URL: 
+  <a href="../cgi-bin/cartReset">http://<!--#echo var="HTTP_HOST" -->/cgi-bin/cartReset</a>. This 
+  will
+  replace your stored settings with the default configuration and will return your browser to the 
+  state it was in when you first accessed it.</p>
+  <p> 
+  We apologize for the inconvenience.</p>
+<!--#else --> 
+  <p> 
+  The page you requested resulted in a server problem on our systems.</p> 
+  <p> 
+  We hate this type of error immensely and we're sure that you do as well! 
+  Usually, information from the user can help
+  pinpoint the cause of the problem and help us prevent a recurrence in the future. 
+  Our website is reliable thanks to the amount of feedback we receive from users.
+  If you would like to provide information about what led to the error, please email us at 
+  <a href="mailto:&#103;&#101;&#110;&#111;&#109;&#101;&#45;ww&#119;&#64;&#115;o&#101;.&#117;c&#115;&#99;.&#101;&#100;&#117;">&#103;&#101;&#110;&#111;&#109;&#101;&#45;ww&#119;&#64;&#115;o&#101;.&#117;c&#115;&#99;.&#101;&#100;&#117;</a>. 
+  <!-- above address is genome-www at soe.ucsc.edu --> 
+  <p> 
+  If you are unable to access commonly used features on our website, it is possible that you may 
+  need to reset your Genome Browser with the following URL: 
+  <a href="../cgi-bin/cartReset">http://genome.ucsc.edu/cgi-bin/cartReset</a>. This will replace 
+  your stored settings with the default configuration and will return your browser to the state it 
+  was in when you first accessed it. It will remove all custom tracks, connected track hubs and highlights.</p>  
+  <p> 
+  We apologize for the inconvenience.</p>
+<!--#endif -->
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

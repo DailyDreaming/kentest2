@@ -1,0 +1,87 @@
+# Genes and Gene Predictions
+
+# track knownGene override
+# priority 1
+# This priority is defined in human/hg19/trackDb.ra
+# If this priority changes, please change it here and there as well
+
+# Phenotype and Literature
+
+track pubs override
+group phenDis
+priority 1
+
+# mRNA and EST
+
+track mrna override
+group rna
+priority 5.1
+visibility hide
+
+track intronEst override
+priority 12
+visibility hide
+
+# Regulation
+
+# track wgEncodeReg override
+# priority 1
+# This priority is defined in human/hg19/wgEncodeReg.ra
+# If this priority changes, please change it here and there as well
+
+# Comparative Genomics
+
+# track cons100way override
+# priority 1
+# This priority is defined in human/hg19/trackDb.100way.ra
+# If this priority changes, please change it here and there as well
+
+# Variation
+
+# track snp146Common override
+# priority 1
+# This priority is defined in human/trackDb.ra
+# If this priority changes, please change it here and there as well
+
+track dgvPlus override
+group varRep
+visibility hide
+#type bigBed 9 +
+html dgvPlusGold
+
+    track dgvMerged override
+    parent dgvPlus on
+    type bigBed 9 +
+    bigDataUrl /gbdb/hg19/dgv/dgvMerged.bb
+    filter._size 1:9734324
+    filterByRange._size on
+    filterLabel._size Genomic size of variant
+    filterValues.varType complex,deletion,duplication,gain,gain+loss,insertion,inversion,loss,mobile element insertion,novel sequence insertion,sequence alteration,tandem duplication
+
+    track dgvSupporting override
+    parent dgvPlus
+    type bigBed 9 +
+    bigDataUrl /gbdb/hg19/dgv/dgvSupporting.bb
+    filter._size 1:9320633
+    filterByRange._size on
+    filterLabel._size Genomic size of variant
+    filterValues.varType complex,deletion,duplication,gain,gain+loss,insertion,inversion,loss,mobile element insertion,novel sequence insertion,sequence alteration,tandem duplication
+
+    track dgvGold
+    parent dgvPlus
+    shortLabel DGV Gold Standard
+    longLabel Database of Genomic Variants: Gold Standard Variants
+    bigDataUrl /gbdb/hg19/dgv/dgvGold.bb
+    type bigBed 12
+    url http://dgv.tcag.ca/gb2/gbrowse_details/dgv2_hg19?ref=$S;start=${;end=$};name=$$;class=Sequence
+    searchIndex name
+
+searchTable dgvGold
+searchType bigBed
+searchDescription DGV Gold Variants
+
+# Repeats
+
+track rmsk override
+group rep
+priority 1

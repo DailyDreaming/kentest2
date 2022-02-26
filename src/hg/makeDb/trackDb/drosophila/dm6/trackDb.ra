@@ -1,0 +1,55 @@
+# Local declaration so that local gold.html is picked up.
+track gold override
+html gold
+
+searchTable gold
+searchMethod prefix
+searchType bed
+shortCircuit 1
+termRegex [ACDK][EJPS][0-9]+(\.[0-9]+)*
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+visibility hide
+html gap
+
+track genscan override
+visibility hide
+
+track cytoBandIdeo
+shortLabel Chromosome Band (Low-res)
+longLabel Chromosome Bands (Low-resolution for Chromosome Ideogram)
+group map
+priority .1
+visibility dense
+altColor 200,150,150
+type bed 4 +
+
+track cytoBand
+shortLabel Chromosome Band
+longLabel Chromosome Bands
+group map
+priority .1
+visibility hide
+altColor 200,150,150
+type bed 4 +
+
+include trackDb.27way.ra
+include flyBaseGene.ra alpha
+
+track spMut override
+group varRep
+bigDataUrl /gbdb/$D/uniprot/unipMut.bb
+
+include ../../refSeqComposite.ra
+
+include trackDb.124way.ra 
+include trackDb.124wayMafNet.ra
+include trackDb.124wayRbest.ra 
+include trackDb.124waySyn.ra 
+include chainNetInsects.ra
+include chainNetSynInsects.ra
+include chainNetRBestInsects.ra
+include ../../crispr10K.ra alpha

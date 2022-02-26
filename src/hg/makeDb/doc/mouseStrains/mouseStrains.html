@@ -1,0 +1,90 @@
+<h2>Description</h2>
+<h2>Display Convention and Configuration</h2>
+<p>
+Pairwise alignments of each species to the mouse genome are displayed as a grayscale density plot
+(in pack mode) or as a wiggle (in full mode) that indicates the proportion of matching bases in the
+target species. In squish mode, the number of matching bases in all species is shown as a single
+wiggle track.</p>
+<p>
+Checkboxes on the track configuration page allow selection of the species to include in the pairwise
+display.</p>
+<p>
+To view detailed information about the alignments at a specific position, zoom the display in to
+30,000 or fewer bases, then click on the alignment.</p>
+
+<h3>Base Level</h3>
+<p>
+Codon translation is available in base-level display mode if the displayed region is identified as a
+coding segment. To display this annotation, select the species for translation from the pull-down
+menu in the Codon Translation configuration section at the top of the page. Then, select one of the
+following modes:</p>
+<ul>
+  <li>
+    <b>No codon translation:</b> The gene annotation is not used; the bases are displayed without
+    translation.</li>
+  <li>
+    <b>Use default species reading frames for translation:</b> The annotations from the genome
+    displayed in the <em>Default species to establish reading frame</em> pull-down menu are used to
+    translate all the aligned species present in the alignment.</li>
+  <li>
+    <b>Use reading frames for species if available, otherwise no translation:</b> Codon translation
+    is performed only for those species where the region is annotated as protein coding.</li>
+  <li>
+    <b>Use reading frames for species if available, otherwise use default species:</b> Codon
+    translation is done on those species that are annotated as being protein coding over the aligned
+    region using species-specific annotation; the remaining species are translated using the default
+    species annotation.</li></ul>
+
+<h2>Methods</h2>
+<p>
+For this assembly hub, a Progressive Cactus alignment was generated using the Genbank version of
+these assemblies. The reference mouse (mm10) as well as the reference rat (rn6) were included as
+well. Here is the guide tree for this alignment:</p>
+<p>
+<img src="http://hgdownload.soe.ucsc.edu/images/phylo/mouseStrains_18way.png"
+alt="Mouse Genomes Phylogeny"></p>
+<p>
+Due to the highly similar nature of the laboratory mice strains, this tree was binarized as
+accurately as possible, but incomplete lineage sorting (ILS) is prevalent and as a result the guide
+tree may not be correct in all regions. This has minimal effect on alignment quality except in
+regions where insertions and deletions are under ILS.</p>
+<p>
+The alignment underlying this track is also available
+<a href="http://hgdownload.soe.ucsc.edu/hubs/mouseStrains/mouseStrains_1509.hal"
+target="_blank">here</a> in HAL format. Due to load times problems with HAL files, the HAL file was
+used to generate the underlying bigMaf files for this track and is not directly part of the hub.</p>
+
+<h2>Credits</h2>
+<p>
+Alignment generation: Joel Armstrong, Ian Fiddes, Benedict Paten.<br>
+Genome assemblies: Thomas Keane, The Mouse Genomes Project.
+</p>
+
+<h2>References</h2>
+<p>
+Paten <i>et al</i>.
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3166836/">Cactus: Algorithms for genome multiple sequence alignment.</a>
+<em>Genome research</em>. 2011;21:1512-1528.
+</p>
+Nguyen <i>et al</i>.<a href="http://bioinformatics.oxfordjournals.org/content/early/2014/08/26/bioinformatics.btu534.abstract">Comparative Assembly Hubs: Web Accessible Browsers for Comparative Genomics.</a> <em>Bioinformatics</em>. 2014 Aug (advance online publication).
+</p>
+<p>
+Hickey <i>et al</i>.
+<a href="http://bioinformatics.oxfordjournals.org/content/29/10/1341.short">HAL: a hierarchical format for storing and analyzing multiple genome alignments.</a>
+<em>Bioinformatics</em>. 2013 May;29(10):1341-1342.
+</p>
+
+<h2>Contact</h2>
+<p>
+For general questions about these data, please contact
+<a href="mailto:&#116;k&#50;&#64;&#115;a&#110;&#103;&#101;&#114;.
+a&#99;.
+&#117;&#107;">
+&#116;k&#50;&#64;&#115;a&#110;&#103;&#101;&#114;.a&#99;.&#117;&#107;</a> or
+<!-- above address is tk2 at sanger.ac.uk -->
+
+<a href="mailto:&#105;&#102;id&#100;&#101;&#115;&#64;&#117;cs&#99;.
+&#101;&#100;&#117;">
+&#105;&#102;id&#100;&#101;&#115;&#64;&#117;cs&#99;.&#101;&#100;&#117;</a>.
+<!-- above address is ifiddes at ucsc.edu -->
+</p>

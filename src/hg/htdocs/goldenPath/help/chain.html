@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser Chain Format" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Chain Format</h1> 
+<p> 
+The chain format describes a pairwise alignment that allow gaps in both sequences simultaneously. 
+Each set of chain alignments starts with a header line, contains one or more alignment data lines, 
+and terminates with a blank line. The format is deliberately quite dense.</p>  
+<p> 
+<strong><em>Example:</em></strong></p>
+<pre><code>    chain 4900 chrY 58368225 + 25985403 25985638 chr5 151006098 - 43257292 43257528 1
+     9       1       0
+     10      0       5
+     61      4       0
+     16      0       4
+     42      3       0
+     16      0       8
+     14      1       0
+     3       7       0
+     48
+
+     chain 4900 chrY 58368225 + 25985406 25985566 chr5 151006098 - 43549808 43549970 2
+     16      0       2
+     60      4       0
+     10      0       4
+     70</code></pre> 
+<p>
+<strong>Header Lines</strong> 
+<p>
+<pre><code>    <strong>chain</strong> <em>score</em> <em>tName</em> <em>tSize</em> <em>tStrand</em> <em>tStart</em> <em>tEnd</em> <em>qName</em> <em>qSize</em> <em>qStrand</em> <em>qStart</em> <em>qEnd</em> <em>id</em> </code></pre> 
+<p>
+The initial header line starts with the keyword <strong><code>chain</code></strong>, followed by 
+11 required attribute values, and ends with a blank line. The attributes include: 
+<ul> 
+  <li> 
+  <strong><code>score</code></em></strong> -- chain score</li>
+  <li>
+  <strong><code>tName</code></strong> -- chromosome (reference/target sequence)</li>
+  <li>
+  <strong><code>tSize</code></strong> -- chromosome size (reference/target sequence)</li>
+  <li>
+  <strong><code>tStrand</code></strong> -- strand (reference/target sequence)</li>
+  <li>
+  <strong><code>tStart</code></strong> -- alignment start position (reference/target sequence)</li>
+  <li>
+  <strong><code>tEnd</code></strong> -- alignment end position (reference/target sequence)</li>
+  <li>
+  <strong><code>qName</code></strong> -- chromosome (query sequence)</li>
+  <li>
+  <strong><code>qSize</code></strong> -- chromosome size (query sequence)</li>
+  <li>
+  <strong><code>qStrand</code></strong> -- strand (query sequence)</li>
+  <li>
+  <strong><code>qStart</code></strong> -- alignment start position (query sequence)</li>
+  <li>
+  <strong><code>qEnd</code></strong> -- alignment end position (query sequence)</li>
+  <li>
+  <strong><code>id</code></strong> -- chain ID</li>
+</ul> 
+<p> 
+The alignment start and end positions are represented as zero-based half-open intervals. For 
+example, the first 100 bases of a sequence would be represented with start position = 0 and end 
+position = 100, and the next 100 bases would be represented as start position = 100 and end 
+position = 200. When the strand value is &quot;-&quot;, position coordinates are listed in terms of 
+the reverse-complemented sequence.</p> 
+<p>
+<strong>Alignment Data Lines</strong></p> 
+<p> 
+Alignment data lines contain three required attribute values:<p>
+<pre>    <em>size</em> <em>dt</em> <em>dq</em></pre>
+<ul> 
+  <li> 
+  <strong><code>size</code></strong> -- the size of the ungapped alignment</li>
+  <li> 
+  <strong><code>dt</code></strong> -- the difference between the end of this block and the beginning of 
+  the next block (reference/target sequence)</li>
+  <li> 
+  <strong><code>dq</code></strong> -- the difference between the end of this block and the beginning of 
+  the next block (query sequence)</li>
+</ul> 
+<p> 
+NOTE: The last line of the alignment section contains only one number: the ungapped alignment size 
+of the last block.</p>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

@@ -1,0 +1,44 @@
+#	"$Id: trackDb.ra,v 1.11 2010/03/02 21:23:47 kuhn Exp $";
+
+include trackDb.chainNet.ra
+include trackDb.5way.ra
+
+# Local declaration so that local gold.html is picked up.
+track gold override
+visibility hide
+
+searchTable ensGene
+searchType genePred
+shortCircuit 1
+termRegex ENSTRUT0000[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchName ensDotPrefix
+searchTable ensGene
+query select chrom,txStart,txEnd,name from %s where name like '%s.%%'
+shortCircuit 1
+termRegex ENSTRUT0000[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchName ensGeneGtpGene
+searchTable ensGene
+searchType genePred
+searchMethod prefix
+shortCircuit 1
+xrefTable ensGtp
+xrefQuery select transcript,gene from %s where gene like '%s%%'
+termRegex ENSTRUG0000[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchName ensGeneGtpProtein
+searchTable ensGene
+searchType genePred
+searchMethod prefix
+shortCircuit 1
+xrefTable ensGtp
+xrefQuery select transcript,protein from %s where protein like '%s%%'
+termRegex ENSTRUP0000[0-9]+(\.[0-9]+)?
+
+track ensGene override
+visibility pack
+ensemblIdUrl http://www.ensembl.org/Takifugu_rubripes

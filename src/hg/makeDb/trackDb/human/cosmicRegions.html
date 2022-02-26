@@ -1,0 +1,75 @@
+<h2>Description</h2>
+<p><a href="https://cancer.sanger.ac.uk/cosmic/" target="_blank">COSMIC</a>, 
+the "Catalogue Of Somatic Mutations In Cancer," is an online database of somatic mutations found in 
+human cancer. Focused exclusively on non-inherited acquired mutations, COSMIC combines information 
+from a range of sources, curating the described relationships between cancer phenotypes and gene 
+(and genomic) mutations. These data are then made available in a number of ways including here in the 
+UCSC genome browser, on the COSMIC website with custom analytical tools, or via the
+<a href="https://cancer.sanger.ac.uk/cosmic/download" target="_blank">COSMIC sftp server</a>.
+Publications using COSMIC as a data source may cite our reference below.</p>
+
+<h2>Methods</h2>
+</p>
+<p>The data in COSMIC are curated from a number of high-quality sources and combined into a single
+resource. The sources include:</p>
+
+<ul>
+<li>Peer-reviewed journal articles</li>
+<li><a href="https://www.sanger.ac.uk/science/groups/cancer-genome-project" target="_blank">
+CGP laboratories at the Sanger Institute, UK</a></li>
+<li><a href="https://cancergenome.nih.gov/" target="_blank">TCGA data portal</a></li>
+<li><a href="https://dcc.icgc.org" target="_blank">The ICGC data portal</a></li>
+<li><a href="https://p53.iarc.fr/" target="_blank">IARC p53 database</a></li>
+</ul>
+
+<p>Information on known cancer genes, selected from the <a
+href="https://cancer.sanger.ac.uk/census/" target="_blank">
+Cancer Gene Census</a> is curated manually to maximize its descriptive content. 
+
+<p>
+The data was downloaded from the COSMIC sftp server. It was first converted to a bed file using
+the UCSC utility cosmicToBed, then converted into a bigBed file using the UCSC utility bedToBigBed.
+The bigBed file is used to generate the track. 
+</p>
+
+<h2>Display</h2>
+<ul>
+<li>Dense - Indicate the positions where COSMIC mutations have been annotated in a single horizontal
+track.</li>
+<li>Squish - Indicate each mutation, in vertical pileups where appropriate, while minimizing 
+screen space used.</li>
+<li>Pack - Indicate each mutation with COSMIC identifier (COSMnnnnn).</li>
+<li>Full - Show each mutation in detail, one per line, with COSM identifier (COSMnnnnn).</li>
+</ul>
+
+<h2>Data Access</h2>
+<p>
+Due to licensed material, we do not allow downloads or Table Browser access for the bigBed data. The
+raw data underlying this track can be explored and downloaded via the COSMIC 
+<a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">website</a>. The
+CosmicMutantExport.tsv.gz file was converted to a BED file using the <code>cosmicToBed</code>
+utility, and then converted into a bigBed file using the <code>bedToBigBed</code> utility. You can
+download these tools from the
+<a href="https://hgdownload.soe.ucsc.edu/downloads.html#utilities_downloads">utilities directory</a>.
+</p>
+
+<h2>Contacts</h2>
+<p>For further information on COSMIC, or for help with the information provided, please contact
+<A HREF="mailto:&#99;&#111;sm&#105;&#99;&#64;&#115;a&#110;g&#101;&#114;.
+&#97;&#99;.
+&#117;&#107;">
+&#99;&#111;sm&#105;&#99;&#64;&#115;a&#110;g&#101;&#114;.
+&#97;&#99;.
+&#117;&#107;</A>.
+</p>
+
+<h2>References</h2>
+<p>
+Forbes SA, Beare D, Boutselakis H, Bamford S, Bindal N, Tate J, Cole CG, Ward S, Dawson E, Ponting L
+<em>et al</em>.
+<a href="https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkw1121" target="_blank">
+COSMIC: somatic cancer genetics at high-resolution</a>.
+<em>Nucleic Acids Res</em>. 2017 Jan 4;45(D1):D777-D783.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/27899578" target="_blank">27899578</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5210583/" target="_blank">PMC5210583</a>
+</p>

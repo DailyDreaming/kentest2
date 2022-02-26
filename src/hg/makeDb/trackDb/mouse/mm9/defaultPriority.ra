@@ -1,0 +1,52 @@
+# Mapping and Sequencing
+
+track stsMapMouseNew override
+priority 1
+
+# Genes and Gene Prediction Tracks
+
+track knownGene override
+bigGeneDataUrl /gbdb/mm9/knownGene.bb
+priority 1
+
+track ensGene override
+visibility pack
+priority 2
+
+track blastHg18KG override
+priority 3
+
+track xenoRefGene override
+priority 5
+
+track refGene override
+priority 4
+
+# Literature
+
+track pubs override
+priority 1
+
+# mRNA and EST
+
+track mrna override
+visibility hide
+
+track intronEst override
+priority 0.5
+
+# Comparative Genomics
+
+# track cons30way override
+# priority 1
+# This priority is defined in mouse/mm9/trackDb.ra
+# If this priority changes, please change it here and there as well
+
+# Variation and Repeats
+
+track rmsk override
+priority 2
+
+track snp128 override
+priority 1
+url https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?do_not_redirect&rs=$$

@@ -1,0 +1,11 @@
+#	"$Id: trackDb.ra,v 1.26 2010/02/08 19:28:37 rhead Exp $";
+
+include trackDb.chainNet.ra
+
+track refGene override
+visibility pack
+priority 1
+
+track intronEst override
+visibility hide
+

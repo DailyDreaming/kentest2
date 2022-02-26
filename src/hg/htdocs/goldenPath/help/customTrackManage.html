@@ -1,0 +1,33 @@
+<p>
+This section provides a brief description of the columns in custom track management table. For more 
+details about managing custom tracks, see the Genome Browser 
+<a href="/goldenPath/help/customTrack.html#MANAGE_CT" target="_blank">User's Guide</a>. 
+<BR><BR>
+Please note a much more efficient way to load data is to use 
+<A HREF="/goldenPath/help/hgTrackHubHelp.html" target="_blank">Track Hubs</A>, which are loaded  
+from the <A HREF="/cgi-bin/hgHubConnect">Track Hubs Portal</A> found in the menu under My Data.
+</p>
+<p>
+<ul>
+  <li> 
+  <strong>Name</strong> - a hyperlink to the update page where you can edit your track data.</li>
+  <li> 
+  <strong>Description</strong> - the value of the &quot;description&quot; attribute from the track 
+  line, if present. If no description is included in the input file, this field contains the track 
+  name.</li>
+  <li> 
+  <strong>Type</strong> - the track type, determined by the Browser based on the format of the 
+  data.</li>
+  <li> 
+  <strong>Doc</strong> - displays &quot;Y&quot; (Yes) if a description page has been uploaded for 
+  the track; otherwise the field is blank.</li>
+  <li> 
+  <strong>Items</strong> - the number of data items in the custom track file. An item count is not 
+  displayed for tracks lacking individual items (e.g. wiggle format data).</li>
+  <li> 
+  <strong>Pos</strong> - the default chromosomal position defined by the track file in either the 
+  browser line &quot;position&quot; attribute or the first data line. Clicking this link opens the 
+  Genome Browser or Table Browser at the specified position (note: only the chromosome name is shown
+  in this column). The Pos column remains blank if the track lacks individual items (e.g. wiggle 
+  format data) and the browser line &quot;position&quot; attribute hasn't been set.</li>
+</ul></p>

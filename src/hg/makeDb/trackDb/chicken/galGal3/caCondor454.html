@@ -1,0 +1,116 @@
+<H2>Description</H2>
+<P>
+This track displays the alignment of California Condor (<EM>Gymnogyps 
+californianus</EM>) transcripts (sequenced using 454 high-throughput DNA 
+sequencing) to the chicken genome.
+</P>
+
+<H2>Methods</H2>
+  <ul>
+    <li>The Condor read sequences were obtained from the NCBI 
+       <A HREF="https://www.ncbi.nlm.nih.gov/Traces/trace.cgi" TARGET=_BLANK>
+       Trace Archives</A>: 
+       CENTER_NAME=WUGSC, CENTER_PROJECT=U_FC-MATT_TECHD2.  The mean read size 
+       is 110 bases.
+    <li>The Condor reads were aligned to a set of predicted transcript 
+      sequences, then the read was projected to transcript alignments on the 
+      genome using the predicted transcript alignments.  This process improves
+      alignments across splice sites.
+      <ul>
+        <li>Build a set of predicted transcripts sequences using PASA cluster 
+            of chicken mRNA and EST BLAT alignments and N-SCAN gene predictions.
+        <li>Align Condor reads to transcripts using LASTZ.
+        <li>Project alignments onto the chicken genome.
+        <li>Filter alignments to remove duplicate alignments and small 
+            fragments, keeping those that score within one percent of the 
+            best alignment for a given read.
+      </ul>
+    <li>Align reads that could not be mapped via the predicted transcript 
+        directly to the chicken genome using LASTZ, and filter using the above 
+        criteria.
+  </ul>
+
+<p>After performing the above steps, the resulting number of sequences and 
+alignments of those sequences are summarized in this table:<BR>
+<table class="transMap">
+  <tr><th>          <th>&nbsp; sequences<th>&nbsp; alignments</tr>
+  <tr><th>&nbsp; 454 reads <td>   419,240<td>           </tr>
+  <tr><th>&nbsp; projected <td>   139,392<td>    146,325</tr>
+  <tr><th>&nbsp; direct    <td>    87,870<td>     89,812</tr>
+  <tr><th>&nbsp; combined  <td>   227,262<td>    236,137</tr>
+</table>
+
+<H2>Credits</H2>
+<ul>
+  <li> Sample collection and analysis was done by Michael Romanov and Oliver
+    Ryder of the San Diego Zoo's Institute for Conservation Research and
+    Elaina Tuttle and Rusty Gonser of the Dept. of Biology, Indiana State 
+    University.
+  <li> 454 sequencing and analysis was done by
+    Matthew T Hickenbotham, Jarret Glasscock, Sean McGrath and Elaine R Mardis:
+    <PRE>
+    Washington University Genome Sequencing Center
+    Washington University School of Medicine
+    Campus Box 8501
+    4444 Forest Park Ave.
+    St. Louis, MO 63108
+    </PRE>
+  <Li> PASA clusters and N-SCAN gene predictions were provided by Jeltje 
+    van Baren of the Brent Lab at Washington University Saint Louis.
+  <li> Alignments and tracks were produced by Mark Diekhans of the UCSC Genome
+    Bioinformatics group.
+</ul>
+
+<H2>References</H2>
+
+<H3>454 Sequencing:</H3>
+<p>
+Margulies M, Egholm M, Altman WE, Attiya S, Bader JS, Bemben LA, Berka J, Braverman MS, Chen YJ,
+Chen Z <em>et al</em>.
+<a href="https://www.nature.com/articles/nature03959" target="_blank">
+Genome sequencing in microfabricated high-density picolitre reactors</a>.
+<em>Nature</em>. 2005 Sep 15;437(7057):376-80.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/16056220" target="_blank">16056220</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1464427/" target="_blank">PMC1464427</a>
+</p>
+
+<H3>BLASTZ/LASTZ:</H3>
+<p>
+Chiaromonte F, Yap VB, Miller W.
+<a href="http://psb.stanford.edu/psb-online/proceedings/psb02/chiaromonte.pdf"
+target="_blank">Scoring pairwise genomic sequence alignments</a>.
+<em>Pac Symp Biocomput</em>. 2002:115-26.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/11928468" target="_blank">11928468</a>
+</p>
+
+<H3>Condor Sequencing:</H3>
+<p>
+Romanov MN, Tuttle EM, Houck ML, Modi WS, Chemnick LG, Korody ML, Mork EM, Otten CA, Renner T, Jones
+KC <em>et al</em>.
+<a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-10-S2-S10"
+target="_blank">The value of avian genomics to the conservation of wildlife</a>.
+<em>BMC Genomics</em>. 2009 Jul 14;10 Suppl 2:S10.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/19607652" target="_blank">19607652</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2966331/" target="_blank">PMC2966331</a>
+</p>
+
+<H3>N-SCAN:</H3>
+<p>
+Gross SS, Brent MR.
+<a href="https://www.liebertpub.com/doi/abs/10.1089/cmb.2006.13.379" target="_blank">
+Using multiple alignments to improve gene prediction</a>.
+<em>J Comput Biol</em>. 2006 Mar;13(2):379-93.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/16597247" target="_blank">16597247</a>
+</p>
+
+<H3>PASA:</H3>
+<p>
+Haas BJ, Delcher AL, Mount SM, Wortman JR, Smith RK Jr, Hannick LI, Maiti R, Ronning CM,
+Rusch DB, Town CD <em>et al</em>.
+<a href="https://academic.oup.com/nar/article/31/19/5654/1092988" target="_blank">
+Improving the <em>Arabidopsis</em> genome annotation using maximal transcript 
+alignment assemblies.</a>
+<em>Nucleic Acids Res</em>. 2003 Oct 1;31(19):5654-66.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/14500829" target="_blank">14500829</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC206470/" target="_blank">PMC206470</a>
+</p>

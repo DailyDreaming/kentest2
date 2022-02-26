@@ -1,0 +1,83 @@
+# This file contains info to process the homologous genes
+# in other species links.
+
+name human
+shortLabel Human
+tables hgBlastTab 
+idSql select target from hgBlastTab where query = '%s'
+pepTable knownGenePep
+geneTable knownGene
+genomeUrl ../cgi-bin/hgTracks?org=Human&position=%s
+otherUrl https://www.ncbi.nlm.nih.gov/nuccore/%s?report=GenBank
+otherIdSql select mRNA from KNOWNDB.kgXref where kgID='%s'
+otherName GenBank
+priority 10
+
+name mouse
+shortLabel Mouse
+tables mmBlastTab 
+idSql select target from mmBlastTab where query = '%s'
+pepTable knownGenePep
+geneTable knownGene
+genomeUrl ../cgi-bin/hgTracks?org=Mouse&position=%s
+otherName MGI
+otherUrl http://www.informatics.jax.org/marker/%s
+otherIdSql select uniProt.extDbRef.extAcc1 from uniProt.extDbRef,uniProt.extDb,kgXref where uniProt.extDb.val = 'MGI' and uniProt.extDb.id = uniProt.extDbRef.extDb and uniProt.extDbRef.acc = kgXref.spID and kgXref.kgID = '%s' 
+otherIdSql2 select kgXref.mRNA from kgXref where kgID='%s'
+priority 20
+
+name rat
+shortLabel Rat
+tables rnBlastTab 
+idSql select target from rnBlastTab where query = '%s'
+pepTable rgdGene2Pep
+geneTable rgdGene2
+genomeUrl ../cgi-bin/hgTracks?org=Rat&position=%s
+otherName RGD
+otherUrl http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s
+priority 25
+
+name zebrafish
+shortLabel Zebrafish
+tables drBlastTab
+idSql select target from drBlastTab where query = '%s'
+pepTable ensPep
+geneTable ensGene
+genomeUrl ../cgi-bin/hgTracks?org=Zebrafish&position=%s
+otherName Ensembl
+otherUrl http://www.ensembl.org/Danio_rerio/transview?transcript=%s
+priority 30
+
+name drosophila
+shortLabel D. melanogaster
+tables dmBlastTab
+idSql select target from dmBlastTab where query = '%s'
+pepTable flyBasePep
+geneTable flyBaseGene
+genomeUrl ../cgi-bin/hgTracks?org=D.+melanogaster&position=%s
+otherName FlyBase
+otherUrl http://flybase.bio.indiana.edu/cgi-bin/fbidq.html?%s
+priority 40
+
+name cElegans
+shortLabel C. elegans
+tables ceBlastTab
+idSql select target from ceBlastTab where query = '%s'
+pepTable sangerPep
+geneTable sangerGene
+genomeUrl ../cgi-bin/hgTracks?org=C.+elegans&position=%s
+otherName WormBase
+otherUrl http://www.wormbase.org/db/gene/gene?name=%s
+priority 50
+
+name yeast
+shortLabel S. cerevisiae
+tables scBlastTab
+idSql select target from scBlastTab where query = '%s'
+pepTable sgdPep
+geneTable sgdGene
+genomeUrl ../cgi-bin/hgTracks?org=S.+cerevisiae&position=%s
+otherName SGD
+otherUrl http://db.yeastgenome.org/cgi-bin/SGD/locus.pl?locus=%s
+priority 60
+

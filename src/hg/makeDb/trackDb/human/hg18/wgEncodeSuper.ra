@@ -1,0 +1,43 @@
+track wgEncodeTfBindingSuper
+superTrack on
+group regulation
+shortLabel ENC TF Binding
+longLabel ENCODE Transcription Factor Binding
+
+track wgEncodeDNAseSuper
+superTrack on
+group regulation
+shortLabel ENC DNase/FAIRE
+longLabel ENCODE Dnase HS and Open Chromatin
+
+track wgEncodeHistoneSuper
+superTrack on
+group regulation
+shortLabel ENC Histone
+longLabel ENCODE Histone Modification
+
+track wgEncodeExonArraySuper
+superTrack on
+group expression
+shortLabel ENC Exon Array
+longLabel ENCODE Exon Array
+
+track wgEncodeDnaMethylSuper
+superTrack on
+group regulation
+shortLabel ENC DNA Methyl
+longLabel ENCODE DNA Methylation
+
+track wgEncodeRnaSeqSuper
+superTrack on
+group expression
+shortLabel ENC RNA-seq
+longLabel ENCODE RNA-seq
+
+track wgEncodeRnaSubcellLocSuper
+superTrack on
+group expression
+shortLabel ENC RNA Subcell Loc
+longLabel ENCODE RNA Subcellular Localization 
+
+

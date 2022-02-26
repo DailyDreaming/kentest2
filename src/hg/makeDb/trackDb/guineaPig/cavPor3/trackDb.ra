@@ -1,0 +1,29 @@
+
+include trackDb.chainNet.ra
+
+track quality override
+type wig 0 63
+
+track nscanGene override
+visibility pack
+informant  Guinea pig N-SCAN uses human (hg18) as the informant.
+
+track mrna override
+visibility hide
+
+track intronEst override
+visibility hide
+
+track rmsk override
+visibility hide
+
+searchTable nscanGene
+searchType genePred
+termRegex scaffold_[0-9]+\.[0-9]+\.[0-9]+
+searchPriority 50
+
+include trackDb.5way.ra
+include trackDb.6way.ra
+
+# change these two to switch to the new refSeqComposite 2018-02
+include ../../refSeqComposite.ra

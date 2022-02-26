@@ -1,0 +1,2411 @@
+#	"$Id: trackDb.ra,v 1.125 2010/06/11 22:12:18 mary Exp $";
+
+track problematic
+shortLabel Problematic Regions
+longLabel Problematic Regions for NGS or Sanger sequencing or very variable regions
+compositeTrack on
+hideEmptySubtracks off
+group map
+visibility hide
+type bigBed 3 +
+
+    track comments
+    shortLabel UCSC Unusual Regions
+    longLabel UCSC unusual regions on assembly structure
+    type bigBed 9 
+    bigDataUrl /gbdb/hg19/bbi/problematic/comments.bb
+    visibility dense
+    parent problematic
+    priority 1
+    mouseOverField note
+
+    track encBlacklist
+    shortLabel ENCODE Blacklist
+    longLabel ENCODE Blacklist
+    type bigBed 4
+    bigDataUrl /gbdb/hg19/bbi/problematic/encBlacklist.bb
+    visibility dense
+    parent problematic
+    priority 2
+
+    track getRmNgsDeadZone
+    shortLabel NCBI NGS Dead Zone
+    longLabel NCBI GeT-RM NGS Dead Zone
+    type bigBed 3 +
+    bigDataUrl /gbdb/hg19/bbi/problematic/deadZone.bb
+    visibility dense
+    parent problematic
+    priority 3
+
+    track getRmSangerDeadZone
+    shortLabel NCBI Sanger Dead Zone
+    longLabel NCBI GeT-RM Sanger Dead Zone
+    type bigBed 3 +
+    bigDataUrl /gbdb/hg19/bbi/problematic/sangerDeadZone.bb
+    visibility dense
+    parent problematic
+    priority 4
+
+    track getRmNgsProblemLow
+    shortLabel NCBI NGS Low Stringency
+    longLabel NCBI GeT-RM NGS Problem List, Low Stringency
+    type bigBed 3 +
+    bigDataUrl /gbdb/hg19/bbi/problematic/ngsProblemLow.bb
+    visibility dense
+    parent problematic
+    priority 5
+
+    track getRmNgsProblemHigh
+    shortLabel NCBI NGS High Stringency
+    longLabel NCBI GeT-RM NGS Problem List, High Stringency
+    type bigBed 3 +
+    bigDataUrl /gbdb/hg19/bbi/problematic/ngsProblemHigh.bb
+    visibility dense
+    parent problematic
+    priority 6
+
+    track filterSSE
+    shortLabel GIAB filter SSE
+    longLabel NIST Genome-in-a-bottle: calls with evidence of systematic sequencing errors 
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterSSE.bb
+    visibility dense
+    parent problematic
+    priority 7
+
+    track filterHapNoVar
+    shortLabel GIAB call conflict
+    longLabel NIST Genome-in-a-bottle: HaplotypeCaller makes no call and UnifiedGenotyper makes a variant call
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterHapNoVar.bb
+    visibility dense
+    parent problematic
+    priority 9
+
+    track filterMap
+    shortLabel GIAB quality issue
+    longLabel NIST Genome-in-a-bottle: calls with low mapping quality or high coverage
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterMap.bb
+    visibility dense
+    parent problematic
+    priority 10
+
+    track filterABQD
+    shortLabel GIAB allele imbalance
+    longLabel NIST Genome-in-a-bottle: calls with abnormal allele balance
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterABQD.bb
+    visibility dense
+    parent problematic
+    priority 11
+
+    track filterAlign
+    shortLabel GIAB align problem
+    longLabel NIST Genome-in-a-bottle: calls with evidence of local alignment problems like clipped reads
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterAlign.bb
+    visibility dense
+    parent problematic
+    priority 12
+
+    track filterConflicting
+    shortLabel GIAB genotype conflict
+    longLabel NIST Genome-in-a-bottle: calls with unresolved conflicting genotypes after arbitration
+    type bigBed 3
+    bigDataUrl /gbdb/hg19/bbi/problematic/filterConflicting.bb
+    visibility dense
+    parent problematic
+    priority 13
+
+track cosmicRegions
+shortLabel COSMIC Regions
+longLabel Catalogue of Somatic Mutations in Cancer V82
+type bigBed 8 +
+bigDataUrl /gbdb/hg19/cosmic/cosMutHg19V82.bb
+labelFields cosmLabel
+group phenDis
+color 200, 0, 0
+url http://cancer.sanger.ac.uk/cosmic/mutation/overview?id=$$
+urlLabel COSMIC ID:
+searchIndex name,cosmLabel
+tableBrowser off
+mouseOverField _mouseOver
+html cosmicRegions
+noScoreFilter on
+maxItems 2000
+
+searchTable cosmicRegions
+searchPriority 2.07207
+searchType bigBed
+searchDescription COSMIC Regions
+
+# knownGene archive
+#include knownGeneArchive.ra
+
+# chainNet tracks
+include trackDb.chainNet.ra
+include trackDb.denisova.ra
+
+#large composites
+include uMassBrainHistone.ra
+
+track stsMap override
+visibility hide
+
+# Override the html page
+track tRNAs override
+
+track gap override
+visibility hide
+
+track patSeq override
+url https://www.lens.org/lens/bio/patseqanalyzer#psa/homo_sapiens/latest/chromosome/$s/${-$}?appInClaims=1
+
+track encodeRegions override
+shortLabel ENCODE Pilot
+longLabel Regions Used for ENCODE Pilot Project (1%)
+group map
+
+track switchDbTss override
+origAssembly hg17
+pennantIcon 17.jpg ../goldenPath/help/liftOver.html "lifted from hg17"
+
+track clonePos override
+longLabel Clone Coverage
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track fishClones override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track gad override
+release beta,public
+
+track fosEndPairs override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track rgdQtl override
+shortLabel RGD Human QTL
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track rgdRatQtl override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track jaxQtlMapped override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track HInvGeneMrna override
+priority 4
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track gwasCatalog override
+snpTable snp144
+snpVersion 144
+
+track liftHg38
+shortLabel liftOver & ReMap
+longLabel UCSC LiftOver and NCBI ReMap: Genome alignments to convert annotations to hg38
+group map
+visibility hide
+type chain
+compositeTrack on
+
+        track liftOverHg38
+        shortLabel UCSC liftOver to hg38
+        longLabel UCSC liftOver alignments to hg38
+        priority 1
+        type chain hg38
+        matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+        matrixHeader A, C, G, T
+        otherDb hg38
+        chainMinScore 3000
+        chainLinearGap medium
+        parent liftHg38
+
+        track chainHg38ReMap
+        shortLabel NCBI ReMap hg38
+        longLabel NCBI ReMap alignments to hg38/GRCh38
+        priority 2
+        type chain hg38
+        matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+        matrixHeader A, C, G, T
+        otherDb hg38
+        chainMinScore 3000
+        chainLinearGap medium
+        parent liftHg38
+
+        track chainHg38ReMapAxtChain
+        shortLabel ReMap + axtChain hg38
+        longLabel NCBI ReMap alignments to hg38/GRCh38, joined by axtChain
+        priority 3
+        type chain hg38
+        matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+        matrixHeader A, C, G, T
+        otherDb hg38
+        chainMinScore 3000
+        chainLinearGap medium
+        parent liftHg38
+
+track ucscRetroAli5
+shortLabel Retroposed Genes
+longLabel Retroposed Genes V5, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo5
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds5
+baseColorUseSequence extFile ucscRetroSeq5 ucscRetroExtFile5
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Mar. 2013
+
+track cramTest2
+shortLabel cramTest2
+longLabel cramTest2
+bigDataUrl /hive/users/braney/cram/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.cram
+type bam
+release alpha
+#refUrl http://hgwdev.soe.ucsc.edu/~braney/cramRef/%s
+
+searchName ucscRetroInfoRefSeq5
+searchTable ucscRetroAli5
+searchDescription Retroposed Genes V5, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo5
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo5.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna5
+searchTable ucscRetroAli5
+searchDescription Retroposed Genes V5, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt5
+searchTable ucscRetroAli5
+searchDescription Retroposed Genes V5, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo5
+xrefQuery select ucscRetroInfo5.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene5
+searchTable ucscRetroAli5
+searchDescription Retroposed Genes V5, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo5
+xrefQuery select ucscRetroInfo5.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli6
+shortLabel Retroposed Genes 6.0
+longLabel Retroposed Genes V6, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo6
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds6
+baseColorUseSequence extFile ucscRetroSeq6 ucscRetroExtFile6
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Oct. 2013
+
+searchName ucscRetroInfoRefSeq6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo6
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo6.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo6
+xrefQuery select ucscRetroInfo6.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes 
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo6
+xrefQuery select ucscRetroInfo6.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli7
+shortLabel Retroposed Genes 7.0
+longLabel Retroposed Genes V7, Including Pseudogenes 
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo7
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds7
+baseColorUseSequence extFile ucscRetroSeq7 ucscRetroExtFile7
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Jan. 2014
+
+searchName ucscRetroInfoRefSeq7
+searchTable ucscRetroAli7
+searchDescription Retroposed GenesV7, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo7
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo7.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna7
+searchTable ucscRetroAli7
+searchDescription Retroposed GenesV7, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt7
+searchTable ucscRetroAli7
+searchDescription Retroposed GenesV7, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo7
+xrefQuery select ucscRetroInfo7.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene7
+searchTable ucscRetroAli7
+searchDescription Retroposed GenesV7, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo7
+xrefQuery select ucscRetroInfo7.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track illuminaProbes override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track eioJcviNAS override
+shortLabel CD34 DnaseI
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track laminB1Super override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgSnp override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+#not all have been lifted, do at subtrack level after adding new
+
+track sestanBrainAtlas override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track hapChainNet
+compositeTrack on
+shortLabel Hap Chain/Net
+longLabel Haplotype Regions, Chain and Net Tracks
+subGroup1 view Views chain=Chains net=Nets chr6map=chr6Map
+subGroup2 refChr Reference_chromosome chr4=chr4 chr6=chr6 chr17=chr17 haps=haplotypes chr6map=chr6Map
+dimensions dimensionX=refChr
+dragAndDrop subTracks
+visibility hide
+group x
+noInherit on
+chromosomes chr4,chr6,chr17,chr6_ssto_hap7,chr6_mcf_hap5,chr6_cox_hap2,chr6_mann_hap4,chr6_apd_hap1,chr6_qbl_hap6,chr6_dbb_hap3,chr17_ctg5_hap1,chr4_ctg9_hap1
+color 0,0,0
+altColor 255,255,0
+otherDb hg19
+type bed 3
+sortOrder refChr=+ view=+
+chainNormScoreAvailable yes
+
+    track hapChainNetViewchain
+    shortLabel Chains
+    view chain
+    visibility squish
+    subTrack hapChainNet
+    spectrum on
+
+        track chain_apd_hap1
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel APD Chain
+        longLabel chr6 Haplotype APD Chain
+        type chain hg19
+
+        track chain_cox_hap2
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel COX Chain
+        longLabel chr6 Haplotype COX Chain
+        type chain hg19
+
+        track chain_dbb_hap3
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel DBB Chain
+        longLabel chr6 Haplotype DBB Chain
+        type chain hg19
+
+        track chain_mann_hap4
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel MANN Chain
+        longLabel chr6 Haplotype MANN Chain
+        type chain hg19
+
+        track chain_mcf_hap5
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel MCF Chain
+        longLabel chr6 Haplotype MCF Chain
+        type chain hg19
+
+        track chain_qbl_hap6
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel QBL Chain
+        longLabel chr6 Haplotype QBL Chain
+        type chain hg19
+
+        track chain_ssto_hap7
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr6
+        shortLabel SSTO Chain
+        longLabel chr6 Haplotype SSTO Chain
+        type chain hg19
+
+        track chain_chr17_ctg5_hap1
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr17
+        shortLabel chr17 CTG5 Chain
+        longLabel chr17 Haplotype CTG5 Chain
+        type chain hg19
+
+        track chain_chr4_ctg9_hap1
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=chr4
+        shortLabel chr4 CTG9 Chain
+        longLabel chr4 Haplotype CTG9 Chain
+        type chain hg19
+
+        track chain_haplotypes
+        subTrack hapChainNetViewchain off
+        subGroups view=chain refChr=haps
+        shortLabel Hap Chains
+        longLabel Reference Chromosome Chains on Haplotypes
+        type chain hg19
+
+    track hapChainNetViewnet
+    shortLabel Nets
+    view net
+    visibility dense
+    subTrack hapChainNet
+
+        track net_apd_hap1
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel APD Net
+        longLabel chr6 Haplotype APD Net
+        type netAlign hg19 chain_apd_hap1
+
+        track net_cox_hap2
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel COX Net
+        longLabel chr6 Haplotype COX Net
+        type netAlign hg19 chain_cox_hap2
+
+        track net_dbb_hap3
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel DBB Net
+        longLabel chr6 Haplotype DBB Net
+        type netAlign hg19 chain_dbb_hap3
+
+        track net_mann_hap4
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel MANN Net
+        longLabel chr6 Haplotype MANN Net
+        type netAlign hg19 chain_mann_hap4
+
+        track net_mcf_hap5
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel MCF Net
+        longLabel chr6 Haplotype MCF Net
+        type netAlign hg19 chain_mcf_hap5
+
+        track net_qbl_hap6
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel QBL Net
+        longLabel chr6 Haplotype QBL Net
+        type netAlign hg19 chain_qbl_hap6
+
+        track net_ssto_hap7
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel SSTO Net
+        longLabel chr6 Haplotype SSTO Net
+        type netAlign hg19 chain_ssto_hap7
+
+        track net_chr17_ctg5_hap1
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr17
+        shortLabel chr17 CTG5 Net
+        longLabel chr17 Haplotype CTG5 Net
+        type netAlign hg19 chain_chr17_ctg5_hap1
+
+        track net_chr4_ctg9_hap1
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr4
+        shortLabel chr4 CTG9 Net
+        longLabel chr4 Haplotype CTG9 Net
+        type netAlign hg19 chain_chr4_ctg9_hap1
+
+        track net_haplotypes
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=haps
+        shortLabel Hap Nets
+        longLabel Reference Chromosome Nets on Haplotypes
+        type netAlign hg19 chain_haplotypes
+
+        track netSyn_apd_hap1
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel APD SynNet
+        longLabel chr6 Haplotype APD Syntenic Net
+        type netAlign hg19 chain_apd_hap1
+
+        track netSyn_cox_hap2
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel COX SynNet
+        longLabel chr6 Haplotype COX Syntenic Net
+        type netAlign hg19 chain_cox_hap2
+
+        track netSyn_dbb_hap3
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel DBB SynNet
+        longLabel chr6 Haplotype DBB Syntenic Net
+        type netAlign hg19 chain_dbb_hap3
+
+        track netSyn_mann_hap4
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel MANN SynNet
+        longLabel chr6 Haplotype MANN Syntenic Net
+        type netAlign hg19 chain_mann_hap4
+
+        track netSyn_mcf_hap5
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel MCF SynNet
+        longLabel chr6 Haplotype MCF Syntenic Net
+        type netAlign hg19 chain_mcf_hap5
+
+        track netSyn_qbl_hap6
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel QBL SynNet
+        longLabel chr6 Haplotype QBL Syntenic Net
+        type netAlign hg19 chain_qbl_hap6
+
+        track netSyn_ssto_hap7
+        subTrack hapChainNetViewnet off
+        subGroups view=net refChr=chr6
+        shortLabel SSTO SynNet
+        longLabel chr6 Haplotype SSTO Syntenic Net
+        type netAlign hg19 chain_ssto_hap7
+
+    track hapChainNetViewchr6map
+    shortLabel chr6Map
+    view chr6map
+    subTrack hapChainNet
+
+        track hapRegions
+        subTrack hapChainNetViewchr6map off
+        subGroups refChr=chr6map view=chr6map
+        configurable off
+        shortLabel Hap Mapping
+        longLabel Linear Mapping of Haplotype to Reference Chromosome
+        type bed 12
+
+track multizMHC
+shortLabel Multiz MHC
+longLabel Multiz Alignment of MHC haplotypes
+irows on
+summary multizMHCSummary
+#frames multizMHCFrames
+group x
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+speciesCodonDefault hg19
+speciesGroups Human Chimp
+sGroup_Human venter1 ssto apd mcf dbb qbl mann cox
+sGroup_Chimp panTro2
+speciesDefaultOff panTro2
+itemFirstCharCase noChange
+treeImage phylo/hg19_MHC.gif
+
+track chainSelf override
+longLabel $Organism Chained Self Alignments
+chainColor Normalized Score
+matrixHeader A, C, G, T
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+type chain hg19
+otherDb hg19
+chainNormScoreAvailable yes
+
+track ctgPos2
+shortLabel GRC Map Contigs
+longLabel Genome Reference Consortium Map Contigs
+group map
+visibility hide
+type ctgPos
+url none
+
+track multiz4way
+release alpha
+shortLabel test 4-way Multiz
+longLabel test 4-Way Multiz Alignment & Conservation
+group compGeno
+visibility hide
+priority 107
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+maxHeightPixels 100:40:11
+# wiggle phastCons4way
+# spanList 1
+pairwiseHeight 12
+yLineOnOff Off
+# frames multiz4wayFrames
+# irows on
+autoScale Off
+windowingFunction mean
+summary multiz4waySummary
+speciesCodonDefault hg19
+speciesGroups mammal
+sGroup_mammal rheMac2 mm9 canFam2
+treeImage phylo/hg19_4way.gif
+
+include ../chainNetPrimate.ra
+include ../chainNetPlacental.ra
+include ../chainNetVertebrate.ra
+
+track hg18cytoBand
+shortLabel hg18 Chromosome Band
+longLabel Chromosome Bands (hg18)
+group map
+visibility hide
+type bed 4 +
+
+track pubsDev
+shortLabel Publications Beta
+longLabel Publications: Textmining of Publications, Beta Version
+group pub
+visibility hide
+color 0,0,0
+type bed 4
+compositeTrack on
+release alpha
+nextExonText Next Match
+prevExonText Prev Match
+pubsPslTrack pubsDevBlatPsl
+pubsArticleTable hgFixed.pubsDevArticle
+pubsSequenceTable hgFixed.pubsDevSequenceAnnot
+pubsMarkerTable hgFixed.pubsDevMarkerAnnot
+noInherit on
+
+    track pubsDevBlat
+    shortLabel Sequences
+    longLabel DNA/Prot Sequences in Publications Beta
+    parent pubsDev on
+    type bed 12 +
+    visibility pack
+    priority 2
+    release alpha
+    configurable off
+    configureByPopup off
+
+    track pubsDevBlatPsl
+    shortLabel Individual Seq. Matches
+    longLabel Individual Sequence Matches of One Selected Article from Sequences Track
+    parent pubsDev off
+    type psl
+    visibility hide
+    priority 1
+    release alpha
+    configurable off
+    configureByPopup off
+    color 0,115,70
+
+    #track pubsDevMarkerBand
+    #shortLabel (Dev) Bands
+    #longLabel (Dev) Cytogenetic Bands in Publications
+    #parent pubsDev on
+    #visibility hide
+    #priority 3
+    #type bed 5
+    #release alpha
+
+    #track pubsDevMarkerSnp
+    #shortLabel (Dev) SNPs
+    #longLabel (Dev) SNPs in Publications
+    #parent pubsDev on
+    #visibility hide
+    #priority 3
+    #type bed 5
+    #release alpha
+
+    #track pubsDevMarkerGene
+    #shortLabel (Dev) Genes
+    #longLabel (Dev) Gene Symbols in Publications
+    #parent pubsDev on
+    #priority 3
+    #visibility hide
+    #type bed 5
+    #release alpha
+
+track interactions override
+directUrl hgGeneGraph?db=hg19&gene=%s
+
+track cons46way
+compositeTrack on
+shortLabel Cons 46-Way
+longLabel Vertebrate Multiz Alignment & Conservation (46 Species)
+subGroup1 view Views align=Multiz_Alignments  phyloP=Basewise_Conservation_(phyloP) phastcons=Element_Conservation_(phastCons) elements=Conserved_Elements 
+subGroup2 clade Clade primate=Primate mammal=Mammal vert=Vertebrate
+dragAndDrop subTracks
+dimensions dimensionX=clade
+visibility hide 
+type bed 4
+group compGeno
+priority 2
+
+    track cons46wayViewalign
+    shortLabel Multiz Alignments
+    view align
+    visibility pack
+    viewUi on
+    subTrack cons46way
+
+        track multiz46way
+        subTrack cons46wayViewalign on
+        shortLabel Multiz Align
+        longLabel Multiz Alignments of 46 Vertebrates
+        subGroups view=align clade=vert
+        noInherit on
+        irows on
+        summary multiz46waySummary
+        frames multiz46wayFrames
+        group compGeno
+        color 0, 10, 100
+        altColor 0,90,10
+        type wigMaf 0.0 1.0
+        speciesCodonDefault hg19
+        speciesGroups Primate Placental_Mammal Vertebrate
+        sGroup_Primate panTro2 gorGor1 ponAbe2 rheMac2 papHam1 calJac1 tarSyr1 micMur1 otoGar1
+        sGroup_Placental_Mammal tupBel1 mm9 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 vicPac1 turTru1 bosTau4 equCab2 felCat3 canFam2 myoLuc1 pteVam1 eriEur1 sorAra1 loxAfr3 proCap1 echTel1 dasNov2 choHof1 
+        sGroup_Vertebrate macEug1 monDom5 ornAna1 galGal3 taeGut1 anoCar1 xenTro2 tetNig2 fr2 gasAcu1 oryLat2 danRer6 petMar1 
+        speciesDefaultOff panTro2 gorGor1 ponAbe2 papHam1 calJac1 tarSyr1 otoGar1 equCab2 micMur1 tupBel1 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 sorAra1 eriEur1 felCat3 pteVam1 myoLuc1 turTru1 bosTau4 vicPac1 choHof1 echTel1 dasNov2 macEug1 ornAna1 taeGut1 anoCar1 proCap1 tetNig2 fr2 gasAcu1 oryLat2 petMar1
+        itemFirstCharCase noChange
+        treeImage phylo/hg19_46way.gif
+        priority 100
+
+    track cons46wayViewphyloP
+    shortLabel Basewise Conservation (phyloP)
+    view phyloP
+    visibility full
+    subTrack cons46way
+    viewLimits -.3:2
+    viewLimitsMax -15.41:7.13
+
+        # PhyloP conservation
+        track phyloP46wayPrimates
+        subTrack cons46wayViewphyloP off
+        subGroups view=phyloP clade=primate
+        shortLabel Primate Cons
+        longLabel Primate Basewise Conservation by PhyloP
+        noInherit on
+        configurable on
+        type wig -9.06 0.66
+        maxHeightPixels 100:50:11
+        viewLimits -4:1
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 10,10,70
+        altColor 70,10,10
+        priority 1
+
+        track phyloP46wayPlacental
+        subTrack cons46wayViewphyloP on
+        subGroups view=phyloP clade=mammal
+        shortLabel Mammal Cons
+        longLabel Placental Mammal Basewise Conservation by PhyloP
+        noInherit on
+        configurable on
+        type wig -13.80 2.94
+        maxHeightPixels 100:50:11
+        viewLimits -4:4
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 25,25,95
+        altColor 95,25,25
+        priority 3
+
+        track phyloP46wayAll
+        subTrack cons46wayViewphyloP off
+        subGroups view=phyloP clade=vert
+        shortLabel Vertebrate Cons
+        longLabel Vertebrate Basewise Conservation by PhyloP
+        noInherit on
+        configurable on
+        type wig -14.08 6.42
+        maxHeightPixels 100:50:11
+        viewLimits -4:4
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 40,40,120
+        altColor 120,40,40
+        priority 4
+
+    track cons46wayViewphastcons
+    shortLabel Element Conservation (phastCons)
+    view phastcons
+    visibility hide
+    subTrack cons46way
+
+        # phastCons conservation
+        track phastCons46wayPrimates
+        subTrack cons46wayViewphastcons off
+        subGroups view=phastcons clade=primate
+        shortLabel Primate Cons
+        longLabel Primate Conservation by PhastCons
+        noInherit on
+        configurable on
+        type wig 0 1
+        maxHeightPixels 100:40:11
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 10,70,10
+        altColor 70,10,10
+        priority 10
+
+        track phastCons46wayPlacental
+        subTrack cons46wayViewphastcons on
+        subGroups view=phastcons clade=mammal
+        shortLabel Mammal Cons
+        longLabel Placental Mammal Conservation by PhastCons
+        noInherit on
+        configurable on
+        type wig 0 1
+        maxHeightPixels 100:40:11
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 25,95,25
+        altColor 95,25,25
+        priority 12
+
+        track phastCons46way
+        subTrack cons46wayViewphastcons off
+        subGroups view=phastcons clade=vert
+        shortLabel Vertebrate Cons
+        longLabel Vertebrate Conservation by PhastCons
+        noInherit on
+        configurable on
+        type wig 0 1
+        maxHeightPixels 100:40:11
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 40,120,40
+        altColor 120,40,40
+        priority 13
+
+    track cons46wayViewelements
+    shortLabel Conserved Elements
+    view elements
+    visibility hide
+    subTrack cons46way
+
+        # Conserved Elements (Most Conserved)
+        track phastConsElements46wayPrimates
+        subTrack cons46wayViewelements off
+        subGroups view=elements clade=primate
+        shortLabel Primate El
+        longLabel Primate Conserved Elements
+        noInherit on
+        type bed 5 .
+        color 170,50,100
+        priority 20
+
+        track phastConsElements46wayPlacental
+        subTrack cons46wayViewelements on
+        subGroups view=elements clade=mammal
+        shortLabel Mammal El
+        longLabel Placental Mammal Conserved Elements
+        noInherit on
+        type bed 5 .
+        color 100,50,170
+        priority 22
+
+        track phastConsElements46way
+        subTrack cons46wayViewelements off
+        subGroups view=elements clade=vert
+        shortLabel Vertebrate El
+        longLabel Vertebrate Conserved Elements
+        noInherit on
+        color 170,100,50
+        type bed 5 .
+        priority 23
+
+track genomicSuperDups override
+group rep
+
+track hapmapSnps override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+longLabel HapMap SNPs (rel27, merged Phase II + Phase III genotypes)
+dataVersion rel27
+hapmapPhase III
+
+track hapmapLdPh override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track chainNetVenter override
+priority 450
+
+# Some, but not all subtracks of pgSnp (Personal Genome Variants) were lifted
+track pgAk1 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgVenter override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgVenterSnp override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgVenterIndel override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgWatson override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgYoruban2 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgYoruban3 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgYh1 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgSjk override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA12878 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA12891 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA12892 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA19240 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA19239 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNA19238 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgKb1Illum override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgKb1454 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgKb1Indel override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgKb1Comb override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNb1 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgNb1Indel override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgMd8 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgMd8Indel override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgTk1 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgTk1Indel override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgAbtSolid override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgAbt454 override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgAbt454indels override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgAbtIllum override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgChurch override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgAngrist override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgGill override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgGatesSr override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgGatesJr override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgQuake override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgIrish override 
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgSaqqaq override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgSaqqaqHc override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track pgLucier override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track tgpRecombRate override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track evsEsp6500
+shortLabel EVS Variants
+longLabel NHLBI GO Exome Sequencing Project (ESP) - Variants from 6,503 Exomes
+type vcfTabix
+group varRep
+visibility hide
+maxWindowToDraw 5000000
+chromosomes chr1,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr2,chr20,chr21,chr22,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chrX,chrY
+url http://evs.gs.washington.edu/EVS/PopStatsServlet?searchBy=rsOrChrom&target=$$&chromosome=$s&chromoStart=${&chromoEnd=$}&x=0&y=0
+urlLabel Exome Variant Server:
+vcfDoQual off
+vcfDoFilter off
+
+include trackDb.gnomad.ra 
+
+track exac
+compositeTrack on
+shortLabel ExAC
+longLabel Exome Aggregation Consortium (ExAC) Variants and Calling Regions
+group varRep
+dataVersion release 0.3
+type bed 3
+
+track exacVariants
+subTrack exac
+shortLabel ExAC Variants
+longLabel Exome Aggregation Consortium (ExAC) - Variants from 60,706 Exomes
+type vcfTabix
+group varRep
+visibility hide
+maxWindowToDraw 5000000
+showHardyWeinberg on
+bigDataUrl /gbdb/hg19/ExAC/ExAC.r0.3.sites.vep.hg19.vcf.gz
+configureByPopup off
+chromosomes chr1,chr10,chr11,chr11_gl000202_random,chr12,chr13,chr14,chr15,chr16,chr17,chr17_gl000203_random,chr17_gl000204_random,chr17_gl000205_random,chr17_gl000206_random,chr18,chr18_gl000207_random,chr19,chr19_gl000208_random,chr19_gl000209_random,chr1_gl000191_random,chr1_gl000192_random,chr2,chr20,chr21,chr21_gl000210_random,chr22,chr3,chr4,chr4_gl000193_random,chr4_gl000194_random,chr5,chr6,chr7,chr7_gl000195_random,chr8,chr8_gl000196_random,chr8_gl000197_random,chr9,chr9_gl000198_random,chr9_gl000199_random,chr9_gl000200_random,chr9_gl000201_random,chrUn_gl000211,chrUn_gl000212,chrUn_gl000213,chrUn_gl000214,chrUn_gl000215,chrUn_gl000216,chrUn_gl000217,chrUn_gl000218,chrUn_gl000219,chrUn_gl000220,chrUn_gl000221,chrUn_gl000222,chrUn_gl000223,chrUn_gl000224,chrUn_gl000225,chrUn_gl000226,chrUn_gl000227,chrUn_gl000228,chrUn_gl000229,chrUn_gl000230,chrUn_gl000231,chrUn_gl000232,chrUn_gl000233,chrUn_gl000234,chrUn_gl000235,chrUn_gl000236,chrUn_gl000237,chrUn_gl000238,chrUn_gl000239,chrUn_gl000240,chrUn_gl000241,chrUn_gl000242,chrUn_gl000243,chrUn_gl000244,chrUn_gl000245,chrUn_gl000246,chrUn_gl000247,chrUn_gl000248,chrUn_gl000249,chrX,chrY
+url http://gnomad.broadinstitute.org/variant/$s-$<pos>-$<ref>-$<firstAlt>?dataset=exac&ignore=$$
+urlLabel ExAC: 
+
+track exacRegions
+subTrack exac
+shortLabel ExAC Regions
+longLabel ExAC Calling Regions
+type bigBed 6
+bigDataUrl /gbdb/hg19/ExAC/exacCallingRegions.bb
+chromosomes chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY
+
+
+searchTable nscanGene
+searchType genePred
+termRegex chr[0-9a-zA-Z_]+\.([0-9]+|pasa)((\.[0-9a-z]+)?\.[0-9a-z]+)?
+searchPriority 50
+
+searchTable ctgPos
+searchMethod exact
+shortCircuit 1
+termRegex GL[0-9]+\.[0-9]|NC_001807(\.[0-9]+)?
+query select chrom,chromStart,chromEnd,contig from %s where contig like '%s'
+searchPriority 5
+
+searchName ctgPosNoVersion
+searchTable ctgPos
+searchMethod exact
+shortCircuit 1
+termRegex GL[0-9]+|NC_001807(\.[0-9]+)?
+dontCheck GL[0-9]+\.[0-9]
+query select chrom,chromStart,chromEnd,contig from %s where contig like '%s._'
+searchPriority 5
+
+searchTable ctgPos2
+searchMethod exact
+shortCircuit 1
+termRegex ^(AF[0-9]+)+|^(HSCHR)+[0-9XYMUN]+(_RANDOM|_1|_MHC)?(_[ACDMQS][A-Z]+)?(_CTG[0-9]+)?(_[0-9]+|_PAR)?
+query select chrom,chromStart,chromEnd,contig from %s where contig like '%s'
+searchPriority 1
+
+track vegaGeneComposite
+compositeTrack on
+shortLabel Vega Genes
+longLabel Vega Annotations
+group genes
+visibility hide
+chromosomes chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY,chr6_apd_hap1,chr6_cox_hap2,chr6_dbb_hap3,chr6_mann_hap4,chr6_mcf_hap5,chr6_qbl_hap6,chr6_ssto_hap7
+type genePred vegaPep
+urlLabel Vega Transcript:
+url http://vega.sanger.ac.uk/Homo_sapiens/transview?transcript=$$
+
+    track vegaGene
+    subTrack vegaGeneComposite
+    shortLabel Vega Protein Genes
+    longLabel Vega Protein-Coding Annotations
+    priority 1
+    color 0,50,225
+    html vegaGeneComposite
+
+    track vegaPseudoGene
+    subTrack vegaGeneComposite
+    shortLabel Vega Pseudogenes
+    longLabel Vega Annotated Pseudogenes and Immunoglobulin Segments
+    priority 2
+    color 30,130,210
+    html vegaGeneComposite
+
+track hinv70Composite
+compositeTrack on
+shortLabel H-Inv 7.0
+longLabel H-Inv 7.0 Gene Predictions
+group genes
+visibility hide
+type bed 12
+configureByPopup off
+url http://h-invitational.jp/hinv/spsoup/transcript_view?hit_id=$$
+
+    track hinv70Coding
+    subTrack hinv70Composite
+    shortLabel H-Inv genes
+    longLabel H-Inv v7.0 Gene Predictions
+    priority 1
+    color 0,50,225
+
+    track hinv70NonCoding
+    subTrack hinv70Composite
+    shortLabel H-Inv non-coding
+    longLabel H-Inv v7.0 Non-coding Gene Predictions
+    priority 2
+    color 15,100,180
+
+    track hinv70PseudoGene
+    subTrack hinv70Composite
+    shortLabel H-Inv pseudo-genes
+    longLabel H-Inv v7.0 Pseudogene Predictions
+    priority 3
+    color 30,130,210
+
+track gc5BaseBw
+release alpha
+shortLabel GC percent
+longLabel GC Percent as bigWig File
+group x
+visibility hide
+type bigWig 0 100
+minLimit 0
+maxLimit 100
+html gc5Base
+
+searchTable haplotypeLocations
+searchMethod exact
+searchType bed
+shortCircuit 1
+searchPriority 15
+
+track hg19ContigDiff
+shortLabel Hg18 Diff
+longLabel Contigs New to GRCh37/(hg19), Not Carried Forward from NCBI Build 36(hg18)
+visibility hide
+group map
+type bed 9 .
+scoreFilterByRange on
+itemRgb on
+color 0,0,0
+urlLabel Genbank accession:
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+
+track hg38ContigDiff
+shortLabel Hg38 Diff
+longLabel Contigs Dropped or Changed from GRCh37(hg19) to GRCh38(hg38)
+visibility hide
+group map
+type bed 9 .
+scoreFilterByRange on
+itemRgb on
+color 0,0,0
+urlLabel Genbank accession:
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+
+track evoCpg
+shortLabel Evo Cpg
+longLabel Weizmann Evolutionary CpG Islands
+visibility hide
+group compGeno
+priority 4
+type bed 9 .
+noScoreFilter .
+itemRgb on
+color 0,0,0
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track wgRna override 
+dataVersion miRBase Version 20 (Oct. 2013) and snoRNABase Version 3
+
+include altSeqComposite5.ra alpha
+
+include altSeqComposite9.ra alpha
+
+include altSeqComposite10.ra alpha
+
+include hg19Patch13.ra alpha
+
+track vistaEnhancers override
+url http://enhancer.lbl.gov/cgi-bin/imagedb3.pl?form=presentation&show=1&experiment_id=$$&organism_id=1
+
+track evofold override
+mafTrack multiz46way
+origAssembly hg17
+pennantIcon 17.jpg ../goldenPath/help/liftOver.html "lifted from hg17"
+
+track targetScanMiRnaSites
+superTrack on
+shortLabel TS miRNA Targets
+longLabel TargetScan predicted microRNA target sites
+group regulation
+visibility hide
+
+    track targetScanS
+    parent targetScanMiRnaSites
+    shortLabel TS miRNA sites
+    longLabel TargetScan miRNA Regulatory Sites (Release 5.1, April 2009)
+    color 0,96,0
+    scoreFilterMax 100
+    type bed 6 .
+    urlLabel TargetScan link:
+    url http://www.targetscan.org/cgi-bin/targetscan/vert_50/view_gene.cgi?gs=$P&taxid=9606&members=$p&showcnc=1
+
+    track targetScanMiRnaSitesV72
+    parent targetScanMiRnaSites
+    shortLabel TS miRNA v7.2
+    longLabel Predicted microRNA Target Sites from TargetScanHuman 7.2 (March 2018)
+    visibility pack
+    itemRgb on
+    type bigBed 12 +
+    filter.targetScanScore -1
+    filterLimits.targetScanScore -1:99
+    urlLabel View miRNA target at TargetScan
+    url http://www.targetscan.org/cgi-bin/targetscan/vert_72/view_gene.cgi?gs=$P&taxid=9606&members=$p&showcnc=1
+    bigDataUrl /gbdb/hg19/targetScan/targetScanSitesV72.bb
+
+track ntHumChimpCodingDiff override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ntSssTop5p override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ntSssZScorePMVar override
+origAssembly hg18
+type bigWig -8.8332 33.63719
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ntSssSnps override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ntOoaHaplo override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ntMito override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track cgapSage override
+priority 2
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+
+track consIndelsHgMmCanFam
+shortLabel Cons Indels MmCf
+longLabel Indel-based Conservation for Human hg19, Mouse mm8 and Dog canFam2
+group compGeno
+priority 3
+visibility hide
+useScore 1
+color 0, 60, 120
+type bed 5 .
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+searchTable consIndelsHgMmCanFam
+searchType bed
+searchMethod exact
+shortCircuit 1
+termRegex IGS.+
+searchPriority 50
+
+track polyA
+compositeTrack on
+shortLabel Poly(A)
+longLabel Poly(A) Sites, Both Reported and Predicted
+group rna
+priority 9
+visibility hide
+noInherit on
+type bed 3 .
+origAssembly hg18
+configureByPopup off
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+
+    track polyaDb
+    parent polyA
+    shortLabel PolyA_DB
+    longLabel Reported Poly(A) Sites from PolyA_DB
+    color 51,153,51
+    priority 1
+    type bed 4 .
+    origAssembly hg18
+    pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+
+    track polyaPredict
+    parent polyA
+    longLabel Predicted Poly(A) Sites Using an SVM
+    color 102,0,153
+    priority 2
+    type bed 8 .
+    origAssembly hg18
+    pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+    exonNumbers off
+
+track polyASeqSites
+compositeTrack on
+shortLabel PolyA-Seq
+longLabel Poly(A)-sequencing from Merck Research Laboratories
+group rna
+priority 10
+subGroup1 view Views Signal=Signal 
+subGroup2 tissType Tissue_Type Kidney=Kidney Brain=Brain Liver=Liver MaqcBrain1=MAQC_Brain_1 MaqcBrain2=MAQC_Brain_2 MaqcUhr1=MAQC_UHR_1 MaqcUhr2=MAQC_UHR_2 Muscle=Muscle Testis=Testis
+subGroup3 strand Strand fwd=Forward rev=Reverse
+dimensions dimensionY=tissType dimensionX=strand
+sortOrder tissType=+ strand=+ view=+
+type bed 
+dragAndDrop subTracks
+visibility hide
+noInherit on
+
+    track polyASeqSitesSignalView
+    shortLabel Signal
+    view Signal
+    visibility full
+    subTrack polyASeqSites
+    maxHeightPixels 50:50:5
+    autoScale on
+    yLineOnOff on
+    type bigWig -1 2 
+
+        track polyASeqSitesBrainFwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Brain strand=fwd
+        shortLabel PolyA-Seq Brain
+        longLabel Poly(A)-tail sequencing of Brain from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.340000 194860.187500
+
+        track polyASeqSitesBrainRev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Brain strand=rev
+        shortLabel PolyA-Seq Brain
+        longLabel Poly(A)-tail sequencing of Brain from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.340000 21771.560547
+
+        track polyASeqSitesKidneyFwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Kidney strand=fwd
+        shortLabel PolyA-Seq Kidney
+        longLabel Poly(A)-tail sequencing of Kidney from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.220000 146019.640625
+
+        track polyASeqSitesKidneyRev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Kidney strand=rev
+        shortLabel PolyA-Seq Kidney
+        longLabel Poly(A)-tail sequencing of Kidney from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.220000 12818.589844
+
+        track polyASeqSitesLiverFwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Liver strand=fwd
+        shortLabel PolyA-Seq Liver
+        longLabel Poly(A)-tail sequencing of Liver from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.180000 63606.449219
+
+        track polyASeqSitesLiverRev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Liver strand=rev
+        shortLabel PolyA-Seq Liver
+        longLabel Poly(A)-tail sequencing of Liver from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.180000 109706.320312
+
+        track polyASeqSitesMaqcBrain1Fwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcBrain1 strand=fwd
+        shortLabel PolyA-Seq MaqcBrain1
+        longLabel Poly(A)-tail sequencing of MAQC Brain (replicate 1) from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.250000 62850.468750
+
+        track polyASeqSitesMaqcBrain1Rev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcBrain1 strand=rev
+        shortLabel PolyA-Seq MaqcBrain1
+        longLabel Poly(A)-tail sequencing of MAQC Brain (replicate 1) from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.250000 15009.809570
+
+        track polyASeqSitesMaqcBrain2Fwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcBrain2 strand=fwd
+        shortLabel PolyA-Seq MaqcBrain2
+        longLabel Poly(A)-tail sequencing of MAQC Brain (replicate 2) from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.260000 61466.800781
+
+        track polyASeqSitesMaqcBrain2Rev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcBrain2 strand=rev
+        shortLabel PolyA-Seq MaqcBrain2
+        longLabel Poly(A)-tail sequencing of MAQC Brain (replicate 2) from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.260000 17027.939453
+
+        track polyASeqSitesMaqcUhr1Fwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcUhr1 strand=fwd
+        shortLabel PolyA-Seq MaqcUhr1
+        longLabel Poly(A)-tail sequencing of MAQC UHR (replicate 1) from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.200000 25178.449219
+
+        track polyASeqSitesMaqcUhr1Rev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcUhr1 strand=rev
+        shortLabel PolyA-Seq MaqcUhr1
+        longLabel Poly(A)-tail sequencing of MAQC UHR (replicate 1) from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.200000 18536.800781
+
+        track polyASeqSitesMaqcUhr2Fwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcUhr2 strand=fwd
+        shortLabel PolyA-Seq MaqcUhr2
+        longLabel Poly(A)-tail sequencing of MAQC UHR (replicate 2) from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.200000 25301.960938
+
+        track polyASeqSitesMaqcUhr2Rev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=MaqcUhr2 strand=rev
+        shortLabel PolyA-Seq MaqcUhr2
+        longLabel Poly(A)-tail sequencing of MAQC UHR (replicate 2) from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.200000 16088.179688
+
+        track polyASeqSitesMuscleFwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Muscle strand=fwd
+        shortLabel PolyA-Seq Muscle
+        longLabel Poly(A)-tail sequencing of Muscle from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.210000 37201.500000
+
+        track polyASeqSitesMuscleRev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Muscle strand=rev
+        shortLabel PolyA-Seq Muscle
+        longLabel Poly(A)-tail sequencing of Muscle from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.210000 124901.000000
+
+        track polyASeqSitesTestisFwd
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Testis strand=fwd
+        shortLabel PolyA-Seq Testis
+        longLabel Poly(A)-tail sequencing of Testis from Merck (Fwd strand)
+        color 153,51,51
+        type bigWig 0.200000 61261.609375
+
+        track polyASeqSitesTestisRev
+        parent polyASeqSitesSignalView
+        subGroups view=Signal tissType=Testis strand=rev
+        shortLabel PolyA-Seq Testis
+        longLabel Poly(A)-tail sequencing of Testis from Merck (Rev strand)
+        color 0,0,0
+        type bigWig 0.200000 69989.523438
+
+
+#include jkExperiments.ra
+
+track genotypeArrays
+shortLabel SNP/CNV Arrays
+longLabel Microarray Probesets
+compositeTrack on
+group varRep
+visibility hide
+noScoreFilter .
+noInherit on
+type bed 3 .
+
+    track snpArrayAffy6
+    parent genotypeArrays
+    shortLabel Affy SNP 6.0
+    longLabel Affymetrix SNP 6.0
+    type bed 6 +
+    priority 1
+
+    track snpArrayAffy6SV
+    parent genotypeArrays
+    shortLabel Affy SNP 6.0 SV
+    longLabel Affymetrix SNP 6.0 Structural Variation
+    type bed 6 +
+    origAssembly hg18
+    priority 2
+
+    track snpArrayAffy5
+    parent genotypeArrays off
+    shortLabel Affy SNP 5.0
+    longLabel Affymetrix SNP 5.0
+    type bed 6 +
+    priority 3
+
+    track snpArrayAffy250Nsp
+    parent genotypeArrays off
+    shortLabel Affy 250KNsp
+    longLabel Affymetrix GeneChip Human Mapping 250K Nsp
+    type bed 6 +
+    priority 4
+
+    track snpArrayAffy250Sty
+    parent genotypeArrays off
+    shortLabel Affy 250KSty
+    longLabel Affymetrix GeneChip Human Mapping 250K Sty
+    type bed 6 +
+    priority 5
+
+    track affyCytoScan
+    parent genotypeArrays
+    shortLabel Affy CytoScan
+    longLabel Affymetrix Cytoscan CNV and SNP Array Probeset
+    itemRgb on
+    type bed 9 .
+    priority 6
+
+    track agilentCgh1x1m
+    parent genotypeArrays
+    shortLabel Ag CGH 1x1m
+    longLabel Agilent SurePrint G3 Human CGH Microarray 1x1M AMADID 021529
+    color 0,128,0
+    type bed 4 .
+    priority 7
+
+    track agilentHrd1x1m
+    parent genotypeArrays
+    shortLabel Ag HRD 1x1m
+    longLabel Agilent SurePrint G3 Human High-Resolution Microarray 1x1M AMADID 023642
+    color 255,128,0
+    type bed 4 .
+    priority 8
+
+    track agilentCghSnp2x400k
+    parent genotypeArrays
+    shortLabel Ag SNP 2x400k
+    longLabel Agilent SurePrint G3 Human CGH+SNP Microarray 2x400K AMADID 028081
+    color 0,0,128
+    type bed 9 .
+    itemRgb on
+    priority 9
+
+    track agilentCgh2x400k
+    parent genotypeArrays
+    shortLabel Ag CGH 2x400k
+    longLabel Agilent SurePrint G3 Human CGH Microarray 2x400K AMADID 021850
+    color 0,128,0
+    type bed 4 .
+    priority 10
+
+    track agilentCghSnpCancer4x180k
+    parent genotypeArrays
+    shortLabel Ag Can 4x180k
+    longLabel Agilent SurePrint G3 Human CGH+SNP Cancer Microarray 4x180K AMADID 030587
+    color 0,0,128
+    type bed 9 .
+    itemRgb on
+    priority 11
+
+    track agilentCghSnp4x180k
+    parent genotypeArrays
+    shortLabel Ag SNP 4x180k
+    longLabel Agilent SurePrint G3 Human CGH+SNP Microarray 4x180K AMADID 029830
+    color 0,0,128
+    type bed 9 .
+    itemRgb on
+    priority 12
+
+    track agilentCgh4x180k
+    parent genotypeArrays
+    shortLabel Ag CGH 4x180k
+    longLabel Agilent SurePrint G3 Human CGH Microarray 4x180K AMADID 022060
+    color 255,128,0
+    type bed 4 .
+    priority 13
+
+    track agilentCgh8x60k
+    parent genotypeArrays
+    shortLabel Ag CGH 8x60k
+    longLabel Agilent SurePrint G3 Human CGH Microarray 8x60K AMADID 021924
+    type bed 4 .
+    color 0,128,0
+    priority 14
+
+    track agilentCgh1x244k
+    parent genotypeArrays
+    shortLabel Ag CGH 1x244k
+    longLabel Agilent SurePrint HD Human CGH Microarray 1x244K AMADID 014693
+    color 255,128,0
+    type bed 4 .
+    priority 15
+
+    track agilentCgh2x105k
+    parent genotypeArrays
+    shortLabel Ag CGH 2x105k
+    longLabel Agilent SurePrint HD Human CGH Microarray 2x105K AMADID 014698
+    color 0,128,0
+    type bed 4 .
+    priority 16
+
+    track agilentCgh4x44k
+    parent genotypeArrays
+    shortLabel Ag CGH 4x44k
+    longLabel Agilent SurePrint HD Human CGH Microarray 4x44K AMADID 014950
+    color 255,128,0
+    type bed 4 .
+    priority 17
+
+    track snpArrayIllumina650
+    parent genotypeArrays off
+    shortLabel Illumina 650
+    longLabel Illumina Human Hap 650v3
+    type bed 6 +
+    priority 18
+
+    track snpArrayIllumina550
+    parent genotypeArrays off
+    shortLabel Illumina 550
+    longLabel Illumina Human Hap 550v3
+    type bed 6 +
+    priority 18
+
+    track snpArrayIllumina300
+    parent genotypeArrays off
+    shortLabel Illumina 300
+    longLabel Illumina Human Hap 300v3
+    type bed 6 +
+    priority 19
+
+    track snpArrayIllumina1M
+    parent genotypeArrays
+    shortLabel Illumina 1M-Duo
+    longLabel Illumina Human1M-Duo
+    type bed 6 +
+    priority 20
+
+    track snpArrayIlluminaHumanCytoSNP_12
+    parent genotypeArrays
+    shortLabel Illumina Cyto-12
+    longLabel Illumina Human CytoSNP-12
+    type bed 6 +
+    priority 21
+
+    track snpArrayIlluminaHuman660W_Quad
+    parent genotypeArrays
+    shortLabel Illumina 660W-Q
+    longLabel Illumina Human 660W-Quad
+    type bed 6 +
+    priority 22
+
+    track snpArrayIlluminaHumanOmni1_Quad
+    parent genotypeArrays
+    shortLabel Illumina Omni1-Q
+    longLabel Illumina Human Omni1-Quad
+    type bed 6 +
+    priority 22
+    
+    track snpArrayIlluminaGDA
+    parent genotypeArrays
+    shortLabel Illumina GDA
+    longLabel Illumina GDA
+    type bed 6 +
+    priority 23
+
+track tfbsConsSites
+shortLabel TFBS Conserved
+longLabel HMR Conserved Transcription Factor Binding Sites
+group regulation
+visibility hide
+type bed 6 +
+scoreMin 671
+scoreMax 1000
+spectrum on
+urlLabel Transfac matrix link:
+url http://www.gene-regulation.com/cgi-bin/pub/databases/transfac/getTF.cgi?AC=$$
+
+track bamWigTest
+table wgEncodeYaleRnaSeqGm12878PolyaAln
+release alpha
+shortLabel bamWigTest
+longLabel bamWigTest
+group x
+visibility hide
+type bamWig 0 1
+viewLimits 0:1
+
+track netSelf
+shortLabel Self Net
+longLabel $Organism Chained Self Alignment Net
+group varRep
+visibility hide
+spectrum on
+type netAlign hg19 chainSelf
+otherDb hg19
+
+track allHg19RS_BW
+shortLabel GERP
+longLabel GERP Scores for Mammalian Alignments
+group compGeno
+priority 5
+visibility hide
+type bigWig -15 7
+autoScale on
+maxHeightPixels 128:64:20
+
+track multizBasal
+#subTrack consDinoViewalign on
+shortLabel Basal Align
+longLabel Basal Alignments of 7 
+#subGroups view=align clade=vert
+noInherit on
+irows on
+summary multizBasalSummary
+frames multiz46wayFrames
+group x
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+speciesCodonDefault hg19
+#speciesOrder ornAna1 galGal3 taeGut1 anoCar2 pytMol0 chrPic0 pelSin0 cheMyd0 allMis0
+speciesOrder mm9 bosTau4 monDom5 anoCar1 galGal3 xenTro2 danRer6 fr2 gasAcu1 oryLat2 calMil0
+
+track multizMarine
+#subTrack consDinoViewalign on
+shortLabel Marine Align
+longLabel Marine Alignments
+#subGroups view=align clade=vert
+noInherit on
+irows on
+summary multizMarineSummary
+frames multiz46wayFrames
+group x
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+speciesCodonDefault hg19
+#speciesGroups Primate Placental_Mammal Vertebrate
+#sGroup_Primate panTro2 gorGor1 ponAbe2 rheMac2 papHam1 calJac1 tarSyr1 micMur1 otoGar1
+#sGroup_Placental_Mammal tupBel1 mm9 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 vicPac1 turTru1 bosTau4 equCab2 felCat3 canFam2 myoLuc1 pteVam1 eriEur1 sorAra1 loxAfr3 proCap1 echTel1 dasNov2 choHof1 
+#sGroup_Vertebrate macEug1 monDom5 ornAna1 galGal3 taeGut1 anoCar1 xenTro2 tetNig2 fr2 gasAcu1 oryLat2 danRer6 petMar1 
+#speciesDefaultOff panTro2 gorGor1 ponAbe2 papHam1 calJac1 tarSyr1 otoGar1 equCab2 micMur1 tupBel1 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 sorAra1 eriEur1 felCat3 pteVam1 myoLuc1 turTru1 bosTau4 vicPac1 choHof1 echTel1 dasNov2 macEug1 ornAna1 taeGut1 anoCar1 proCap1 tetNig2 fr2 gasAcu1 oryLat2 petMar1
+speciesOrder rheMac3 papAnu2 calJac3 mm10 rn5 vicPac2 turTru2 orcOrc1 bosTau7 canFam3 odoRosDiv1 loxAfr3 triMan1 monDom5
+#itemFirstCharCase noChange
+#treeImage phylo/hg19_Dino.gif
+
+track multizDino
+#subTrack consDinoViewalign on
+shortLabel Dino Align
+longLabel Dino Alignments of 7 
+#subGroups view=align clade=vert
+noInherit on
+irows on
+summary multizDinoSummary
+frames multiz46wayFrames
+group x
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+speciesCodonDefault hg19
+#speciesGroups Primate Placental_Mammal Vertebrate
+#sGroup_Primate panTro2 gorGor1 ponAbe2 rheMac2 papHam1 calJac1 tarSyr1 micMur1 otoGar1
+#sGroup_Placental_Mammal tupBel1 mm9 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 vicPac1 turTru1 bosTau4 equCab2 felCat3 canFam2 myoLuc1 pteVam1 eriEur1 sorAra1 loxAfr3 proCap1 echTel1 dasNov2 choHof1 
+#sGroup_Vertebrate macEug1 monDom5 ornAna1 galGal3 taeGut1 anoCar1 xenTro2 tetNig2 fr2 gasAcu1 oryLat2 danRer6 petMar1 
+#speciesDefaultOff panTro2 gorGor1 ponAbe2 papHam1 calJac1 tarSyr1 otoGar1 equCab2 micMur1 tupBel1 rn4 dipOrd1 cavPor3 speTri1 oryCun2 ochPri2 sorAra1 eriEur1 felCat3 pteVam1 myoLuc1 turTru1 bosTau4 vicPac1 choHof1 echTel1 dasNov2 macEug1 ornAna1 taeGut1 anoCar1 proCap1 tetNig2 fr2 gasAcu1 oryLat2 petMar1
+speciesOrder ornAna1 galGal3 taeGut1 anoCar2 pytMol0 chrPic0 pelSin0 cheMyd0 allMis0
+#itemFirstCharCase noChange
+#treeImage phylo/hg19_Dino.gif
+
+track numtSeq override
+html numtSeqHg19
+group rep
+
+track hg19FosEndPairs
+shortLabel hg19 Fosmid End Pairs
+longLabel hg19 Fosmid End Pairs
+group map
+visibility hide
+type bed 6 +
+color 0,0,0
+altColor 90,90,90
+exonArrows off
+
+track hg19FosEndPairsBad
+shortLabel hg19 Bad Fosmid End Pairs
+longLabel hg19 Orphan, Short and Incorrectly Oriented Fosmid End Pairs
+group map
+visibility hide
+type bed 6 +
+color 0,0,0
+altColor 90,90,90
+exonArrows off
+
+track decodeRmap override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track knownGene
+shortLabel UCSC Genes
+longLabel UCSC Genes (RefSeq, GenBank, CCDS, Rfam, tRNAs & Comparative Genomics)
+group genes
+visibility pack
+priority 1
+color 12,12,120
+type genePred knownGenePep knownGeneMrna
+idXref kgAlias kgID alias
+exonNumbers on
+hgGene on
+hgsid on
+directUrl /cgi-bin/hgGene?hgg_gene=%s&hgg_chrom=%s&hgg_start=%d&hgg_end=%d&hgg_type=%s&db=%s
+baseColorUseCds given
+baseColorDefault genomicCodons
+defaultLinkedTables kgXref
+intronGap 12
+bigGeneDataUrl /gbdb/hg19/knownGene.bb
+#release beta,public
+
+#
+# This is a temporary track constructed for the purpose of helping Brooke QA
+# UCSC Genes (rev 13).  Once UCSC Genes is released, this track can go away.
+#
+track RfamSyn
+shortLabel Rfam-Syn
+longLabel Rfam Hits in Regions Syntenic to mm9, Duplicated Hits Removed
+group genes
+visibility hide
+type bed 6 +
+color 0,0,0
+altColor 90,90,90
+exonArrows off
+
+track mapViewGenes
+shortLabel MapView Genes
+longLabel RefSeq Genes from Map View
+group genes
+visibility hide
+color 82,82,160
+type genePred
+hgsid on
+baseColorUseCds given
+baseColorDefault genomicCodons
+
+track knownGeneOld6
+shortLabel Old UCSC Genes
+longLabel Previous Version of UCSC Genes
+group genes
+visibility hide
+color 82,82,160
+type genePred
+hgsid on
+oldToNew kg6ToKg7
+baseColorUseCds given
+baseColorDefault genomicCodons
+
+searchName knownGeneOld6
+searchTable knownGeneOld6
+searchDescription Previous Version of UCSC Genes
+searchMethod fuzzy
+query select chrom, txStart,txEnd, name from %s where name like '%%%s%%'
+searchPriority 3.53
+
+#include knownGene.alpha.ra alpha
+include lincRNAs.ra
+
+track sibTxGraph override
+priority 11
+url http://ccg.vital-it.ch/cgi-bin/tromer/tromergraph2draw.pl?db=hg19&species=H.+sapiens&tromer=$$
+
+searchTable affyCytoScan
+searchMethod exact
+searchType bed
+semiShortCircuit 1
+termRegex [S|s|C|c]-[0-9][A-Za-z]+
+searchPriority 50
+padding 250
+
+track qPcrPrimers override
+url http://www.weizmann.ac.il/cgi-bin/USERcompphys/primers/human/extract_primer_by_line.cgi?$$
+urlLabel Click here for primer details:
+
+include trackDb.100way.ra
+include trackDb.cacTest100way.ra alpha
+
+track ultraConserved
+shortLabel Ultra Conserved
+longLabel Ultraconserved Elements (200 bp 100% ID in rat/mouse/human)
+group x
+visibility hide
+exonArrows off
+color 150,0,0
+type bed 4 .
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track ultraConservedExtended
+shortLabel Extended Ultras
+longLabel Ultras Extended Until 5 Bases Below 85% in Conservation Track
+group x
+visibility hide
+exonArrows off
+color 100,0,100
+type bed 4 .
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+searchTable ultraConserved
+searchMethod exact
+searchType bed
+searchPriority 10
+termRegex uc\.[0-9]+
+
+searchTable ultraConservedExtended
+searchMethod exact
+searchType bed
+searchPriority 10
+termRegex ux\.[0-9]+
+
+#these 6 overrides go with ucsfBrainMethyl parent track
+track ucsfChipSeqH3K4me3BrainCoverage override
+release alpha,beta,public
+type bigWig 1 180
+
+track ucsfMedipSeqBrainCoverage override
+release alpha,beta,public
+type bigWig  1 300
+
+track ucsfMedipSeqBrainCpG override
+release alpha,beta,public
+type bigWig  1 298
+
+track ucsfMreSeqBrainCpG override
+release alpha,beta,public
+type bigWig 0.09 878.8
+
+track ucsfRnaSeqBrainAllCoverage override
+release alpha,beta,public
+type bigWig 1 24184
+
+track ucsfRnaSeqBrainSmartCoverage override
+release alpha,beta,public
+type bigWig 1 141
+
+track peptideAtlas2014
+shortLabel PeptideAtlas
+html peptideAtlas
+longLabel Peptide sequences identified from MS spectra of 971 samples by PeptideAtlas
+visibility hide
+type bed 12
+url https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=433&searchWithinThis=Peptide+Name&searchForThis=$$&action=QUERY
+urlLabel Link to PeptideAtlas:
+group expression
+spectrum on
+minGrayLevel 4
+scoreMax 51
+scoreMin 1
+color 100, 82, 160
+
+#track peptideAtlasSuper
+#release alpha
+#html peptideAtlas
+#superTrack on
+#group expression
+#priority 18
+#shortLabel PeptideAtlas
+#longLabel Peptide sequences identified by tandem MS from PeptideAtlas
+#
+#    track peptideAtlas2014
+#    release alpha
+#    parent peptideAtlasSuper
+#    shortLabel PeptideAtlas
+#    html peptideAtlas
+#    longLabel Peptide sequences identified from MS spectra of 971 samples by PeptideAtlas
+#    visibility squish
+#    type bed 12
+#    url https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=433&searchWithinThis=Peptide+Name&searchForThis=$$&action=QUERY
+#    urlLabel Link to PeptideAtlas:
+#    group expression
+#    spectrum on
+#    minGrayLevel 4
+#    scoreMax 51
+#    scoreMin 1
+#    color 100, 82, 160
+#
+#    track pgxPeptideAtlas2014
+#    parent peptideAtlasSuper
+#    release alpha
+#    shortLabel PeptideAtlas PGx
+#    longLabel Peptide sequences identified from MS spectra of 971 samples by PeptideAtlas (PGx mapped)
+#    type bed 12
+#    group expression
+#    color 160, 100, 50
+#
+#    track peptideAtlasRegions2014
+#    release alpha
+#    parent peptideAtlasSuper
+#    shortLabel PeptideAtlas Mappings 2014
+#    html peptideAtlas
+#    longLabel Peptide sequence mappings identified by tandem MS from PeptideAtlas (2014)
+#    type bedDetail 6
+#    url https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=433&searchWithinThis=Peptide+Name&searchForThis=$$&action=QUERY
+#    urlLabel Link to PeptideAtlas:
+#    group expression
+#    color 82, 82, 160
+#
+#    track peptideAtlasRegions2013
+#    table peptideAtlas
+#    release alpha
+#    parent peptideAtlasSuper
+#    html peptideAtlas
+#    shortLabel PeptideAtlas Mappings 2013
+#    longLabel Peptide sequence mappings identified by tandem MS from PeptideAtlas (2013)
+#    type bedDetail 6
+#    url https://db.systemsbiology.net/sbeams/cgi/PeptideAtlas/GetPeptide?atlas_build_id=393&searchWithinThis=Peptide+Name&searchForThis=$$&action=QUERY
+#    urlLabel Link to PeptideAtlas:
+#    group expression
+#    color 82, 82, 160
+
+searchTable peptideAtlas2014
+searchType bed
+termRegex PAp[0-9]{8}
+semiShortCircuit 1
+searchPriority 3.6
+
+track nestedRepeats override
+group rep
+
+track windowmaskerSdust override
+group rep 
+
+track simpleRepeat override
+group rep 
+
+track microsat override
+group rep 
+
+track pubsBingBlat override
+group phenDis
+
+track rnaCluster override
+group rna
+priority 3
+
+track est override
+group rna
+priority 5
+
+track darned override
+group rna
+priority 6
+
+track xenoEst override
+group rna
+priority 7
+
+track xenoMrna override
+group rna
+priority 8
+
+track uniGene_3 override
+group rna
+priority 13
+
+track allenBrainAli override
+group expression
+priority 7
+
+track burgeRnaSeqGemMapperAlign override
+group expression
+priority 8
+
+track gnfAtlas2 override
+group expression
+
+track gwipsvizRiboseq override
+group expression
+
+track phastBias override
+group compGeno
+priority 6
+
+track hgdpGeo override
+group varRep
+
+
+# override to use hg19 specific html page
+track crispr override
+html crispr
+
+include defaultPriority.ra
+include trackDb.cloneEnd.ra
+
+include gtexEqtl.ra
+
+track gtexTranscExpr override
+bigDataUrl /gbdb/hg19/gtex/gtexTranscExpr.bb
+origAssembly hg38
+
+# change these two to switch to the new refSeqComposite 2018-02
+#include trackDb.refGene.ra public
+include ../../refSeqComposite.ra
+
+track ensGene override
+ensemblIdUrl https://grch37.ensembl.org/Homo_sapiens
+
+# ENCODE tracks
+
+include trackDb.wgEncode.ra
+
+include wgEncodeReg.ra 
+
+include encode3.ra 
+
+include wgEncodeReg.dev.ra alpha
+
+# other tracks
+#
+include platinumGenomes.ra
+include hic.ra
+include exomeProbesets.ra
+
+track epdNew
+shortLabel EPDnew Promoters
+longLabel Promoters from EPDnew human version 006
+html ../../epdNewPromoter
+type bigBed 8
+bigDataUrl /gbdb/$D/bbi/epdNewHuman006.$D.bb
+group expression
+bedNameLabel Promoter ID
+url https://epd.epfl.ch/cgi-bin/get_doc?db=mmEpdNew&format=genome&entry=$$
+urlLabel EPDnew link:
+color 50,50,200
+exonArrows on
+dataVersion EPDNew Version 006 (May 2018)
+visibility hide
+priority 14.3
+
+include fetalGeneAtlas.ra
+include skinSoleBoldo.ra
+
+#  include doseSensitivity.ra
+
+track rmskTracks
+superTrack on
+shortLabel RepeatMasker
+longLabel RepeatMasker experiments with various alignment engines
+group x
+visibility hide
+color 0,100,0
+altColor 128,228,128
+
+    track rmskHmmer2020
+    superTrack rmskTracks full
+    shortLabel RM HMMER 2020
+    longLabel updated 2020 Repeating Elements by RepeatMasker - HMMER alignment engine
+    type rmsk
+    maxWindowToDraw 10000000
+    canPack off
+    spectrum on
+
+#RefSeq Select is a subtrack part of the RefSeq Composite in ../../refSeqComposite.ra
+#For more information on this change, see RM#24787
+track ncbiRefSeqSelect
+parent refSeqComposite off
+priority 8
+type genePred
+shortLabel RefSeq Select
+longLabel NCBI RefSeq Select: One representative transcript per protein-coding gene
+trackHandler ncbiRefSeq
+idXref ncbiRefSeqLink mrnaAcc name
+color 20,20,160
+baseColorUseCds given
+baseColorDefault genomicCodons
+
+track clinGenCnv override
+filter.size 773:11309570
+filterLimits.size 773:11309570
+
+track decipherHaploIns
+type bigBed 9 +
+group phenDis
+shortLabel Haploinsufficiency
+longLabel Haploinsufficiency predictions for genes from DECIPHER
+bigDataUrl /gbdb/hg19/bbi/haploins/haploinsufficiency.bb
+itemRgb on
+skipFields mouseOver
+noScoreFilter on
+mouseOver $name, HI: $quantile
+
+include dbSnpArchiveHg19.ra 
+include affyArchive.ra
+include genePredArchive.ra
+include tgpArchive.ra

@@ -1,0 +1,484 @@
+# for emacs: -*- mode: sh; -*-
+
+# Sorex araneus 2.0 sequence:
+# ftp://ftp.ncbi.nlm.nih.gov/genbank/genomes/Eukaryotes/vertebrates_mammals/Sorex_araneus/SorAra2.0/
+
+##########################################################################
+# Download sequence (DONE - 2012-08-27 - Hiram)
+    mkdir -p /hive/data/genomes/sorAra2/genbank
+    cd /hive/data/genomes/sorAra2/genbank
+
+    rsync -a -P \
+rsync://ftp.ncbi.nlm.nih.gov/genbank/genomes/Eukaryotes/vertebrates_mammals/Sorex_araneus/SorAra2.0/ \
+./ > fetch.log 2>&1
+
+###########################################################################
+# fixup to UCSC names (DONE - 2013-03-25 - Hiram)
+    cd /hive/data/genomes/sorAra2
+
+    $HOME/kent/src/hg/utils/automation/unplacedScaffolds.pl
+    # constructs the directory: /hive/data/genomes/sorAra2/ucsc
+    # with files:
+    cd /hive/data/genomes/sorAra2/ucsc
+    ls -ogrt
+# -rw-rw-r-- 1  22718263 Mar 25 23:09 sorAra2.ucsc.agp
+# -rw-rw-r-- 1 671856471 Mar 25 23:20 sorAra2.ucsc.fa.gz
+# -rw-rw-r-- 1       209 Mar 25 23:21 checkAgp.result.txt
+    cat checkAgp.result.txt
+# AALT02201788 1 1000 1 W AALT02201788.1 1 1000 +
+# agpFrag->chromStart: 0, agpFrag->chromEnd: 1000, dnaOffset: 0
+# FASTA sequence entry
+# Valid Fasta file entry
+# All AGP and FASTA entries agree - both files are valid
+
+    # this script also constructs the sorAra2.unmasked.2bit file, but
+    # this is not needed with the makeGenomeDb.pl script:
+    rm -f /hive/data/genomes/sorAra2/sorAra2.unmasked.2bit
+
+###########################################################################
+# Initial genome build (DONE - 2013-05-28 - Hiram)
+    cd /hive/data/genomes/sorAra2
+
+    cat << '_EOF_' > sorAra2.config.ra
+# Config parameters for makeGenomeDb.pl:
+db sorAra2
+clade mammal
+genomeCladePriority 20.1
+scientificName Sorex araneus
+commonName Shrew
+assemblyDate Aug. 2008
+assemblyLabel Broad Institute SorAra2.0
+assemblyShortLabel SorAra2.0
+orderKey 2579
+mitoAcc none
+fastaFiles /cluster/data/sorAra2/ucsc/sorAra2.ucsc.fa.gz
+agpFiles /cluster/data/sorAra2/ucsc/sorAra2.ucsc.agp
+# qualFiles /cluster/data/sorAra2/ucsc/sorAra1.quals.qac
+dbDbSpeciesDir shrew
+photoCreditURL http://en.wikipedia.org/wiki/File:Common_Shrew.jpg
+photoCreditName Sjonge, Wikipedia Commons
+ncbiGenomeId 226
+ncbiAssemblyId 228978
+ncbiAssemblyName SorAra2.0
+ncbiBioProject 13689
+genBankAccessionID GCA_000181275.2
+taxId 42254
+'_EOF_'
+
+    # run step wise to confirm sequence and AGP files match each other
+    time nice -n +19 makeGenomeDb.pl -fileServer=hgwdev \
+	-workhorse=hgwdev -stop=agp sorAra2.config.ra > genomeDb.agp.log 2>&1
+    # verify it is OK:
+    tail -1 genomeDb.agp.log
+    # *** All done!  (through the 'agp' step)
+
+    time nice -n +19 makeGenomeDb.pl -fileServer=hgwdev \
+	-workhorse=hgwdev -continue=db -stop=dbDb sorAra2.config.ra \
+        > genomeDb.dbDb.log 2>&1
+    time nice -n +19 makeGenomeDb.pl -fileServer=hgwdev \
+	-workhorse=hgwdev -continue=trackDb sorAra2.config.ra \
+        > genomeDb.trackDb.log 2>&1
+
+    # add the trackDb business to the source tree
+
+##########################################################################
+# running repeat masker (DONE - 2013-05-29 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/repeatMasker
+    cd /hive/data/genomes/sorAra2/bed/repeatMasker
+    time doRepeatMasker.pl -buildDir=`pwd` -noSplit \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+	-smallClusterHub=encodek sorAra2 > do.log 2>&1 &
+    #	Elapsed time: 476m34s
+    cat faSize.rmsk.txt
+# 2423158183 bases (231054757 N's 2192103426 real 1476627246 upper
+#    715476180 lower) in 12845 sequences in 1 files
+# Total size: mean 188646.0 sd 2097082.5 min 1000 (AALT02201788)
+#    max 60238417 (JH798146) median 1461
+# %29.53 masked total, %32.64 masked real
+
+    grep -i versi do.log
+# RepeatMasker version open-4.0.0
+#    January 10 2013 (open-4-0-0) version of RepeatMasker
+
+##########################################################################
+# running simple repeat (DONE - 2013-05-29 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/simpleRepeat
+    cd /hive/data/genomes/sorAra2/bed/simpleRepeat
+    time doSimpleRepeat.pl -buildDir=`pwd` -bigClusterHub=swarm \
+	-dbHost=hgwdev -workhorse=hgwdev -smallClusterHub=encodek \
+	sorAra2 > do.log 2>&1 &
+    # about 15 minutes
+
+    cat fb.simpleRepeat
+    #	49169633 bases of 2192103426 (2.243%) in intersection
+
+    cd /hive/data/genomes/sorAra2
+    twoBitMask sorAra2.rmsk.2bit \
+	-add bed/simpleRepeat/trfMask.bed sorAra2.2bit
+    #	you can safely ignore the warning about fields >= 13
+
+    twoBitToFa sorAra2.2bit stdout | faSize stdin > faSize.sorAra2.2bit.txt
+    cat faSize.sorAra2.2bit.txt
+# 2423158183 bases (231054757 N's 2192103426 real 1474029646 upper
+#    718073780 lower) in 12845 sequences in 1 files
+# Total size: mean 188646.0 sd 2097082.5 min 1000 (AALT02201788)
+#    max 60238417 (JH798146) median 1461
+# %29.63 masked total, %32.76 masked real
+
+    rm /gbdb/sorAra2/sorAra2.2bit
+    ln -s `pwd`/sorAra2.2bit /gbdb/sorAra2/sorAra2.2bit
+
+#########################################################################
+# Verify all gaps are marked, add any N's not in gap as type 'other'
+#	(DONE - 2013-05-29 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/gap
+    cd /hive/data/genomes/sorAra2/bed/gap
+    time nice -n +19 findMotif -motif=gattaca -verbose=4 \
+	-strand=+ ../../sorAra2.unmasked.2bit > findMotif.txt 2>&1
+    #	real    0m40.949s
+    grep "^#GAP " findMotif.txt | sed -e "s/^#GAP //" > allGaps.bed
+    featureBits sorAra2 -not gap -bed=notGap.bed
+    #	2192103426 bases of 2192103426 (100.000%) in intersection
+
+    time featureBits sorAra2 allGaps.bed notGap.bed -bed=new.gaps.bed
+    # 0 bases of 2192103426 (0.000%) in intersection
+    # real    12m10.066s
+
+#########################################################################
+# cytoBandIdeo - (DONE - 2013-06-12 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/cytoBand
+    cd /hive/data/genomes/sorAra2/bed/cytoBand
+    makeCytoBandIdeo.csh sorAra2
+
+##########################################################################
+## WINDOWMASKER (DONE - 2013-05-29 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/windowMasker
+    cd /hive/data/genomes/sorAra2/bed/windowMasker
+    time nice -n +19 doWindowMasker.pl -buildDir=`pwd` -workhorse=hgwdev \
+	-dbHost=hgwdev sorAra2 > do.log 2>&1 &
+    # about 3h 18m
+
+    # Masking statistics
+    cat faSize.sorAra2.cleanWMSdust.txt
+# 2423158183 bases (231054757 N's 2192103426 real 1336787616 upper
+#    855315810 lower) in 12845 sequences in 1 files
+# Total size: mean 188646.0 sd 2097082.5 min 1000 (AALT02201788)
+#    max 60238417 (JH798146) median 1461
+# %35.30 masked total, %39.02 masked real
+
+    cat fb.sorAra2.rmsk.windowmaskerSdust.txt
+# 519681347 bases of 2423158183 (21.446%) in intersection
+
+########################################################################
+# cpgIslands - (DONE - 2013-06-12 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/cpgIslands
+    cd /hive/data/genomes/sorAra2/bed/cpgIslands
+    time doCpgIslands.pl sorAra2 > do.log 2>&1
+    #   real    9m27.905s
+
+    cat fb.sorAra2.cpgIslandExt.txt
+    #   57978513 bases of 2192103426 (2.645%) in intersection
+
+#########################################################################
+# genscan - (DONE - 2013-06-12 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/genscan
+    cd /hive/data/genomes/sorAra2/bed/genscan
+    time doGenscan.pl sorAra2 > do.log 2>&1
+    #    real    38m51.895s
+
+    cat fb.sorAra2.genscan.txt
+    #   61328825 bases of 2192103426 (2.798%) in intersection
+    cat fb.sorAra2.genscanSubopt.txt
+    #   50722612 bases of 2192103426 (2.314%) in intersection
+
+#########################################################################
+# MAKE 11.OOC FILE FOR BLAT/GENBANK (DONE - 2013-06-06 - Hiram)
+    # Use -repMatch=800, based on size -- for human we use 1024
+    # use the "real" number from the faSize measurement,
+    # hg19 is 2897316137, calculate the ratio factor for 1024:
+    calc \( 2192103426 / 2897316137 \) \* 1024
+    #	( 2192103426 / 2897316137 ) * 1024 = 774.756292
+    # round up to 800
+
+    # sorAra1 had: -repMatch=700
+    #	Wrote 26119 overused 11-mers to sorAra1.11.ooc
+
+    cd /hive/data/genomes/sorAra2
+    blat sorAra2.2bit /dev/null /dev/null -tileSize=11 \
+      -makeOoc=jkStuff/sorAra2.11.ooc -repMatch=800
+    #	Wrote 26682 overused 11-mers to jkStuff/sorAra2.11.ooc
+
+    # there are *only* bridged gaps, no lift file needed for genbank
+    hgsql -N -e "select bridge from gap;" sorAra2 | sort | uniq -c
+    #   188953 yes
+
+#########################################################################
+# AUTO UPDATE GENBANK (DONE - 2013-06-08 - Hiram)
+    # examine the file:
+    /cluster/data/genbank/data/organism.lst
+    # for your species to see what counts it has for:
+# organism       mrnaCnt estCnt  refSeqCnt
+# Sorex araneus   1       0       0
+
+    # to decide which "native" mrna or ests you want to specify in genbank.conf
+    # this appears that sorAra2 has plenty of native est's
+
+    ssh hgwdev
+    cd $HOME/kent/src/hg/makeDb/genbank
+    git pull
+    # edit etc/genbank.conf to add sorAra2 before sorAra1 and commit to GIT
+# sorAra2 (common shrew)
+sorAra2.serverGenome = /hive/data/genomes/sorAra2/sorAra2.2bit
+sorAra2.clusterGenome = /hive/data/genomes/sorAra2/sorAra2.2bit
+sorAra2.ooc = /hive/data/genomes/sorAra2/jkStuff/sorAra2.11.ooc
+sorAra2.lift = no
+sorAra2.refseq.mrna.native.pslCDnaFilter  = ${lowCover.refseq.mrna.native.pslCDnaFilter}
+sorAra2.refseq.mrna.xeno.pslCDnaFilter    = ${lowCover.refseq.mrna.xeno.pslCDnaFilter}
+sorAra2.genbank.mrna.native.pslCDnaFilter = ${lowCover.genbank.mrna.native.pslCDnaFilter}
+sorAra2.genbank.mrna.xeno.pslCDnaFilter   = ${lowCover.genbank.mrna.xeno.pslCDnaFilter}
+sorAra2.genbank.est.native.pslCDnaFilter  = ${lowCover.genbank.est.native.pslCDnaFilter}
+sorAra2.refseq.mrna.native.load = no
+sorAra2.refseq.mrna.xeno.load = yes
+sorAra2.genbank.mrna.xeno.load = no
+sorAra2.genbank.est.native.load = no
+sorAra2.downloadDir = sorAra2
+sorAra2.perChromTables = no
+
+    # end of section added to etc/genbank.conf
+    git commit -m "adding sorAra2 common shrew refs #9348" etc/genbank.conf
+    git push
+    make etc-update
+
+    # ~/kent/src/hg/makeDb/genbank/src/lib/gbGenome.c already contains
+    # sorAra1 genome information, if this is a new species, need to add stuff
+    # there
+
+    ssh hgwdev			# used to do this on "genbank" machine
+    screen			# long running job managed in screen
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbAlignStep -initial sorAra2 &
+    #	var/build/logs/2013.06.06-13:55:59.sorAra2.initalign.log
+    #	real    583m17.182s
+
+    # load database when finished
+    ssh hgwdev
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbDbLoadStep -drop -initialLoad sorAra2 &
+    #	logFile: var/dbload/hgwdev/logs/2013.06.08-15:19:02.dbload.log
+    #	real    12m18.795s
+
+    # enable daily alignment and update of hgwdev (TBD - Hiram)
+    cd ~/kent/src/hg/makeDb/genbank
+    git pull
+    # add sorAra2 to: etc/align.dbs etc/hgwdev.dbs
+    git commit -m "added sorAra2 - shrew - refs #9348" etc/align.dbs etc/hgwdev.dbs
+    git push
+    make etc-update
+
+############################################################################
+# construct liftOver from sorAra1 to sorAra2 (DONE - 2013-06-10 - Hiram)
+    # documentation for this step is in sorAra1 - remember to do this
+
+###########################################################################
+# lastz alignment with Human/hg19 (DONE - 2013-06-19 - Hiram)
+    #	the original alignment
+    cd /hive/data/genomes/hg19/bed/lastzSorAra2.2013-06-17
+    cat fb.hg19.chainSorAra2Link.txt
+    #	802006172 bases of 2897316137 (27.681%) in intersection
+
+    #	running the swap
+    mkdir /hive/data/genomes/sorAra2/bed/blastz.hg19.swap
+    cd /hive/data/genomes/sorAra2/bed/blastz.hg19.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+       /hive/data/genomes/hg19/bed/lastzSorAra2.2013-06-17/DEF \
+       -swap -syntenicNet -workhorse=hgwdev -smallClusterHub=encodek \
+       -bigClusterHub=swarm -chainMinScore=3000 -chainLinearGap=medium \
+       > swap.log 2>&1
+    #  real    77m5.017s
+
+    cat fb.sorAra2.chainHg19Link.txt
+    #	778513475 bases of 2192103426 (35.514%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/sorAra2/bed
+    ln -s blastz.hg19.swap lastz.hg19
+
+############################################################################
+# blat servers (DONE - 2013-06-10 - Hiram)
+#	After getting a blat server assigned by the Blat Server Gods,
+    ssh hgwdev
+
+    hgsql -e 'INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("sorAra2", "blat4b", "17846", "1", "0"); \
+	INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("sorAra2", "blat4b", "17847", "0", "1");' \
+	    hgcentraltest
+    #	test it with some sequence
+
+#########################################################################
+## Default position to same as sorAra1 found via blat
+##  (DONE - 2013-06-10 - Hiram)
+    ssh hgwdev
+    hgsql -e 'update dbDb set defaultPos="JH798167:6989994-6998804"
+	where name="sorAra2";' hgcentraltest
+
+#########################################################################
+# CPG Islands track (DONE - 2013-06-12 - Hiram)
+
+mkdir /hive/data/genomes/sorAra2/bed/cpgIslands
+cd /hive/data/genomes/sorAra2/bed/cpgIslands
+time doCpgIslands.pl -buildDir=`pwd` -bigClusterHub=ku \
+   -dbHost=hgwdev -smallClusterHub=ku -workhorse=hgwdev sorAra2 > do.log 2>&1
+
+#############################################################################
+# lastz swap Mouse/Mm10 (DONE - 2013-06-17 - Hiram)
+    # alignment to mouse
+    cd /hive/data/genomes/mm10/bed/lastzSorAra2.2013-06-12
+    cat fb.mm10.chainSorAra2Link.txt
+    #   354499462 bases of 2652783500 (13.363%) in intersection
+
+    # and this swap
+    mkdir /hive/data/genomes/sorAra2/bed/blastz.mm10.swap
+    cd /hive/data/genomes/sorAra2/bed/blastz.mm10.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/mm10/bed/lastzSorAra2.2013-06-12/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    # real    39m53.463s
+    cat fb.sorAra2.chainMm10Link.txt
+    #  343760052 bases of 2192103426 (15.682%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/sorAra2/bed
+    ln -s blastz.mm10.swap lastz.mm10
+
+##############################################################################
+# CPG Islands Unmasked track (DONE - 2014-04-24 - Hiram)
+
+    mkdir /hive/data/genomes/sorAra2/bed/cpgIslandsUnmasked
+    cd /hive/data/genomes/sorAra2/bed/cpgIslandsUnmasked
+    time doCpgIslands.pl -buildDir=`pwd` -bigClusterHub=ku \
+     -tableName=cpgIslandExtUnmasked -dbHost=hgwdev -smallClusterHub=ku \
+        -workhorse=hgwdev \
+          -maskedSeq=/hive/data/genomes/sorAra2/sorAra2.unmasked.2bit \
+            sorAra2 > do.log 2>&1
+
+    # real    8m11.884s
+    cat fb.sorAra2.cpgIslandExtUnmasked.txt
+    # 61507517 bases of 2192103426 (2.806%) in intersection
+
+##############################################################################
+# create ucscToINSDC name mapping (DONE - 2014-04-24 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/bed/ucscToINSDC
+    cd /hive/data/genomes/sorAra2/bed/ucscToINSDC
+
+    # this script has been maturing over time, it is close to complete.
+    # to find a latest copy of it:
+    # ls -ogrt /hive/data/genomes/*/bed/ucscToINSDC/translateNames.sh
+
+    cp -p /hive/data/genomes/ochPri3/bed/ucscToINSDC/translateNames.sh .
+    ./translateNames.sh
+    # needs to be sorted to work with join
+    sort ucscToINSDC.txt > ucscToINSDC.tab
+
+    awk '{printf "%s\t0\t%d\n", $1,$2}' ../../chrom.sizes | sort \
+        > name.coordinate.tab
+
+    join name.coordinate.tab ucscToINSDC.tab | tr '[ ]' '[\t]' > ucscToINSDC.bed
+
+    cut -f1 ucscToINSDC.bed | awk '{print length($0)}' | sort -n | tail -1
+# 12
+
+    # use the 12 in this sed:
+    sed -e "s/21/12/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+        | hgLoadSqlTab sorAra2 ucscToINSDC stdin ucscToINSDC.bed
+    checkTableCoords sorAra2 ucscToINSDC
+    # should cover all bases
+    featureBits -countGaps sorAra2 ucscToINSDC
+    # 2423158183 bases of 2423158183 (100.000%) in intersection
+
+##############################################################################
+# construct downloads files (DONE - 2014-04-23 - Hiram)
+#   before starting downloads, the joinerCheck should be clean
+#   after sorAra2 is added to all.joiner:
+    joinerCheck -keys -database=sorAra2 all.joiner
+
+    cd /hive/data/genomes/sorAra2
+    makeDownloads.pl -dbHost=hgwdev -workhorse=hgwdev sorAra2 \
+	> downloads.log 2>&1
+    # real    23m48.223s
+
+    # examine the README.txt files to verify the text
+
+##############################################################################
+# ready for first pushQ entry (DONE - 2014-04-28 - Hiram)
+    mkdir /hive/data/genomes/sorAra2/pushQ
+    cd /hive/data/genomes/sorAra2/pushQ
+    makePushQSql.pl sorAra2 > sorAra2.sql 2> stderr.out
+    # real    1m52.294s
+    # some errors are legitimate and OK:
+     head stderr.out
+# WARNING: hgwdev does not have /gbdb/sorAra2/wib/gc5Base.wib
+# WARNING: hgwdev does not have /gbdb/sorAra2/wib/quality.wib
+# WARNING: hgwdev does not have /gbdb/sorAra2/bbi/gc5BaseBw/gc5Base.bw
+# WARNING: hgwdev does not have /gbdb/sorAra2/bbi/qualityBw/quality.bw
+# WARNING: sorAra2 does not have seq
+# WARNING: sorAra2 does not have extFile
+# WARNING: sorAra2 does not have estOrientInfo
+
+    scp -p sorAra2.sql qateam@hgwbeta:/tmp
+    ssh qateam@hgwbeta './bin/x86_64/hgsql qapushq < /tmp/sorAra2.sql'
+
+##############################################################################
+# setup search rule for assembly track (DONE - 2014-07-08 - Hiram)
+   export maxLen=`hgsql -N -e 'select frag from gold;' sorAra2 | awk '{print length($0)}' | sort -run | head -1`
+
+   echo $maxLen
+   #  14
+
+export C=1
+while [ $C -le $maxLen ];
+do
+  echo -n " $C: "
+  hgsql -N -e 'select frag from gold;' sorAra2 | sort -u \
+    | awk '{ print substr($0,'$C',1) }' | sort -u | xargs echo | sed -e 's/ //g'
+  C=`echo $C | awk '{print $1+1}'`
+done
+
+#   1: A
+#   2: A
+#   3: L
+#   4: T
+#   5: 0
+#   6: 2
+#   7: 012
+#   8: 0123456789
+#   9: 0123456789
+#  10: 0123456789
+#  11: 0123456789
+#  12: 0123456789
+#  13: .
+#  14: 1
+
+searchTable gold
+searchMethod prefix
+searchType bed
+shortCircuit 1
+termRegex AALT02[0-9]+(\.1)*
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+  # test pattern:
+   hgsql -N -e 'select frag from gold;' sorAra2 | wc -l
+   # 201798
+   hgsql -N -e 'select frag from gold;' sorAra2 \
+     | egrep -e 'AALT02[0-9]+(\.1)*' | wc -l
+   # 201798
+   hgsql -N -e 'select frag from gold;' sorAra2 \
+     | egrep -v -e 'AALT02[0-9]+(\.1)*' | wc -l
+   # 0
+
+##############################################################################
+##############################################################################
+# TransMap V3 tracks. see makeDb/doc/transMapTracks.txt (2014-12-21 markd)
+##############################################################################

@@ -1,0 +1,3111 @@
+# for emacs: -*- mode: sh; -*-
+#
+#	the above keeps emacs happy while working with this text document
+
+# This file describes how we made the browser database on the
+# Rattus norvegicus genome, March 2012 update (Rnor5.0) from Baylor.
+
+#	http://www.ncbi.nlm.nih.gov/bioproject/16219
+#	http://www.ncbi.nlm.nih.gov/genome/73
+#	http://www.ncbi.nlm.nih.gov/Traces/wgs/?val=AABR06
+#	Genome Coverage : 3x BAC; 6x WGS ABI Sanger reads
+#	chrMt: NC_001665.2
+
+#	DATE:   08-Mar-2012
+#	ORGANISM:       Rattus norvegicus
+#	TAXID:  10116
+#	ASSEMBLY LONG NAME:     Rnor_5.0
+#	ASSEMBLY SHORT NAME:    Rnor_5.0
+#	ASSEMBLY SUBMITTER:     Rat Genome Sequencing Consortium
+#	ASSEMBLY TYPE:  Haploid
+#	NUMBER OF ASSEMBLY-UNITS:       1
+#	ASSEMBLY ACCESSION:     GCA_000001895.3
+#	FTP-RELEASE DATE: 19-Mar-2012
+
+#########################################################################
+## Download sequence (DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5
+    mkdir /hive/data/genomes/rn5/genbank
+    cd /hive/data/genomes/rn5/genbank
+
+    rsync -a -P \
+rsync://ftp.ncbi.nlm.nih.gov/genbank/genomes/Eukaryotes/vertebrates_mammals/Rattus_norvegicus/Rnor_5.0/ ./
+
+    faSize Primary_Assembly/assembled_chromosomes/FASTA/chr*.fa.gz
+# 2902588968 bases (334517722 N's 2568071246 real 2568071246 upper 0 lower)
+#	in 21 sequences in 21 files
+# Total size: mean 138218522.3 sd 67159802.9
+#	min 54450796 (gi|380690185|gb|CM000083.4|)
+#	max 290094216 (gi|380690196|gb|CM000072.4|) median 118718031
+
+    faSize Primary_Assembly/unlocalized_scaffolds/FASTA/*.fa.gz
+# 4156200 bases (1012688 N's 3143512 real 3143512 upper 0 lower)
+#	in 1278 sequences in 21 files
+# Total size: mean 3252.1 sd 8429.6
+#	min 500 (gi|380099756|gb|AABR06109458.1|)
+#	max 227955 (gi|380099484|gb|AABR06109730.1|) median 2219
+
+    faSize Primary_Assembly/unplaced_scaffolds/FASTA/*.fa.gz
+# 2937457 bases (1314805 N's 1622652 real 1622652 upper 0 lower)
+#	in 1439 sequences in 1 files
+# Total size: mean 2041.3 sd 5072.3 min 280 (gi|380097677|gb|AABR06111537.1|)
+#	max 73090 (gi|380452989|gb|JH620568.1|) median 723
+
+    # and all together:
+    faSize Primary_Assembly/assembled_chromosomes/FASTA/chr*.fa.gz \
+Primary_Assembly/unlocalized_scaffolds/FASTA/*.fa.gz \
+Primary_Assembly/unplaced_scaffolds/FASTA/*.fa.gz
+# 2909682625 bases (336845215 N's 2572837410 real 2572837410 upper 0 lower)
+#	in 2738 sequences in 43 files
+# Total size: mean 1062703.7 sd 13357023.2
+#	min 280 (gi|380097677|gb|AABR06111537.1|)
+#	max 290094216 (gi|380690196|gb|CM000072.4|) median 1018
+
+#########################################################################
+# fixup names for UCSC standards (DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5/ucsc
+    cd /hive/data/genomes/rn5/ucsc
+
+    ########################  Assembled Chromosomes
+    cat << '_EOF_' > toUcsc.pl
+#!/bin/env perl
+
+use strict;
+use warnings;
+
+my %accToChr;
+
+open (FH, "<../genbank/Primary_Assembly/assembled_chromosomes/chr2acc") or
+        die "can not read Primary_Assembly/assembled_chromosomes/chr2acc";
+while (my $line = <FH>) {
+    next if ($line =~ m/^#/);
+    chomp $line;
+    my ($chrN, $acc) = split('\s+', $line);
+    $accToChr{$acc} = $chrN;
+}
+close (FH);
+
+foreach my $acc (keys %accToChr) {
+    my $chrN =  $accToChr{$acc};
+    print "$acc $accToChr{$acc}\n";
+    open (FH, "zcat ../genbank/Primary_Assembly/assembled_chromosomes/AGP/chr${chrN}.agp.gz|") or die "can not read chr${chrN}.agp.gz";
+    open (UC, ">chr${chrN}.agp") or die "can not write to chr${chrN}.agp";
+    while (my $line = <FH>) {
+        if ($line =~ m/^#/) {
+            print UC $line;
+        } else {
+            $line =~ s/^$acc/chr${chrN}/;
+            print UC $line;
+        }
+    }
+    close (FH);
+    close (UC);
+    open (FH, "zcat ../genbank/Primary_Assembly/assembled_chromosomes/FASTA/chr${chrN}.fa.gz|") or die "can not read chr${chrN}.fa.gz";
+    open (UC, ">chr${chrN}.fa") or die "can not write to chr${chrN}.fa";
+    while (my $line = <FH>) {
+        if ($line =~ m/^>/) {
+            printf UC ">chr${chrN}\n";
+        } else {
+            print UC $line;
+        }
+    }
+    close (FH);
+    close (UC);
+}
+'_EOF_'
+    # << happy emacs
+    chmod +x toUcsc.pl
+    time ./toUcsc.pl
+    #	real    0m50.678s
+    time gzip *.fa *.agp
+    #	real    12m46.877s
+    faSize chr*.fa.gz
+    #	2725521370 bases (77999939 N's 2647521431 real 2647521431 upper 0
+    #	lower) in 21 sequences in 21 files
+    #	Total size: mean 129786731.9 sd 33408399.1 min 61431566 (chr19)
+    #	max 195471971 (chr1) median 124902244
+
+    ########################  Unplaced scaffolds
+    cat << '_EOF_' > unplaced.pl
+#!/bin/env perl
+
+use strict;
+use warnings;
+
+my $agpFile =  "../genbank/Primary_Assembly/unplaced_scaffolds/AGP/unplaced.scaf.agp.gz";
+my $fastaFile =  "../genbank/Primary_Assembly/unplaced_scaffolds/FASTA/unplaced.scaf.fa.gz";
+open (FH, "zcat $agpFile|") or die "can not read $agpFile";
+open (UC, ">unplaced.agp") or die "can not write to unplaced.agp";
+while (my $line = <FH>) {
+    if ($line =~ m/^#/) {
+        print UC $line;
+    } else {
+        $line =~ s/\.1//;    
+        printf UC "chrUn_%s", $line;
+    }
+}
+close (FH);
+close (UC);
+
+open (FH, "zcat $fastaFile|") or die "can not read $fastaFile";
+open (UC, ">unplaced.fa") or die "can not write to unplaced.fa";
+while (my $line = <FH>) {
+    if ($line =~ m/^>/) {
+        chomp $line;
+        $line =~ s/.*gb\|//;
+        $line =~ s/\.1\|.*//;
+        printf UC ">chrUn_$line\n";
+    } else {
+        print UC $line;
+    }
+}
+close (FH);
+close (UC);
+'_EOF_'
+    # << happy emacs
+    chmod +x unplaced.pl
+    time ./unplaced.pl
+    #	real    0m0.131s
+    # make sure none of the names got to be over 31 characers long:
+    grep -v "^#" unplaced.agp | cut -f1 | sort | uniq -c | sort -rn
+    gzip *.fa *.agp
+    # not much in that sequence:
+    faSize unplaced.fa.gz
+# 2937457 bases (1314805 N's 1622652 real 1622652 upper 0 lower)
+#	in 1439 sequences in 1 files
+# Total size: mean 2041.3 sd 5072.3 min 280 (chrUn_AABR06111537)
+#	max 73090 (chrUn_JH620568) median 723
+
+    ########################  Unlocalized scaffolds
+    cat << '_EOF_' > unlocalized.pl
+#!/bin/env perl
+
+use strict;
+use warnings;
+
+my %accToChr;
+my %chrNames;
+
+open (FH, "<../genbank/Primary_Assembly/unlocalized_scaffolds/unlocalized.chr2scaf") or
+        die "can not read Primary_Assembly/unlocalized_scaffolds/unlocalized.chr2scaf";
+while (my $line = <FH>) {
+    next if ($line =~ m/^#/);
+    chomp $line;
+    my ($chrN, $acc) = split('\s+', $line);
+    $accToChr{$acc} = $chrN;
+    $chrNames{$chrN} += 1;
+}
+close (FH);
+
+foreach my $chrN (keys %chrNames) {
+    my $agpFile =  "../genbank/Primary_Assembly/unlocalized_scaffolds/AGP/chr$chrN.unlocalized.scaf.agp.gz";
+    my $fastaFile =  "../genbank/Primary_Assembly/unlocalized_scaffolds/FASTA/chr$chrN.unlocalized.scaf.fa.gz";
+    open (FH, "zcat $agpFile|") or die "can not read $agpFile";
+    open (UC, ">chr${chrN}_random.agp") or die "can not write to chr${chrN}_random.agp";
+    while (my $line = <FH>) {
+        if ($line =~ m/^#/) {
+            print UC $line;
+        } else {
+            chomp $line;
+            my (@a) = split('\t', $line);
+            my $acc = $a[0];
+            my $accNo1 = $acc;
+            $accNo1 =~ s/.1$//;
+            die "ERROR: acc not .1: $acc" if ($accNo1 =~ m/\./);
+            die "ERROR: chrN $chrN not correct for $acc"
+                if ($accToChr{$acc} ne $chrN);
+            my $ucscName = "chr${chrN}_${accNo1}_random";
+            printf UC "%s", $ucscName;
+            for (my $i = 1; $i < scalar(@a); ++$i) {
+                printf UC "\t%s", $a[$i];
+            }
+            printf UC "\n";
+        }
+    }
+    close (FH);
+    close (UC);
+    printf "chr%s\n", $chrN;
+    open (FH, "zcat $fastaFile|") or die "can not read $fastaFile";
+    open (UC, ">chr${chrN}_random.fa") or die "can not write to chr${chrN}_random.fa";
+    while (my $line = <FH>) {
+        if ($line =~ m/^>/) {
+            chomp $line;
+            my $acc = $line;
+            $acc =~ s/.*gb\|//;
+            $acc =~ s/\|.*//;
+            my $accNo1 = $acc;
+            $accNo1 =~ s/.1$//;
+            die "ERROR: acc not .1: $acc" if ($accNo1 =~ m/\./);
+            die "ERROR: chrN $chrN not correct for $acc"
+                if ($accToChr{$acc} ne $chrN);
+            my $ucscName = "chr${chrN}_${accNo1}_random";
+            printf UC ">$ucscName\n";
+        } else {
+            print UC $line;
+        }
+    }
+    close (FH);
+    close (UC);
+}
+'_EOF_'
+    # << happy emacs
+    chmod +x unlocalized.pl
+    time ./unlocalized.pl
+    #	real    0m0.592s
+    gzip *.fa *.agp
+
+    # verify none of the names are longer than 31 characters:
+    zcat *.agp.gz | grep -v "^#" | cut -f1 | sort -u \
+	| awk '{print length($1),$1}' | sort -rn | head
+25 chr20_AABR06110665_random
+25 chr20_AABR06110664_random
+...
+
+    faSize chr*_random.fa.gz
+# 4156200 bases (1012688 N's 3143512 real 3143512 upper 0 lower)
+#	in 1278 sequences in 21 files
+# Total size: mean 3252.1 sd 8429.6 min 500 (chr2_AABR06109458_random)
+#	max 227955 (chr4_AABR06109730_random) median 2219
+
+    #	verify all the sequence is still here after all this rigamarole:
+    time faSize *.fa.gz
+# 2909682625 bases (336845215 N's 2572837410 real 2572837410 upper 0 lower)
+#	in 2738 sequences in 43 files
+# Total size: mean 1062703.7 sd 13357023.2 min 280 (chrUn_AABR06111537)
+#	max 290094216 (chr1) median 1018
+    # verify same numbers as was in the original files measured above
+
+#########################################################################
+# Create .ra file and run makeGenomeDb.pl (DONE - Hiram - 2012-03-19)
+    cd /hive/data/genomes/rn5
+    cat << '_EOF_' >rn5.config.ra
+# Config parameters for makeGenomeDb.pl:
+db rn5
+clade mammal
+scientificName Rattus norvegicus
+commonName Rat
+assemblyDate Mar. 2012
+assemblyLabel RGSC Rnor_5.0 (GCA_000001895.3)
+assemblyShortLabel RGSC 5.0
+orderKey 1559
+mitoAcc NC_001665
+fastaFiles /hive/data/genomes/rn5/ucsc/*.fa.gz
+agpFiles /hive/data/genomes/rn5/ucsc/*.agp.gz
+# qualFiles none
+dbDbSpeciesDir rat
+ncbiAssemblyId 73
+ncbiAssemblyName Rnor_5.0
+taxId 10116
+'_EOF_'
+    # << happy emacs
+
+    #	run agp step first to verify fasta and agp files agree
+    makeGenomeDb.pl -stop=agp rn5.config.ra > agp.log 2>&1
+    # verify end of agp.log indictates:
+# All AGP and FASTA entries agree - both files are valid
+    # continue with the build
+    time makeGenomeDb.pl -continue=db rn5.config.ra > db.log 2>&1
+    #	real    22m39.834s
+
+#########################################################################
+# running repeat masker (DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/repeatMasker
+    cd /hive/data/genomes/rn5/bed/repeatMasker
+    time doRepeatMasker.pl -buildDir=`pwd` -noSplit \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+	-smallClusterHub=encodek rn5 > do.log 2>&1 &
+    # hgwdev rebooted during kluster run, continuing:
+    time doRepeatMasker.pl -buildDir=`pwd` -noSplit \
+	-continue=cat -bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+	-smallClusterHub=encodek rn5 > cat.log 2>&1 &
+    #	real    55m22.186s
+    cat faSize.rmsk.txt
+    #	2909698938 bases (336845215 N's 2572853723 real 1473277432 upper
+    #	1099576291 lower) in 2739 sequences in 1 files
+    #	Total size: mean 1062321.6 sd 13354598.7 min 280 (chrUn_AABR06111537)
+    #	max 290094216 (chr1) median 1018
+    #	%37.79 masked total, %42.74 masked real
+
+    grep -i versi do.log
+# RepeatMasker version development-$Id: RepeatMasker,v 1.26 2011/09/26 16:19:44 angie Exp $
+#    April 26 2011 (open-3-3-0) version of RepeatMasker
+
+    featureBits -countGaps rn5 rmsk
+    #	1100336249 bases of 2909698938 (37.816%) in intersection
+    # why is it different than the faSize above ?
+    # because rmsk masks out some N's as well as bases, the faSize count above
+    #	separates out the N's from the bases, it doesn't show lower case N's
+
+##########################################################################
+# running simple repeat (DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/simpleRepeat
+    cd /hive/data/genomes/rn5/bed/simpleRepeat
+    time doSimpleRepeat.pl -buildDir=`pwd` -bigClusterHub=swarm \
+	-dbHost=hgwdev -workhorse=hgwdev -smallClusterHub=encodek \
+	rn5 > do.log 2>&1 &
+    #	real    14m45.644s
+
+    cat fb.simpleRepeat 
+    #	97893561 bases of 2780239565 (3.521%) in intersection
+
+    # add the TRF mask to the rmsk sequence:
+    #	it masks more sequence
+    cd /hive/data/genomes/rn5
+    twoBitMask rn5.rmsk.2bit \
+	-add bed/simpleRepeat/trfMask.bed rn5.2bit
+    #	you can safely ignore the warning about fields >= 13
+
+    twoBitToFa rn5.2bit stdout | faSize stdin > faSize.rn5.2bit.txt
+    cat faSize.rn5.2bit.txt
+    #	2909698938 bases (336845215 N's 2572853723 real 1471484052 upper
+    #	1101369671 lower) in 2739 sequences in 1 files
+    #	Total size: mean 1062321.6 sd 13354598.7 min 280 (chrUn_AABR06111537)
+    #	max 290094216 (chr1) median 1018
+    #	%37.85 masked total, %42.81 masked real
+
+    #	replace the previous symLink which goes to the unmasked 2bit
+    rm /gbdb/rn5/rn5.2bit
+    ln -s `pwd`/rn5.2bit /gbdb/rn5/rn5.2bit
+
+#########################################################################
+# Verify all gaps are marked, add any N's not in gap as type 'other'
+#	(DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/gap
+    cd /hive/data/genomes/rn5/bed/gap
+    time nice -n +19 findMotif -motif=gattaca -verbose=4 \
+	-strand=+ ../../rn5.unmasked.2bit > findMotif.txt 2>&1
+    #	real    0m35.258s
+    grep "^#GAP " findMotif.txt | sed -e "s/^#GAP //" > allGaps.bed
+    time featureBits -countGaps rn5 -not gap -bed=notGap.bed
+    #	2573362844 bases of 2909698938 (88.441%) in intersection
+    #	real    0m14.151s
+
+    time featureBits -countGaps rn5 allGaps.bed notGap.bed -bed=new.gaps.bed
+    #	509121 bases of 2909698938 (0.017%) in intersection
+    #	real    2m40.070s
+
+    #	what is the highest index in the existing gap table:
+    hgsql -N -e "select ix from gap;" rn5 | sort -n | tail -1
+    #	22612
+    cat << '_EOF_' > mkGap.pl
+#!/bin/env perl
+
+use strict;
+use warnings;
+
+my $ix=`hgsql -N -e "select ix from gap;" rn5 | sort -n | tail -1`;
+chomp $ix;
+
+open (FH,"<new.gaps.bed") or die "can not read new.gaps.bed";
+while (my $line = <FH>) {
+    my ($chrom, $chromStart, $chromEnd, $rest) = split('\s+', $line);
+    ++$ix;
+    printf "%s\t%d\t%d\t%d\tN\t%d\tother\tyes\n", $chrom, $chromStart,
+        $chromEnd, $ix, $chromEnd-$chromStart;
+}
+close (FH);
+'_EOF_'
+    # << happy emacs
+    chmod +x ./mkGap.pl
+    ./mkGap.pl > other.bed
+    featureBits -countGaps rn5 other.bed
+    #	509121 bases of 2909698938 (0.017%) in intersection
+    wc -l other.bed
+    #	148489
+    # verify no mistake here:
+    featureBits -countGaps rn5 gap other.bed
+    #	0 bases of 2909698938 (0.000%) in intersection
+
+    hgLoadBed -sqlTable=$HOME/kent/src/hg/lib/gap.sql \
+	-noLoad rn5 otherGap other.bed
+    #	starting with this many
+    hgsql -e "select count(*) from gap;" rn5
+    #	109913
+    hgsql rn5 -e 'load data local infile "bed.tab" into table gap;'
+    #	result count:
+    hgsql -e "select count(*) from gap;" rn5
+    #	258402
+    calc 109913 \+ 148489
+    #	109913 + 148489 = 258402
+
+    # verify we aren't adding gaps where gaps already exist
+    # this would output errors if that were true:
+    gapToLift -minGap=1 rn5 nonBridged.lift -bedFile=nonBridged.bed
+    # see example in danRer7.txt when problems arise
+
+    # there are no non-bridged gaps here:
+    hgsql -N -e "select bridge from gap;" rn5 | sort | uniq -c
+    #	8109 no
+    #	101804 yes
+
+##########################################################################
+## WINDOWMASKER (DONE - 2012-03-19 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/windowMasker
+    cd /hive/data/genomes/rn5/bed/windowMasker
+    time nice -n +19 doWindowMasker.pl -buildDir=`pwd` -workhorse=hgwdev \
+	-dbHost=hgwdev rn5 > do.log 2>&1 &
+    #	real    231m12.464s
+
+    # Masking statistics
+    twoBitToFa rn5.wmsk.2bit stdout | faSize stdin
+    #	2909698938 bases (336845215 N's 2572853723 real 1725214664 upper
+    #	847639059 lower) in 2739 sequences in 1 files
+    #	Total size: mean 1062321.6 sd 13354598.7 min 280 (chrUn_AABR06111537)
+    #	max 290094216 (chr1) median 1018
+    #	%29.13 masked total, %32.95 masked real
+
+    twoBitToFa rn5.wmsk.sdust.2bit stdout | faSize stdin
+    #	2909698938 bases (336845215 N's 2572853723 real 1710265619 upper
+    #	862588104 lower) in 2739 sequences in 1 files
+    #	Total size: mean 1062321.6 sd 13354598.7 min 280 (chrUn_AABR06111537)
+    #	max 290094216 (chr1) median 1018
+    #	%29.65 masked total, %33.53 masked real
+
+    hgLoadBed rn5 windowmaskerSdust windowmasker.sdust.bed.gz
+    #	Loaded 13855996 elements of size 3
+
+    featureBits -countGaps rn5 windowmaskerSdust
+    #	1199303584 bases of 2909698938 (41.217%) in intersection
+
+    #	eliminate the gaps from the masking
+    featureBits rn5 -not gap -bed=notGap.bed
+    #	2572853723 bases of 2572853723 (100.000%) in intersection
+    time nice -n +19 featureBits rn5 windowmaskerSdust notGap.bed \
+        -bed=stdout | gzip -c > cleanWMask.bed.gz
+    #	862588104 bases of 2572853723 (33.527%) in intersection
+    #	real    3m53.016s
+
+    #	reload track to get it clean
+    hgLoadBed rn5 windowmaskerSdust cleanWMask.bed.gz
+    #	Loaded 13904385 elements of size 4
+    time featureBits -countGaps rn5 windowmaskerSdust
+    #	862588104 bases of 2909698938 (29.645%) in intersection
+    #	real    1m26.398s
+
+    #	mask with this clean result
+    zcat cleanWMask.bed.gz \
+	| twoBitMask ../../rn5.unmasked.2bit stdin \
+	    -type=.bed rn5.cleanWMSdust.2bit
+    twoBitToFa rn5.cleanWMSdust.2bit stdout | faSize stdin \
+        > rn5.cleanWMSdust.faSize.txt
+    cat rn5.cleanWMSdust.faSize.txt
+    #	2909698938 bases (336845215 N's 2572853723 real 1710265619 upper
+    #	862588104 lower) in 2739 sequences in 1 files
+    #	Total size: mean 1062321.6 sd 13354598.7 min 280 (chrUn_AABR06111537)
+    #	max 290094216 (chr1) median 1018
+    #	%29.65 masked total, %33.53 masked real
+
+    # how much does this window masker and repeat masker overlap:
+    featureBits -countGaps rn5 rmsk windowmaskerSdust
+    #	648600018 bases of 2909698938 (22.291%) in intersection
+
+#########################################################################
+# MASK SEQUENCE WITH WM+TRF
+    # not running this since RM + TRF is plenty of masking
+#    cd /hive/data/genomes/rn5
+#    twoBitMask -add bed/windowMasker/rn5.cleanWMSdust.2bit \
+#	bed/simpleRepeat/trfMask.bed rn5.2bit
+    #	safe to ignore the warnings about BED file with >=13 fields
+#    twoBitToFa rn5.2bit stdout | faSize stdin > faSize.rn5.txt
+#    cat faSize.rn5.txt
+
+    #	create symlink to gbdb
+#    ssh hgwdev
+#    rm /gbdb/rn5/rn5.2bit
+#    ln -s `pwd`/rn5.2bit /gbdb/rn5/rn5.2bit
+
+#########################################################################
+# PREPARE LINEAGE SPECIFIC REPEAT FILES FOR BLASTZ (DONE - 2012-03-23 - Hiram)
+    ssh encodek
+    mkdir /hive/data/genomes/rn5/bed/linSpecRep
+    cd /hive/data/genomes/rn5/bed/linSpecRep
+
+    # split the RM output by chromosome name into separate files
+    mkdir rmsk dateRepeats
+    head -3 ../repeatMasker/rn5.sorted.fa.out > rmsk.header.txt
+    headRest 3 ../repeatMasker/rn5.sorted.fa.out \
+	| splitFileByColumn -ending=.out -col=5 -head=rmsk.header.txt stdin rmsk
+
+    ls -1S rmsk/* > rmOut.list
+    wc -l rmOut.list
+    #	2382 rmOut.list
+
+    cat << '_EOF_' > mkLSR
+#!/bin/csh -fe
+rm -f dateRepeats/$1_homo-sapiens_mus-musculus
+/scratch/data/RepeatMasker110426/DateRepeats \
+    $1 -query rat -comp human -comp mouse
+mv $1_homo-sapiens_mus-musculus dateRepeats
+'_EOF_'
+    #	<< happy emacs
+    chmod +x mkLSR
+
+    cat << '_EOF_' > template
+#LOOP
+./mkLSR $(path1) {check out line+ dateRepeats/$(file1)_homo-sapiens_mus-musculus}
+#ENDLOOP
+'_EOF_'
+    #	<< happy emacs
+
+    gensub2 rmOut.list single template jobList
+    para create jobList
+    para try ... check ... push ... etc...
+    para time
+# Completed: 2382 of 2382 jobs
+# CPU time in finished jobs:      37294s     621.57m    10.36h    0.43d  0.001 y
+# IO & Wait Time:                  6367s     106.11m     1.77h    0.07d  0.000 y
+# Average job time:                  18s       0.31m     0.01h    0.00d
+# Longest finished job:              78s       1.30m     0.02h    0.00d
+# Submission to last job:          2245s      37.42m     0.62h    0.03d
+
+    mkdir notInHuman notInMouse
+    for F in dateRepeats/chr*.out_homo-sapiens*
+    do
+	B=`basename ${F}`
+	B=${B/.out*/}
+	echo $B 
+        /cluster/bin/scripts/extractRepeats 1 ${F} > \
+		notInHuman/${B}.out.spec
+        /cluster/bin/scripts/extractRepeats 2 ${F} > \
+		notInMouse/${B}.out.spec
+    done
+
+    #	Verify that these two things are actually different
+    #	To check identical
+    find ./notInHuman ./notInMouse -name "*.out.spec" | \
+	while read FN; do echo `cat ${FN} | sum -r` ${FN}; done \
+	| sort -k1,1n | sort -t"/" -k3,3 > check.same
+    # some of them are the same, but not all:
+    sed -e 's#./notInHuman/##; s#./notInMouse/##' check.same \
+	| sort | uniq -c | sort -rn | less
+    # you will see a count of two at the beginning, but it becomes one soon
+
+    #	Copy to data/staging for cluster replication
+    mkdir /hive/data/staging/data/rn5
+    rsync -a -P ./notInMouse/ /hive/data/staging/data/rn5/notInMouse/
+    rsync -a -P ./notInHuman/ /hive/data/staging/data/rn5/notInHuman/
+
+    # We also need the nibs for the lastz runs with lineage specific repeats
+    mkdir /hive/data/staging/data/rn5/nib
+    mkdir /hive/data/genomes/rn5/nib
+    cd /hive/data/genomes/rn5
+    cut -f1 chrom.sizes | while read C
+do
+    twoBitToFa -seq=${C} rn5.2bit stdout | faToNib -softMask stdin nib/${C}.nib
+    ls -og nib/$C.nib
+done
+    # verify one is properly masked:
+    nibFrag -masked nib/chrM.nib 0 `grep -w chrM chrom.sizes | cut -f2` + \
+	stdout | faSize stdin
+    #	16313 bases (0 N's 16313 real 15922 upper 391 lower)
+    #	in 1 sequences in 1 files
+    #	%2.40 masked total, %2.40 masked real
+    # compare to:
+    twoBitToFa -seq=chrM rn5.2bit stdout | faSize stdin
+    #	16313 bases (0 N's 16313 real 15922 upper 391 lower)
+    #	in 1 sequences in 1 files
+    #	%2.40 masked total, %2.40 masked real
+
+    #	Copy to data/genomes staging for cluster replication
+    rsync -a -P ./nib/ /hive/data/staging/data/rn5/nib/
+
+#########################################################################
+# cpgIslands - (DONE - 2011-04-20 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/cpgIslands
+    cd /hive/data/genomes/rn5/bed/cpgIslands
+    time doCpgIslands.pl rn5 > do.log 2>&1
+    #   Elapsed time: 11m10s
+
+    cat fb.rn5.cpgIslandExt.txt
+    #   10377460 bases of 2572853723 (0.403%) in intersection
+
+#########################################################################
+# genscan - (DONE - 2011-04-25 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/genscan
+    cd /hive/data/genomes/rn5/bed/genscan
+    time doGenscan.pl rn5 > do.log 2>&1
+    #   real    104m9.716s
+    # a number of jobs did not finish, rerunning with window size 2000000
+    #   only chr7 completed at 15000000
+    # rerunning with window size of 1000000
+    #   real    78m10.904s
+    # rerunning with window size of 500000
+    # rerunning with window size of 250000
+    # rerunning with window size of 100000
+    #   real    85m5.776s
+    # rerunning with window size of 50000
+    #   real    86m57.706s
+    #   This is not working.  Need to run these split
+    mkdir /hive/data/genomes/rn5/bed/genscan/splitRun
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun
+    gapToLift rn5 rn5.nonBridged.lift -bedFile=rn5.nonBridged.bed
+
+    for C in 2 3 4 5 6 7 11 13 15 19
+do
+    echo chr${C}
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun
+    grep -w "chr${C}" rn5.nonBridged.lift | grep -v random \
+        | sed -e "s/chr${C}./chr${C}_/" > chr${C}.nonBridged.lift
+    mkdir chr${C}
+    faToTwoBit ../hardMaskedFa/000/chr${C}.fa chr${C}/chr${C}.2bit
+    ~/kent/src/hg/utils/lft2BitToFa.pl chr${C}/chr${C}.2bit \
+        chr${C}.nonBridged.lift > chr${C}/chr${C}.nonBridged.fa
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun/chr${C}
+    mkdir split${C}
+    faSplit sequence chr${C}.nonBridged.fa 100 split${C}/chr${C}_
+done
+
+    for C in 2 3 4 5 6 7 11 13 15 19
+do
+    grep -w "chr${C}" rn5.nonBridged.lift | grep -v random \
+        | sed -e "s/chr${C}./chr${C}_/" > chr${C}.nonBridged.lift
+done
+
+    for C in 2 3 4 5 6 7 11 13 15 19
+do
+    echo chr${C}
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun/chr${C}
+    echo '#!/bin/sh' > cmdList.sh
+    export NL=-1
+    ls split${C} | while read F
+  do
+  NL=`echo $NL | awk '{print $1+1}'`
+  if [ "${NL}" -gt 7 ]; then
+    NL=0
+    echo "echo waiting before $F" >> cmdList.sh
+    echo wait >> cmdList.sh
+  fi
+  echo "/cluster/bin/x86_64/gsBig split${C}/${F} gtf/${F}.gtf -trans=pep/${F}.pep -subopt=subopt/${F}.bed -exe=/scratch/data/genscan/genscan -par=/scratch/data/genscan/HumanIso.smat -tmp=/dev/shm -window=2400000 &" 
+  done >> cmdList.sh
+    echo "echo waiting at end" >> cmdList.sh
+    echo "wait" >> cmdList.sh
+    chmod +x cmdList.sh
+    rm -fr gtf pep subopt
+    mkdir gtf pep subopt
+done
+
+# running chr15 - real    345m30.138s
+    # running them all:
+    time ./runAll.sh > runAll.log 2>&1
+    #   real    458m23.357s
+
+    # collecting the results:
+for C in chr2 chr3 chr4 chr5 chr6 chr7 chr11 chr13 chr15 chr19
+do
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun/${C}
+    cat gtf/${C}_*.gtf | liftUp -type=.gtf stdout ../${C}.nonBridged.lift error stdin \
+        | sed -e "s/${C}_0\([0-4]\)\./${C}.\1/g" > ${C}.gtf
+cat subopt/${C}_*.bed | liftUp -type=.bed stdout ../${C}.nonBridged.lift error stdin \
+        | sed -e "s/${C}_0\([0-4]\)\./${C}.\1/g" > ${C}.subopt.bed
+cat pep/${C}_*.pep | sed -e "s/${C}_0\([0-4]\)\./${C}.\1/g" > ${C}.pep
+ls -l ../../gtf/00?/${C}.gtf ../../pep/00?/${C}.pep ../../subopt/00?/${C}.bed
+ls -l ${C}.gtf ${C}.pep ${C}.subopt.bed
+done
+
+    # after verifying the sizes of the files seem same compared to what
+    #   happened in the main run:
+for C in chr2 chr3 chr4 chr5 chr6 chr7 chr11 chr13 chr15 chr19
+do
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun/${C}
+   ls -l ../../gtf/00?/${C}.gtf ../../pep/00?/${C}.pep ../../subopt/00?/${C}.bed
+    ls -l ${C}.gtf ${C}.pep ${C}.subopt.bed
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun
+done
+
+    # this is tricky, it is counting on the file existing, empty or otherwise
+for C in chr2 chr3 chr4 chr5 chr6 chr7 chr11 chr13 chr15 chr19
+do
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun/${C}
+    D=`ls ../../gtf/00?/${C}.gtf`
+    rm -f "${D}"
+    cp -p ${C}.gtf "${D}"
+    D=`ls ../../pep/00?/${C}.pep`
+    rm -f "${D}"
+    cp -p ${C}.pep "${D}"
+    D=`ls ../../subopt/00?/${C}.bed`
+    rm -f "${D}"
+    cp -p ${C}.subopt.bed "${D}"
+    cd /hive/data/genomes/rn5/bed/genscan/splitRun
+done
+
+    # Now, we can continue
+    cd /hive/data/genomes/rn5/bed/genscan
+    time doGenscan.pl -continue=makeBed -workhorse=hgwdev -dbHost=hgwdev \
+        rn5 > makeBed.log 2>&1
+    #   real    1m51.711s
+
+    cat fb.rn5.genscan.txt
+    #   56153914 bases of 2572853723 (2.183%) in intersection
+    cat fb.rn5.genscanSubopt.txt
+    #   59799363 bases of 2572853723 (2.324%) in intersection
+
+#########################################################################
+# MAKE 11.OOC FILE FOR BLAT/GENBANK (DONE - 2012-05-04 - Hiram)
+    # Use -repMatch=900, based on size -- for human we use 1024
+    # use the "real" number from the faSize measurement,
+    # hg19 is 2897316137, calculate the ratio factor for 1024:
+    calc \( 2572837410 / 2897316137 \) \* 1024
+    #	( 2572837410 / 2897316137 ) * 1024 = 909.319309
+
+    # round up to 950  (rn4 was 1024)
+
+    cd /hive/data/genomes/rn5
+    time blat rn5.2bit /dev/null /dev/null -tileSize=11 \
+      -makeOoc=jkStuff/rn5.11.ooc -repMatch=800
+    #   Wrote 34513 overused 11-mers to jkStuff/rn5.11.ooc
+    #   rn4 had: Wrote 25608 overused 11-mers to /cluster/bluearc/rn4/11.ooc
+    #	real     1m13.627s
+
+    # there are non-bridged gaps, create lift file needed for genbank
+    hgsql -N -e "select bridge from gap;" rn5 | sort | uniq -c
+    #   8109 no
+    #   250293 yes
+
+    cd /hive/data/genomes/rn5/jkStuff
+    gapToLift rn5 rn5.nonBridged.lift -bedFile=rn5.nonBridged.bed
+    # largest non-bridged contig:
+    awk '{print $3-$2,$0}' rn5.nonBridged.bed | sort -nr | head
+    #   13151837 chr10  48884958        62036795        chr10.150
+
+#########################################################################
+# AUTO UPDATE GENBANK (DONE - 2012-05-04 - Hiram)
+    # examine the file:
+    /cluster/data/genbank/data/organism.lst
+    # for your species to see what counts it has for:
+# organism       mrnaCnt estCnt  refSeqCnt
+# Rattus norvegicus	123478	1103589	16820
+    # to decide which "native" mrna or ests you want to specify in genbank.conf
+
+    ssh hgwdev  
+    cd $HOME/kent/src/hg/makeDb/genbank
+    git pull
+    # edit etc/genbank.conf to add:
+# rn5 (rat)
+rn5.serverGenome = /hive/data/genomes/rn5/rn5.2bit
+rn5.clusterGenome = /hive/data/genomes/rn5/rn5.2bit
+rn5.ooc = /hive/data/genomes/rn5/jkStuff/rn5.11.ooc
+rn5.lift = /hive/data/genomes/rn5/jkStuff/rn5.nonBridged.lift
+rn5.refseq.mrna.native.pslCDnaFilter  = ${finished.refseq.mrna.native.pslCDnaFilter}
+rn5.refseq.mrna.xeno.pslCDnaFilter    = ${finished.refseq.mrna.xeno.pslCDnaFilter}
+rn5.genbank.mrna.native.pslCDnaFilter = ${finished.genbank.mrna.native.pslCDnaFilter}
+rn5.genbank.mrna.xeno.pslCDnaFilter   = ${finished.genbank.mrna.xeno.pslCDnaFilter}
+rn5.genbank.est.native.pslCDnaFilter  = ${finished.genbank.est.native.pslCDnaFilter}
+rn5.downloadDir = rn5
+rn5.refseq.mrna.xeno.load  = yes
+rn5.refseq.mrna.xeno.loadDesc = yes
+rn5.perChromTables = no
+rn5.mgc = yes
+# rn5.upstreamGeneTbl = refGene
+# rn5.upstreamMaf = multiz9way /hive/data/genomes/rn5/bed/multiz9way/species.lst
+
+    # end of section added to etc/genbank.conf
+    git commit -m "adding rn5 rat" etc/genbank.conf
+    git push
+    make etc-update
+
+    ssh hgwdev			# used to do this on "genbank" machine
+    screen -S rn5           # long running job managed in screen
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbAlignStep -initial rn5 &
+    #	var/build/logs/2012.05.04-10:28:06.rn5.initalign.log
+    #   real    1166m46.194s
+
+    # load database when finished
+    ssh hgwdev
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbDbLoadStep -drop -initialLoad rn5 &
+    #	logFile: var/dbload/hgwdev/logs/2012.05.07-13:39:54.dbload.log
+    #   real    63m53.369s
+
+    # enable daily alignment and update of hgwdev (DONE - 2012-02-09 - Hiram)
+    cd ~/kent/src/hg/makeDb/genbank
+    git pull
+    # add rn5 to:
+        etc/align.dbs etc/hgwdev.dbs
+    git commit -m "Added rn5." etc/align.dbs etc/hgwdev.dbs
+    git push
+    make etc-update
+
+#########################################################################
+# constructing downloads
+    # first add rn5 to all.joiner and make sure joinerCheck is clean on it
+    cd /hive/data/genomes/rn5
+    time makeDownloads.pl -workhorse=hgwdev -dbHost=hgwdev rn5 \
+        > downloads.log 2>&1
+    #   real    24m32.649s
+    # need to edit the README.txt files to make sure they are correct.
+
+##########################################################################
+# create pushQ entry (DONE - 2012-05-23 - Hiram)
+    # first make sure all.joiner is up to date and has this new organism
+    # a keys check should be clean:
+    cd ~/kent/src/hg/makeDb/schema
+    joinerCheck -database=rn5 -keys all.joiner
+
+    mkdir /hive/data/genomes/rn5/pushQ
+    cd /hive/data/genomes/rn5/pushQ
+    makePushQSql.pl rn5 > rn5.sql 2> stderr.out
+    # check stderr.out for no significant problems, it is common to see:
+# WARNING: hgwdev does not have /gbdb/rn5/wib/gc5Base.wib
+# WARNING: hgwdev does not have /gbdb/rn5/wib/quality.wib
+# WARNING: hgwdev does not have /gbdb/rn5/bbi/quality.bw
+# WARNING: rn5 does not have seq
+# WARNING: rn5 does not have extFile
+    # which are no real problem
+    # if some tables are not identified:
+# WARNING: Could not tell (from trackDb, all.joiner and hardcoded lists of
+# supporting and genbank tables) which tracks to assign these tables to:
+#	<some table list ... >
+    # put them in manually after loading the pushQ entry
+    scp -p rn5.sql hgwbeta:/tmp
+    ssh hgwbeta
+    cd /tmp
+    hgsql qapushq < rn5.sql
+
+#########################################################################
+# fixup search rule for assembly track/gold table (DONE - 2012-06-07 - Hiram)
+    hgsql -N -e "select frag from gold;" rn5 | sort | head -1
+AABR06000001.1
+    hgsql -N -e "select frag from gold;" rn5 | sort | tail -2
+AABR06112651.1
+NC_001665
+
+    # to test the rule:
+    hgsql -N -e "select frag from gold;" rn5 | wc -l
+    #   112652
+    # should find all:
+    hgsql -N -e "select frag from gold;" rn5 \
+        | egrep -e '[AN][AC][B_][R0]0[0-9]+(\.1)?' | wc -l
+    #   112652
+    # or exclude all:
+    hgsql -N -e "select frag from gold;" rn5 \
+        | egrep -v -e '[AN][AC][B_][R0]0[0-9]+(\.1)?' | wc -l
+    #   0
+
+    # hence, add to trackDb/rat/rn5/trackDb.ra
+searchTable gold
+shortCircuit 1
+termRegex [AN][AC][B_][R0]0[0-9]+(\.1)?
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+#########################################################################
+# chain/net hg19 (DONE - 2012-06-28 - Hiram)
+    # the original alignment to human:
+    cd /hive/data/genomes/hg19/bed/lastzRn5.2012-06-27
+    cat fb.hg19.chainRn5Link.txt
+    #   917356917 bases of 2897316137 (31.662%) in intersection
+
+    #	running the swap - DONE - 2012-06-28
+    mkdir /hive/data/genomes/rn5/bed/blastz.hg19.swap
+    cd /hive/data/genomes/rn5/bed/blastz.hg19.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/hg19/bed/lastzRn5.2012-06-27/DEF \
+	-swap -noLoadChainSplit \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #   real    66m53.095s
+    cat fb.rn5.chainHg19Link.txt
+    #	933922552 bases of 2572853723 (36.299%) in intersection
+
+##############################################################################
+# make refSeq amino acid fasta file for use with mm10 UCSC genes
+#
+#  downloaded rn5.refGenePepProtNames.faa.gz using table browser, selecting
+#  refGene, download sequence, and clicking the "protein" radio button.
+#  This generates a file with the protein id's, whereas as we want the NM_*
+#  id's for the blastp process to work
+
+zcat rn5.refGenePepProtNames.faa.gz | awk '/^>/ {print buf; buf=$1 " "} ! /^>/ {buf=buf $1}' | tr -d '>' | sed 's/\.[0-9] / /' | sort > tmp1
+
+echo "select refGene.name,refLink.protAcc from refGene,refLink where refGene.name=refLink.mrnaAcc and refLink.protAcc != ''" | hgsql rn5 | tail -n +2 | awk '{print $2,$1}' | sort > tmp2
+
+join tmp1 tmp2 | awk '{printf ">%s\n%s\n",$3,$2}' > rn5.refGenePep.faa
+rm tmp1 tmp2
+
+#########################################################################
+# LASTZ Macaca rheMac3 (DONE - 2012-07-10 - Chin)
+    screen -S rheMac3-rn5
+    mkdir /cluster/data/rn5/bed/lastz.rheMac3.2012-07-10
+    cd /cluster/data/rn5/bed/lastz.rheMac3.2012-07-10
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #   number of jobs, 50,000 to something under 100,000
+
+    cat << '_EOF_' > DEF
+# rat vs. macacque
+BLASTZ_M=254
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/cluster/data/rn5/rn5.2bit
+SEQ1_LEN=/cluster/data/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+
+# QUERY: Macaca Mulatta RheMac3
+SEQ2_DIR=/cluster/data/rheMac3/rheMac3.2bit
+SEQ2_LEN=/cluster/data/rheMac3/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=1000
+
+BASE=/cluster/data/rn5/bed/lastz.rheMac3.2012-07-10
+'_EOF_'
+    # << happy emacs
+
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+      -workhorse=hgwdev -smallClusterHub=memk -bigClusterHub=swarm \
+      -chainMinScore=3000 -chainLinearGap=medium \
+      -syntenicNet `pwd`/DEF > do.log 2>&1 &
+    #   real    1526m4.274s
+    cat fb.rn5.chainRheMac3Link.txt
+    # 896256761 bases of 2572853723 (34.835%) in intersection
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastz.rheMac3.2012-07-10 lastz.rheMac3
+
+    # then swap
+    mkdir /cluster/data/rheMac3/bed/blastz.rn5.swap
+    cd /cluster/data/rheMac3/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        /cluster/data/rn5/bed/lastz.rheMac3.2012-07-10/DEF \
+        -workhorse=hgwdev -smallClusterHub=memk -bigClusterHub=swarm \
+        -chainMinScore=3000 -chainLinearGap=medium \
+        -swap -syntenicNet > swap.log 2>&1 &
+    #   real    69m12.752s
+    cat fb.rheMac3.chainRn5Link.txt
+    # 858153767 bases of 2639145830 (32.516%) in intersection
+    cd /hive/data/genomes/rheMac3/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+##############################################################################
+# LIFTOVER TO rn4 (DONE - 2012-11-01 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/blat.rn4.2012-11-01
+    cd /hive/data/genomes/rn5/bed/blat.rn4.2012-11-01
+    # -debug run to create run dir, preview scripts...
+    doSameSpeciesLiftOver.pl -debug \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+        -ooc /hive/data/genomes/rn5/jkStuff/rn5.11.ooc rn5 rn4
+    # Real run:
+    time nice -n +19 doSameSpeciesLiftOver.pl -verbose=2 \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+        -ooc /hive/data/genomes/rn5/jkStuff/rn5.11.ooc rn5 rn4 > do.log 2>&1
+    #	real    114m49.176s
+
+    # test the browser on hgwdev to see if it can convert from rn5 to rn4
+
+#############################################################################
+# lastz zebrafish danRer7 (DONE - 2012-11-13,14 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5DanRer7
+    mkdir /hive/data/genomes/rn5/bed/lastzDanRer7.2012-11-13
+    cd /hive/data/genomes/rn5/bed/lastzDanRer7.2012-11-13
+
+    cat << '_EOF_' > DEF
+# Rat vs. zebrafish
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+BLASTZ_Y=3400
+BLASTZ_L=6000
+BLASTZ_K=2200
+BLASTZ_Q=/scratch/data/blastz/HoxD55.q
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=15
+
+# QUERY: zebrafish danRer7
+SEQ2_DIR=/scratch/data/danRer7/danRer7.2bit
+SEQ2_LEN=/scratch/data/danRer7/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=10
+
+BASE=/hive/data/genomes/rn5/bed/lastzDanRer7.2012-11-13
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    # when not present, SEQ2_LIMIT is a default 100
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1 &
+    #	real    1099m42.792s
+    cat fb.rn5.chainDanRer7Link.txt
+    #	66573209 bases of 2572853723 (2.588%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzDanRer7.2012-11-13 lastz.danRer7
+
+    #	and for the swap
+    mkdir /hive/data/genomes/danRer7/bed/blastz.rn5.swap
+    cd /hive/data/genomes/danRer7/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzDanRer7.2012-11-13/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -swap -chainMinScore=5000 -chainLinearGap=loose > swap.log 2>&1 &
+    #	real    15m5.664s
+    cat  fb.danRer7.chainRn5Link.txt
+    #	68007020 bases of 1409770109 (4.824%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/danRer7/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# lastz frog xenTro3 (DONE - 2012-11-13,14 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5XenTro3
+    mkdir /hive/data/genomes/rn5/bed/lastzXenTro3.2012-11-13
+    cd /hive/data/genomes/rn5/bed/lastzXenTro3.2012-11-13
+
+    cat << '_EOF_' > DEF
+# Rat vs. frog
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+BLASTZ_Y=3400
+BLASTZ_L=6000
+BLASTZ_K=2200
+BLASTZ_Q=/scratch/data/blastz/HoxD55.q
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=30
+
+# QUERY: frog xenTro3
+SEQ2_DIR=/scratch/data/xenTro3/xenTro3.2bit
+SEQ2_LEN=/scratch/data/xenTro3/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=80
+
+BASE=/hive/data/genomes/rn5/bed/lastzXenTro3.2012-11-13
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    # when not present, SEQ2_LIMIT is a default 100
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1 &
+    #	real    1307m43.094s
+    cat fb.rn5.chainXenTro3Link.txt
+    #	82011038 bases of 2572853723 (3.188%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzXenTro3.2012-11-13 lastz.xenTro3
+
+    #	and for the swap
+    mkdir /hive/data/genomes/xenTro3/bed/blastz.rn5.swap
+    cd /hive/data/genomes/xenTro3/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzXenTro3.2012-11-13/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -swap -chainMinScore=5000 -chainLinearGap=loose > swap.log 2>&1 &
+    #	real    25m43.688s
+
+    cat  fb.xenTro3.chainRn5Link.txt
+    #	87276772 bases of 1358334882 (6.425%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/xenTro3/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# lastz turkey melGal1 (DONE - 2012-11-13,14 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5MelGal1
+    mkdir /hive/data/genomes/rn5/bed/lastzMelGal1.2012-11-13
+    cd /hive/data/genomes/rn5/bed/lastzMelGal1.2012-11-13
+
+    cat << '_EOF_' > DEF
+# Rat vs. turkey
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+BLASTZ_Y=3400
+BLASTZ_L=6000
+BLASTZ_K=2200
+BLASTZ_Q=/scratch/data/blastz/HoxD55.q
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=20
+
+# QUERY: turkey melGal1
+SEQ2_DIR=/scratch/data/melGal1/melGal1.2bit
+SEQ2_LEN=/scratch/data/melGal1/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=30
+
+BASE=/hive/data/genomes/rn5/bed/lastzMelGal1.2012-11-13
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    # when not present, SEQ2_LIMIT is a default 100
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1 &
+    #	real    1225m37.742s
+    cat fb.rn5.chainMelGal1Link.txt
+    #	93392251 bases of 2572853723 (3.630%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzMelGal1.2012-11-13 lastz.melGal1
+
+    #	and for the swap
+    mkdir /hive/data/genomes/melGal1/bed/blastz.rn5.swap
+    cd /hive/data/genomes/melGal1/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzMelGal1.2012-11-13/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -swap -chainMinScore=5000 -chainLinearGap=loose > swap.log 2>&1 &
+    #	real    10m0.139s
+    cat  fb.melGal1.chainRn5Link.txt
+    #	74638274 bases of 935922386 (7.975%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/melGal1/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# lastz chicken galGal4 (DONE - 2012-11-29,12-04 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5GalGal4
+    mkdir /hive/data/genomes/rn5/bed/lastzGalGal4.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzGalGal4.2012-11-29
+
+    cat << '_EOF_' > DEF
+# Rat vs. chicken
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+BLASTZ_Y=3400
+BLASTZ_L=6000
+BLASTZ_K=2200
+BLASTZ_Q=/scratch/data/blastz/HoxD55.q
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=20
+
+# QUERY: chicken galGal4
+SEQ2_DIR=/hive/data/genomes/galGal4/galGal4.2bit
+SEQ2_LEN=/hive/data/genomes/galGal4/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=60
+
+BASE=/hive/data/genomes/rn5/bed/lastzGalGal4.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    # when not present, SEQ2_LIMIT is a default 100
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1 &
+    #	Elapsed time: 1483m27s
+    cat fb.rn5.chainGalGal4Link.txt
+    #	97465937 bases of 2572853723 (3.788%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzGalGal4.2012-11-29 lastz.galGal4
+
+    #	and for the swap
+    mkdir /hive/data/genomes/galGal4/bed/blastz.rn5.swap
+    cd /hive/data/genomes/galGal4/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzGalGal4.2012-11-29/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -swap -chainMinScore=5000 -chainLinearGap=loose > swap.log 2>&1 &
+    #	real    11m49.505s
+    cat fb.galGal4.chainRn5Link.txt
+    #	81184849 bases of 1032854810 (7.860%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/galGal4/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# lastz Opossum monDom5 (WORKING - 2012-11-29 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5MonDom5
+    mkdir /hive/data/genomes/rn5/bed/lastzMonDom5.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzMonDom5.2012-11-29
+
+    cat << '_EOF_' > DEF
+# Rat vs. opossum
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+BLASTZ_M=254
+BLASTZ_Y=3400
+BLASTZ_L=6000
+BLASTZ_K=2200
+BLASTZ_Q=/scratch/data/blastz/HoxD55.q
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=20
+
+# QUERY: Opossum monDom5
+SEQ2_DIR=/scratch/data/monDom5/monDom5.2bit
+SEQ2_LEN=/scratch/data/monDom5/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+
+BASE=/hive/data/genomes/rn5/bed/lastzMonDom5.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    #	Can't do this when there are only the single small set of chroms
+     time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1 &
+    #	real    3213m53.797s
+    #   chaining failed, running last two for chr1 and chr3
+    ./chain.csh rn5.2bit:chr1: chain/rn5.2bit:chr1:.chain &
+    ./chain.csh rn5.2bit:chr3: chain/rn5.2bit:chr3:.chain
+    #   real    269m41.974s
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        -continue=chainMerge `pwd`/DEF \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -chainMinScore=5000 -chainLinearGap=loose > chainMerge.log 2>&1 &
+
+    cat fb.rn5.chainMonDom5Link.txt
+    #	249403097 bases of 2572853723 (9.694%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzMonDom5.2012-11-29 lastz.monDom5
+
+    #	and for the swap
+    mkdir /hive/data/genomes/monDom5/bed/blastz.rn5.swap
+    cd /hive/data/genomes/monDom5/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzMonDom5.2012-11-29/DEF \
+        -workhorse=hgwdev -smallClusterHub=ku -bigClusterHub=ku \
+        -swap -chainMinScore=5000 -chainLinearGap=loose > do.log 2>&1
+XXX - running - Wed Apr  2 12:44:21 PDT 2014
+    #	real    73m49.230s
+    cat  fb.monDom5.chainRn5Link.txt
+    #	252291401 bases of 3501660299 (7.205%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/monDom5/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# LASTZ cow bosTau7 (DONE - 2012-11-29,12-03 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5BosTau7
+    mkdir /hive/data/genomes/rn5/bed/lastzBosTau7.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzBosTau7.2012-11-29
+
+    cat << '_EOF_' > DEF
+# cow vs mouse
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=20
+
+# QUERY: cow BosTau7
+SEQ2_DIR=/scratch/data/bosTau7/bosTau7.2bit
+SEQ2_LEN=/scratch/data/bosTau7/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=100
+
+BASE=/hive/data/genomes/rn5/bed/lastzBosTau7.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	`pwd`/DEF \
+	-syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > do.log 2>&1 &
+    #   Elapsed time: 2921m25s
+    cat fb.rn5.chainBosTau7Link.txt
+    #   690036664 bases of 2572853723 (26.820%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzBosTau7.2012-11-29 lastz.bosTau7
+
+    mkdir /hive/data/genomes/bosTau7/bed/blastz.rn5.swap
+    cd /hive/data/genomes/bosTau7/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzBosTau7.2012-11-29/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #   real    64m20.430s
+    cat fb.bosTau7.chainRn5Link.txt
+    #	687933878 bases of 2804673174 (24.528%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/bosTau7/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+##############################################################################
+# LASTZ dog canFam3 (DONE - 2012-11-29,12-04 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5CanFam3
+    mkdir /hive/data/genomes/rn5/bed/lastzCanFam3.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzCanFam3.2012-11-29
+
+    cat << '_EOF_' > DEF
+# dog vs rat
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=20
+
+# QUERY: dog CanFam3
+SEQ2_DIR=/hive/data/genomes/canFam3/canFam3.2bit
+SEQ2_LEN=/hive/data/genomes/canFam3/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=40
+
+BASE=/hive/data/genomes/rn5/bed/lastzCanFam3.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	`pwd`/DEF \
+	-syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > do.log 2>&1 &
+    #	real    5963m50.439s
+    # there was a hung-up job that prolonged this time
+    cat fb.rn5.chainCanFam3Link.txt
+    #	768049485 bases of 2572853723 (29.852%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzCanFam3.2012-11-29 lastz.canFam3
+
+    mkdir /hive/data/genomes/canFam3/bed/blastz.rn5.swap
+    cd /hive/data/genomes/canFam3/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzCanFam3.2012-11-29/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #	Elapsed time: 67m13s
+    cat fb.canFam3.chainRn5Link.txt
+    #	734454555 bases of 2392715236 (30.695%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/canFam3/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+##############################################################################
+# LASTZ panda ailMel1 (DONE - 2012-11-29,12-04 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5AilMel1
+    mkdir /hive/data/genomes/rn5/bed/lastzAilMel1.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzAilMel1.2012-11-29
+
+    cat << '_EOF_' > DEF
+# panda vs rat
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=50
+
+# QUERY: panda AilMel1
+SEQ2_DIR=/scratch/data/ailMel1/ailMel1.2bit
+SEQ2_LEN=/scratch/data/ailMel1/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=350
+
+BASE=/hive/data/genomes/rn5/bed/lastzAilMel1.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	`pwd`/DEF \
+	-syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > do.log 2>&1 &
+    #	Elapsed time: 2389m42s
+    cat fb.rn5.chainAilMel1Link.txt
+    #	818618644 bases of 2572853723 (31.818%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzAilMel1.2012-11-29 lastz.ailMel1
+
+    cd /hive/data/genomes/rn5/bed/lastzAilMel1.2012-11-29
+    time doRecipBest.pl -buildDir=`pwd` rn5 ailMel1 > rbest.log 2>&1
+    # real    25m5.378s
+
+    mkdir /hive/data/genomes/ailMel1/bed/blastz.rn5.swap
+    cd /hive/data/genomes/ailMel1/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzAilMel1.2012-11-29/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #	Elapsed time: 72m40.305s
+    cat fb.ailMel1.chainRn5Link.txt
+    #	776437110 bases of 2245312831 (34.580%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/ailMel1/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+##############################################################################
+# LASTZ Chimp PanTro4 (DONE - 2012-11-29,12-04 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5PanTro4
+    mkdir /hive/data/genomes/rn5/bed/lastzPanTro4.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzPanTro4.2012-11-29
+
+    cat << '_EOF_' > DEF
+# chimp vs rat
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=40
+
+# QUERY: Chimp PanTro4
+SEQ2_DIR=/hive/data/genomes/panTro4/panTro4.2bit
+SEQ2_LEN=/hive/data/genomes/panTro4/chrom.sizes
+SEQ2_CHUNK=20000000
+SEQ2_LAP=0
+SEQ2_LIMIT=100
+
+BASE=/hive/data/genomes/rn5/bed/lastzPanTro4.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	`pwd`/DEF \
+	-syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > do.log 2>&1 &
+    #	real    3194m24.511s
+    cat fb.rn5.chainPanTro4Link.txt
+    #	916343862 bases of 2572853723 (35.616%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzPanTro4.2012-11-29 lastz.panTro4
+
+    mkdir /hive/data/genomes/panTro4/bed/blastz.rn5.swap
+    cd /hive/data/genomes/panTro4/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzPanTro4.2012-11-29/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #	real    85m28.505s
+    cat fb.panTro4.chainRn5Link.txt
+    #	901495233 bases of 2902338967 (31.061%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/panTro4/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+##############################################################################
+# LASTZ guinea pig cavPor3 (DONE - 2012-11-29,12-04 - Hiram)
+    # establish a screen to control this job with a name to indicate what it is
+    screen -S rn5CavPor3
+    mkdir /hive/data/genomes/rn5/bed/lastzCavPor3.2012-11-29
+    cd /hive/data/genomes/rn5/bed/lastzCavPor3.2012-11-29
+
+    cat << '_EOF_' > DEF
+# guinea pig vs rat
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.03.02/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=40
+
+# QUERY: guinea pig CavPor3
+SEQ2_DIR=/scratch/data/cavPor3/cavPor3.2bit
+SEQ2_LEN=/scratch/data/cavPor3/chrom.sizes
+SEQ2_CHUNK=10000000
+SEQ2_LAP=0
+SEQ2_LIMIT=20
+
+BASE=/hive/data/genomes/rn5/bed/lastzCavPor3.2012-11-29
+TMPDIR=/scratch/tmp
+'_EOF_'
+    # << happy emacs
+
+    # adjust the SEQ2_LIMIT with -stop=partition to get a reasonable
+    #	number of jobs, 50,000 to something under 100,000
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	`pwd`/DEF \
+	-syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > do.log 2>&1 &
+    #	real    2935m17.649s
+    cat fb.rn5.chainCavPor3Link.txt
+    #	749383689 bases of 2572853723 (29.127%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s lastzCavPor3.2012-11-29 lastz.cavPor3
+
+    mkdir /hive/data/genomes/cavPor3/bed/blastz.rn5.swap
+    cd /hive/data/genomes/cavPor3/bed/blastz.rn5.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/rn5/bed/lastzCavPor3.2012-11-29/DEF \
+	-swap -syntenicNet \
+	-workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 &
+    #	real    82m22.205s
+    cat fb.cavPor3.chainRn5Link.txt
+    #	750114059 bases of 2663369733 (28.164%) in intersection
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/cavPor3/bed
+    ln -s blastz.rn5.swap lastz.rn5
+
+#########################################################################
+# construct lift file Ensembl names to UCSC names (DONE 2013-02-19 Chin)
+    cd /hive/data/genomes/rn5/jkStuff
+
+cat ../chrom.sizes | while read L
+do
+ucName=`echo "${L}" | awk '{print $1}'`
+ucSize=`echo "${L}" | awk '{print $2}'`
+ensName=`echo $L  | sed -e 's/^chrM/MT/; s/^chr[0-9A-Za-z]*_//; s/_random//; s/^chr//; s/^\([JA][HA][B-Z0-9]*\)/\1.1/;' | awk '{print $1}'`
+ensSize=`echo $L | awk '{print $2}'`
+echo -e "0\t$ensName\t$ensSize\t$ucName\t$ucSize"
+done > ensToUcsc.lift
+
+##############################################################################
+# SWAP Mm9/Mouse lastz (DONE - 2013-03-27 - Hiram)
+    # original alignment
+    cd /hive/data/genomes/mm9/bed/lastzRn5.2013-03-14
+    cat fb.mm9.chainRn5Link.txt
+    #   1762022227 bases of 2620346127 (67.244%) in intersection
+    # mm9 to rn4 was:
+    #   1713323126 bases of 2620346127 (65.385%) in intersection
+
+    #	and this swap
+    mkdir /hive/data/genomes/rn5/bed/blastz.mm9.swap
+    cd /hive/data/genomes/rn5/bed/blastz.mm9.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        /hive/data/genomes/mm9/bed/lastzRn5.2013-03-14/DEF \
+	-swap -bigClusterHub=swarm -chainMinScore=5000 -chainLinearGap=medium \
+	-noLoadChainSplit -syntenicNet -workhorse=hgwdev \
+	-smallClusterHub=encodek > swap.log 2>&1 &
+    #   real    5m19.183s
+    # finish netChains manually due to nib directory spec error, then:
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        /hive/data/genomes/mm9/bed/lastzRn5.2013-03-14/DEF \
+	-swap -bigClusterHub=swarm -chainMinScore=5000 -chainLinearGap=medium \
+	-continue=load -syntenicNet -workhorse=hgwdev \
+	-smallClusterHub=encodek > load.log 2>&1 &
+    # and the synteny step too, same error
+    #	real    121m21.029s
+    cat fb.rn5.chainMm9Link.txt 
+    #   1795345063 bases of 2572853723 (69.780%) in intersection
+    # FYI, rn4 was:
+    #   1711034941 bases of 2571531505 (66.538%) in intersection
+
+    # set sym link to indicate this is the lastz for this genome:
+    cd /hive/data/genomes/rn5/bed
+    ln -s blastz.mm9.swap lastz.mm9
+
+#########################################################################
+##  CYTOBAND - ideogram track (DONE - 2013-06-18 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/cytoBand
+    cd /hive/data/genomes/rn5/bed/cytoBand
+    # fetch the ideogram file:
+    rsync -a -P rsync://ftp.ncbi.nlm.nih.gov/pub/gdp/ideogram_10116_GCF_000000225.3_NA_V1 ./
+
+    # Create bed file
+    $HOME/kent/src/utils/ncbi/createNcbiCytoBand.pl \
+       ideogram_10116_GCF_000000225.3_NA_V1
+
+    ## can now verify before load:
+    $HOME/kent/src/utils/ncbi/cytoBandVerify.pl
+    #	everything checks out OK on 21 chroms
+    # Load the bed file
+    hgLoadBed -noBin -sqlTable=$HOME/kent/src/hg/lib/cytoBand.sql \
+	rn5 cytoBand cytoBand.bed
+    #   Read 403 elements of size 5 from cytoBand.bed
+    # Make cytoBandIdeo track for ideogram gif on hgTracks page.
+    # The cytoBandIdeo is just a replicate of the cytoBand track.
+    hgsql -e "CREATE TABLE cytoBandIdeo SELECT * FROM cytoBandIdeo;" rn5
+    hgsql rn5 -e "CREATE TABLE cytoBandIdeo (index(chrom(25),chromStart)) as SELECT * from cytoBand;"
+
+    # dump existing table
+    hgsql -N -e "SELECT * FROM cytoBandIdeo" rn5 > rn5.cytoBandIdeo
+
+    # find chroms already covered
+    hgsql -N -e 'SELECT chrom FROM cytoBandIdeo' rn5 \
+       | sort -u > rn5.coveredNames
+    # make cytoBand records for chroms not already covered
+    hgsql -N -e 'SELECT chrom, size FROM chromInfo' rn5 \
+      | grep -wvf rn5.coveredNames \
+      | awk '{print $1"\t0\t"$2"\t\tgneg"}' > rn5.cytoBandNew
+    # check
+    wc -l rn5.*
+    # combine and sort
+    cat rn5.cytoBandNew rn5.cytoBandIdeo | sort -k1,1 -k2,2n \
+        > rn5.cytoBandIdeoFull
+    # replace exsting table
+    hgsql -e "DROP TABLE cytoBandIdeo" rn5
+    hgLoadSqlTab rn5 cytoBandIdeo $HOME/kent/src/hg/lib/cytoBandIdeo.sql \
+           rn5.cytoBandIdeoFull
+
+##########################################################################
+# create ucscToINSDC name mapping (DONE - 2013-08-23 - Hiram)
+    mkdir /hive/data/genomes/rn5/bed/ucscToINSDC
+    cd /hive/data/genomes/rn5/bed/ucscToINSDC
+
+    # copying these scripts from the previous load and improving them
+    # with each instance
+    ./translateNames.sh NC_001665.2
+    ./verifyAll.sh
+    ./join.sh
+
+    sed -e "s/21/25/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+      | hgLoadSqlTab rn5 ucscToINSDC stdin ucscToINSDC.tab
+    checkTableCoords rn5 ucscToINSDC
+    featureBits -countGaps rn5 ucscToINSDC
+    # 2909698938 bases of 2909698938 (100.000%) in intersection
+
+    # verify the track link to INSDC functions
+
+##############################################################################
+# chain/net hg38 (DONE - 2014-03-31 - Pauline)
+
+    #	running the swap
+    mkdir /hive/data/genomes/rn5/bed/blastz.hg38.swap
+    cd /hive/data/genomes/rn5/bed/blastz.hg38.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+	/hive/data/genomes/hg38/bed/lastzRn5.2014-02-27/DEF \
+	-swap \
+	-workhorse=hgwdev -smallClusterHub=ku -bigClusterHub=ku \
+	-chainMinScore=3000 -chainLinearGap=medium > swap.log 2>&1 
+    #   real    66m53.095s
+    cat fb.rn5.chainHg38Link.txt
+    #   934256475 bases of 2572853723 (36.312%) in intersection
+##############################################################################
+## 13-Way Multiz (DONE - 2014-04-02 - Pauline)
+
+    mkdir /hive/data/genomes/rn5/bed/multiz13way
+    cd /hive/data/genomes/rn5/bed/multiz13way
+
+    #run tree doctor to make *.nh tree file
+    /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin/tree_doctor \
+     --prune-all-but rn5,danRer7,galGal4,mm10,cavPor3,canFam3,rheMac3,panTro4,hg19,ailMel1,bosTau7,monDom5,melGal1,rn5 \
+     ~/kent/src/hg/utils/phyloTrees/120way.nh > 13way.nh
+
+    cat 13way.nh 
+    (((((((hg19:0.00655,panTro4:0.00684):0.027424,rheMac3:0.037601):0.109934,
+    ((mm10:0.084509,rn5:0.091589):0.230915,cavPor3:0.175779):0.041059):0.020593,
+    (bosTau7:0.18908,(canFam3:0.052458,ailMel1:0.08):0.080572):0.032898):0.258392,
+    monDom5:0.340786):0.181168,(galGal4:0.116254,melGal1:0.150718):0.443188):0.261354,danRer7:1.20107);
+
+    #   Use this specification in the phyloGif tool:
+    #   http://genome.ucsc.edu/cgi-bin/phyloGif
+    #   to obtain a gif image for htdocs/images/phylo/rn5_13way.gif
+
+
+    #output distances to text file
+    /cluster/bin/phast/all_dists 13way.nh >>& /hive/data/genomes/rn5/bed/multiz13way/13way.distances3.txt
+
+    grep -i rn5 13way.distances.txt | sort -k3,3n
+
+    #mm10	rn5	0.176098
+    #rn5	cavPor3	0.498283
+    #hg19	rn5	0.507471
+    #panTro4	rn5	0.507761
+    #rheMac3	rn5	0.511098
+    #rn5	canFam3	0.550084
+    #rn5	ailMel1	0.577626
+    #rn5	bosTau7	0.606134
+    #rn5	monDom5	0.983334
+    #rn5	galGal4	1.383158
+    #rn5	melGal1	1.417622
+    #rn5	danRer7	2.286140
+
+    #Hiram used some text and phylo editing magic to convert 13way.nh to
+    #reorder.13way.nh to get rn5 appearing at the top so that the phylo gif
+    #displays as we want it.
+
+    # extract species list from that .nh file
+    sed 's/[a-z][a-z]*_//g; s/:[0-9\.][0-9\.]*//g; s/;//; /^ *$/d' \
+        reorder.13way.nh | xargs echo | sed 's/ //g; s/,/ /g' \
+        | sed 's/[()]//g; s/,/ /g' | tr '[ ]' '[\n]' > species.list.txt
+
+    # making common names file
+    ~/kent/src/hg/utils/phyloTrees/commonNames.sh /hive/data/genomes/rn5/bed/multiz13way/reorder.13way.nh >>& 13way.commonNames.nh
+
+
+    # using this Common name .nh file in the phyloGif tool:
+    # ~/kent/src/hg/utils/phyloTrees/13way.commonNames.nh
+    #   http://genome.ucsc.edu/cgi-bin/phyloGif
+    #   to obtain a png image for src/hg/htdocs/images/phylo/rn5_13way.png
+
+    # construct a common name list:
+    sed -e 's#  *##; s#[()]##g; s#:.*##;' \
+    /hive/data/genomes/rn5/bed/multiz13way/13way.commonNames.nh \
+          > rn5.13way.commonName.list
+
+    #printing out the tree text in a way that allows easier manipulation of data to get "rat" to top of phylogif image
+    asciiTree.pl 13way.commonNames.nh
+
+(((((((Human:0.00655,
+      Chimp:0.00684):0.027424,
+     Rhesus:0.037601):0.109934,
+    ((Mouse:0.084509,
+     Rat:0.091589):0.230915,
+    Guinea_pig:0.175779):0.041059):0.020593,
+   (Cow:0.18908,
+   (Dog:0.052458,
+
+     (Chicken:0.116254,
+     Turkey:0.150718):0.443188):0.261354,
+    Zebrafish:1.20107);
+
+    #Hiram took tree file edited in treegraph - to get rat at top
+
+    # Make 3 lists - to specify which type of alignment to use for each spp - rbest, syntenic nets, and normal mafs
+
+    #syntenic nets: mm10, cavPor3, hg38, bosTau7, canFam3, rheMac3, panTro4
+    #normal maf (aka nets): monDom5, galGal4, melGal1, danRer7
+    #rbest: ailMel1
+
+    #   bash shell syntax here ...
+    cd /hive/data/genomes/rn5/bed/multiz13way
+    export H=/hive/data/genomes/rn5/bed
+    mkdir mafLinks
+
+    # for syntenic nets:
+    cat synNet.list | while read G
+    do
+        if [ -s ${H}/lastz.${G}/axtChain/rn5.*.synNet.maf.gz ]; then
+            ln -s ${H}/lastz.${G}/axtChain/rn5.*.synNet.maf.gz ./mafLinks/$G.maf.gz
+        else
+            echo "missing lastz.${G}/mafSynNet/"
+        fi
+    done
+
+    # for nets:
+    cat netOnly.list | while read G
+    do
+        if [ -s ${H}/lastz.${G}/mafNet/rn5.${G}.net.maf.gz ]; then
+            ln -s ${H}/lastz.$G/mafNet/rn5.${G}.net.maf.gz ./mafLinks/$G.maf.gz
+        else
+            echo "missing lastz.${G}/mafNet/"
+        fi
+    done
+
+    #for rbest:
+    mafRBestNet/rn5.ailMel1.rbest.maf.gz
+    bed/lastz.ailMel1/axtChain [file is here]
+    ln -s ${H}/lastz.$G/mafRBestNet/*.maf.gz ./mafLinks/$G
+    ln -s /hive/data/genomes/rn5/bed/lastz.ailMel1/mafRBestNet/rn5.ailMel1.rbest.maf.gz ./mafLinks/$G.maf.gz
+
+    # create species list and stripped down tree for autoMZ
+    sed 's/[a-z][a-z]*_//g; s/:[0-9\.][0-9\.]*//g; s/;//; /^ *$/d' \
+        13way.nh > tmp.nh
+    echo `cat tmp.nh` > tree-commas.nh
+    echo `cat tree-commas.nh` | sed 's/ //g; s/,/ /g' > tree.nh
+
+    # split the maf files into a set of hashed named files
+    # this hash named split keeps the same chr/contig names in the same
+    # named hash file.
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/mafSplit
+    cd /hive/data/genomes/rn5/bed/multiz13way/mafSplit
+    for D in `grep -v rn5 ../species.list.txt`
+    do
+	echo "${D}"
+	mkdir $D
+	cd $D
+	echo "mafSplit -byTarget -useHashedName=8 /dev/null . ../../mafLinks/${D}.maf.gz"
+	mafSplit -byTarget -useHashedName=8 /dev/null . ../../mafLinks/${D}.maf.gz
+	cd ..
+    done
+
+    # construct a list of all possible maf file names.
+    # they do not all exist in each of the species directories
+    find . -type f | wc -l
+    # 844
+    find . -type f | grep ".maf$" | xargs -L 1 basename | sort -u > maf.list
+    wc -l maf.list
+    # 157 maf.list
+
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/splitRun
+    cd /hive/data/genomes/rn5/bed/multiz13way/splitRun
+    mkdir maf run
+    cd run
+    mkdir penn
+    cp -p /cluster/bin/penn/multiz.2009-01-21_patched/multiz penn
+    cp -p /cluster/bin/penn/multiz.2009-01-21_patched/maf_project penn
+    cp -p /cluster/bin/penn/multiz.2009-01-21_patched/autoMZ penn
+
+    #   set the db and pairs directories here
+    cat > autoMultiz.csh << '_EOF_'
+    #!/bin/csh -ef
+    set db = rn5
+    set c = $1
+    set result = $2
+    set run = `/bin/pwd`
+    set tmp = /dev/shm/$db/multiz.$c
+    set pairs = /hive/data/genomes/$db/bed/multiz13way/mafSplit
+    /bin/rm -fr $tmp
+    /bin/mkdir -p $tmp
+    /bin/cp -p ../../tree.nh ../../species.list $tmp
+    pushd $tmp > /dev/null
+    foreach s (`grep -v rn5 species.list.txt`)
+	set in = $pairs/$s/$c.maf
+	set out = $db.$s.sing.maf
+	if (-e $in.gz) then
+	    /bin/zcat $in.gz > $out
+	    if (! -s $out) then
+		echo "##maf version=1 scoring=autoMZ" > $out
+	    endif
+	else if (-e $in) then
+	    /bin/ln -s $in $out
+	else
+	    echo "##maf version=1 scoring=autoMZ" > $out
+	endif
+    end
+    set path = ($run/penn $path); rehash
+    $run/penn/autoMZ + T=$tmp E=$db "`cat tree.nh`" $db.*.sing.maf $c.maf \
+	    > /dev/null
+    popd > /dev/null
+    /bin/rm -f $result
+    /bin/cp -p $tmp/$c.maf $result
+    /bin/rm -fr $tmp
+    /bin/rmdir --ignore-fail-on-non-empty /dev/shm/$db
+    '_EOF_'
+    # << happy emacs
+    chmod +x autoMultiz.csh
+
+    cat  << '_EOF_' > template
+    #LOOP
+    ./autoMultiz.csh $(root1) {check out line+ /hive/data/genomes/rn5/bed/multiz13way/splitRun/maf/$(root1).maf}
+    #ENDLOOP
+    '_EOF_'
+
+    #cat-ing together all mafs into single file in prep to load
+    cd 
+    cd /hive/data/genomes/rn5/bed/multiz13way/splitRun/maf
+
+    #checking the first line of the first maf:
+    head -1 splitRun/maf/001.maf > multiz13way.maf
+
+    bash
+    for F in splitRun/maf/*.maf
+    do
+	egrep -v "^#" ${F}
+	echo "${F}" 1>&2 #sends stuff to stderr (vs stdout where everything else is headed)
+    done >> multiz13way.maf
+    tail -1 splitRun/maf/001.maf >> multiz13way.maf
+
+    # Load into database
+    ssh hgwdev
+    cd /hive/data/genomes/rn5/bed/multiz13way
+    mkdir /gbdb/rn5/multiz13way
+    ln -s `pwd`/multiz13way.maf /gbdb/rn5/multiz13way
+    cd /dev/shm
+    time nice hgLoadMaf rn5 multiz13way
+
+    time hgLoadMafSummary -verbose=2 -minSize=30000 \
+        -mergeGap=1500 -maxSize=200000 rn5 multiz13waySummary \
+        /gbdb/rn5/multiz13way/multiz13way.maf
+
+    [hgwdev:/dev/shm] $ wc -l multiz13way*
+     14612517 multiz13way.tab
+      2492720 multiz13waySummary.tab
+
+
+#######################################################################
+# GAP ANNOTATE MULTIZ13WAY MAF AND LOAD TABLES (DONE - 2014-05-09 - Pauline)
+    # mafAddIRows has to be run on single chromosome maf files, it does not
+    #   function correctly when more than one reference sequence
+    #   are in a single file.
+    mkdir -p /hive/data/genomes/rn5/bed/multiz13way/anno/mafSplit
+    cd /hive/data/genomes/rn5/bed/multiz13way/anno/mafSplit
+    time mafSplit -byTarget -useFullSequenceName \
+        /dev/null . ../../multiz13way.maf
+
+    ls | wc
+    # 721     721   18142
+
+    cd /hive/data/genomes/rn5/bed/multiz13way/anno
+    # skipped making the N.bed files - all dbs should have one already
+
+    for DB in `cat ../species.list.txt`
+    do
+      echo "${DB} "
+      ln -s  /hive/data/genomes/${DB}/${DB}.N.bed ${DB}.bed
+      echo ${DB}.bed  >> nBeds
+      ln -s  /hive/data/genomes/${DB}/chrom.sizes ${DB}.len
+      echo ${DB}.len  >> sizes
+    done
+
+    # make sure they all are successful symLinks:
+    ls -ogrtL
+
+    cd /hive/data/genomes/rn5/bed/multiz13way/anno
+    mkdir result
+    cat << '_EOF_' > template
+    #LOOP
+    mafAddIRows -nBeds=nBeds $(path1) /hive/data/genomes/rn5/rn5.2bit result/$(file1)
+    #ENDLOOP
+    '_EOF_'
+    # << happy emacs
+
+    ls mafSplit/*.maf > maf.list
+    gensub2 maf.list single template jobList
+
+    # combine into one file
+    head -q -n 1 result/chr1.maf > rn5.13way.maf
+    for F in result/*.maf
+    do
+	grep -h -v "^#" ${F}
+    done >> rn5.13way.maf
+    #   these maf files do not have the end marker, this does nothing:
+    #   tail -q -n 1 result/GL172637.maf >> rn5.13way.maf
+    # How about an official end marker:
+    echo "##eof maf" >> rn5.13way.maf
+
+    # Load into database
+    rm /gbdb/rn5/multiz13way/multiz13way.maf   # remove old symlink
+    ln -s `pwd`/rn5.13way.maf /gbdb/rn5/multiz13way/multiz13way.maf
+    cd /dev/shm 
+    time nice -n +19 hgLoadMaf rn5 multiz13way
+
+    #real	6m45.606s
+    user	5m5.435s
+    sys	0m15.640s
+
+    time nice -n +19 hgLoadMafSummary -verbose=2 -minSize=30000 \
+        -mergeGap=1500 -maxSize=200000 rn5 multiz13waySummary \
+        /gbdb/rn5/multiz13way/multiz13way.maf
+    #   Created 516059 summary blocks from 5782695 components and 2929343 mafs
+    #   from /gbdb/rn5/multiz13way/multiz13way.maf
+    #   real    1m6.705s
+
+    wc -l multiz13way*.tab
+    #   2929343 multiz13way.tab
+    #   516059 multiz13waySummary.tab
+    #   3445402 total
+
+    rm multiz13way*.tab
+ 
+#########################################################################
+# Phylogenetic tree from 13-way (DONE - 2014-05-09 - Pauline)
+
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/4d
+    cd /hive/data/genomes/rn5/bed/multiz13way/4d
+
+    # the split annotated maf's are in:
+    ../anno/result/*.maf
+
+    # using ensGene for rn5, only transcribed genes and nothing
+    #	from the randoms and other misc.
+    hgsql rn5 -Ne \
+    "select * from ensGene WHERE cdsEnd > cdsStart;" | cut -f 2-20 \
+	> ensGene.gp
+    #	22705 ensGene.gp
+
+    genePredSingleCover ensGene.gp stdout | sort > ensGeneNR.gp
+    wc -l ensGeneNR.gp
+    #	18416 ensGeneNR.gp (old)
+    #   22863 ensGeneNR.gp (rn5)
+    
+    ssh ku
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/4d/run
+    cd /hive/data/genomes/rn5/bed/multiz13way/4d/run
+    mkdir ../mfa
+
+    # newer versions of msa_view have a slightly different operation
+    # the sed of the gp file inserts the reference species in the chr name
+
+    cat << '_EOF_' > 4d.csh
+    #!/bin/csh -fe
+    set PHASTBIN = /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin
+    set r = "/hive/data/genomes/rn5/bed/multiz13way"
+    set c = $1
+    set infile = $r/anno/result/$2
+    set outfile = $3
+    cd /scratch/tmp
+    # 'clean' maf
+    perl -wpe 's/^s ([^.]+)\.\S+/s $1/' $infile > $c.maf    
+    awk -v C=$c '$2 == C {print}' $r/4d/ensGeneNR.gp | sed -e "s/\t$c\t/\trn5.$c\t/" > $c.gp
+    set NL=`wc -l $c.gp| gawk '{print $1}'`
+    if ("$NL" != "0") then
+	$PHASTBIN/msa_view --4d --features $c.gp -i MAF $c.maf -o SS > $c.ss
+	$PHASTBIN/msa_view -i SS --tuple-size 1 $c.ss > $r/4d/run/$outfile
+    else
+	echo "" > $r/4d/run/$outfile
+    endif
+    rm -f $c.gp $c.maf $c.ss
+    '_EOF_'
+    # << happy emacs
+    chmod +x 4d.csh
+
+    ls -1S /hive/data/genomes/rn5/bed/multiz13way/anno/result/*.maf \
+	| sed -e "s#.*multiz13way/anno/result/##" \
+	> maf.list
+
+    cat << '_EOF_' > template
+	#LOOP
+	4d.csh $(root1) $(path1) {check out line+ ../mfa/$(root1).mfa}
+	#ENDLOOP
+	'_EOF_'
+    # << happy emacs
+
+    # the tac puts the quick jobs at the front
+    gensub2 maf.list single template stdout | tac > jobList
+    para create jobList
+    para try ... check
+    para -maxJob=5 push
+    para time
+
+    # there are numerous problems in some of the result.  Not a whole lot
+    #	of sequence is matching in these distant organisms
+    # Completed: 9143 of 9202 jobs
+    # Crashed: 30 jobs
+    # Other count: 29 jobs
+    # CPU time in finished jobs:        711s      11.85m     0.20h    0.01d  0.000 y
+    # IO & Wait Time:                 23273s     387.89m     6.46h    0.27d  0.001 y
+    # Average job time:                   3s       0.04m     0.00h    0.00d
+    # Longest finished job:               7s       0.12m     0.00h    0.00d
+    # Submission to last job:          2270s      37.83m     0.63h    0.03d
+
+    # combine mfa files
+    ssh hgwdev
+    cd /hive/data/genomes/rn5/bed/multiz13way/4d
+    # remove the broken empty files, size 0 and size 1:
+    find ./mfa -type f -size 0 | xargs rm -f
+    # most interesting, this did not identify files of size 1:
+    #    find ./mfa -type f -size 1
+    ls -og mfa | awk '$3 == 1' > empty.list
+    sed -e "s#^#mfa/##" empty.list | xargs rm -f
+    #want comma-less species.list.txt
+    /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin/msa_view \
+	--aggregate "`cat ../species.list.txt`" mfa/*.mfa | sed s/"> "/">"/ \
+	    > 4d.all.mfa
+    # check they are all in there:
+    grep "^>" 4d.all.mfa
+	#>rn5
+	#>mm10
+	#>cavPor3
+	#>hg38
+	#>panTro4
+	#>rheMac3
+	#>bosTau7
+	#>canFam3
+	#>ailMel1
+	#>monDom5
+	#>galGal4
+	#>melGal1
+	#>danRer7
+
+    # tree-commas.nh:
+    #((rn5,(((rn5,(mm9, rn4)),monDom5), ((melGal1,galGal3), anoCar2))),danRer7)
+
+    # use phyloFit to create tree model (output is phyloFit.mod)
+    time nice -n +19 \
+	/cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin/phyloFit \
+	    --EM --precision MED --msa-format FASTA --subst-mod REV \
+		--tree ../tree-commas.nh 4d.all.mfa
+    #	real    2m10.469s
+    mv phyloFit.mod all.mod
+
+    grep TREE all.mod
+    #TREE: (((((((hg38:0.00668077,panTro4:0.00700149):0.0249002,rheMac3:0.035629):0.0951332,((mm10:0.0835964,rn5:0.087855):0.209399,cavPor3:0.213799):0.044572):0.0151261,(bosTau7:0.166871,(canFam3:0.0861626,ailMel1:0.0807089):0.0633319):0.030696):0.246197,monDom5:0.347347):0.194885,(galGal4:0.0541739,melGal1:0.0658595):0.408012):0.636337,danRer7:0.636337);
+
+	# it actually looks pretty good as a tree estimate ...
+
+
+#########################################################################
+# MULTIZ13way MAF FRAMES (DONE - 2014-05-09 - Pauline)
+    ssh hgwdev
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/frames
+    cd /hive/data/genomes/rn5/bed/multiz13way/frames
+    mkdir genes
+
+    cat << '_EOF_' > showGenes.csh
+    #!/bin/csh 
+    foreach db (`cat ../species.list.txt`)
+	echo -n "${db}: "
+	set tables = `hgsql $db -N -e "show tables like '%Gene%'"`
+	foreach table ($tables)
+	    if ($table == "ensGene" || $table == "refGene" || \
+	       $table == "mgcGenes" || $table == "knownGene" || \
+	       $table == "xenoRefGene" ) then
+	       set count = `hgsql $db -N -e "select count(*) from $table"`
+		echo -n "${table}: ${count}, "
+	    endif
+	end
+	set orgName = `hgsql hgcentraltest -N -e \
+		"select scientificName from dbDb where name='$db'"`
+	set orgId = `hgsql rn5 -N -e \
+		"select id from organism where name='$orgName'"`
+	if ($orgId == "") then
+	    echo "Mrnas: 0"
+	else
+	    set count = `hgsql rn5 -N -e "select count(*) from gbCdnaInfo where organism=$orgId"`
+	    echo "Mrnas: ${count}"
+	endif
+    end
+    '_EOF_'
+
+    # Getting numbers of items in gene tracks for each of the assemblies to pick which is best gene set to use:
+
+    rn5: ensGene: 29188, mgcGenes: 6924, refGene: 18572, xenoRefGene: 174272,
+    Mrnas: 1247318
+    mm10: ensGene: 94647, knownGene: 61642, mgcGenes: 26768, refGene: 33750,
+    xenoRefGene: 159981, Mrnas: 370860
+    cavPor3: ensGene: 26129, refGene: 482, xenoRefGene: 278026, Mrnas: 1244
+    hg38: knownGene: 104178, mgcGenes: 34081, refGene: 54311, xenoRefGene: 171890,
+    Mrnas: 2016023
+    panTro4: ensGene: 29160, refGene: 2624, xenoRefGene: 278936, Mrnas: 6097
+    rheMac3: refGene: 6369, xenoRefGene: 273293, Mrnas: 383362
+    bosTau7: refGene: 14571, xenoRefGene: 263920, Mrnas: 34058
+    canFam3: ensGene: 29884, refGene: 1579, xenoRefGene: 252177, Mrnas: 4544
+    ailMel1: ensGene: 25055, xenoRefGene: 285239, Mrnas: 151
+    monDom5: ensGene: 24882, refGene: 486, xenoRefGene: 247493, Mrnas: 2190
+    galGal4: ensGene: 17954, refGene: 6811, xenoRefGene: 206366, Mrnas: 36961
+    melGal1: ensGene: 17373, xenoRefGene: 240191, Mrnas: 333
+    danRer7: ensGene: 56754, mgcGenes: 17994, refGene: 15912, xenoRefGene: 225864,
+    Mrnas: 45144
+
+    rn5: refGene
+    rheMac3: refGene
+    bosTau7: refGene
+    danRer7: refGene
+
+    mm10: knownGene
+    hg38: knownGene
+
+    cavPor3: ensGene
+    panTro4: ensGene
+    canFam3: ensGene
+    ailMel1: ensGene
+    monDom5: ensGene
+    galGal4: ensGene
+    melGal1: ensGene
+
+    #------------------------------------------------------------------------
+    # get the genes for all genomes
+    # mRNAs with CDS.  single select to get cds+psl, then split that up and
+    # create genePred
+
+    # using ensGene for: cavPor3 panTro4 canFam3 ailMel1 monDom5 galGal4 melGal1
+    for qDB in cavPor3 panTro4 canFam3 ailMel1 monDom5 galGal4 melGal1 
+    do
+      echo hgsql -N -e \"'select * from 'ensGene\;\" ${qDB}
+	  hgsql -N -e "select * from ensGene" ${qDB} | cut -f 2-11 \
+	  | genePredSingleCover stdin stdout | gzip -2c > genes/$qDB.gp.gz
+    done
+
+    # Using knownGene for: mm10 hg38
+    # genePreds; (must keep only the first 10 columns for knownGene)
+    for qDB in mm10 hg38
+    do
+      echo hgsql -N -e \"'select * from 'knownGene\;\" ${qDB}
+      hgsql -N -e "select * from knownGene" ${qDB} | cut -f 1-10 \
+      | genePredSingleCover stdin stdout | gzip -2c > genes/$qDB.gp.gz
+    done
+
+    # Using refGene for: xenTro7 and bosTau7 want the full extended genePred:
+    for qDB in rn5 rheMac3 bosTau7 danRer7
+    do
+    hgsql -N -e "select * from refGene" ${qDB} | cut -f2- \
+	  | genePredSingleCover stdin stdout | gzip -2c \
+	    > genes/$qDB.gp.gz
+	echo "${qDB} done"
+    done
+
+    # verify counts for genes are reasonable:
+	for T in genes/*.gz
+    do
+	echo -n "# $T: "
+	zcat $T | cut -f1 | sort | uniq -c | wc -l
+    done
+
+    # genes/ailMel1.gp.gz: 19204
+    # genes/bosTau7.gp.gz: 12993
+    # genes/canFam3.gp.gz: 19507
+    # genes/cavPor3.gp.gz: 18631
+    # genes/danRer7.gp.gz: 14016
+    # genes/galGal4.gp.gz: 15391
+    # genes/hg38.gp.gz: 21887
+    # genes/melGal1.gp.gz: 14050
+    # genes/mm10.gp.gz: 21013
+    # genes/monDom5.gp.gz: 21033
+    # genes/panTro4.gp.gz: 18657
+    # genes/rheMac3.gp.gz: 5614
+    # genes/rn5.gp.gz: 16480
+
+    ssh hgwdev
+    cd /hive/data/genomes/rn5/bed/multiz13way/frames
+    time (cat ../anno/rn5.13way.maf \
+	| nice -n +19 genePredToMafFrames rn5 stdin stdout \
+	    `sed -e "s#\([a-zA-Z0-9]*\)#\1 genes/\1.gp.gz#g" ../species.list.txt` \
+		| gzip > multiz13way.mafFrames.gz)
+    #	real    2m22.546s
+
+    # verify there are frames on everything:
+    zcat multiz13way.mafFrames.gz | awk '{print $4}' | sort | uniq -c
+
+     228464 ailMel1
+     142021 bosTau7
+     237790 canFam3
+     210120 cavPor3
+     254471 danRer7
+     375209 galGal4
+     232596 hg38
+     352014 melGal1
+     212356 mm10
+     396623 monDom5
+     213837 panTro4
+      47695 rheMac3
+     150465 rn5
+
+    ssh hgwdev
+    cd /hive/data/genomes/rn5/bed/multiz13way/frames
+    time hgLoadMafFrames rn5 multiz13wayFrames multiz13way.mafFrames.gz
+    # real    0m34.491s
+
+#########################################################################
+# phastCons 13-way (DONE - 2014-05-09 - Pauline)
+
+    # split 13way mafs into 10M chunks and generate sufficient statistics 
+    # files for # phastCons
+    ssh ku 
+    mkdir -p /hive/data/genomes/rn5/bed/multiz13way/cons/SS
+    cd /hive/data/genomes/rn5/bed/multiz13way/cons/SS
+    mkdir result done
+
+    cat << '_EOF_' > mkSS.csh
+	#!/bin/csh -ef
+	set c = $1
+	set MAF = /hive/data/genomes/rn5/bed/multiz13way/anno/result/$c.maf
+	set WINDOWS = /hive/data/genomes/rn5/bed/multiz13way/cons/SS/result/$c
+	set WC = `cat $MAF | wc -l`
+	set NL = `grep "^#" $MAF | wc -l`
+	if ( -s $2 ) then
+	    exit 0
+	endif
+	if ( -s $2.running ) then
+	    exit 0
+	endif
+
+	date >> $2.running
+
+	rm -fr $WINDOWS
+	mkdir $WINDOWS
+	pushd $WINDOWS > /dev/null
+	if ( $WC != $NL ) then
+	/cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin/msa_split \
+	    $MAF -i MAF -o SS -r $WINDOWS/$c -w 10000000,0 -I 1000 -B 5000
+	endif
+	popd > /dev/null
+	date >> $2
+	rm -f $2.running
+	'_EOF_'
+    # << happy emacs
+
+    chmod +x mkSS.csh
+
+    cat << '_EOF_' > template
+	#LOOP
+	mkSS.csh $(root1) {check out line+ done/$(root1)}
+	#ENDLOOP
+	'_EOF_'
+    # << happy emacs
+
+    #	do the easy ones first to see some immediate results
+    ls -1S -r ../../anno/result | sed -e "s/.maf//" > maf.list
+
+    gensub2 maf.list single template jobList
+    para create jobList
+    para try ... check ... etc
+
+    #Completed: 721 of 721 jobs
+    #CPU time in finished jobs:       1900s      31.66m     0.53h    0.02d  0.000 y
+    #IO & Wait Time:                  6905s     115.09m     1.92h    0.08d  0.000 y
+    #Average job time:                  12s       0.20m     0.00h    0.00d
+    #Longest finished job:             228s       3.80m     0.06h    0.00d
+    #Submission to last job:           305s       5.08m     0.08h    0.00d
+
+    # not all of them produce results
+    #	 there isn't much aligned in these MAF files
+    find ./result -type f | wc
+    #       452     452   21708 
+
+    # Run phastCons
+    #	This job is I/O intensive in its output files, beware where this
+    #	takes place or do not run too many at once.
+    ssh ku
+    mkdir -p /hive/data/genomes/rn5/bed/multiz13way/cons/run.cons
+    cd /hive/data/genomes/rn5/bed/multiz13way/cons/run.cons
+
+    #	there are going to be only one phastCons run using
+    #	this same script.  It triggers off of the current working directory
+    #	$cwd:t which is the "grp" in this script.  It is:
+    #	all 
+
+    cat << '_EOF_' > doPhast.csh
+	#!/bin/csh -fe
+	set PHASTBIN = /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin
+	set c = $1
+	set cX = $1:r
+	set f = $2
+	set len = $3
+	set cov = $4
+	set rho = $5
+	set grp = $cwd:t
+	set cons = /hive/data/genomes/rn5/bed/multiz13way/cons
+	set tmp = $cons/tmp/$f
+	mkdir -p $tmp
+	set ssSrc = $cons
+	set useGrp = "$grp.mod"
+	ln -s $ssSrc/SS/result/$c/$f.ss $tmp
+	ln -s $cons/$grp/$grp.mod $tmp
+	pushd $tmp > /dev/null
+	$PHASTBIN/phastCons $f.ss $useGrp \
+	    --rho $rho --expected-length $len --target-coverage $cov --quiet \
+	    --seqname $c --idpref $c --most-conserved $f.bed --score > $f.pp
+	popd > /dev/null
+	mkdir -p pp/$c bed/$c
+	sleep 4
+	touch pp/$c bed/$c
+	rm -f pp/$c/$f.pp
+	rm -f bed/$c/$f.bed
+	mv $tmp/$f.pp pp/$c
+	mv $tmp/$f.bed bed/$c
+	rm -fr $tmp
+    '_EOF_'
+    # << happy emacs
+    chmod +x doPhast.csh
+
+    #	this template will serve for all runs
+    #	root1 == chrom name, file1 == ss file name without .ss suffix
+
+    cat << '_EOF_' > template
+    #LOOP
+    ../run.cons/doPhast.csh $(root1) $(file1) 45 0.3 0.3 {check out line+ pp/$(root1)/$(file1).pp}
+    #ENDLOOP
+    '_EOF_'
+    # << happy emacs
+
+    find ../SS -type f | grep ".ss$" | sed -e 's/.ss$//' > ss.list
+    wc -l ss.list
+    #452 ss.list
+
+    # Create parasol batch and run it
+    # run for all species
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/cons/all
+    cd /hive/data/genomes/rn5/bed/multiz13way/cons/all
+    #	Using the .mod tree
+    cp -p ../../4d/all.mod ./all.mod
+
+    gensub2 ../run.cons/ss.list single ../run.cons/template jobList
+    para create jobList
+    para try ... check ...
+    para push
+    #Completed: 452 of 452 jobs
+    #CPU time in finished jobs:       7248s     120.79m     2.01h    0.08d  0.000 y
+    #IO & Wait Time:                  5165s      86.09m     1.43h    0.06d  0.000 y
+    #Average job time:                  27s       0.46m     0.01h    0.00d
+    #Longest finished job:              49s       0.82m     0.01h    0.00d
+    #Submission to last job:           119s       1.98m     0.03h    0.00d
+
+    cd /hive/data/genomes/rn5/bed/multiz13way/cons/all
+
+    find ./bed -type f | grep ".bed$" | xargs cat | sort -k1,1 -k2,2n \
+	| awk '{printf "%s\t%d\t%d\tlod=%d\t%s\n", $1, $2, $3, $5, $5;}' \
+	    > tmpMostConserved.bed
+
+    /cluster/bin/scripts/lodToBedScore tmpMostConserved.bed > mostConserved.bed
+
+    # load into database
+    time nice -n +19 hgLoadBed rn5 phastConsElements13way mostConserved.bed
+    # real 16.00
+
+
+    # on human we often try for 5% overall cov, and 70% CDS cov 
+    # most bets are off here for that goal, these alignments are too few
+    #	and too far between
+    featureBits rn5 -enrichment ensGene:cds phastConsElements13way
+    # ensGene:cds 1.330%, phastConsElements13way 5.786%, both 0.982%, cover
+    # 73.81%, enrich 12.76x
+
+    featureBits rn5 -enrichment mgcGenes:cds phastConsElements13way
+    # mgcGenes:cds 0.307%, phastConsElements13way 5.786%, both 0.244%, cover
+    # 79.45%, enrich 13.73x
+
+    # Create merged posterier probability file and wiggle track data files
+    cd /hive/data/genomes/rn5/bed/multiz13way/cons/all
+    mkdir downloads
+
+    find ./pp -type f | sed -e "s#^./##; s#\.# d #g; s#-# m #;" \
+	| sort -k1,1 -k3,3n | sed -e "s# d #.#g; s# m #-#g;" | xargs cat \
+	| gzip -c > downloads/phastCons13way.wigFix.gz
+
+    # check integrity of data with wigToBigWig
+    time (zcat downloads/phastCons13way.wigFix.gz \
+	| wigToBigWig -verbose=2 stdin /hive/data/genomes/rn5/chrom.sizes \
+	    phastCons13way.bw) > bigWig.log 2>&1 &
+    tail bigWig.log
+
+    2 levels.  Level sizes are 1 2
+    Made 1 primary index nodes out of 477 items
+    level 0: size 1, offset 4912418091
+    level 1: size 1, offset 4912424239
+    2 levels.  Level sizes are 1 1
+    # pid=5203: VmPeak:     20899452 kB
+    # real    27m37.874s
+
+    bigWigInfo phastCons13way.bw
+
+    #version: 4
+    #isCompressed: yes
+    #isSwapped: 0
+    #primaryDataSize: 3,587,651,518
+    #primaryIndexSize: 75,581,132
+    #zoomLevels: 10
+    #chromCount: 179
+    #basesCovered: 1,901,460,685
+    #mean: 0.157458
+    #min: 0.000000
+    #max: 1.000000
+    #std: 0.270193
+
+    #	encode those files into wiggle data
+    time (zcat downloads/phastCons13way.wigFix.gz \
+	| wigEncode stdin phastCons13way.wig phastCons13way.wib)
+    #Converted stdin, upper limit 1.00, lower limit 0.00
+    #real    10m0.015s
+
+    du -hsc *.wi?
+    #   3.6G    phastCons13way.wib
+    #   452M    phastCons13way.wig
+    #   4.0G    total
+
+    # Load gbdb and database with wiggle.
+    ln -s `pwd`/phastCons13way.wib /gbdb/rn5/multiz13way/phastCons13way.wib
+    time nice -n +19 hgLoadWiggle -pathPrefix=/gbdb/rn5/multiz13way \
+	rn5 phastCons13way phastCons13way.wig
+    #   real    0m27.750s
+
+    # use to set trackDb.ra entries for wiggle min and max
+    # and verify table is loaded correctly
+
+    wigTableStats.sh rn5 phastCons13way
+    # db.table      min max mean count sumData stdDev viewLimits
+    # rn5.phastCons13way      0 1 0.157458 1901460685 2.99401e+08 0.270193 viewLimits=0:1
+
+    #  Create histogram to get an overview of all the data
+    time nice -n +19 hgWiggle -doHistogram -db=rn5 \
+	-hBinSize=0.001 -hBinCount=1000 -hMinVal=0.0 -verbose=2 \
+	    phastCons13way > histogram.data 2>&1
+    #   real    1m45.632s
+    #	create plot of histogram:
+
+    cat << '_EOF_' | gnuplot > histo.png
+    set terminal png small x000000 xffffff xc000ff x66ff66 xffff00 x00ffff
+    set size 1.4, 0.8
+    set key left box
+    set grid noxtics
+    set grid ytics
+    set title " X. tropicalis rn5 Histogram phastCons13way track"
+    set xlabel " phastCons13way score"
+    set ylabel " Relative Frequency"
+    set y2label " Cumulative Relative Frequency (CRF)"
+    set y2range [0:1]
+    set y2tics
+    set yrange [0:0.02]
+
+    plot "histogram.data" using 2:5 title " RelFreq" with impulses, \
+	    "histogram.data" using 2:7 axes x1y2 title " CRF" with lines
+    '_EOF_'
+    #	<< happy emacs
+
+    display histo.png &
+
+#############################################################################
+# phyloP for 13-way (DONE - 2014-05-09 - Pauline)
+    # run phyloP with score=LRT 
+    ssh ku
+    mkdir /cluster/data/rn5/bed/multiz13way/consPhyloP
+    cd /cluster/data/rn5/bed/multiz13way/consPhyloP
+
+    mkdir run.phyloP
+    cd run.phyloP
+    # Adjust model file base composition background and rate matrix to be
+    # representative of the chromosomes in play
+    grep BACKGROUND ../../cons/all/all.mod | awk '{printf "%0.3f\n", $3 + $4}'
+    OLD:#	0.495
+    # 0.542
+    /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin/modFreqs \
+	../../cons/all/all.mod 0.542 > all.mod
+    # verify, the BACKGROUND should now be paired up:
+    grep BACK all.mod 
+    OLD:#	BACKGROUND: 0.252500 0.247500 0.247500 0.252500 
+
+    #	following the pattern from panTro3 with grp: "all" (no other grp)
+    cat << '_EOF_' > doPhyloP.csh
+    #!/bin/csh -fe
+    set PHASTBIN = /cluster/bin/phast.build/cornellCVS/phast.2010-12-30/bin
+    set f = $1
+    set file1 = $f:t
+    set out = $2
+    set cName = $f:t:r
+    set n = $f:r:e
+    set grp = $cwd:t
+    set cons = /hive/data/genomes/rn5/bed/multiz13way/consPhyloP
+    set tmp = $cons/tmp/$grp/$f
+    rm -fr $tmp
+    mkdir -p $tmp
+    set ssSrc = "/hive/data/genomes/rn5/bed/multiz13way/cons/SS/result/$f"
+    set useGrp = "$grp.mod"
+    ln -s $cons/run.phyloP/$grp.mod $tmp
+    pushd $tmp > /dev/null
+    $PHASTBIN/phyloP --method LRT --mode CONACC --wig-scores --chrom $cName \
+	-i SS $useGrp $ssSrc.ss > $file1.wigFix
+    popd > /dev/null
+    mkdir -p $out:h
+    sleep 4
+    mv $tmp/$file1.wigFix $out
+    rm -fr $tmp
+    rmdir --ignore-fail-on-non-empty $cons/tmp/$grp/$cName
+    rmdir --ignore-fail-on-non-empty $cons/tmp/$grp
+    rmdir --ignore-fail-on-non-empty $cons/tmp
+    '_EOF_'
+    # << happy emacs
+
+    # Create list of chunks
+    find ../../cons/SS/result -type f | grep ".ss$" \
+	| sed -e "s/.ss$//; s#^../../cons/SS/result/##" > ss.list
+    # make sure the list looks good
+    wc -l ss.list
+    #   452 ss.list 
+
+    # Create template file
+    #	file1 == $chr/$chunk/file name without .ss suffix
+    cat << '_EOF_' > template
+    #LOOP
+    ../run.phyloP/doPhyloP.csh $(path1) {check out line+ wigFix/$(dir1)/$(file1).wigFix}
+    #ENDLOOP
+    '_EOF_'
+    # << happy emacs
+
+    ######################   Running all species  #######################
+    # setup run for all species
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/consPhyloP/all
+    cd /hive/data/genomes/rn5/bed/multiz13way/consPhyloP/all
+    rm -fr wigFix
+    mkdir wigFix
+
+    gensub2 ../run.phyloP/ss.list single ../run.phyloP/template jobList
+    # the -ram=8g will allow only one job per node to slow this down since
+    #	it would run too fast otherwise.  Either run on one of the small
+    #	klusters or use the -ram=8g on the para create
+    para -ram=8g create jobList
+    para try ... check ... etc ...
+    para -maxJob=64 push
+    para time > run.time
+
+    Completed: 452 of 452 jobs
+    CPU time in finished jobs:      51556s     859.27m    14.32h    0.60d  0.002 y
+    IO & Wait Time:                  3606s      60.10m     1.00h    0.04d  0.000 y
+    Average job time:                 122s       2.03m     0.03h    0.00d
+    Longest finished job:             303s       5.05m     0.08h    0.00d
+    Submission to last job:           740s      12.33m     0.21h    0.01d
+
+    # make downloads
+    mkdir downloads
+
+    time (find ./wigFix -type f | sed -e "s#^./##; s#\.# d #g; s#-# m #;" \
+	| sort -k1,1 -k3,3n | sed -e "s# d #.#g; s# m #-#g;" | xargs cat \
+	| gzip -c > downloads/phyloP13way.wigFix.gz) &
+    #   real	25m39.941s
+
+    # check integrity of data with wigToBigWig
+    time (zcat downloads/phyloP13way.wigFix.gz \
+	| wigToBigWig -verbose=2 stdin /hive/data/genomes/rn5/chrom.sizes \
+	phyloP13way.bw) > bigWig.log 2>&1 &
+    egrep "real|VmPeak" bigWig.log
+    # pid=78657: VmPeak:    20899744 kB
+    # real    28m10.064s
+ 
+    bigWigInfo phyloP13way.bw 
+
+    #version: 4
+    #isCompressed: yes
+    #isSwapped: 0
+    #primaryDataSize: 3,232,659,693
+    #primaryIndexSize: 75,581,132
+    #zoomLevels: 10
+    #chromCount: 179
+    #basesCovered: 1,901,460,685
+    #mean: 0.111680
+    #min: -7.060000
+    #max: 2.209000
+    #std: 0.635959
+
+    #	encode those files into wiggle data
+    time (zcat downloads/phyloP13way.wigFix.gz \
+	| wigEncode stdin phyloP13way.wig phyloP13way.wib) &
+    #   Converted stdin, upper limit 2.21, lower limit -7.06
+    #   real    10m35.410s
+
+    du -hsc *.wi?
+    #   3.6G    phyloP13way.wib
+    #   459M    phyloP13way.wig
+    #   4.0G    total
+
+    # Load gbdb and database with wiggle.
+    ln -s `pwd`/phyloP13way.wib /gbdb/rn5/multiz13way/phyloP13way.wib
+    nice hgLoadWiggle -pathPrefix=/gbdb/rn5/multiz13way rn5 \
+	phyloP13way phyloP13way.wig
+
+    # use to set trackDb.ra entries for wiggle min and max
+    # and verify table is loaded correctly
+
+    wigTableStats.sh rn5 phyloP13way
+    # db.table      min max mean count sumData stdDev viewLimits
+    # rn5.phyloP13way -7.06 2.209 0.11168 1901460685 2.12355e+08 0.635959 
+    # viewLimits=-3.06811:2.209
+
+    #  Create histogram to get an overview of all the data
+    time nice -n +19 hgWiggle -doHistogram -db=rn5 \
+	-hBinSize=0.001 -hBinCount=1000 -hMinVal=0.0 -verbose=2 \
+	    phyloP13way > histogram.data 2>&1
+    #	real    0m19.396s
+
+    # find out the range for the 2:5 graph
+    grep -v chrom histogram.data | grep "^[0-9]" | ave -col=5 stdin
+    # Q1 0.000240
+    # median 0.000383
+    # Q3 0.000726
+    # average 0.001000
+    # min 0.000107
+    # max 0.041706
+    # count 1000
+    # total 1.000011
+    # standard deviation 0.002765
+
+    #	create plot of histogram:
+
+    cat << '_EOF_' | gnuplot > histo.png
+set terminal png small x000000 xffffff xc000ff x66ff66 xffff00 x00ffff
+set size 1.4, 0.8
+set key left box
+set grid noxtics
+set grid ytics
+set title " X. tropicalis rn5 Histogram phyloP13way track"
+set xlabel " phyloP13way score"
+set ylabel " Relative Frequency"
+set y2label " Cumulative Relative Frequency (CRF)"
+set y2range [0:1]
+set y2tics
+set yrange [0:0.007]
+
+plot "histogram.data" using 2:5 title " RelFreq" with impulses, \
+        "histogram.data" using 2:7 axes x1y2 title " CRF" with lines
+'_EOF_'
+    #	<< happy emacs
+
+    display histo.png &
+
+
+#########################################################################
+# Construct download files for 13-way (DONE - 2014-05-09 - Pauline)
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/multiz13way
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/multiz13way/maf
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/multiz13way/alignments
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phastCons13way
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phastCons13way/rn5.13way.phastCons
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phyloP13way
+    mkdir /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phyloP13way/rn5.13way.phyloP13way
+
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/downloads
+    cd /hive/data/genomes/rn5/bed/multiz13way/downloads
+    mkdir multiz13way phastCons13way phyloP13way
+    cd multiz13way
+    mkdir maf alignments
+    cd maf
+    time rsync -a -P ../../../anno/result/ ./
+    #   real    322m58.633s
+    time gzip *.maf
+    #   real    515m4.515s
+    time md5sum *.maf.gz > md5sum.txt
+    #   real    10m6.351s
+    ln -s `pwd`/*.maf.gz `pwd`/md5sum.txt \
+        /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/multiz13way/maf
+    cd ..
+    du -hsc maf ../../anno/result/
+    #    68G     maf
+    #    722G    ../../anno/result/
+    #    789G    total
+
+    :
+    #    8.5G    maf
+    #     45G     ../../anno/result/
+    #     54G     total
+
+
+    grep TREE ../../4d/all.mod | sed -e 's/TREE: //' \
+       | ~/kent/src/hg/utils/phyloTrees/asciiTree.pl /dev/stdin \
+          > rn5.13way.nh
+
+   ~/kent/src/hg/utils/phyloTrees/commonNames.sh rn5.13way.nh \
+       | ~/kent/src/hg/utils/phyloTrees/asciiTree.pl /dev/stdin \
+          > rn5.13way.commonNames.nh
+   ~/kent/src/hg/utils/phyloTrees/scientificNames.sh rn5.13way.nh \
+       | ~/kent/src/hg/utils/phyloTrees/asciiTree.pl /dev/stdin \
+          > rn5.13way.scientificNames.nh
+    md5sum *.gz *.nh > md5sum.txt
+
+    ln -s `pwd`/*.nh `pwd`/*.txt `pwd`/*.maf.gz \
+        /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/multiz13way
+
+    #####################################################################
+    cd /hive/data/genomes/rn5/bed/multiz13way/downloads/phastCons13way
+    mkdir rn5.13way.phastCons
+    cd rn5.13way.phastCons
+    ln -s ../../../cons/all/downloads/chr*.gz .
+    time md5sum *.gz > md5sum.txt
+    # real    2m9.045s
+
+    ln -s `pwd`/*.gz `pwd`/md5sum.txt \
+  /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phastCons13way/rn5.13way.phastCons
+    #   real    6m11.158s
+    cd ..
+    ln -s ../../cons/all/all.mod rn5.13way.phastCons.mod
+    ln -s ../../cons/all/phastCons13way.bw rn5.13way.phastCons.bw
+    time md5sum *.mod *.bw > md5sum.txt
+    #  real    3m4.462s
+    # obtain the README.txt from hg19/phastCons100way and update for this
+    #   situation, from:
+    # /hive/data/genomes/hg19/bed/multiz100way/downloads/phastCons100way/README.txt
+    ln -s `pwd`/*.mod `pwd`/*.bw `pwd`/*.txt \
+      /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phastCons13way
+
+    #####################################################################
+    cd /hive/data/genomes/rn5/bed/multiz13way/downloads/phyloP13way
+    mkdir rn5.13way.phyloP13way
+    cd rn5.13way.phyloP13way
+    ln -s ../../../consPhyloP/all/downloads/*.gz .
+    time md5sum *.gz > md5sum.txt &
+    # real    3m37.813s
+
+    ln -s `pwd`/*.gz `pwd`/md5sum.txt \
+      /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phyloP13way/rn5.13way.phyloP13way
+
+    cd ..
+    ln -s ../../consPhyloP/run.phyloP/all.mod rn5.13way.phyloP13way.mod
+
+    ln -s ../../consPhyloP/all/phyloP13way.bw rn5.13way.phyloP13way.bw
+
+    time md5sum *.mod *.bw > md5sum.txt &
+    #  real    4m44.724s
+
+    # obtain the README.txt from hg19/phyloP100way and update for this
+    #   situation, from:
+    # /hive/data/genomes/hg19/bed/multiz100way/downloads/phyloP100way/README.txt
+    ln -s `pwd`/*.mod `pwd`/*.bw `pwd`/*.txt \
+      /usr/local/apache/htdocs-hgdownload/goldenPath/rn5/phyloP13way
+
+    ############################################################################
+    # creating upstream mafs (DONE - 2014-05-08 - Pauline)
+    ssh hgwdev
+    mkdir /hive/data/genomes/rn5/goldenPath/multiz13way
+    cd /hive/data/genomes/rn5/goldenPath/multiz13way
+    # run this bash script
+    cat << '_EOF_' > mkUpstream.sh
+#!/bin/sh
+DB=rn5
+GENE=ensGene
+NWAY=multiz13way
+export DB GENE
+
+for S in 1000 2000 5000
+do
+    echo "making upstream${S}.${GENE}.maf"
+    echo "featureBits ${DB} ${GENE}:upstream:${S} -fa=/dev/null -bed=stdout"
+    featureBits ${DB} ${GENE}:upstreamAll:${S} -fa=/dev/null -bed=stdout \
+        | perl -wpe 's/_up[^\t]+/\t0/' | sort -k1,1 -k2,2n \
+        | mafFrags ${DB} ${NWAY} stdin stdout \
+                -orgs=/hive/data/genomes/${DB}/bed/${NWAY}/species.list.txt \
+        | gzip -c > upstream${S}.${GENE}.maf.gz
+    echo "done upstream${S}.${GENE}.maf.gz"
+done
+'_EOF_'
+    # << happy emacs
+    chmod +x mkUpstream.sh
+    time ./mkUpstream.sh
+    #   real    57m14.100s
+
+    # FIXUP/VERIFY the genbank.conf file to indicate this gene choice for the
+    #   upstream automatic generation
+    kent/src/hg/makeDb/genbank/etc/genbank.conf
+    # +rn5.upstreamGeneTbl = ensGene
+    # +rn5.upstreamMaf = multiz13way /hive/data/genomes/rn5/bed/multiz13way/species.list.txt
+
+    git commit -m "Adding to the genbank.conf file to indicate this gene choice. refs #8212" genbank.conf
+    git push
+    make etc-update
+#############################################################################
+# hgPal downloads (DONE - 2014-05-08 - Pauline) 
+#   FASTA from 13way for ensGene
+
+    ssh hgwdev
+    screen
+    bash
+    rm -rf /hive/data/genomes/rn5/bed/multiz13way/pal
+    mkdir /hive/data/genomes/rn5/bed/multiz13way/pal
+    cd /hive/data/genomes/rn5/bed/multiz13way/pal
+    for i in `cat ../species.list`; do echo $i; done > order.lst
+
+    mz=multiz13way
+    gp=ensGene
+    db=rn5
+    mkdir exonAA exonNuc ppredAA ppredNuc
+    for j in `sort -nk 2 /hive/data/genomes/$db/chrom.sizes | awk '{print $1}'`
+    do
+	echo "date"
+	echo "mafGene -chrom=$j  $db $mz $gp order.lst stdout | \
+	    gzip -c > ppredAA/$j.ppredAA.fa.gz"
+	echo "mafGene -chrom=$j -noTrans $db $mz $gp order.lst stdout | \
+	    gzip -c > ppredNuc/$j.ppredNuc.fa.gz"
+	echo "mafGene -chrom=$j -exons -noTrans $db $mz $gp order.lst stdout | \
+	    gzip -c > exonNuc/$j.exonNuc.fa.gz"
+	echo "mafGene -chrom=$j -exons $db $mz $gp order.lst stdout | \
+	    gzip -c > exonAA/$j.exonAA.fa.gz"
+    done > $gp.jobs
+
+    time sh -x $gp.jobs > $gp.jobs.log 2>&1 &
+    sleep 1
+    tail -f $gp.jobs.log
+    # real    124m33.520s 
+
+    mz=multiz13way
+    gp=ensGene
+    db=rn5
+    zcat exonAA/*.gz | gzip -c > $gp.$mz.exonAA.fa.gz
+    zcat exonNuc/*.gz | gzip -c > $gp.$mz.exonNuc.fa.gz
+    zcat ppredAA/*.gz | gzip -c > $gp.$mz.ppredAA.fa.gz
+    zcat ppredNuc/*.gz | gzip -c > $gp.$mz.ppredNuc.fa.gz
+
+    rm -rf exonAA exonNuc ppredAA ppredNuc
+
+    # we're only distributing exons at the moment
+    mz=multiz13way
+    gp=ensGene
+    db=rn5
+    pd=/usr/local/apache/htdocs-hgdownload/goldenPath/$db/$mz/alignments
+    mkdir -p $pd
+    md5sum *.fa.gz > md5sum.txt
+    ln -s `pwd`/$gp.$mz.exonAA.fa.gz $pd/$gp.exonAA.fa.gz
+    ln -s `pwd`/$gp.$mz.exonNuc.fa.gz $pd/$gp.exonNuc.fa.gz
+    ln -s `pwd`/md5sum.txt $pd/
+
+#############################################################################
+# wiki page for 13-way (DONE - 2014-06-04 - Hiram)
+    mkdir /hive/users/hiram/bigWays/rn5.13way
+    cd /hive/users/hiram/bigWays
+    echo "rn5" > rn5.13way/ordered.list
+    grep -i rn5 /hive/data/genomes/rn5/bed/multiz13way/13way.distances.txt \
+        | sort -k3,3n | sed -e 's/rn5//' | awk '{print $1}' \
+           >> rn5.13way/ordered.list
+    ./sizeStats.sh rn5.13way/ordered.list 
+    ./dbDb.sh rn5 13way
+    ./sizeStats.pl rn5 13way
+    # needed to construct symlinks for defCheck.pl:
+    cd /hive/data/genomes/rn5/bed/lastz.hg19
+    ln -s /hive/data/genomes/hg19/bed/lastzRn5.2012-06-27/DEF .
+    cd /hive/data/genomes/rn5/bed/lastz.mm10
+    ln -s /hive/data/genomes/mm10/bed/lastzRn5.2012-03-23/DEF .
+
+    ./defCheck.pl rn5 13way
+
+    # this constructs the html pages in rn5.13way/:
+# -rw-rw-r-- 1 7328 Jun  4 16:10 Rn5_conservation_alignment.html
+# -rw-rw-r-- 1 9646 Jun  4 16:11 Rn5_Genome_size_statistics.html
+# -rw-rw-r-- 1 5634 Jun  4 16:16 Rn5_conservation_lastz_parameters.html
+
+    # add those pages to the genomewiki.
+
+#############################################################################
+# LIFTOVER TO Rn6 (DONE - 2014-07-14 - Hiram )
+    mkdir /hive/data/genomes/rn5/bed/blat.rn6.2014-07-14
+    cd /hive/data/genomes/rn5/bed/blat.rn6.2014-07-14
+    # -debug run to create run dir, preview scripts...
+    doSameSpeciesLiftOver.pl -ooc=/hive/data/genomes/rn5/jkStuff/rn5.11.ooc \
+        -debug rn5 rn6
+    # Real run:
+    time doSameSpeciesLiftOver.pl \
+      -ooc=/hive/data/genomes/rn5/jkStuff/rn5.11.ooc rn5 rn6 > do.log 2>&1
+    # about one hour
+
+    # test with sequence
+#############################################################################
+##############################################################################
+# TransMap V3 tracks. see makeDb/doc/transMapTracks.txt (2014-12-21 markd)
+##############################################################################
+# Crispr track. See ../crisprTrack/README.txt (2016-09-15 max)
+# Command: doCrispr.sh <db> ensGene
+##############################################################################
+# LASTZ Rat Rn5 vs. Rat Rn7 (DONE - 2022-01-07 - Gerardo)
+
+# should be able to run this from anywhere, this time it was run from:
+    cd kent/src/hg/utils/automation
+
+  time (~/kent/src/hg/utils/automation/pairLastz.sh \
+	rn5 rn7 mammal mammal) \
+	   > rn5_rn7_20220107.log 2>&1 &
+  # check the total time
+grep -w real  rn5_rn7_20220107.log  | tail -1 | sed -e 's/^/    # /;'
+    # real      532m37.936s
+
+  # this  rn5_rn7_20220107.log log file happens to have a copy of the make doc, as well
+  # as the copy of the make doc left in the target assembly directory:
+# /hive/data/genomes/rn5/bed/lastzRn7.2022-01-07/makeDoc.txt
+
+    # this command outputs this makeDoc text:
+
+    cat kent/src/hg/utils/automation/rn5_rn7_20220107.log
+
+##############################################################################
+# LASTZ Rat Rn5 vs. Rat Rn7
+#    (DONE - 2022-01-07 - Gerardo)
+
+    mkdir /hive/data/genomes/rn5/bed/lastzRn7.2022-01-07
+    cd /hive/data/genomes/rn5/bed/lastzRn7.2022-01-07
+
+    printf '# Rat Rn7 vs. Rat Rn5
+BLASTZ=/cluster/bin/penn/lastz-distrib-1.04.03/bin/lastz
+
+# TARGET: Rat Rn5
+SEQ1_DIR=/hive/data/genomes/rn5/rn5.2bit
+SEQ1_LEN=/hive/data/genomes/rn5/chrom.sizes
+SEQ1_CHUNK=20000000
+SEQ1_LAP=10000
+SEQ1_LIMIT=40
+
+# QUERY: Rat Rn7
+SEQ2_DIR=/hive/data/genomes/rn7/rn7.2bit
+SEQ2_LEN=/hive/data/genomes/rn7/chrom.sizes
+SEQ2_CHUNK=20000000
+SEQ2_LAP=0
+SEQ2_LIMIT=100
+
+BASE=/hive/data/genomes/rn5/bed/lastzRn7.2022-01-07
+TMPDIR=/dev/shm
+
+' > DEF
+
+    time (~/kent/src/hg/utils/automation/doBlastzChainNet.pl  -verbose=2 `pwd`/DEF -syntenicNet \
+        -workhorse=hgwdev -smallClusterHub=hgwdev -bigClusterHub=ku \
+        -chainMinScore=3000 -chainLinearGap=medium) > do.log 2>&1
+    grep -w real do.log | sed -e 's/^/    # /;'
+    # real	243m55.340s
+
+    sed -e 's/^/    # /;' fb.rn5.chainRn7Link.txt
+    # 2536856185 bases of 2572853723 (98.601%) in intersection
+    sed -e 's/^/    # /;' fb.rn5.chainSynRn7Link.txt
+    # 2490005622 bases of 2572853723 (96.780%) in intersection
+
+    time (~/kent/src/hg/utils/automation/doRecipBest.pl  -load -workhorse=hgwdev -buildDir=`pwd` \
+       \
+       \
+        rn5 rn7) > rbest.log 2>&1
+
+    grep -w real rbest.log | sed -e 's/^/    # /;'
+    # real	89m48.335s
+
+    sed -e 's/^/    # /;' fb.rn5.chainRBest.Rn7.txt
+    # 2402478429 bases of 2572853723 (93.378%) in intersection
+
+    ### and for the swap
+
+    cd /hive/data/genomes/rn7/bed/blastz.rn5.swap
+
+   time (~/kent/src/hg/utils/automation/doBlastzChainNet.pl  -swap -verbose=2 \
+    /hive/data/genomes/rn5/bed/lastzRn7.2022-01-07/DEF -swapDir=`pwd` \
+  -syntenicNet -workhorse=hgwdev -smallClusterHub=hgwdev -bigClusterHub=ku \
+    -chainMinScore=3000 -chainLinearGap=medium) > swap.log 2>&1
+
+    grep -w real swap.log | sed -e 's/^/    # /;'
+    # real	117m28.787s
+
+    sed -e 's/^/    # /;' fb.rn7.chainRn5Link.txt
+    # 2455376156 bases of 2626580772 (93.482%) in intersection
+    sed -e 's/^/    # /;' fb.rn7.chainSynRn5Link.txt
+    # 2410196801 bases of 2626580772 (91.762%) in intersection
+\    time (~/kent/src/hg/utils/automation/doRecipBest.pl  -load -workhorse=hgwdev -buildDir=`pwd` \
+    \
+    \
+   rn7 rn5) > rbest.log 2>&1
+
+    grep -w real rbest.log | sed -e 's/^/    # /;'
+    # real	81m24.947s
+
+    sed -e 's/^/    # /;' fb.rn7.chainRBest.Rn5.txt
+    # 2400855216 bases of 2626580772 (91.406%) in intersection
+
+##############################################################################
+
+real	532m37.936s
+user	0m1.288s
+sys	0m0.938s

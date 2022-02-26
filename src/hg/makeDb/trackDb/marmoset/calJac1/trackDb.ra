@@ -1,0 +1,17 @@
+include trackDb.9way.ra
+include defaultPriority.ra
+
+track quality override
+type wig 0 97
+
+track nscanGene override
+visibility pack
+informant Marmoset N-SCAN uses mouse (mm9) as the informant.
+priority 1
+
+searchTable nscanGene
+searchType genePred
+termRegex Contig[0-9a-zA-Z_].*\.[0-9]+\.[a-z]
+searchPriority 50
+
+#Overrides from visibility.ra

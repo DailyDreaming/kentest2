@@ -1,0 +1,6 @@
+include trackDb.5way.ra
+
+# Local declaration so that local gold.html is picked up.
+track gold override
+shortLabel Scaffolds
+longLabel Scaffolds on artifical chromosome chrUn

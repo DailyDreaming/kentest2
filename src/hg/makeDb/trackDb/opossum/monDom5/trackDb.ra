@@ -1,0 +1,21 @@
+#	"$Id: trackDb.ra,v 1.35 2010/05/11 01:42:13 kent Exp $";
+
+include trackDb.chainNet.ra
+include trackDb.9way.ra
+
+track quality override
+type wig 0 63
+
+track nscanGene override
+visibility pack
+informant Opossum N-SCAN uses human (hg19) as the informant.
+
+track chainMacEug1 override
+chainMinScore 1000
+chainLinearGap loose
+matrixHeader A, C, G, T
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+priority 230
+
+track netMacEug1 override
+priority 230.1

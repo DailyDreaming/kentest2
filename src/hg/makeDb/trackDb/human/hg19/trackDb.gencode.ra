@@ -1,0 +1,40 @@
+track wgEncodeGencodeSuper
+superTrack on
+group genes
+shortLabel GENCODE
+longLabel GENCODE Gene Annotation 
+pennantIcon New red ../goldenPath/newsarch.html#020922 "Released Feb. 9, 2022"
+# doen't set wgEncode attribute here, since newer GENCODEs are not ENCODE
+
+# GENCODE genes on alpha only (wrangler: markd)
+include wgEncodeGencodeV3.ra alpha
+include wgEncodeGencodeV4.ra alpha
+include wgEncodeGencodeV9.ra alpha
+include wgEncodeGencodeV10.ra alpha
+include wgEncodeGencodeV11.ra alpha
+include wgEncodeGencodeV12.ra alpha
+include wgEncodeGencodeV13.ra alpha
+include wgEncodeGencodeV15.ra alpha
+include wgEncodeGencodeV16.ra alpha
+include wgEncodeGencodeV18.ra alpha
+
+# GENCODE public tracks
+include wgEncodeGencodeV7.ra
+include wgEncodeGencodeV14.ra
+include wgEncodeGencodeV17.ra
+include wgEncodeGencodeV19.ra
+include wgEncodeGencodeV24lift37.ra
+include wgEncodeGencodeV26lift37.ra
+include wgEncodeGencodeV27lift37.ra
+include wgEncodeGencodeV28lift37.ra
+include wgEncodeGencodeV29lift37.ra
+include wgEncodeGencodeV30lift37.ra
+include wgEncodeGencodeV31lift37.ra
+include wgEncodeGencodeV32lift37.ra
+include wgEncodeGencodeV33lift37.ra
+include wgEncodeGencodeV34lift37.ra
+include wgEncodeGencodeV35lift37.ra
+include wgEncodeGencodeV36lift37.ra
+include wgEncodeGencodeV37lift37.ra
+include wgEncodeGencodeV38lift37.ra
+include wgEncodeGencodeV39lift37.ra

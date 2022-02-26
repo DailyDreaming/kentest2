@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="CIRM Stem Cell Hub at UCSC Homepage" -->
+
+<!--#include virtual="setRoot.html" -->
+
+<!--#include virtual="${ROOT}inc/header.html" -->
+
+<div class="cirm-page-body">
+  <div class="cirm-page-title back-light-green">
+    <h5 class="cirm-page-title-text">Tools from the CESCG groups</h5>
+  </div>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <a name="CellBrowser"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="https://cells.ucsc.edu/cortex-dev/thumb.png" target="_blank">
+          <img class="card-top-img" style="max-width: 300px"
+          src="https://cells.ucsc.edu/cortex-dev/thumb.png">
+          </a>  
+          <p class="lead text-center"><span style="color: #1E90FF">Cell Browser:</span> Visualize single-cell clustering data</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">The Cell Browser allows for the visualization of single-cell
+            clustering data with the option to color cell by metadata attributes such as sex, age,
+            and gene expression. A number of published datasets are available through the Cell
+            Browser website or set up a Cell Browser for your own data using the code on GitHub.
+            </li>
+            <li class="list-group-item"><a href="https://cells.ucsc.edu" target="_blank">Cell
+            Browser Website</a> <i class="fas fa-external-link-alt" aria-hidden="true"></i></li>
+            <li class="list-group-item"><a href="https://github.com/maximilianh/cellBrowser"
+            target="_blank">Cell Browser GitHub</a> <i class="fab fa-github" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          The Cell Browser was created by Max Haeussler.
+          </small>
+        </div>
+      </div>
+      <a name="PluriTest"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="<!--#echo var='ROOT'-->images/pluritestWelcome.png" target="_blank">
+          <img class="card-top-img" style="max-width: 300px"
+          src="<!--#echo var='ROOT'-->images/pluritestWelcome.png">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">PluriTest:</span> Check for Pluripotency</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            Pluritest allows you check your samples for pluripotentcy through uploading RNA-seq
+            fastq files or Affymetrix and Illumina arrays.
+            Note: Use of Pluritest requires you to register an account.
+            </li>
+            <li class="list-group-item">
+            M&#252;ller FJ, Schuldt BM, Williams R, Mason D, Altun G, Papapetrou EP, Danner S, Goldmann JE,
+            Herbst A, Schmidt NO <em>et al</em>.
+            <a href="http://dx.doi.org/10.1038/nmeth.1580" target="_blank">
+            A bioinformatic assay for pluripotency in human cells</a>.
+            <em>Nat Methods</em>. 2011 Apr;8(4):315-7.
+            PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/21378979" target="_blank">21378979</a>; PMC: <a
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3265323/" target="_blank">PMC3265323</a>
+            </li>
+            <li class="list-group-item"><a href="https://www.pluritest.org/" target="_blank">PluriTest
+            Website</a> <i class="fas fa-external-link-alt" aria-hidden="true"></i></p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          PluriTest was created by Roy Williams and the <a
+          href="https://www.scripps.edu/loring/" target="_blank">Jeanne Loring Lab</a>.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <a name="Pgltools"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="padded-top-img">
+            <a href="https://raw.githubusercontent.com/billgreenwald/pgltools/master/Images/logo.png" target="_blank">
+            <img class="img-responsive" style="max-width: 300px"
+            src="https://raw.githubusercontent.com/billgreenwald/pgltools/master/Images/logo.png">
+            </a>
+          </span>
+          <p class="lead"><span style="color: #1E90FF">Pgltools:</span> Manipulate Hi-C and ChIA-PET
+          data</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            The pgltools package gives you a number of utilities for manipulating files in the
+            <a href="https://github.com/billgreenwald/pgltools#the-pgl-file-format"
+            target="_blank">&quot;paired genomic loci&quot;</a> format, common in both Hi-C and 
+            ChIA-PET experiments. These utilities allow you to things such as convert pgl files
+            to a number of other formats, compare and contrast multiple pgl files, and other basic
+            operations like sorting or merging files.
+            </li>
+            <li class="list-group-item">
+            Greenwald WW, Li H, Smith EN, Benaglio P, Nariai N, Frazer KA.
+            <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1621-0"
+            target="_blank">
+            Pgltools: a genomic arithmetic tool suite for manipulation of Hi-C peak and other chromatin
+            interaction data</a>.
+            <em>BMC Bioinformatics</em>. 2017 Apr 7;18(1):207.
+            PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/28388874" target="_blank">28388874</a>; PMC: <a
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5384132/" target="_blank">PMC5384132</a>
+            </li>
+            <li class="list-group-item"><a href="https://github.com/billgreenwald/pgltools"
+            target="_blank">Pgltools GitHub</a> <i class="fab fa-github" aria-hidden="true"></i></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          The Pgltools package was created by Bill Greenwald.
+          </small>
+        </div>
+      </div>
+      <a name="SCIMITAR"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="padded-top-img">
+            <br>
+            <a href="https://raw.githubusercontent.com/dimenwarper/scimitar/master/logo.png" target="_blank">    
+            <img class="card-img-top"Style="max-width: 300px" 
+            src="https://raw.githubusercontent.com/dimenwarper/scimitar/master/logo.png">
+            </a>
+          </span>
+          <br>
+          <p class="lead"><span style="color: #1E90FF">SCIMITAR:</span> Single Cell Inference of
+          MorphIng Trajectories and their Associated Regulation</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">The SCIMITAR package contains a number of tools to help
+            scientists analyze cell trajectory maps based on single cell sequencing data.</li>
+            <li class="list-group-item">
+            Cordero P, Stuart JM.
+            <a href="http://dx.doi.org/10.1142/9789813207813_0053" target="_blank">
+            Tracing co-regulatory network dynamics in noisy, single-cell transcriptome trajectories</a>
+            <i class="far fa-file-pdf" aria-hidden="true"></i>.
+            <em>Pac Symp Biocomput</em>. 2016;22:576-587.
+            PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/27897008" target="_blank">27897008</a>; PMC: <a
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5203771/" target="_blank">PMC5203771</a>
+            </li>
+            <li class="list-group-item">
+            <a href="https://github.com/dimenwarper/scimitar" target="_blank">SCIMITAR GitHub</a>
+            <i class="fab fa-github" aria-hidden="true"></i></p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          SCIMITAR was created Pablo Cordero.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <a name="tagStorm"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="<!--#echo var='ROOT'-->images/tagStormImage.png" target="_blank">
+          <img class="card-top-img" style="max-width: 300px"
+          src="<!--#echo var='ROOT'-->images/tagStormImage.png">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">Tag Storm:</span> Metadata made simple</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            The tag storm format offers an easy way to describe
+            a hierarchical set of metadata for your data. The tag storm format is made up of
+            a number of key/value pairs spread across stanzas at various indentation levels.
+            Lower indentation levels inherit information from higher levels, so the most general
+            metadata, e.g. lab or dataset names, are generally found at the highest level and
+            more specifc metadata, e.g. sex or file name, are found at the lower level.</p>
+            <p>
+            The Tag Storm GitHub page contains more information about the format as well as a
+            suite of tools to work with and manipulate tag storm files.
+            </li>
+            <li class="list-group-item">
+            <a href="https://github.com/ucscGenomeBrowser/kent/tree/master/src/tagStorm"
+            target="_blank">Tag Storm GitHub</a> <i class="fab fa-github" aria-hidden="true"></i></p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          TagStorm format and utilities were developed by Jim Kent.
+          </small>
+        </div>
+      </div>
+      <a name="RIGGLE"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="<!--#echo var='ROOT'-->images/RIGGLE_demo.png" target="_blank">
+          <img class="card-top-img" style="max-width: 300px"
+          src="<!--#echo var='ROOT'-->images/RIGGLE_demo.png">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">RIGGLE:</span> Regulator Inference by
+          Graph-Guided LASSO Estimation</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            RIGGLE (Regulatory Inference by Graph-Guided LASSO Estimation)
+            is a machine learning framework designed to discover the transcription factor regulators
+            of a cell development trajectory by taking in expression data, known transcription
+            factor targets, and a cell development graph.</p>
+            <p>
+            This process produces predictions for the transcription factor's
+            activities in each of the cell types represented in the graph based on the
+            coordinated expression of its targets, while respecting the developmental
+            relationships between the cells.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          RIGGLE was created by Dan Carlin.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <a name="cellAtlas"></a> 
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="https://cellatlas.ucsc.edu/static/media/logo.3369643f.svg" target="_blank">
+          <img class="card-img-top"Style="max-width: 300px"	
+          src="https://cellatlas.ucsc.edu/static/media/logo.3369643f.svg">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">UCSC Cell Atlas</span></p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            The UCSC Cell Atlas is a growing compendium of single-cell mRNA seq
+            data coupled with visualizations and query abilities designed to expedite the
+            process of biological discovery from single-cell mRNA seq experiments. We aim
+            to augment research by providing an intuitive web interface for browsing single-cell 
+            mRNA seq experiments and a seamless connection from browsing to analysis
+            through a RESTful API. Also under development is a cell type labeling
+            app geared to ease the burden of manual annotation and creation of publication
+            quality figures for newly generated data.</p>
+            </li>
+            <li class="list-group-item"><a href="https://cellatlas.ucsc.edu/"
+            target="_blank">UCSC Cell Atlas Website</a> <i class="fas fa-external-link-alt" aria-hidden="true"></i></p></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          The UCSC Cell Atlas was created by the Josh Stuart Lab at UCSC. 
+          </small>
+        </div>
+      </div>  
+      <a name="MISCE"></a>
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="<!--#echo var='ROOT'-->images/misce1.png" target="_blank">
+          <img class="card-img-top" style="max-width: 300px"
+          src="<!--#echo var='ROOT'-->images/misce1.png">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">MISCE:</span> A Minimum Information
+          About a Stem Cell Experiment</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+              <p>
+              MISCE, or Minimum Information about a Stem Cell Expriment, is a
+              spreadsheet that attempts to collect a rich set of useful information (metadata) about
+              any experiment involving stem cells. The hope is that in using MISCE, the detailed
+              metadata will make the experimental data useful to others attempting to use it
+              in the future.</p>
+              <p>
+              MISCE consists of a number of different modules with each module describing a
+              different experimental process, e.g. celluar reprogramming or RNA sequencing,
+              and all of the important information related to this process, e.g. &quot;Biosample
+              disease stage&quot; or &quot;Assay platform&quot;. Each module can
+              be included or excluded based on the type of experiment being performed. For
+              example, you might not include the &quot;Assay_DNAMethyl&quot; module if you
+              are not performing DNA methylation assays as part of your experiment.</p>
+            </li>
+            <li class="list-group-item">
+              <a href="<!--#echo var='ROOT'-->MISCE2.0.pdf">PDF of MISCE modules</a>
+              <i class="far fa-file-pdf" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          MISCE was created by Sagar Jain and Richard Scheuermann;
+          it is currently maintained by UCSC.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body text-center">
+          <br>
+          <a href="https://northstaratlas.github.io/atlas_landmarks/static/logo.png" target="_blank">
+          <img class="card-img-top"Style="max-width: 300px" 
+          src="https://northstaratlas.github.io/atlas_landmarks/static/logo.png">
+          </a>      
+          <p class="lead"><span style="color: #1E90FF">Northstar:</span>
+          Leveraging Previous Annotations to Label New Datasets</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            Northstar is a computational package that can be used to apply cell
+            type labels to a dataset by leveraging previously annotated 
+            datasets. Cells can be assigned new cell type labels or added to 
+            previously annotated cell types. Northstar also provides a number 
+            of pre-labeled cell atlases covering organs such as pancreas, liver, 
+            and more.</p>
+            </li>
+            <li class="list-group-item"><a href="https://github.com/northstaratlas/northstar"
+            target="_blank">Northstar GitHub</a> <i class="fab fa-github" aria-hidden="true"></i></li>
+            <li class="list-group-item"><a href="https://northstaratlas.github.io/atlas_landmarks/"
+            target="_blank">Northstar Atlas Landmarks</a> <i class="fas fa-external-link-alt" 
+            aria-hidden="true"></i></li>
+          </ul>    
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          Northstar was created by the Quake lab at Stanford University.
+          </small>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body text-center">
+          <br>
+          <a href="https://pbs.twimg.com/profile_images/931231956360032256/g5K2SQQz_400x400.jpg" target="_blank">
+          <img class="card-img-top"Style="max-width: 300px" 
+          src="https://pbs.twimg.com/profile_images/931231956360032256/g5K2SQQz_400x400.jpg">
+          </a>
+          <p class="lead"><span style="color: #1E90FF">NDEx:</span>
+          The Network Data Exchange</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            NDEx, the Network Data Exchange, is an online commons where scientists can
+            upload, share, and publicly distribute networks. Networks in NDEx
+            receive globally unique accession IDs and can be stored for private
+            use, shared in pre-publication collaboration, or released for
+            public access.</p>
+            </li>
+            <li class="list-group-item"><a
+            href="https://www.ndexbio.org/#/"          
+            target="_blank">NDEx Website</a> <i class="fas fa-external-link-alt" aria-hidden="true"></i></li>
+            <li class="list-group-item"> PMID: <a 
+            href="https://www.ncbi.nlm.nih.gov/pubmed/26594663" target="_blank">26594663</a>; PMC: <a
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649937/" target="_blank">PMC4649937</a></li>   
+          </ul>    
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          NDEx Project was created by the NDEx Team at UC San Diego.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row no-gutters">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body text-center">
+          <br>
+          <a href="https://avatars1.githubusercontent.com/u/12550239?s=200&v=4">
+          <img class="card-img-top"Style="max-width: 300px" 
+          src="https://avatars1.githubusercontent.com/u/12550239?s=200&v=4"> 
+          </a>      
+          <p class="lead"><span style="color: #1E90FF">NS-Forest:</span>
+          Necessary and Sufficient Forest (NS-Forest) for Cell Type Marker Determination</p>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item">
+            <p>
+            Necessary and Sufficient Forest is a method that takes cluster results from single cell/nuclei RNAseq experiments and generates lists of minimal markers needed to define each <q>cell type cluster</q>.
+            The method begins by re-encoding the cluster labels into binary classifications, and Random Forest models are generated comparing each cluster versus all. The top fifteen genes are then reranked using a score measuring how binary they are, e.g., a gene with expression in the target cluster but no expression in the other clusters would have a high binary score. Expression cutoffs for the top six genes ranked by binary score are then determined by generating individual decision trees and extracting the decision path information. Then all permutations of the top six most binary genes are evaluated using f-beta score as an objective function (the beta value default set at 0.5, which weights the f-measure score more toward precision as opposed to recall)
+            </p>
+            </li>
+            <li class="list-group-item"><a href="https://github.com/JCVenterInstitute/NSForest"
+            target="_blank">NSForest GitHub</a> <i class="fab fa-github" aria-hidden="true"></i></li>
+          </ul>    
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+          NSForest was created by Brian Aevermann and Richard Scheuermann at JCVenterInstitute.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--#include virtual="${ROOT}inc/footer.html" -->

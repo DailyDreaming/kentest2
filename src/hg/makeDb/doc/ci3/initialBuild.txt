@@ -1,0 +1,644 @@
+# for emacs: -*- mode: sh; -*-
+
+# This file describes browser build for the ci3
+# Ciona intestinalis, this version is what is in Ensembl v81 (and previous)
+#                    there is a newer version available at NCBI
+
+# Assembly Name:  KH
+# Organism name:  Ciona intestinalis (vase tunicate)
+# Taxid:          7719
+# Submitter:      Organization: Department of Zoology, Graduate School of
+# Date:           2011-4-29
+# Assembly type:  haploid
+# Release type:   major
+# Assembly level: Chromosome
+# Genome representation: full
+# GenBank Assembly Accession: GCA_000224145.1 (replaced)
+# RefSeq Assembly Accession: GCF_000224145.1 (replaced)
+# RefSeq Assembly and GenBank Assemblies Identical: no
+#
+## Assembly-Units:
+## GenBank Unit Accession       RefSeq Unit Accession   Assembly-Unit name
+## GCA_000224155.1      GCF_000224155.1 Primary Assembly
+## GCA_000224165.1      GCF_000183085.1 non-nuclear
+#
+# Ordered by chromosome/plasmid; the chromosomes/plasmids are followed by
+# unlocalized scaffolds.
+# Unplaced scaffolds are listed at the end.
+# RefSeq is equal or derived from GenBank object.
+
+#############################################################################
+# fetch sequence from NCBI (DONE - 2015-08-06 - Hiram)
+    mkdir -p /hive/data/genomes/ci3/genbank
+    cd /hive/data/genomes/ci3/genbank
+
+    time rsync -L -a -P \
+rsync://ftp.ncbi.nlm.nih.gov/genomes/all/GCF_000224145.1_KH/ ./
+
+    # measure what we have here:
+    faSize GCF_000224145.1_KH_genomic.fna.gz
+# 115227500 bases (3064662 N's 112162838 real 77549892 upper 34612946 lower)
+#    in 1272 sequences in 1 files
+# Total size: mean 90587.7 sd 621203.6 min 3020 (NW_004191353.1) max 10041005
+#    (NC_020166.1) median 8866
+# %30.04 masked total, %30.86 masked real
+
+    # chrMT sequence is: NC_004447.2 which is included
+
+#############################################################################
+# fixup to UCSC naming scheme (DONE - 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/ucsc
+    cd /hive/data/genomes/ci3/ucsc
+
+    time ~/kent/src/hg/makeDb/doc/ci3/ucscCompositeAgp.pl ../genbank/GCF_000224145.1_KH_assembly_structure/Primary_Assembly
+# NC_020170.1 5
+# NC_020177.1 12
+# NC_020174.1 9
+# NC_020167.1 2
+# NC_020168.1 3
+# NC_020173.1 8
+# NC_020175.1 10
+# NC_020172.1 7
+# NC_020176.1 11
+# NC_020169.1 4
+# NC_020166.1 1
+# NC_020179.1 14
+# NC_020178.1 13
+# NC_020171.1 6
+
+# real    0m1.252s
+
+
+    time ~/kent/src/hg/makeDb/doc/ci3/unplaced.pl ../genbank/GCF_000224145.1_KH_assembly_structure/Primary_Assembly
+    # real    0m32.790s
+
+    zcat ../genbank/GCF_000224145.1_KH_assembly_structure/non-nuclear/assembled_chromosomes/FASTA/chrMT.fna.gz \
+       | sed -e 's/^>.*/>chrM/;' > chrM.fa
+
+    zcat ../genbank/GCF_000224145.1_KH_assembly_structure/non-nuclear/assembled_chromosomes/AGP/chrMT.comp.agp.gz \
+       | grep "^NC_004447" | sed -e 's/NC_004447.2/chrM/;' > chrM.agp
+
+    gzip *.fa
+
+    # verify nothing lost compared to genbank:
+    faSize *.fa.gz
+    # 115227500 bases (3064662 N's 112162838 real 112162838 upper 0 lower)
+    #    in 1272 sequences in 16 files
+    # Total size: mean 90587.7 sd 621203.6 min 3020 (chrUn_NW_004191353v1)
+    #    max 10041005 (chr1) median 8866
+
+    # same numbers as above.
+
+#############################################################################
+#  Initial database build (DONE - 2015-08-06 - Hiram)
+
+    cd /hive/data/genomes/ci3
+    cat << '_EOF_' > ci3.config.ra
+# Config parameters for makeGenomeDb.pl:
+db ci3
+clade deuterostome
+genomeCladePriority 10
+scientificName Ciona intestinalis
+commonName C. intestinalis
+assemblyDate Apr. 2011
+assemblyLabel Kyoto KH
+assemblyShortLabel Kyoto KH
+orderKey 3044
+# chrM bioproject: 30531
+# mitoAcc NC_004447.2 already included
+mitoAcc none
+fastaFiles /hive/data/genomes/ci3/ucsc/*.fa.gz
+agpFiles /hive/data/genomes/ci3/ucsc/*.agp.gz
+# qualFiles none
+dbDbSpeciesDir squirt
+photoCreditURL http://www.ascidians.com/
+photoCreditName Arjan Gittenberger
+ncbiGenomeId 49
+ncbiAssemblyId 527578
+ncbiAssemblyName KH
+ncbiBioProject 187185
+genBankAccessionID GCF_000224145.1
+taxId 7719
+'_EOF_'
+    # << happy emacs
+
+    # verify sequence and AGP are OK:
+    time (makeGenomeDb.pl -workhorse=hgwdev -dbHost=hgwdev -fileServer=hgwdev \
+         -stop=agp ci3.config.ra) > agp.log 2>&1
+    #  real    0m15.114s
+
+    # verify end of agp.log indicates:
+    # *** All done!  (through the 'agp' step)
+
+    # then finish it off:
+    time (makeGenomeDb.pl -workhorse=hgwdev -dbHost=hgwdev \
+       -fileServer=hgwdev -continue=db ci3.config.ra) > db.log 2>&1
+    # real    1m11.102s
+
+    # fixing up the trackDb construction:
+    /cluster/home/hiram/kent/src/hg/utils/automation/makeGenomeDb.pl \
+       -workhorse=hgwdev -dbHost=hgwdev \
+          -fileServer=hgwdev -continue=trackDb ci3.config.ra
+
+    # check in the trackDb files created and add to trackDb/makefile
+
+##############################################################################
+# cpgIslands on UNMASKED sequence (DONE - 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/cpgIslandsUnmasked
+    cd /hive/data/genomes/ci3/bed/cpgIslandsUnmasked
+
+    time (doCpgIslands.pl -dbHost=hgwdev -bigClusterHub=ku -buildDir=`pwd` \
+       -tableName=cpgIslandExtUnmasked \
+          -maskedSeq=/hive/data/genomes/ci3/ci3.unmasked.2bit \
+             -workhorse=hgwdev -smallClusterHub=ku ci3) > do.log 2>&1
+    # real    2m31.233s
+
+    cat fb.ci3.cpgIslandExtUnmasked.txt
+    # 663150 bases of 112164198 (0.591%) in intersection
+
+#############################################################################
+# cytoBandIdeo - (DONE - 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/cytoBand
+    cd /hive/data/genomes/ci3/bed/cytoBand
+    makeCytoBandIdeo.csh ci3
+
+#########################################################################
+# ucscToRefSeq table/track (DONE - 2017-03-14 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/ucscToRefSeq
+    cd /hive/data/genomes/ci3/bed/ucscToRefSeq
+
+    # there is a chrM here
+    grep chrM ../../*.agp
+# chrM    1       14790   1       O       NC_004447.2     1       14790   +
+    # NCBI ENtrez says this NC_004447.2 is AJ517314.2
+
+    # This assembly_report has *two* different MT sequences:
+    # one with a genbank name:
+# KhM0    assembled-molecule      MT      Mitochondrion   HT000188.1      <>     na       non-nuclear     14104   na
+    # and one with a refseq name:
+# MT      assembled-molecule      MT      Mitochondrion   na      <>      NC_004447.2     non-nuclear     14790   na
+
+    printf "NC_004447.2\tAJ517314.2\n" > refseq.insdc.txt
+    grep -v "^#" ../../refseq/GCF*_assembly_report.txt | cut -f5,7 \
+      | grep -v NC_004447.2 \
+      | awk '{printf "%s\t%s\n", $2, $1}' | sort >> refseq.insdc.txt
+
+    printf "chrM\tNC_004447.2\n" > ucscToRefSeq.tab
+    grep -v "Accession.version" ../../genbank/GCF_000224145.1_KH_assembly_structure/Primary_Assembly/assembled_chromosomes/chr2acc \
+       | awk '{printf "chr%d\t%s\n", $1, $2}' | sort >> ucscToRefSeq.tab
+    grep NW_ ../../chrom.sizes | awk '{printf "%s\t%s\n", $1, $1}' \
+       | sed -e 's/chrUn_//; s/v1/.1/;' | awk '{printf "%s\t%s\n", $2, $1}' \
+          | sort >> ucscToRefSeq.tab
+
+    sort -k2 ucscToRefSeq.tab | join -1 2 - refseq.insdc.txt \
+      | awk '{printf "%s\t%s\n", $2, $3}' | sort > ucscToINSDC.tab
+
+    awk '{printf "%s\t0\t%d\n", $1,$2}' ../../chrom.sizes \
+         | sort > ucsc.coordinate.tab
+
+    join ucscToINSDC.tab ucsc.coordinate.tab \
+         | awk '{printf "%s\t%d\t%d\t%s\n", $1,$3,$4,$2}' \
+             | sort > ucscToINSDC.bed
+
+    sort ucscToRefSeq.tab \
+       | join - ucsc.coordinate.tab \
+         | awk '{printf "%s\t%d\t%d\t%s\n", $1,$3,$4,$2}' \
+             | sort > ucscToRefSeq.bed
+
+
+    # the second MT HT000188.1 is not matched in UCSC assembly:
+    wc -l *
+#   1273 refseq.insdc.txt
+#   1272 ucsc.coordinate.tab
+#   1272 ucscToINSDC.bed
+#   1272 ucscToINSDC.tab
+#   1272 ucscToRefSeq.bed
+#   1272 ucscToRefSeq.tab
+
+    export chrSize=`cut -f1 ucscToRefSeq.bed | awk '{print length($0)}' | sort -n | tail -1`
+    echo $chrSize
+    #  20
+    sed -e "s/21/$chrSize/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+       | sed -e 's/INSDC/RefSeq/g;' > ucscToRefSeq.sql
+    hgLoadSqlTab ci3 ucscToRefSeq ./ucscToRefSeq.sql ucscToRefSeq.bed
+
+    # and the existing ucscToINSDC is incorrect:
+    export chrSize=`cut -f1 ucscToINSDC.bed | awk '{print length($0)}' | sort -n | tail -1`
+    echo $chrSize
+    #  20
+    sed -e "s/21/$chrSize/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+        > ucscToINSDC.sql
+    hgLoadSqlTab ci3 ucscToINSDC ./ucscToINSDC.sql ucscToINSDC.bed
+
+
+    # checkTableCoords should be silent
+    checkTableCoords ci3
+    # each should cover %100 entirely:
+    featureBits -countGaps ci3 ucscToINSDC
+    # 115227500 bases of 115227500 (100.000%) in intersection
+
+    featureBits -countGaps ci3 ucscToRefSeq
+    # 115227500 bases of 115227500 (100.000%) in intersection
+
+#########################################################################
+# add chromAlias table (DONE - 2017-03-14 - Hiram)
+
+    # the previous chromAlias was incorrect, it was the incorrect genbank
+    # assembly correspondence.  This already has the ensembl list here.
+
+    mkdir /hive/data/genomes/ci3/bed/chromAlias
+    cd /hive/data/genomes/ci3/bed/chromAlias
+
+    hgsql -N -e 'select chrom,name from ucscToRefSeq;' ci3 \
+        > ucsc.refseq.tab
+    hgsql -N -e 'select chrom,name from ucscToINSDC;' ci3 \
+        > ucsc.genbank.tab
+
+    ~/kent/src/hg/utils/automation/chromAlias.pl
+
+    # verify all are correct counts:
+    cut -f3 ci3.chromAlias.tab | tr '[,]' '[\n]' | sort | uniq -c
+    #	1272 ensembl
+    #	1272 genbank
+    #	1272 refseq
+    wc -l *.tab
+    #	2559 ci3.chromAlias.tab
+    #	1272 ucsc.ensembl.tab
+    #	1272 ucsc.genbank.tab
+    #	1272 ucsc.refseq.tab
+
+    hgLoadSqlTab ci3 chromAlias ~/kent/src/hg/lib/chromAlias.sql \
+        ci3.chromAlias.tab
+
+#########################################################################
+# ucscToINSDC table/track (DONE - 2015-07-10 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/ucscToINSDC
+    cd /hive/data/genomes/ci3/bed/ucscToINSDC
+
+    # find the chrM accession:
+    grep chrM ../../*.agp
+# chrM    1       14790   1       O       NC_004447.2     1       14790   +
+
+    # use that as the second argument here:
+    ~/kent/src/hg/utils/automation/ucscToINSDC.sh \
+       ../../genbank/GCF_*assembly_structure/Primary_Assembly NC_004447.2
+    # didn't work on this odd one:
+    mv ucscToINSDC.txt ucscToINSDC.broken
+    sed -e 's/NWv/NW_/; s/\tNW/v1\tNW/;' ucscToINSDC.broken > ucscToINSDC.txt
+
+    awk '{printf "%s\t0\t%d\n", $1,$2}' ../../chrom.sizes \
+         | sort > name.coordinate.tab
+    join name.coordinate.tab ucscToINSDC.txt | tr '[ ]' '[\t]' \
+         > ucscToINSDC.bed
+    # verify all names are coming through, should be same line count:
+    wc -l *
+    # 1272 name.coordinate.tab
+    # 1272 ucscToINSDC.bed
+    # 1272 ucscToINSDC.broken
+    # 1272 ucscToINSDC.txt
+
+    cut -f1 ucscToINSDC.bed | awk '{print length($0)}' | sort -n | tail -1
+    # 20
+    # use the 20 in this sed
+    sed -e "s/21/20/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+         | hgLoadSqlTab ci3 ucscToINSDC stdin ucscToINSDC.bed
+    checkTableCoords ci3
+    # should cover %100 entirely:
+    featureBits -countGaps ci3 ucscToINSDC
+    # 115227500 bases of 115227500 (100.000%) in intersection
+
+#########################################################################
+# fixup search rule for assembly track/gold table (DONE - 2015-07-10 - Hiram)
+    hgsql -N -e "select frag from gold;" ci3 | sort | head -3
+EAAA01000001.1
+EAAA01000002.1
+EAAA01000003.1
+
+    hgsql -N -e "select frag from gold;" ci3 | sort | tail -2
+EAAA01006374.1
+NC_004447.2
+
+[EN][AC][A_][A0][0-9]*(\.[12])?
+    # verify this rule will find them all or eliminate them all:
+    hgsql -N -e "select frag from gold;" ci3 | wc -l
+    # 6374
+
+    hgsql -N -e "select frag from gold;" ci3 \
+      | egrep -e '[EN][AC][A_][A0][0-9]*(\.[12])?' | wc -l
+    # 6374
+
+    hgsql -N -e "select frag from gold;" ci3 \
+      | egrep -v -e '[EN][AC][A_][A0][0-9]*(\.[12])?' | wc -l
+    # 0
+
+    # hence, add to trackDb/worm/ci3/trackDb.ra
+searchTable gold
+shortCircuit 1
+termRegex [EN][AC][A_][A0][0-9]*(\.[12])?
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+##########################################################################
+# running repeat masker (DONE - 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/repeatMasker
+    cd /hive/data/genomes/ci3/bed/repeatMasker
+    time (doRepeatMasker.pl -buildDir=`pwd` \
+        -bigClusterHub=ku -dbHost=hgwdev -workhorse=hgwdev \
+        -smallClusterHub=ku ci3) > do.log 2>&1
+    # real    17m59.020s
+
+    cat faSize.rmsk.txt
+    # 115227500 bases (3064662 N's 112162838 real 95159873 upper
+    #    17002965 lower) in 1272 sequences in 1 files
+    # Total size: mean 90587.7 sd 621203.6 min 3020 (chrUn_NW_004191353v1)
+    #    max 10041005 (chr1) median 8866
+    # %14.76 masked total, %15.16 masked real
+
+    egrep -i "versi|relea" do.log
+    # RepeatMasker version open-4.0.5
+    #    January 31 2015 (open-4-0-5) version of RepeatMasker
+    # CC   RELEASE 20140131;
+
+    time featureBits -countGaps ci3 rmsk
+    # 17008343 bases of 115227500 (14.761%) in intersection
+    # real    0m1.517s
+
+    # why is it different than the faSize above ?
+    # because rmsk masks out some N's as well as bases, the count above
+    #   separates out the N's from the bases, it doesn't show lower case N's
+
+##########################################################################
+# running simple repeat (DONE - 2015-08-06 - Hiram)
+
+    mkdir /hive/data/genomes/ci3/bed/simpleRepeat
+    cd /hive/data/genomes/ci3/bed/simpleRepeat
+    time (doSimpleRepeat.pl -buildDir=`pwd` -bigClusterHub=ku \
+        -dbHost=hgwdev -workhorse=hgwdev -smallClusterHub=ku \
+        ci3) > do.log 2>&1
+    # real    7m4.597s
+
+    cat fb.simpleRepeat
+    # 3958962 bases of 112164198 (3.530%) in intersection
+
+    # add to rmsk after it is done:
+    cd /hive/data/genomes/ci3
+    twoBitMask ci3.rmsk.2bit \
+        -add bed/simpleRepeat/trfMask.bed ci3.2bit
+    #   you can safely ignore the warning about fields >= 13
+    twoBitToFa ci3.2bit stdout | faSize stdin > faSize.ci3.2bit.txt
+    cat faSize.ci3.2bit.txt
+    # 2641342258 bases (41642089 N's 2599700169 real 1445054690 upper
+    # 1154645479 lower) in 267625 sequences in 1 files
+    # Total size: mean 9869.6 sd 1168451.9 min 152 (chrUn_AANG03201581v1)
+    #    max 240380223 (chrA1) median 654
+    # %43.71 masked total, %44.41 masked real
+
+    rm /gbdb/ci3/ci3.2bit
+    ln -s `pwd`/ci3.2bit /gbdb/ci3/ci3.2bit
+
+##########################################################################
+# CREATE MICROSAT TRACK (DONE - 2015-08-06 - Hiram)
+     ssh hgwdev
+     mkdir /cluster/data/ci3/bed/microsat
+     cd /cluster/data/ci3/bed/microsat
+     awk '($5==2 || $5==3) && $6 >= 15 && $8 == 100 && $9 == 0 {printf("%s\t%s\t%s\t%dx%s\n", $1, $2, $3, $6, $16);}' \
+	../simpleRepeat/simpleRepeat.bed > microsat.bed
+    hgLoadBed ci3 microsat microsat.bed
+    #	Read 152 elements of size 4 from microsat.bed
+
+##########################################################################
+## WINDOWMASKER (DONE - 2015-08-06 - Hiram)
+
+    mkdir /hive/data/genomes/ci3/bed/windowMasker
+    cd /hive/data/genomes/ci3/bed/windowMasker
+    time (doWindowMasker.pl -buildDir=`pwd` -workhorse=hgwdev \
+        -dbHost=hgwdev ci3) > do.log 2>&1
+    # real    5m11.115s
+
+    # Masking statistics
+    cat faSize.ci3.cleanWMSdust.txt
+    # 115227500 bases (3064662 N's 112162838 real 76632395 upper
+    #    35530443 lower) in 1272 sequences in 1 files
+    # Total size: mean 90587.7 sd 621203.6 min 3020 (chrUn_NW_004191353v1)
+    #    max 10041005 (chr1) median 8866
+    # %30.84 masked total, %31.68 masked real
+
+    cat fb.ci3.rmsk.windowmaskerSdust.txt
+    # 13034836 bases of 115227500 (11.312%) in intersection
+
+    # using this Window Masker result for final masking::
+    cd /hive/data/genomes/ci3
+    #   you can safely ignore the warning about fields >= 13
+    twoBitMask bed/windowMasker/ci3.cleanWMSdust.2bit \
+       -add bed/simpleRepeat/trfMask.bed  ci3.2bit
+
+    # measure the final masking:
+    twoBitToFa ci3.2bit stdout | faSize stdin > faSize.ci3.2bit.txt
+    cat faSize.ci3.2bit.txt
+    # 115227500 bases (3064662 N's 112162838 real 76616873 upper
+    #    35545965 lower) in 1272 sequences in 1 files
+    # Total size: mean 90587.7 sd 621203.6 min 3020 (chrUn_NW_004191353v1)
+    #    max 10041005 (chr1) median 8866
+    # %30.85 masked total, %31.69 masked real
+
+    # and reset the symlink
+    rm /gbdb/ci3/ci3.2bit
+    ln -s /hive/data/genomes/ci3/ci3.2bit /gbdb/ci3/ci3.2bit
+
+##########################################################################
+# cpgIslands - (DONE - 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/cpgIslands
+    cd /hive/data/genomes/ci3/bed/cpgIslands
+    time doCpgIslands.pl -dbHost=hgwdev -bigClusterHub=ku \
+      -workhorse=hgwdev -smallClusterHub=ku ci3 > do.log 2>&1
+    # real    2m31.639s
+
+    cat fb.ci3.cpgIslandExt.txt
+    # 493798 bases of 112164198 (0.440%) in intersection
+
+##############################################################################
+# genscan - (DONE 2015-08-06 - Hiram)
+    mkdir /hive/data/genomes/ci3/bed/genscan
+    cd /hive/data/genomes/ci3/bed/genscan
+    time (doGenscan.pl -buildDir=`pwd` -workhorse=hgwdev -dbHost=hgwdev \
+      -bigClusterHub=ku ci3) > do.log 2>&1
+    # real    7m40.961s
+
+    cat fb.ci3.genscan.txt
+    # 9423651 bases of 112164198 (8.402%) in intersection
+
+    cat fb.ci3.genscanSubopt.txt
+    # 2728824 bases of 112164198 (2.433%) in intersection
+
+########################################################################
+# Create kluster run files (DONE - 2015-08-25 - Hiram)
+
+    # numerator is ci3 gapless bases "real" as reported by:
+    # numerator is ce11 gapless bases "real" as reported by:
+    head -1 faSize.ci3.2bit.txt
+# 115227500 bases (3064662 N's 112162838 real 76616873 upper 35545965 lower)
+#   in 1272 sequences in 1 files
+
+    # denominator is hg19 gapless bases as reported by:
+    #   featureBits -noRandom -noHap hg19 gap
+    #     234344806 bases of 2861349177 (8.190%) in intersection
+    # 1024 is threshold used for human -repMatch:
+    calc \( 112162838 / 2861349177 \) \* 1024
+    #   ( 112162838 / 2861349177 ) * 1024 = 40.140066
+
+    # ==> use -repMatch=100 since the smaller '50' number would count too many
+    cd /hive/data/genomes/ci3
+    blat ci3.2bit \
+         /dev/null /dev/null -tileSize=11 -makeOoc=jkStuff/ci3.11.ooc \
+        -repMatch=100
+    #   Wrote 6681 overused 11-mers to jkStuff/ci3.11.ooc
+    #   There are no non-bridged gaps
+    hgsql -N \
+        -e 'select * from gap where bridge="no" order by size;' ci3 \
+        | sort -k7,7nr
+    #   most non-bridged gaps have size = 5000, follow pig's example (most
+    #   100, but use 5000)
+    #   decide on a minimum gap for this break, use either 100 or 5000 will
+    #   generate 13387 liftOver rows, but if use 6000, only got 11703 rows.
+    #   so use 100 here to get more liftOver row.
+    gapToLift -verbose=2 -minGap=100 bosTau7 jkStuff/nonBridged.lft \
+        -bedFile=jkStuff/nonBridged.bed
+
+    #   check N50 size
+    n50.pl chrom.sizes
+#       reading: chrom.sizes
+#       contig count: 1272, total size: 115227500, one half size: 57613750
+# cumulative    N50 count       contig  contig size
+# 54476032        8       chr12   5356124
+# 57613750 one half size
+# 59628933        9       chr11   5152901
+
+########################################################################
+# GENBANK AUTO UPDATE (DONE - 2015-08-26 - Hiram)
+    ssh hgwdev
+    cd $HOME/kent/src/hg/makeDb/genbank
+    git pull
+    # /cluster/data/genbank/data/organism.lst shows:
+    # #organism       mrnaCnt estCnt  refSeqCnt
+    # Ciona intestinalis      8186    1205674 948
+    # Ciona savignyi  106     84302   0
+
+    # edit etc/genbank.conf to add ci3 just after ci2
+
+# ci3 (ciona intestinalis)
+ci3.serverGenome = /hive/data/genomes/ci3/ci3.2bit
+ci3.clusterGenome = /hive/data/genomes/ci3/ci3.2bit
+ci3.ooc = /hive/data/genomes/ci3/jkStuff/ci3.11.ooc
+ci3.maxIntron = 20000
+ci3.lift = no
+ci3.refseq.mrna.native.pslCDnaFilter  = ${ordered.refseq.mrna.native.pslCDnaFilter}
+ci3.refseq.mrna.xeno.pslCDnaFilter    = ${ordered.refseq.mrna.xeno.pslCDnaFilter}
+ci3.genbank.mrna.native.pslCDnaFilter = ${ordered.genbank.mrna.native.pslCDnaFilter}
+ci3.genbank.mrna.xeno.pslCDnaFilter   = ${ordered.genbank.mrna.xeno.pslCDnaFilter}
+ci3.genbank.est.native.pslCDnaFilter  = ${ordered.genbank.est.native.pslCDnaFilter}
+# refseq.mrna native and xeno are default yes
+# genbank.mrna and genbank.est native are default yes, the xeno is default no
+ci3.downloadDir = ci3
+ci3.perChromTables = no
+
+
+    git commit -m "Added ci3 Ciona intestnalis; refs #15796" etc/genbank.conf
+    git push
+    # update /cluster/data/genbank/:
+    make etc-update
+
+
+    # Edit src/lib/gbGenome.c to add new species.  Skipped
+
+    screen      #  control this business with a screen since it takes a while
+    cd /cluster/data/genbank
+
+    time ./bin/gbAlignStep -initial ci3
+    # logFile: var/build/logs/2015.08.24-10:47:11.ci3.initalign.log
+    #   real    87m30.071s
+    #   To re-do, rm the dir first:
+    #     /cluster/data/genbank/work/initial.ci3
+
+    # to avoid failed load:
+    cd /cluster/data/genbank/data/aligned/refseq.71/ci3
+    # find file with illegal name:
+    grep AC_ */*xeno*
+daily.2015.0725/mrna.xeno.alidx:AC_000192       1       0
+    # remove that line from that file
+
+    # load database when finished
+    ssh hgwdev
+    cd /cluster/data/genbank
+    time ./bin/gbDbLoadStep -drop -initialLoad ci3
+    # real    20m9.391s
+    # real    23m11.113s
+    # logFile: var/dbload/hgwdev/logs/2015.08.26-10:40:23.ci3.dbload.log
+
+    # enable daily alignment and update of hgwdev
+    cd ~/kent/src/hg/makeDb/genbank
+    git pull
+    # add ci3 to:
+    #   etc/align.dbs
+    #   etc/hgwdev.dbs
+    git commit -m "Added ci3 - Ciona intestinalis refs #15796" etc/align.dbs etc/hgwdev.dbs
+    git push
+    make etc-update
+
+#########################################################################
+# LIFTOVER TO ci2 (DONE - 2015-08-26 - Hiram )
+    mkdir /hive/data/genomes/ci3/bed/blat.ci2.2015-08-26
+    cd /hive/data/genomes/ci3/bed/blat.ci2.2015-08-26
+    # -debug run to create run dir, preview scripts...
+    doSameSpeciesLiftOver.pl -buildDir=`pwd` \
+	-bigClusterHub=ku -dbHost=hgwdev -workhorse=hgwdev \
+	-ooc=/hive/data/genomes/ci3/jkStuff/ci3.11.ooc -debug ci3 ci2
+    # Real run:
+    time (doSameSpeciesLiftOver.pl -buildDir=`pwd` \
+      -bigClusterHub=ku -dbHost=hgwdev -workhorse=hgwdev \
+       -ooc=/hive/data/genomes/ci3/jkStuff/ci3.11.ooc ci3 ci2) > do.log 2>&1
+    #  real    19m1.617s
+
+    # verify it works on genome-test
+
+#############################################################################
+# all.joiner update, downloads and in pushQ - (done 2016-01-08 - Hiram)
+    cd $HOME/kent/src/hg/makeDb/schema
+    # fixup all.joiner until this is a clean output
+    joinerCheck -database=ci3 -keys all.joiner
+    joinerCheck -database=ci3 -tableCoverage all.joiner
+    joinerCheck -database=ci3 -times all.joiner
+
+    cd /hive/data/genomes/ci3
+    makeDownloads.pl ci3 > downloads.log 2>&1
+
+    #   now ready for pushQ entry
+    mkdir /hive/data/genomes/ci3/pushQ
+    cd /hive/data/genomes/ci3/pushQ
+    makePushQSql.pl ci3 > ci3.pushQ.sql 2> stderr.out
+    #   check for errors in stderr.out, some are OK, e.g.:
+    # WARNING: hgwdev does not have /gbdb/ci3/wib/gc5Base.wib
+    # WARNING: hgwdev does not have /gbdb/ci3/wib/quality.wib
+    # WARNING: hgwdev does not have /gbdb/ci3/bbi/quality.bw
+    # WARNING: ci3 does not have seq
+    # WARNING: ci3 does not have extFile
+
+    #   copy it to hgwbeta
+    scp -p ci3.pushQ.sql qateam@hgwbeta:/tmp
+    ssh qateam@hgwbeta hgwbeta "./bin/x86_64/hgsql qapushq < /tmp/ci3.pushQ.sql"
+
+    #   in that pushQ entry walk through each entry and see if the
+    #   sizes will set properly
+
+#########################################################################
+#  BLATSERVERS ENTRY (DONE - 2017-05-09 - Hiram)
+#	After getting a blat server assigned by the Blat Server Gods,
+    ssh hgwdev
+
+    hgsql -e 'INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("ci3", "blat1a", "17828", "1", "0"); \
+	INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("ci3", "blat1a", "17829", "0", "1");' \
+	    hgcentraltest
+    #	test it with some sequence
+
+############################################################################

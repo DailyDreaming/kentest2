@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser FAQ" -->
+<!--#set var="ROOT" value=".." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Frequently Asked Questions: Assembly Releases and Versions</h1>
+
+<h2>Topics</h2>
+
+<ul>
+<li><a href="#release1">List of UCSC genome releases</a></li>
+<li><a href="#release2">Initial assembly release dates</a></li>
+<li><a href="#release3">UCSC assemblies</a></li>
+<li><a href="#release4">Comparison of UCSC and NCBI human assemblies</a></li>
+<li><a href="#release13">Looking for a genome assembly not shown in the tree?</a></li>
+<li><a href="#release12">Differences between UCSC and NCBI mouse assemblies</a></li>
+<li><a href="#release5">Accessing older assembly versions</a></li>
+<li><a href="#release6">Frequency of GenBank data updates</a></li>
+<li><a href="#release7">Coordinate changes between assemblies</a></li>
+<li><a href="#release8">Converting positions between assembly versions</a></li>
+<li><a href="#release9">Missing annotation tracks</a></li>
+<li><a href="#release10">What next with the human genome?</a></li>
+<li><a href="#release11">Mouse strain used for mouse genome sequence</a></li>
+</ul>
+<hr>
+<p>
+<a href="index.html">Return to FAQ Table of Contents</a></p>
+
+<a name="release1"></a>
+<h2>List of UCSC genome releases</h2>
+<h6>How do UCSC's release numbers correspond to those of other organizations, such as
+NCBI?</h6>
+<p> 
+The first release of an assembly is given a name using the first three characters of the organism's 
+genus and species classification in the format gggSss#, with subsequent assemblies incrementing 
+the number. Assemblies predating the 2003 introduction of the six-letter naming system were given 
+two-letter names in a similar gs# format and human assemblies are named hg# for human genome.</p>
+<table border=1>            
+  <tr>
+    <th>SPECIES</th>
+    <th>UCSC VERSION</th>
+    <th>RELEASE DATE</th>
+    <th>RELEASE NAME</th>
+    <th>STATUS</th>
+  </tr>
+  <tr><td><strong>MAMMALS</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td>Human</td><td>hg38</td><td>Dec. 2013</td><td>Genome Reference Consortium GRCh38</td><td>Available</td></tr>
+  <tr><td></td><td>hg19</td><td>Feb. 2009</td><td>Genome Reference Consortium GRCh37</td><td>Available</td></tr>
+  <tr><td></td><td>hg18</td><td>Mar. 2006</td><td>NCBI Build 36.1</td><td>Available</td></tr>
+  <tr><td></td><td>hg17</td><td>May 2004</td><td>NCBI Build 35</td><td>Available</td></tr>
+  <tr><td></td><td>hg16</td><td>Jul. 2003</td><td>NCBI Build 34</td><td>Available</td></tr>
+  <tr><td></td><td>hg15</td><td>Apr. 2003</td><td>NCBI Build 33</td><td>Archived</td></tr>
+  <tr><td></td><td>hg13</td><td>Nov. 2002</td><td>NCBI Build 31</td><td>Archived</td></tr>
+  <tr><td></td><td>hg12</td><td>Jun. 2002</td><td>NCBI Build 30</td><td>Archived</td></tr>
+  <tr><td></td><td>hg11</td><td>Apr. 2002</td><td>NCBI Build 29</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg10</td><td>Dec. 2001</td><td>NCBI Build 28</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg8</td><td>Aug. 2001</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg7</td><td>Apr. 2001</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg6</td><td>Dec. 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg5</td><td>Oct. 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg4</td><td>Sep. 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg3</td><td>Jul. 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg2</td><td>Jun. 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td></td><td>hg1</td><td>May 2000</td><td>UCSC-assembled</td><td>Archived (data only)</td></tr>
+  <tr><td>Alpaca</td><td>vicPac2</td><td>Mar. 2013</td><td>Broad Institute Vicugna_pacos-2.0.1</td><td>Available</td></tr>
+  <tr><td></td><td>vicPac1</td><td>Jul. 2008</td><td>Broad Institute VicPac1.0</td><td>Available</td></tr>
+  <tr><td>Armadillo</td><td>dasNov3</td><td>Dec. 2011</td><td>Broad Institute DasNov3</td><td>Available</td></tr>
+  <tr><td>Baboon</td><td>papAnu4</td><td>Apr. 2017</td><td>Human Genome Sequencing Center</td><td>Available</td></tr>
+  <tr><td></td><td>papAnu2</td><td>Mar. 2012</td><td>Baylor College of Medicine Panu_2.0</td><td>Available</td></tr>
+  <tr><td></td><td>papHam1</td><td>Nov. 2008</td><td>Baylor College of Medicine HGSC Pham_1.0</td><td>Available</td></tr>
+  <tr><td>Bison</td><td>bisBis1</td><td>Oct. 2014</td><td>Univ. of Maryland Bison_UMD1.0</td><td>Available</td></tr>
+  <tr><td>Bonobo</td><td>panPan3</td><td>May 2020</td><td>University of Washington</td><td>Available</td></tr>
+  <tr><td></td><td>panPan2</td><td>Dec. 2015</td><td>Max-Planck Institute for Evolutionary Anthropology panpan1.1</td><td>Available</td></tr>
+  <tr><td></td><td>panPan1</td><td>May 2012</td><td>Max-Planck Institute panpan1</td><td>Available</td></tr>
+  <tr><td>Brown kiwi</td><td>aptMan1</td><td>Jun. 2015</td><td>Max-Planck Institute for Evolutionary Anthropology AptMant0</td><td>Available</td></tr>
+  <tr><td>Bushbaby</td><td>otoGar3</td><td>Mar. 2011</td><td>Broad Institute OtoGar3</td><td>Available</td></tr>
+  <tr><td>Cat</td><td>felCat9</td><td>Nov. 2017</td><td> Genome Sequencing Center (GSC) at Washington University (WashU) School of Medicine Felis_catus_9.0</td><td>Available</td></tr>
+  <tr><td></td><td>felCat8</td><td>Nov. 2014</td><td>ICGSC Felis_catus_8.0</td><td>Available</td></tr>
+  <tr><td></td><td>felCat5</td><td>Sep. 2011</td><td>ICGSC Felis_catus-6.2</td><td>Available</td></tr>
+  <tr><td></td><td>felCat4</td><td>Dec. 2008</td><td>NHGRI catChrV17e</td><td>Available</td></tr>
+  <tr><td></td><td>felCat3</td><td>Mar. 2006</td><td>Broad Institute Release 3</td><td>Available</td></tr>
+  <tr><td>Chimp</td><td>panTro6</td><td>Jan. 2018</td><td>Clint_PTRv2</td><td>Available</td></tr>
+  <tr><td></td><td>panTro5</td><td>May 2016</td><td>CGSC Build 3.0</td><td>Available</td></tr>
+  <tr><td></td><td>panTro4</td><td>Feb. 2011</td><td>CGSC Build 2.1.4</td><td>Available</td></tr>
+  <tr><td></td><td>panTro3</td><td>Oct. 2010</td><td>CGSC Build 2.1.3</td><td>Available</td></tr>
+  <tr><td></td><td>panTro2</td><td>Mar. 2006</td><td>CGSC Build 2.1</td><td>Available</td></tr>
+  <tr><td></td><td>panTro1</td><td>Nov. 2003</td><td>CGSC Build 1.1</td><td>Available</td></tr>
+  <tr><td>Chinese hamster</td><td>criGri1</td><td>Jul. 2013</td><td>Beijing Genomics Institution-Shenzhen C_griseus_v1.0</td><td>Available</td></tr>
+  <tr><td>Chinese hamster ovary cell line</td><td>criGriChoV2</td><td>Jun. 2017</td><td>Eagle Genomics Ltd CHOK1S_HZDv1</td><td>Available</td></tr>
+  <tr><td></td><td>criGriChoV1</td><td>Aug. 2011</td><td>Beijing Genomics Institute CriGri_1.0</td><td>Available</td></tr>
+  <tr><td>Chinese pangolin</td><td>manPen1</td><td>Aug. 2014</td><td>Washington University (WashU) M_pentadactyla-1.1.1</td><td>Available</td></tr>
+  <tr><td>Cow</td><td>bosTau9</td><td>Apr. 2018</td><td>USDA ARS</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau8</td><td>Jun. 2014</td><td>University of Maryland v3.1.1</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau7</td><td>Oct. 2011</td><td>Baylor College of Medicine HGSC Btau_4.6.1</td><td>Available</td<tr>
+  <tr><td></td><td>bosTau6</td><td>Nov. 2009</td><td>University of Maryland v3.1</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau4</td><td>Oct. 2007</td><td>Baylor College of Medicine HGSC Btau_4.0</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau3</td><td>Aug. 2006</td><td>Baylor College of Medicine HGSC Btau_3.1</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau2</td><td>Mar. 2005</td><td>Baylor College of Medicine HGSC Btau_2.0</td><td>Available</td></tr>
+  <tr><td></td><td>bosTau1</td><td>Sep. 2004</td><td>Baylor College of Medicine HGSC Btau_1.0</td><td>Archived</td></tr>
+  <tr><td>Crab-eating macaque</td><td>macFas5</td><td>Jun. 2013</td><td>Washington University Macaca_fascicularis_5.0</td><td>Available</td></tr>
+  <tr><td>Dog</td><td>canFam6</td><td>Oct. 2020</td><td>Dog Genome Sequencing Consortium Dog10K_Boxer_Tasha</td><td>Available</td></tr>
+  <tr><td></td><td>canFam5</td><td>May 2019</td><td>University of Michigan</td><td>Available</td></tr>
+  <tr><td></td><td>canFam4</td><td>Mar. 2020</td><td>Uppsala University</td><td>Available</td></tr>
+  <tr><td></td><td>canFam3</td><td>Sep. 2011</td><td>Broad Institute v3.1</td><td>Available</td></tr>
+  <tr><td></td><td>canFam2</td><td>May 2005</td><td>Broad Institute v2.0</td><td>Available</td></tr>
+  <tr><td></td><td>canFam1</td><td>Jul. 2004</td><td>Broad Institute v1.0</td><td>Available</td></tr>
+  <tr><td>Dolphin</td><td>turTru2</td><td>Oct. 2011</td><td>Baylor College of Medicine Ttru_1.4</td><td>Available</td></tr>
+  <tr><td>Elephant</td><td>loxAfr3</td><td>Jul. 2009</td><td>Broad Institute LoxAfr3</td><td>Available</td></tr>
+  <tr><td>Ferret</td><td>musFur1</td><td>Apr. 2011</td><td>Ferret Genome Sequencing Consortium MusPutFur1.0</td><td>Available</td></tr>
+  <tr><td>Garter snake</td><td>thaSir1</td><td>Jun. 2015</td><td>Washington University Thamnophis_sirtalis-6.0</td><td>Available</td></tr>
+  <tr><td>Gibbon</td><td>nomLeu3</td><td>Oct. 2012</td><td>Gibbon Genome Sequencing Consortium Nleu3.0</td><td>Available</td></tr>
+  <tr><td></td><td>nomLeu2</td><td>Jun. 2011</td><td>Gibbon Genome Sequencing Consortium Nleu1.1</td><td>Available</td></tr>
+  <tr><td></td><td>nomLeu1</td><td>Jan. 2010</td><td>Gibbon Genome Sequencing Consortium Nleu1.0</td><td>Available</td></tr>
+  <tr><td>Golden eagle</td><td>aquChr2</td><td>Oct. 2014</td><td>University of Washington aquChr2-1.0.2</td><td>Available</td></tr>
+  <tr><td>Golden snub-nosed monkey</td><td>rhiRox1</td><td>Oct. 2014</td><td>Novogene Rrox_v1</td><td>Available</td></tr>
+  <tr><td>Gorilla</td><td>gorGor6</td><td>Aug. 2019</td><td>University of Washington</td><td>Available</td></tr>
+  <tr><td></td><td>gorGor5</td><td>Mar. 2016</td><td>University of Washington GSMRT3</td><td>Available</td></tr>
+  <tr><td></td><td>gorGor4</td><td>Dec. 2014</td><td>Wellcome Trust Sanger Institute gorGor4</td><td>Available</td></tr>
+  <tr><td></td><td>gorGor3</td><td>May 2011</td><td>Wellcome Trust Sanger Institute gorGor3.1</td><td>Available</td></tr>
+  <tr><td>Green Monkey</td><td>chlSab2</td><td>Mar. 2014</td><td>Vervet Genomics Consortium 1.1</td><td>Available</td></tr>
+  <tr><td>Guinea pig</td><td>cavPor3</td><td>Feb. 2008</td><td>Broad Institute cavPor3</td><td>Available</td></tr>
+  <tr><td>Hawaiian monk seal</td><td>neoSch1</td><td>Jun. 2017</td><td>Johns Hopkins University ASM220157v1</td><td>Available</td></tr>
+  <tr><td>Hedgehog</td><td>eriEur2</td><td>May 2012</td><td>Broad Institute EriEur2.0</td><td>Available</td></tr>
+  <tr><td></td><td>eriEur1</td><td>Jun. 2006</td><td>Broad Institute Draft_v1</td><td>Available</td></tr>
+  <tr><td>Horse</td><td>equCab3</td><td>Jan. 2018</td><td>University of Louisville</td><td>Available</td></tr>
+  <tr><td></td><td>equCab2</td><td>Sep. 2007</td><td>Broad Institute EquCab2</td><td>Available</td></tr>
+  <tr><td></td><td>equCab1</td><td>Jan. 2007</td><td>Broad Institute EquCab1</td><td>Available</td></tr>
+  <tr><td>Kangaroo rat</td><td>dipOrd1</td><td>Jul. 2008</td><td>Baylor/Broad Institute DipOrd1.0</td><td>Available</td></tr>
+  <tr><td>Little brown bat</td><td>myoLuc2</td><td>Jul. 2010</td><td>Broad Institute MyoLuc2.0</td><td>Available</td></tr>
+  <tr><td>Malayan flying lemur</td><td>galVar1</td><td>Jul. 2014</td><td>WashU G_variegatus-3.0.2</td><td>Available</td></tr>
+  <tr><td>Manatee</td><td>triMan1</td><td>Oct. 2011</td><td>Broad Institute TriManLat1.0</td><td>Available</td></tr>
+  <tr><td>Marmoset</td><td>calJac4</td><td>May 2020</td><td>Washington University Callithrix_jacchus_cj1700_1.1</td><td>Available</td></tr>
+  <tr><td>Marmoset</td><td>calJac3</td><td>Mar. 2009</td><td>WUSTL Callithrix_jacchus-v3.2</td><td>Available</td></tr>
+  <tr><td></td><td>calJac1</td><td>Jun. 2007</td><td>WUSTL Callithrix_jacchus-v2.0.2</td><td>Available</td></tr>
+  <tr><td>Megabat</td><td>pteVam1</td><td>Jul. 2008</td><td>Broad Institute Ptevap1.0</td><td>Available</td></tr>
+  <tr><td>Minke whale</td><td>balAcu1</td><td>Oct. 2013</td><td>KORDI BalAcu1.0</td><td>Available</td></tr>
+  <tr><td>Mouse</td><td>mm39</td><td>Jun. 2020</td><td>Genome Reference Consortium Mouse Build 39</td><td>Available</td></tr>
+  <tr><td></td><td>mm10</td><td>Dec. 2011</td><td>Genome Reference Consortium GRCm38</td><td>Available</td></tr>
+  <tr><td></td><td>mm9</td><td>Jul. 2007</td><td>NCBI Build 37</td><td>Available</td></tr>
+  <tr><td></td><td>mm8</td><td>Feb. 2006</td><td>NCBI Build 36</td><td>Available</td></tr>
+  <tr><td></td><td>mm7</td><td>Aug. 2005</td><td>NCBI Build 35</td><td>Available</td></tr>
+  <tr><td></td><td>mm6</td><td>Mar. 2005</td><td>NCBI Build 34</td><td>Archived</td></tr>
+  <tr><td></td><td>mm5</td><td>May 2004</td><td>NCBI Build 33</td><td>Archived</td></tr>
+  <tr><td></td><td>mm4</td><td>Oct. 2003</td><td>NCBI Build 32</td><td>Archived</td></tr>
+  <tr><td></td><td>mm3</td><td>Feb. 2003</td><td>NCBI Build 30</td><td>Archived</td></tr>
+  <tr><td></td><td>mm2</td><td>Feb. 2002</td><td>MGSCv3</td><td>Archived</td></tr>
+  <tr><td></td><td>mm1</td><td>Nov. 2001</td><td>MGSCv2</td><td>Archived (data only)</td></tr>
+  <tr><td>Mouse lemur</td><td>micMur2</td><td>May 2015</td><td>Baylor/Broad Institute Mmur_2.0</td><td>Available</td></tr>
+  <tr><td></td><td>micMur1</td><td>Jul. 2007</td><td>Broad Institute MicMur1.0</td><td>Available</td></tr>
+  <tr><td>Naked mole-rat</td><td>hetGla2</td><td>Jan. 2012</td><td>Broad Institute HetGla_female_1.0</td><td>Available</td></tr>
+  <tr><td></td><td>hetGla1</td><td>Jul. 2011</td><td>Beijing Genomics Institute HetGla_1.0</td><td>Available</td></tr>
+  <tr><td>Opossum</td><td>monDom5</td><td>Oct. 2006</td><td>Broad Institute release MonDom5</td><td>Available</td></tr>
+  <tr><td></td><td>monDom4</td><td>Jan. 2006</td><td>Broad Institute release MonDom4</td><td>Available</td></tr>
+  <tr><td></td><td>monDom1</td><td>Oct. 2004</td><td>Broad Institute release MonDom1</td><td>Available</td></tr>
+  <tr><td>Orangutan</td><td>ponAbe2</td><td>Jul. 2007</td><td>WUSTL Pongo_albelii-2.0.2</td><td>Available</td></tr>
+  <tr><td></td><td>ponAbe3</td><td>Jan. 2018</td><td>Susie_PABv2/ponAbe3</td><td>Available</td></tr>
+  <tr><td>Panda</td><td>ailMel1</td><td>Dec. 2009</td><td>BGI-Shenzhen AilMel 1.0</td><td>Available</td></tr>
+  <tr><td>Pig</td><td>susScr11</td><td>Feb. 2017</td><td>Swine Genome Sequencing Consortium Sscrofa11.1</td><td>Available</td></tr>
+  <tr><td></td><td>susScr3</td><td>Aug. 2011</td><td>Swine Genome Sequencing Consortium Sscrofa10.2</td><td>Available</td></tr>
+  <tr><td></td><td>susScr2</td><td>Nov. 2009</td><td>Swine Genome Sequencing Consortium Sscrofa9.2</td><td>Available</td></tr>
+  <tr><td>Pika</td><td>ochPri3</td><td>May 2012</td><td>Broad Institute OchPri3.0</td><td>Available</td></tr>
+  <tr><td></td><td>ochPri2</td><td>Jul. 2008</td><td>Broad Institute OchPri2</td><td>Available</td></tr>
+  <tr><td>Platypus</td><td>ornAna2</td><td>Feb. 2007</td><td>WUSTL v5.0.1</td><td>Available</td></tr>
+  <tr><td></td><td>ornAna1</td><td>Mar. 2007</td><td>WUSTL v5.0.1</td><td>Available</td></tr>
+  <tr><td>Proboscis Monkey</td><td>nasLar1</td><td>Nov. 2014</td><td>Proboscis Monkey Functional Genome Consortium Charlie1.0</td><td>Available</td></tr>
+  <tr><td>Rabbit</td><td>oryCun2</td><td>Apr. 2009</td><td>Broad Institute release OryCun2</td><td>Available</td></tr>
+  <tr><td>Rat</td><td>rn7</td><td>Nov. 2020</td><td>Wellcome Sanger Institute mRatBN7.2</td><td>Available</td></tr>
+  <tr><td></td><td>rn6</td><td>Jul. 2014</td><td>RGSC Rnor_6.0</td><td>Available</td></tr>
+  <tr><td></td><td>rn5</td><td>Mar. 2012</td><td>RGSC Rnor_5.0</td><td>Available</td></tr>
+  <tr><td></td><td>rn4</td><td>Nov. 2004</td><td>Baylor College of Medicine HGSC v3.4</td><td>Available</td></tr>
+  <tr><td></td><td>rn3</td><td>Jun. 2003</td><td>Baylor College of Medicine HGSC v3.1</td><td>Available</td></tr>
+  <tr><td></td><td>rn2</td><td>Jan. 2003</td><td>Baylor College of Medicine HGSC v2.1</td><td>Archived</td></tr>
+  <tr><td></td><td>rn1</td><td>Nov. 2002</td><td>Baylor College of Medicine HGSC v1.0</td><td>Archived</td></tr>
+  <tr><td>Rhesus</td><td>rheMac10</td><td>Feb. 2019</td><td>The Genome Institute at Washington University School of Medicine Mmul_10</td><td>Available</td></tr>
+  <tr><td></td><td>rheMac8</td><td>Nov. 2015</td><td>Baylor College of Medicine HGSC Mmul_8.0.1</td><td>Available</td></tr>
+  <tr><td></td><td>rheMac3</td><td>Oct. 2010</td><td>Beijing Genomics Institute CR_1.0</td><td>Available</td></tr>
+  <tr><td></td><td>rheMac2</td><td>Jan. 2006</td><td>Baylor College of Medicine HGSC v1.0 Mmul_051212</td><td>Available</td></tr>
+  <tr><td></td><td>rheMac1</td><td>Jan. 2005</td><td>Baylor College of Medicine HGSC Mmul_0.1</td><td>Archived</td></tr>
+  <tr><td>Rock hyrax</td><td>proCap1</td><td>Jul. 2008</td><td>Baylor College of Medicine HGSC Procap1.0</td><td>Available</td></tr>
+  <tr><td>Sheep</td><td>oviAri4</td><td>Dec. 2015</td><td>ISGC Oar_v4.0</td><td>Available</td></tr>
+  <tr><td></td><td>oviAri3</td><td>Aug. 2012</td><td>ISGC Oar_v3.1</td><td>Available</td></tr>
+  <tr><td></td><td>oviAri1</td><td>Feb. 2010</td><td>ISGC Ovis aries 1.0</td><td>Available</td></tr>
+  <tr><td>Shrew</td><td>sorAra2</td><td>Aug. 2008</td><td>Broad Institute SorAra2.0</td><td>Available</td></tr>
+  <tr><td></td><td>sorAra1</td><td>Jun. 2006</td><td>Broad Institute SorAra1.0</td><td>Available</td></tr>	
+  <tr><td>Sloth</td><td>choHof1</td><td>Jul. 2008</td><td>Broad Institute ChoHof1.0</td><td>Available</td></tr>
+  <tr><td>Squirrel</td><td>speTri2</td><td>Nov. 2011</td><td>Broad Institute SpeTri2.0</td><td>Available</td></tr>
+  <tr><td>Squirrel monkey</td><td>saiBol1</td><td>Oct. 2011</td><td>Broad Institute SaiBol1.0</td><td>Available</td></tr>
+  <tr><td>Tarsier</td><td>tarSyr2</td><td>Sep. 2013</td><td>WashU Tarsius_syrichta-2.0.1</td><td>Available</td></tr>	
+  <tr><td></td><td>tarSyr1</td><td>Aug. 2008</td><td>WUSTL/Broad Institute Tarsyr1.0</td><td>Available</td></tr>	
+  <tr><td>Tasmanian devil</td><td>sarHar1</td><td>Feb. 2011</td><td>Wellcome Trust Sanger Institute Devil_refv7.0</td><td>Available</td></tr>
+  <tr><td>Tenrec</td><td>echTel2</td><td>Nov. 2012</td><td>Broad Institute EchTel2.0</td><td>Available</td></tr>
+  <tr><td></td><td>echTel1</td><td>Jul. 2005</td><td>Broad Institute echTel1</td><td>Available</td></tr>
+  <tr><td>Tree shrew</td><td>tupBel1</td><td>Dec. 2006</td><td>Broad Institute Tupbel1.0</td><td>Available</td></tr>	
+  <tr><td>Wallaby</td><td>macEug2</td><td>Sep. 2009</td><td>Tammar Wallaby Genome Sequencing Consortium Meug_1.1</td><td>Available</td></tr> 
+  <tr><td>White rhinoceros</td><td>cerSim1</td><td>May 2012</td><td>Broad Institute CerSimSim1.0</td><td>Available</td></tr> 
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>VERTEBRATES</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td>African clawed frog</td><td>xenLae2</td><td>Aug. 2016</td><td>Int. Xenopus Sequencing Consortium</td><td>Available</td></tr>
+  <tr><td>American alligator</td><td>allMis1</td><td>Aug. 2012</td><td>Int. Crocodilian Genomes Working Group allMis0.2</td><td>Available</td></tr>
+  <tr><td>Atlantic cod</td><td>gadMor1</td><td>May 2010</td><td>Genofisk GadMor_May2010</td><td>Available</td></tr>
+  <tr><td>Budgerigar</td><td>melUnd1</td><td>Sep. 2011</td><td>WUSTL v6.3</td><td>Available</td></tr>
+  <tr><td>Chicken</td><td>galGal6</td><td>Mar. 2018</td><td>GRCg6 Gallus-gallus-6.0</td><td>Available</td></tr>
+  <tr><td></td><td>galGal5</td><td>Dec. 2015</td><td>ICGC Gallus-gallus-5.0</td><td>Available</td></tr>
+  <tr><td></td><td>galGal4</td><td>Nov. 2011</td><td>ICGC Gallus-gallus-4.0</td><td>Available</td></tr>
+  <tr><td></td><td>galGal3</td><td>May 2006</td><td>WUSTL Gallus-gallus-2.1</td><td>Available</td></tr>
+  <tr><td></td><td>galGal2</td><td>Feb. 2004</td><td>WUSTL Gallus-gallus-1.0</td><td>Available</td></tr>
+  <tr><td>Coelacanth</td><td>latCha1</td><td>Aug. 2011</td><td>Broad Institute LatCha1</td><td>Available</td></tr>
+  <tr><td>Elephant shark</td><td>calMil1</td><td>Dec. 2013</td><td>IMCB Callorhinchus_milli_6.1.3</td><td>Available</td></tr>
+  <tr><td>Fugu</td><td>fr3</td><td>Oct. 2011</td><td>JGI v5.0</td><td>Available</td></tr>
+  <tr><td></td><td>fr2</td><td>Oct. 2004</td><td>JGI v4.0</td><td>Available</td></tr>
+  <tr><td></td><td>fr1</td><td>Aug. 2002</td><td>JGI v3.0</td><td>Available</td></tr>
+  <tr><td>Lamprey</td><td>petMar3</td><td>Dec. 2017</td><td>University of Kentucky Pmar_germline 1.0</td><td>Available</td></tr>
+  <tr><td></td><td>petMar2</td><td>Sep. 2010</td><td>WUGSC 7.0</td><td>Available</td></tr>
+  <tr><td></td><td>petMar1</td><td>Mar. 2007</td><td>WUSTL v3.0</td><td>Available</td></tr>
+  <tr><td>Lizard</td><td>anoCar2</td><td>May 2010</td><td>Broad Institute AnoCar2</td><td>Available</td></tr>
+  <tr><td></td><td>anoCar1</td><td>Feb. 2007</td><td>Broad Institute AnoCar1</td><td>Available</td></tr>
+  <tr><td>Medaka</td><td>oryLat2</td><td>Oct. 2005</td><td>NIG v1.0</td><td>Available</td></tr>
+  <tr><td>Medium ground finch</td><td>geoFor1</td><td>Apr. 2012</td><td>BGI GeoFor_1.0 / NCBI 13302</td><td>Available</td></tr>
+  <tr><td>Nile tilapia</td><td>oreNil2</td><td>Jan. 2011</td><td>Broad Institute Release OreNil1.1</td><td>Available</td></tr>
+  <tr><td>Painted turtle</td><td>chrPic1</td><td>Dec. 2011</td><td>IPTGSC Chrysemys_picta_bellii-3.0.1</td><td>Available</td></tr>
+  <tr><td>Stickleback</td><td>gasAcu1</td><td>Feb. 2006</td><td>Broad Institute Release 1.0</td><td>Available</td></tr>
+  <tr><td>Tetraodon</td><td>tetNig2</td><td>Mar. 2007</td><td>Genoscope v7</td><td>Available</td></tr>
+  <tr><td></td><td>tetNig1</td><td>Feb. 2004</td><td>Genoscope v7</td><td>Available</td></tr>
+  <tr><td>Tibetan frog</td><td>nanPar1</td><td>Mar. 2015</td><td>Beijing Genomics Institute BGI_ZX_20015</td><td>Available</td></tr>
+ <tr><td>Turkey</td><td>melGal5</td><td>Nov. 2014</td><td>Turkey Genome Consortium v5.0</td><td>Available</td></tr>
+  <tr><td></td><td>melGal1</td><td>Dec. 2009</td><td>Turkey Genome Consortium v2.01</td><td>Available</td></tr>
+  <tr><td><em>X. tropicalis</em></td><td>xenTro10</td><td>Nov. 2019</td><td>University of California, Berkeley UCB_Xtro_10.0</td><td>Available</td></tr>
+  <tr><td></td><td>xenTro9</td><td>Jul. 2016</td><td>JGI v.9.1</td><td>Available</td></tr>
+  <tr><td></td><td>xenTro7</td><td>Sep. 2012</td><td>JGI v.7.0</td><td>Available</td></tr>
+  <tr><td></td><td>xenTro3</td><td>Nov. 2009</td><td>JGI v.4.2</td><td>Available</td></tr>
+  <tr><td></td><td>xenTro2</td><td>Aug. 2005</td><td>JGI v.4.1</td><td>Available</td></tr>
+  <tr><td></td><td>xenTro1</td><td>Oct. 2004</td><td>JGI v.3.0</td><td>Available</td></tr>
+  <tr><td>Zebra finch</td><td>taeGut2</td><td>Feb. 2013</td><td>WashU taeGut324</td><td>Available</td></tr>
+  <tr><td></td><td>taeGut1</td><td>Jul. 2008</td><td>WUSTL v3.2.4</td><td>Available</td></tr>
+  <tr><td>Zebrafish</td><td>danRer11</td><td>May 2017</td><td>Genome Reference Consortium GRCz11 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer10</td><td>Sep. 2014</td><td>Genome Reference Consortium GRCz10 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer7</td><td>Jul. 2010</td><td>Sanger Institute Zv9 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer6</td><td>Dec. 2008</td><td>Sanger Institute Zv8 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer5</td><td>Jul. 2007</td><td>Sanger Institute Zv7 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer4</td><td>Mar. 2006</td><td>Sanger Institute Zv6 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer3</td><td>May 2005</td><td>Sanger Institute Zv5 </td><td>Available</td></tr>
+  <tr><td></td><td>danRer2</td><td>Jun. 2004</td><td>Sanger Institute Zv4 </td><td>Archived</td></tr>
+  <tr><td></td><td>danRer1</td><td>Nov. 2003</td><td>Sanger Institute Zv3 </td><td>Archived</td></tr>
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>DEUTEROSTOMES</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><em>C. intestinalis</em></td><td>ci3</td><td>Apr. 2011</td><td>Kyoto KH</td><td>Available</td></tr>
+  <tr><td><em>C. intestinalis</em></td><td>ci2</td><td>Mar. 2005</td><td>JGI v2.0</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>ci1</td><td>Dec. 2002</td><td>JGI v1.0</td><td>Available</td></tr>
+  <tr><td>Lancelet</td><td>braFlo1</td><td>Mar. 2006</td><td>JGI v1.0</td><td>Available</td></tr>
+  <tr><td><em>S. purpuratus</em></td><td>strPur2</td><td>Sep. 2006</td><td>Baylor College of Medicine HGSC v. Spur 2.1</td><td>Available</td></tr>
+  <tr><td></td><td>strPur1</td><td>Apr. 2005</td><td>Baylor College of Medicine HGSC v. Spur_0.5</td><td>Available</td></tr>
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>INSECTS</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><em>A. mellifera</em></td><td>apiMel2</td><td>Jan. 2005</td><td>Baylor College of Medicine HGSC v.Amel_2.0 </td><td>Available</td></tr>
+  <tr><td><em></em></td><td>apiMel1</td><td>Jul. 2004</td><td>Baylor College of Medicine HGSC v.Amel_1.2 </td><td>Available</td></tr>
+  <tr><td><em>A. gambiae</em></td><td>anoGam3</td><td>Oct. 2006</td><td>International Consortium for the Sequencing of Anopheles Genome AgamP3</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>anoGam1</td><td>Feb. 2003</td><td>IAGP v.MOZ2</td><td>Available</td></tr>
+  <tr><td><em>D. ananassae</em></td><td>droAna2</td><td>Aug. 2005</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td></td><td>droAna1</td><td>Jul. 2004</td><td>TIGR Celera release</td><td>Available</td></tr>
+  <tr><td><em>D. erecta</em></td><td>droEre1</td><td>Aug. 2005</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td><em>D. grimshawi</em></td><td>droGri1</td><td>Aug. 2005</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td><em>D. melanogaster</em></td><td>dm6</td><td>Aug. 2014</td><td>BDGP Release 6 + ISO1 MT</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>dm3</td><td>Apr. 2006</td><td>BDGP Release 5</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>dm2</td><td>Apr. 2004</td><td>BDGP Release 4</td><td>Available</td></tr>
+  <tr><td></td><td>dm1</td><td>Jan. 2003</td><td>BDGP Release 3</td><td>Available</td></tr>
+  <tr><td><em>D. mojavensis</em></td><td>droMoj2</td><td>Aug. 2005</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td></td><td>droMoj1</td><td>Aug. 2004</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td><em>D. persimilis</em></td><td>droPer1</td><td>Oct. 2005</td><td>Broad Institute release</td><td>Available</td></tr>
+  <tr><td><em>D. pseudoobscura</em></td><td>dp3</td><td>Nov. 2004</td><td>FlyBase Release 1.0</td><td>Available</td></tr>	
+  <tr><td><em></em></td><td>dp2</td><td>Aug. 2003</td><td>Baylor College of Medicine HGSC Freeze 1</td><td>Available</td></tr>
+  <tr><td><em>D. sechellia</em></td><td>droSec1</td><td>Oct. 2005</td><td>Broad Institute Release 1.0</td><td>Available</td></tr>
+  <tr><td><em>D. simulans</em></td><td>droSim1</td><td>Apr. 2005</td><td>WUSTL Release 1.0</td><td>Available</td></tr>
+  <tr><td><em>D. virilis</em></td><td>droVir2</td><td>Aug. 2005</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td></td><td>droVir1</td><td>Jul. 2004</td><td>Agencourt Arachne release</td><td>Available</td></tr>
+  <tr><td><em>D. yakuba</em></td><td>droYak2</td><td>Nov. 2005</td><td>WUSTL Release 2.0</td><td>Available</td></tr>
+  <tr><td></td><td>droYak1</td><td>Apr. 2004</td><td>WUSTL Release 1.0</td><td>Available</td></tr>
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>NEMATODES</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><em>C. brenneri</em></td><td>caePb2</td><td>Feb. 2008</td><td>WUSTL 6.0.1</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>caePb1</td><td>Jan. 2007</td><td>WUSTL 4.0</td><td>Available</td></tr>
+  <tr><td><em>C. briggsae</em></td><td>cb3</td><td>Jan. 2007</td><td>WUSTL Cb3</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>cb1</td><td>Jul. 2002</td><td>WormBase v. cb25.agp8</td><td>Available</td></tr>
+  <tr><td><em>C. elegans</em></td><td>ce11</td><td>Feb. 2013</td><td>C. elegans Sequencing Consortium WBcel235</td><td>Available</td></tr>
+  <tr><td></td><td>ce10</td><td>Oct. 2010</td><td>WormBase v. WS220</td><td>Available</td></tr>
+  <tr><td></td><td>ce6</td><td>May 2008</td><td>WormBase v. WS190</td><td>Available</td></tr>
+  <tr><td></td><td>ce4</td><td>Jan. 2007</td><td>WormBase v. WS170</td><td>Available</td></tr>
+  <tr><td></td><td>ce2</td><td>Mar. 2004</td><td>WormBase v. WS120</td><td>Available</td></tr>
+  <tr><td></td><td>ce1</td><td>May 2003</td><td>WormBase v. WS100</td><td>Archived</td></tr>
+  <tr><td><em>C. japonica</em></td><td>caeJap1</td><td>Mar. 2008</td><td>WUSTL 3.0.2</td><td>Available</td></tr>
+  <tr><td><em>C. remanei</em></td><td>caeRem3</td><td>May 2007</td><td>WUSTL 15.0.1</td><td>Available</td></tr>
+  <tr><td><em></em></td><td>caeRem2</td><td>Mar. 2006</td><td>WUSTL 1.0</td><td>Available</td></tr>
+  <tr><td><em>P. pacificus</em></td><td>priPac1</td><td>Feb. 2007</td><td>WUSTL 5.0</td><td>Available</td></tr>
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>OTHER</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td>Sea Hare</td><td>aplCal1</td><td>Sep. 2008</td><td>Broad Release Aplcal2.0</td><td>Available</td></tr>
+  <tr><td>Yeast</td><td>sacCer3</td><td>April 2011</td><td>SGD April 2011 sequence</td><td>Available</td></tr>
+  <tr><td></td><td>sacCer2</td><td>June 2008</td><td>SGD June 2008 sequence</td><td>Available</td></tr>
+  <tr><td></td><td>sacCer1</td><td>Oct. 2003</td><td>SGD 1 Oct 2003 sequence</td><td>Available</td></tr>
+  <tr><td><strong></strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td><strong>VIRUSES</strong></td><td></td><td></td><td></td><td></td></tr>
+  <tr><td>Ebola Virus</td><td>eboVir3</td><td>June 2014</td><td>Sierra Leone 2014 (G3683/KM034562.1)</td><td>Available</td></tr>
+  <tr><td>SARS-CoV-2</td><td>wuhCor1</td><td>Jan. 2020</td><td>SARS-CoV-2 ASM985889v3</td><td>Available</td></tr>
+</table>
+
+<a name="release2"></a>
+<h2>Initial assembly release dates</h2>
+<h6>When will the next assembly be out?</h6>
+<p> 
+UCSC does not produce its own genome assemblies, but instead obtains them from standard sources. 
+Because of this, you can expect us to 
+release a new version of a genome soon after the assembling organization has released the version. 
+A new assembly release initially consists of the genome sequence and a small set of aligned 
+annotation tracks. Additional annotation tracks are added as they are obtained or generated. Bulk 
+downloads of the data are typically available in the first week after the assembly is released in 
+the browser.</p> 
+
+<a name="release3"></a>
+<h2>Data sources - UCSC assemblies</h2>
+<h6>Where does UCSC obtain the assembly and annotation data displayed in the Genome 
+Browser?</h6>
+<p> 
+All the assembly data displayed in the UCSC Genome Browser are obtained from external sequencing 
+centers. To determine the data source and version for a given assembly, see the assembly's 
+description on the Genome Browser <a href="../cgi-bin/hgGateway">Gateway</a> page or the 
+<a href="#release1">List of UCSC Genome Releases</a>.</p>
+<p>
+The annotations accompanying an assembly are obtained from a variety of sources. The UCSC Genome 
+Bioinformatics Group generates several of the tracks; the remainder are contributed by collaborators
+at other sites. Each track has an associated description page that credits the authors of the 
+annotation.</p> 
+<p>
+For detailed information about the individuals and organizations who contributed to a specific 
+assembly, see the <a href="../goldenPath/credits.html">Credits</a> page.</p>
+
+<a name="asmEquivalent"></a>
+<h6>Which UCSC assemblies are equivalent to Ensembl or NCBI assemblies?</h6>
+<p>
+The asmEquivalent table on the hgFixed database is available on the public MySQL server to show
+which assemblies versions are identical (or almost identical) to each other between UCSC, Ensembl,
+Genbank, and RefSeq assemblies.</p>
+<pre>
+mysql --user=genome --host=genome-mysql.soe.ucsc.edu -A -e 'desc asmEquivalent;' hgFixed
++----------------------+-------------------------------------------+
+| Field                | Type                                      |
++----------------------+-------------------------------------------+
+| source               | varchar(255)                              |
+| destination          | varchar(255)                              |
+| sourceAuthority      | enum('ensembl','ucsc','genbank','refseq') |
+| destinationAuthority | enum('ensembl','ucsc','genbank','refseq') |
+| matchCount           | bigint(20)                                |
+| sourceCount          | bigint(20)                                |
+| destinationCount     | bigint(20)                                |
++----------------------+-------------------------------------------+</pre>
+<p>
+The &quot;Count&quot; indications are the count of individual sequences in the assembly. When all
+three counts are identical, <code>matchCount == sourceCount == destinationCount</code>, then the
+match between genome assemblies is perfectly identical.</p>
+<p>
+Non-perfect matches can be due to a number of factors:
+  <ol>
+    <li>different or not included chrMT genome sequences in an assembly</li>
+    <li>identical duplicated sequences present or absent from an assembly</li>
+    <li>some smaller contigs not included in an assembly</li>
+    <li>slight differences in versions of assemblies where some contain sequences not in the other
+        assembly</li>
+  </ol>
+</p>
+
+<a name="release4"></a>
+<h2>Comparison of UCSC and NCBI human assemblies</h2>
+<h6>How do the human assemblies displayed in the UCSC Genome Browser differ from the NCBI human 
+assemblies?</h6>
+<p> 
+Human assemblies displayed in the Genome Browser (hg10 and higher) are near identical to the 
+NCBI assemblies when it comes to primary sequence. Minor differences may be present, however.
+Sources include:</p>
+<ul>
+  <li>NCBI genomes are repeat masked with RepeatMasker, however, UCSC genomes are independently 
+      masked with both RepeatMasker (with different flags) and WindowMasker, ultimately using 
+      the program output with the highest percentage masked for the base sequence</li>
+  <li>In genome download files, UCSC uses the 'chr1' nomenclature for sequence identifiers, 
+      whereas the primary NCBI sequence identifiers are RefSeq accessions</li>
+  <li>The original mitochondrion (chrM) for hg19 differs from the one in NCBI (GRCh37)</li>
+  <li>The mitochondrion released by NCBI after the hg19 browser was built has been added to
+      the assemby as chrMT.  See our <a href = "FAQgenes.html#mito"
+      target = _blank>documentation</a> for details.</li>
+</ul>
+
+<h2 id=release13>Looking for a genome assembly not shown in the tree?</h2>
+<p>
+When looking for a specific assembly, the best place to start is the <a 
+href="/cgi-bin/hgGateway">Gateway page</a>. If you begin to type the common name, species name, or
+NCBI RefSeq accession number in the search box on the left side of the screen, 
+suggestions will appear if any matches are found. 
+This search will also match any <a href="/goldenPath/help/hgTrackHubHelp.html#Assembly">
+assembly hubs</a> that are listed in UCSC's 
+<a href="/cgi-bin/hgHubConnect">Public Hubs</a>. Nearly every NCBI RefSeq assembly
+and Vertebrate Genomes Project assembly is included here within the
+<a href="../goldenPath/newsarch.html#060121">GenArk hubs</a>. 
+NCBI RefSeq assemblies can be loaded with direct links such as
+<a href="http://genome.ucsc.edu/h/GCF_001984765.1">
+http://genome.ucsc.edu/h/GCF_001984765.1</a> with the <b>GCF</b> accession. 
+These assembly hubs are automatically updated, but not reviewed by UCSC. 
+The species tree shows all genomes reviewed by UCSC.</p>
+
+<p>
+If the assembly of interest is not found, you may write in to our mailing
+list 
+(<a href="mailto:&#103;&#101;n&#111;m&#101;&#64;&#115;&#111;&#101;.&#117;&#99;s&#99;.&#101;d&#117;">&#103;&#101;n&#111;m&#101;&#64;&#115;&#111;&#101;.&#117;&#99;s&#99;.&#101;d&#117;</a>) 
+including the <a target="_blank" 
+href="https://www.ncbi.nlm.nih.gov/assembly">NCBI Genbank assembly accession</a> for the requested 
+assembly in the message. These will start
+with either <b>GCA_</b> or <b>GCF_</b>. Our agreement with the genomics community is 
+that we wait until the assembly has been deposited 
+into Genbank at NCBI before we process it. See the <a target="_blank" 
+href="https://www.ncbi.nlm.nih.gov/assembly/docs/submission/">
+Assembly Submission Guidelines page</a> at NCBI for directions on their submission process.
+Also, review the <a target="_blank" href="https://bit.ly/UCSC_blog_GenArk"</a>UCSC GenArk Blog posts</a>
+for examples of accessing and reviewing technical details about GenArk hubs.</p>
+
+<p>
+Another option available to all users is to create 
+an <a href="/goldenPath/help/hgTrackHubHelp.html#Assembly">
+assembly hub</a>. These are assemblies created and hosted by users and displayed on the 
+Genome Browser. This requires no intervention by the UCSC Genome Browser and can be done for
+any assembly. See our <a href="/goldenPath/help/hubQuickStartAssembly.html">
+Quick Start Guide to Assembly Hubs page</a> for additional information and resources. If you
+create an assembly hub, consider sharing it with others as a 
+<a href="/cgi-bin/hgHubConnect">Public Hub</a>.</p>
+
+<a name="release12"></a>
+<h2>Differences between UCSC and NCBI mouse assemblies</h2>
+<h6>Is the mouse genome assembly displayed in the UCSC Genome Browser the same as the one on the
+NCBI website?</h6>
+<p> 
+The mouse genome assemblies featured in the UCSC Genome Browser are the same as those on the NCBI 
+web site with one difference: the UCSC versions contain only the reference strain data (C57BL/6J). 
+NCBI provides data for several additional strains in their builds.</p>
+
+<a name="release5"></a>
+<h2>Accessing older assembly versions</h2>
+<h6>I need to access an older version of a genome assembly that's no longer listed in the Genome
+Browser menu. What should I do?</h6> 
+<p> 
+In addition to the assembly versions currently available in the Genome Browser, you can access the 
+data for older assemblies of the browser through our 
+<a href="http://hgdownload.soe.ucsc.edu/downloads.html" target="_blank">Downloads</a> page.</p>
+
+<a name="release6"></a>
+<h2>Frequency of GenBank data updates</h2>
+<h6>How frequently does UCSC update its databases with new data from GenBank?</h6>
+<p>
+GenBank updates for mRNA, RefSeq, and EST data occur on a semi-quarterly basis, following major 
+NCBI releases. These updates are in place for most Genome Browser assemblies. Assemblies that 
+are not on an incremental update schedule 
+are updated whenever we load a new assembly or make a major revision to a table.</p> 
+<p> 
+
+<a name="release7"></a>
+<h2>Coordinate changes between assemblies </h2>
+<h6>I noticed that the chromosomal coordinates for a particular gene that I'm looking at have 
+changed since the last time I used your browser. What happened?</h6>
+<p> 
+A common source of confusion for users arises from mixing up different assemblies. It is very 
+important to be aware of which assembly you are looking at. Within the Genome Browser display, 
+assemblies are labeled by organism and date. To look up the corresponding UCSC database name or 
+NCBI build number, use the <a href="#release1">release table</a>.</p> 
+<p> 
+UCSC database labels are of the form hg<em>#</em>, panTro<em>#</em>, etc. The letters designate the 
+organism, e.g. <em>hg</em> for human genome or <em>panTro</em> for <em>Pan troglodytes</em>. The 
+number denotes the UCSC assembly version for that organism.  For example, ce1 refers to the first 
+UCSC assembly of the <em>C. elegans</em> genome.</p>
+<p>
+The coordinates of your favorite gene in one assembly may not be the same as those in the next 
+release of the assembly unless the gene happens to lie on a completely sequenced and unrevised 
+chromosome. For information on integrating data from one assembly into another, see the 
+<a href="#release8">Converting positions between assembly versions</a> section.</p>
+
+<a name="release8"></a>
+<h2>Converting positions between assembly versions</h2>
+<h6>I've been researching a specific area of the human genome on the current assembly, and now 
+you've just released a new version. Is there an easy way to locate my area of interest on the new 
+assembly?</h6>
+<p> 
+See the section on <a href="FAQdownloads.html#download28">converting coordinates</a> for 
+information on assembly migration tools.</p>
+
+<a name="release9"></a>
+<h2>Missing annotation tracks</h2>
+<h6>Why is my favorite annotation track missing from your latest release?</h6>
+<p> 
+The initial release of a new genome assembly typically contains a small subset of core annotation 
+tracks. New tracks are added as they are generated. In many cases, our annotation tracks are 
+contributed by scientists not affiliated with UCSC who must first obtain the sequence, repeatmasked 
+data, etc. before they can produce their tracks. If you have need of an annotation that has not 
+appeared on an assembly within a month or so of its release, feel free to send an inquiry to 
+<a href="mailto:&#103;&#101;&#110;&#111;&#109;e&#64;&#115;&#111;&#101;.&#117;&#99;sc.e&#100;&#117;">&#103;&#101;&#110;&#111;&#109;e&#64;&#115;&#111;&#101;.&#117;&#99;sc.e&#100;&#117;</a>.
+<!-- above address is genome at soe.ucsc.edu -->
+<strong><em><span class="gbsWarnText">Messages sent to this address will be posted to the moderated genome mailing list, which is 
+archived on a SEARCHABLE, PUBLIC 
+<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!forum/genome">Google Groups
+forum</a></span></em></strong>. </p>
+
+<a name="release10"></a>
+<h2>What next with the human genome?</h2>
+<h6>Now that the human genome is &quot;finished&quot;, will there be any more releases?</h6>
+<p>
+Rest assured that work will continue. There will be updates to the assembly over the next 
+several years. This has been the case for all other finished (i.e. essentially complete) genome 
+assemblies as gaps are closed. For example, the <em>C. elegans</em> genome has been 
+&quot;finished&quot; for several years, but small bits of sequence are still being added and 
+corrections are being made. NCBI will continue to coordinate the human genome assemblies in 
+collaboration with the individual chromosome coordinators, and UCSC will continue to QC the assembly
+in conjunction with NCBI (and, to a lesser extent, Ensembl). UCSC, NCBI, Ensembl, and others will 
+display the new releases on their sites as they become available.</p>
+	
+<a name="release11"></a>
+<h2>Mouse strain used for  mouse genome sequence</h2>
+<h6>What strain of mouse was used for the Mus musculus genome?</h6>
+<p> 
+C57BL/6J.</p>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

@@ -1,0 +1,31 @@
+# GENCODE
+track wgEncodeGencodeSuper
+superTrack on hide
+group genes
+shortLabel All GENCODE
+longLabel All GENCODE transcripts, including comprehensive set and previous version
+priority 2.1
+
+# doen't set wgEncode attribute here, since newer GENCODEs are not ENCODE
+include wgEncodeGencodeVM2.ra
+include wgEncodeGencodeVM3.ra
+include wgEncodeGencodeVM4.ra
+include wgEncodeGencodeVM7.ra
+include wgEncodeGencodeVM8.ra
+include wgEncodeGencodeVM9.ra
+include wgEncodeGencodeVM10.ra
+include wgEncodeGencodeVM11.ra
+include wgEncodeGencodeVM12.ra
+include wgEncodeGencodeVM13.ra
+include wgEncodeGencodeVM14.ra
+include wgEncodeGencodeVM15.ra
+include wgEncodeGencodeVM16.ra
+include wgEncodeGencodeVM17.ra
+include wgEncodeGencodeVM18.ra
+include wgEncodeGencodeVM19.ra
+include wgEncodeGencodeVM20.ra
+include wgEncodeGencodeVM21.ra
+include wgEncodeGencodeVM22.ra
+include wgEncodeGencodeVM23.ra
+include wgEncodeGencodeVM24.ra
+include wgEncodeGencodeVM25.ra

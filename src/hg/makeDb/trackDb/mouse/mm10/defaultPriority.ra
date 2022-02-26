@@ -1,0 +1,28 @@
+# Genes and Gene Prediction Tracks
+
+track ensGene override
+visibility hide
+
+track xenoRefGene override
+visibility hide
+
+# mRNA and EST
+
+track mrna override
+visibility hide
+
+track intronEst override
+priority 0.5
+
+# Variation and Repeats
+
+# track snp142Common override
+# priority 1
+# This priority is defined in mouse/trackDb.ra
+# If this priority changes, please change it here and there as well
+
+track rmsk override
+priority 2
+
+track joinedRmsk override
+group varRep

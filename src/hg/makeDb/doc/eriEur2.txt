@@ -1,0 +1,530 @@
+# for emacs: -*- mode: sh; -*-
+
+# Erinaceus europaeus 2.0 sequence:
+# ftp://ftp.ncbi.nlm.nih.gov/genbank/genomes/Eukaryotes/vertebrates_mammals/Erinaceus_europaeus/EriEur2.0/
+
+# DATE:   30-May-2012
+# ORGANISM:       Erinaceus europaeus
+# TAXID:  9365
+# ASSEMBLY LONG NAME:     EriEur2.0
+# ASSEMBLY SHORT NAME:    EriEur2.0
+# ASSEMBLY SUBMITTER:     Broad Institute
+# ASSEMBLY TYPE:  Haploid
+# NUMBER OF ASSEMBLY-UNITS:       1
+# ASSEMBLY ACCESSION:     GCA_000296755.1
+
+# FTP-RELEASE DATE: 22-Oct-2012
+
+##########################################################################
+# Download sequence (DONE - 2013-06-07 - Hiram)
+    mkdir -p /hive/data/genomes/eriEur2/genbank
+    cd /hive/data/genomes/eriEur2/genbank
+
+    rsync -a -P \
+rsync://ftp.ncbi.nlm.nih.gov/genbank/genomes/Eukaryotes/vertebrates_mammals/Erinaceus_europaeus/EriEur2.0/ ./ > fetch.log 2>&1
+
+###########################################################################
+# fixup to UCSC names (DONE - 2013-03-25 - Hiram)
+    cd /hive/data/genomes/eriEur2
+
+    $HOME/kent/src/hg/utils/automation/unplacedScaffolds.pl
+    # constructs the directory: /hive/data/genomes/eriEur2/ucsc
+    # with files:
+    cd /hive/data/genomes/eriEur2/ucsc
+    ls -ogrt
+# -rwxrwxr-x 1       355 Jun  7 12:04 fetchChrM.sh
+# -rw-rw-r-- 1     17780 Jun  7 12:04 NC_002080.fa
+# -rw-rw-r-- 1     17704 Jun  7 12:04 chrM.fa
+# -rw-rw-r-- 1        37 Jun  7 12:04 chrM.agp
+# -rw-rw-r-- 1  25068539 Jun  7 12:37 eriEur2.ucsc.agp
+# -rw-rw-r-- 1 711064733 Jun  7 12:39 eriEur2.ucsc.fa.gz
+
+    # NOTE: the chrM sequence was manually added to the fa.gz and .agp file
+    # see the fetchChrM.sh script there
+
+    # this script also constructs the eriEur2.unmasked.2bit file, but
+    # this is not needed with the makeGenomeDb.pl script:
+    rm -f /hive/data/genomes/eriEur2/eriEur2.unmasked.2bit
+
+###########################################################################
+# Initial genome build (DONE - 2013-06-07 - Hiram)
+    cd /hive/data/genomes/eriEur2
+
+    cat << '_EOF_' > eriEur2.config.ra
+# Config parameters for makeGenomeDb.pl:
+db eriEur2
+clade mammal
+# genomeCladePriority 20.2
+scientificName Erinaceus europaeus
+commonName Hedgehog
+assemblyDate May 2012
+assemblyLabel Broad Institute EriEur2.0
+assemblyShortLabel EriEur2.0
+orderKey 2569
+# chrM already included in agp and fa files
+mitoAcc none
+fastaFiles /cluster/data/eriEur2/ucsc/eriEur2.ucsc.fa.gz
+agpFiles /cluster/data/eriEur2/ucsc/eriEur2.ucsc.agp
+# qualFiles none
+dbDbSpeciesDir hedgehog
+photoCreditURL http://en.wikipedia.org/wiki/File:West_European_Hedgehog_%28Erinaceus_europaeus%292.jpg
+photoCreditName Papa Lima Whiskey, Wikipedia Commons
+ncbiGenomeId 227
+ncbiAssemblyId 426148
+ncbiAssemblyName EriEur2.0
+ncbiBioProject 74585
+genBankAccessionID GCA_000296755.1
+taxId 9365
+'_EOF_'
+
+    # run step wise to confirm sequence and AGP files match each other
+    time makeGenomeDb.pl -stop=agp eriEur2.config.ra > genomeDb.agp.log 2>&1
+    # real    4m15.127s
+
+    # verify it is OK:
+    tail -1 genomeDb.agp.log
+    # *** All done!  (through the 'agp' step)
+
+    time nice -n +19 makeGenomeDb.pl -fileServer=hgwdev \
+	-workhorse=hgwdev -continue=db eriEur2.config.ra \
+        > genomeDb.db.log 2>&1
+    # real    17m22.508s
+
+    # add the trackDb business to the source tree
+
+##########################################################################
+# running repeat masker (DONE - 2013-06-07 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/repeatMasker
+    cd /hive/data/genomes/eriEur2/bed/repeatMasker
+    time doRepeatMasker.pl -buildDir=`pwd` -noSplit \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+	-smallClusterHub=encodek eriEur2 > do.log 2>&1 &
+    # real    770m28.305s
+    # failing in nestedRepeats, e.g:
+# RepeatMasker bug?: Undefined id, line 3839311 of input:
+# 551  24.8  2.2  0.0  JH835619  1597561 1597571 (1160377) +  LTR18_EE       LTR/ERV1              1293 1343  (174)
+    # ran that last job on hgwdev, then removed this single broken line and
+    # finished off this one job, then continuing:
+
+    time doRepeatMasker.pl -buildDir=`pwd` -noSplit \
+	-bigClusterHub=swarm -dbHost=hgwdev -workhorse=hgwdev \
+	-continue=mask -smallClusterHub=encodek eriEur2 > mask.log 2>&1 &
+    # real    31m37.041s
+
+    cat faSize.rmsk.txt
+# 2715720925 bases (382647390 N's 2333073535 real 1271539462 upper
+#    1061534073 lower) in 5803 sequences in 1 files
+# Total size: mean 467985.7 sd 1304803.0 min 1001 (AMDU01225431)
+#    max 17429815 (JH835289) median 3704
+# %39.09 masked total, %45.50 masked real
+
+    egrep -i "versi|release" do.log
+# RepeatMasker version open-4.0.2
+#    April 29 2013 (open-4-0-2) version of RepeatMasker
+# CC   RELEASE 20130422;
+
+##########################################################################
+# running simple repeat (DONE - 2013-06-07 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/simpleRepeat
+    cd /hive/data/genomes/eriEur2/bed/simpleRepeat
+    time doSimpleRepeat.pl -buildDir=`pwd` -bigClusterHub=swarm \
+	-dbHost=hgwdev -workhorse=hgwdev -smallClusterHub=encodek \
+	eriEur2 > do.log 2>&1 &
+    # real    14m53.481s
+
+    cat fb.simpleRepeat
+    #	62243136 bases of 2333073535 (2.668%) in intersection
+
+    # using RMSK and TRF since RMSK is equivalent to the masking result of WM
+    cd /hive/data/genomes/eriEur2
+    twoBitMask eriEur2.rmsk.2bit \
+	-add bed/simpleRepeat/trfMask.bed eriEur2.2bit
+    #	you can safely ignore the warning about fields >= 13
+
+    twoBitToFa eriEur2.2bit stdout | faSize stdin > faSize.eriEur2.2bit.txt
+    cat faSize.eriEur2.2bit.txt
+# 2715720925 bases (382647390 N's 2333073535 real 1269258231 upper
+#    1063815304 lower) in 5803 sequences in 1 files
+# Total size: mean 467985.7 sd 1304803.0 min 1001 (AMDU01225431)
+#    max 17429815 (JH835289) median 3704
+# %39.17 masked total, %45.60 masked real
+
+    rm /gbdb/eriEur2/eriEur2.2bit
+    ln -s `pwd`/eriEur2.2bit /gbdb/eriEur2/eriEur2.2bit
+
+#########################################################################
+# Verify all gaps are marked, add any N's not in gap as type 'other'
+#	(DONE - 2013-06-07 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/gap
+    cd /hive/data/genomes/eriEur2/bed/gap
+    time nice -n +19 findMotif -motif=gattaca -verbose=4 \
+	-strand=+ ../../eriEur2.unmasked.2bit > findMotif.txt 2>&1
+    #	real    0m37.313s
+    grep "^#GAP " findMotif.txt | sed -e "s/^#GAP //" > allGaps.bed
+    time featureBits eriEur2 -not gap -bed=notGap.bed
+    # 2605196361 bases of 2605196361 (100.000%) in intersection
+    # real    0m24.729s
+
+    # used to do this featureBits, but it is really really slow if there
+    # are a log of contigs
+    time featureBits eriEur2 allGaps.bed notGap.bed -bed=new.gaps.bed
+    # 0 bases of 2715720925 (0.000%) in intersection
+    # real    6m33.744s
+
+    # this is much faster:
+    awk '{print $3-$2,$0}' notGap.bed | sort -rn > notGap.sizes.txt
+    # largest contiguous sequence:
+    head -1 notGap.sizes.txt | awk '{print $1}'
+    # 233448
+    # minimal coverage 1 base out of that largest sequence:
+    echo 233448 | awk '{printf "%15.10f\n", 1/(2*$1)}' | sed -e 's/ //g'
+    # 0.0000021418
+    time bedIntersect -minCoverage=0.0000021418 allGaps.bed notGap.bed \
+      test.new.gaps.bed
+    # real    0m0.975s
+    # number of bases in these new gaps, none:
+# -rw-rw-r-- 1        0 Jun 11 17:06 test.new.gaps.bed
+    # when non-zero, to count them, e.g.:
+    # awk '{print $3-$2}' test.new.gaps.bed | ave stdin | grep total
+    # total 8314.000000
+
+#########################################################################
+# cytoBandIdeo - (DONE - 2013-06-12 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/cytoBand
+    cd /hive/data/genomes/eriEur2/bed/cytoBand
+    makeCytoBandIdeo.csh eriEur2
+
+##########################################################################
+## WINDOWMASKER (DONE - 2013-05-30 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/windowMasker
+    cd /hive/data/genomes/eriEur2/bed/windowMasker
+    time nice -n +19 doWindowMasker.pl -buildDir=`pwd` -workhorse=hgwdev \
+	-dbHost=hgwdev eriEur2 > do.log 2>&1 &
+    #  real    241m22.022s
+
+    cat faSize.eriEur2.cleanWMSdust.txt
+# 2715720925 bases (382647390 N's 2333073535 real 1191999225 upper
+#    1141074310 lower) in 5803 sequences in 1 files
+# Total size: mean 467985.7 sd 1304803.0 min 1001 (AMDU01225431)
+#    max 17429815 (JH835289) median 3704
+# %42.02 masked total, %48.91 masked real
+
+    #  This is pretty good for WM, but RMSK isn't that bad either,
+    #  so, using the RMSK result to mask the genome
+
+    featureBits -countGaps eriEur2 rmsk windowmaskerSdust  > fb.eriEur2.rmsk.windowmaskerSdust.txt 2>&1
+    cat fb.eriEur2.rmsk.windowmaskerSdust.txt
+#  859433945 bases of 2715720925 (31.647%) in intersection
+
+########################################################################
+# MAKE 11.OOC FILE FOR BLAT/GENBANK (DONE - 2013-06-18 - Hiram)
+    # Use -repMatch=850, based on size -- for human we use 1024
+    # use the "real" number from the faSize measurement,
+    # hg19 is 2897316137, calculate the ratio factor for 1024:
+    calc \( 2333073535 / 2897316137 \) \* 1024
+    #   ( 2333073535 / 2897316137 ) * 1024 = 824.579434
+
+    # round up to 850
+
+    # eriEur1 was: -repMatch=800
+    #	Wrote 43503 overused 11-mers to eriEur1.11.ooc
+
+    cd /hive/data/genomes/eriEur2
+    blat eriEur2.2bit /dev/null /dev/null -tileSize=11 \
+      -makeOoc=jkStuff/eriEur2.11.ooc -repMatch=850
+    #	Wrote 37160 overused 11-mers to jkStuff/eriEur2.11.ooc
+
+    # there are *only* bridged gaps, no lift file needed for genbank
+    hgsql -N -e "select bridge from gap;" eriEur2 | sort | uniq -c
+    #   219764 yes
+
+#########################################################################
+# AUTO UPDATE GENBANK (WORKING - 2013-06-06 - Hiram)
+    # examine the file:
+    /cluster/data/genbank/data/organism.lst
+    # for your species to see what counts it has for:
+# organism       mrnaCnt estCnt  refSeqCnt
+# Erinaceus europaeus     10      0       0
+    # to decide which "native" mrna or ests you want to specify in genbank.conf
+    # this appears that species has almost nothing
+
+    ssh hgwdev
+    cd $HOME/kent/src/hg/makeDb/genbank
+    git pull
+    # edit etc/genbank.conf to add eriEur2 before echTel1 and commit to GIT
+# eriEur2 (European Hedgehog)
+eriEur2.serverGenome = /hive/data/genomes/eriEur2/eriEur2.2bit
+eriEur2.clusterGenome = /hive/data/genomes/eriEur2/eriEur2.2bit
+eriEur2.ooc = /hive/data/genomes/eriEur2/jkStuff/eriEur2.11.ooc
+eriEur2.lift = no
+eriEur2.refseq.mrna.native.pslCDnaFilter  = ${ordered.refseq.mrna.native.pslCDnaFilter}
+eriEur2.refseq.mrna.xeno.pslCDnaFilter    = ${ordered.refseq.mrna.xeno.pslCDnaFilter}
+eriEur2.genbank.mrna.native.pslCDnaFilter = ${ordered.genbank.mrna.native.pslCDnaFilter}
+eriEur2.genbank.mrna.xeno.pslCDnaFilter   = ${ordered.genbank.mrna.xeno.pslCDnaFilter}
+eriEur2.genbank.est.native.pslCDnaFilter  = ${ordered.genbank.est.native.pslCDnaFilter}
+eriEur2.refseq.mrna.native.load = no
+eriEur2.refseq.mrna.xeno.load = yes
+eriEur2.genbank.mrna.xeno.load = no
+eriEur2.genbank.est.native.load = no
+eriEur2.downloadDir = eriEur2
+eriEur2.perChromTables = no
+
+    # end of section added to etc/genbank.conf
+    git commit -m "adding eriEur2 hedgehog refs #9419" etc/genbank.conf
+    git push
+    make etc-update
+
+    # ~/kent/src/hg/makeDb/genbank/src/lib/gbGenome.c already contains
+    # anoCar genome information, if this is a new species, need to add stuff
+    # there
+
+    ssh hgwdev			# used to do this on "genbank" machine
+    screen			# long running job managed in screen
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbAlignStep -initial eriEur2 &
+    #	var/build/logs/2013.06.30-22:13:31.eriEur2.initalign.log
+    #	real    192m21.565s
+
+    # load database when finished
+    ssh hgwdev
+    cd /cluster/data/genbank
+    time nice -n +19 ./bin/gbDbLoadStep -drop -initialLoad eriEur2 &
+    #	logFile: var/dbload/hgwdev/logs/2013.07.01-07:56:34.dbload.log
+    #	real    12m38.421s
+
+    # enable daily alignment and update of hgwdev (TBD - Hiram)
+    cd ~/kent/src/hg/makeDb/genbank
+    git pull
+    # add eriEur2 to: etc/align.dbs etc/hgwdev.dbs
+    vi etc/align.dbs etc/hgwdev.dbs
+    git commit -m "Added eriEur2 to daily hgwdev build refs #9419" etc/align.dbs etc/hgwdev.dbs
+    git push
+    make etc-update
+
+###########################################################################
+# lastz alignment with Human/hg19 (DONE - 2013-07-09 - Hiram)
+    #	the original alignment
+    cd /hive/data/genomes/hg19/bed/lastzEriEur2.2013-07-08
+    cat fb.hg19.chainEriEur2Link.txt
+    #   757625719 bases of 2897316137 (26.149%) in intersection
+
+    # running the swap
+    mkdir /hive/data/genomes/eriEur2/bed/blastz.hg19.swap
+    cd /hive/data/genomes/eriEur2/bed/blastz.hg19.swap
+    time nice -n +19 doBlastzChainNet.pl -verbose=2 \
+        -swap /hive/data/genomes/hg19/bed/lastzEriEur2.2013-07-08/DEF \
+        -chainMinScore=3000 -chainLinearGap=medium \
+        -workhorse=hgwdev -smallClusterHub=encodek -bigClusterHub=swarm \
+        -syntenicNet > swap.log 2>&1
+    #  real    98m18.554s
+
+    cat fb.eriEur2.chainHg19Link.txt
+    #  729081383 bases of 2333073535 (31.250%) in intersection
+
+    cd /hive/data/genomes/eriEur2/bed
+    ln -s blastz.hg19.swap lastz.hg19
+
+############################################################################
+#	After getting a blat server assigned by the Blat Server Gods,
+#       (DONE - 2013-06-26 - Hiram)
+    ssh hgwdev
+
+    hgsql -e 'INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("eriEur2", "blat4b", "17848", "1", "0"); \
+	INSERT INTO blatServers (db, host, port, isTrans, canPcr) \
+	VALUES ("eriEur2", "blat4b", "17849", "0", "1");' \
+	    hgcentraltest
+    #	test it with some sequence
+
+#########################################################################
+## Default position set to same as was eriEur1  (DONE - 2014-04-11 - Hiram)
+    ssh hgwdev
+    hgsql -e 'update dbDb set defaultPos="JH835582:2324009-2338336"
+	where name="eriEur2";' hgcentraltest
+
+##############################################################################
+# cpgIslands - (DONE - 2013-11-25 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/cpgIslands
+    cd /hive/data/genomes/eriEur2/bed/cpgIslands
+    doCpgIslands.pl -buildDir=`pwd` -bigClusterHub=ku \
+	-dbHost=hgwdev -smallClusterHub=ku -workhorse=hgwdev \
+	eriEur2 > run.log 2>&1
+    # Elapsed time: 7m27s
+
+    cat fb.eriEur2.cpgIslandExt.txt
+    #   16668591 bases of 2333073535 (0.714%) in intersection
+
+##############################################################################
+# cpgIslands on UNMASKED sequence (DONE - 2014-04-11 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/cpgIslandsUnmasked
+    cd /hive/data/genomes/eriEur2/bed/cpgIslandsUnmasked
+
+    # run stepwise so the loading can be done in a different table
+    time doCpgIslands.pl -dbHost=hgwdev -bigClusterHub=ku -buildDir=`pwd` \
+       -stop=makeBed \
+          -maskedSeq=/hive/data/genomes/eriEur2/eriEur2.unmasked.2bit \
+             -workhorse=hgwdev -smallClusterHub=ku eriEur2 > makeBed.log 2>&1
+    #  real    3m6.463s
+
+    # debug load step so it can be loaded into a separate table:
+    time doCpgIslands.pl -dbHost=hgwdev -bigClusterHub=ku -buildDir=`pwd` \
+       -debug -continue=load \
+          -maskedSeq=/hive/data/genomes/eriEur2/eriEur2.unmasked.2bit \
+        -workhorse=hgwdev -smallClusterHub=ku eriEur2
+    # edit and change the table name to load: cpgIslandExtUnmasked
+
+    time ./doLoadCpg.csh > load.log 2>&1
+    #   Read 28528 elements of size 10 from cpgIsland.bed
+
+    cat fb.eriEur2.cpgIslandExtUnmasked.txt
+    # 19393537 bases of 2333073535 (0.831%) in intersection
+
+
+    time doCpgIslands.pl -dbHost=hgwdev -bigClusterHub=ku -buildDir=`pwd` \
+       -continue=cleanup \
+          -maskedSeq=/hive/data/genomes/eriEur2/eriEur2.unmasked.2bit \
+        -workhorse=hgwdev -smallClusterHub=ku eriEur2
+    # real    0m22.827s
+
+#########################################################################
+# create ucscToINSDC name mapping (DONE - 2014-04-11 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/ucscToINSDC
+    cd /hive/data/genomes/eriEur2/bed/ucscToINSDC
+
+    # this script has been maturing over time, it is close to complete.
+    # to find a latest copy of it:
+    # ls -ogrt /hive/data/genomes/*/bed/ucscToINSDC/translateNames.sh
+
+    cp -p /hive/data/genomes/criGri1/bed/ucscToINSDC/translateNames.sh .
+    ./translateNames.sh
+    # it says:
+# need to find chrM accessions
+    # so add this one:
+    echo -e 'chrM\tNC_002080.2' >> ucscToINSDC.txt
+    # needs to be sorted to work with join
+    sort ucscToINSDC.txt > ucscToINSDC.tab
+
+    awk '{printf "%s\t0\t%d\n", $1,$2}' ../../chrom.sizes | sort \
+        > name.coordinate.tab
+
+    join name.coordinate.tab ucscToINSDC.tab | tr '[ ]' '[\t]' > ucscToINSDC.bed
+
+    cut -f1 ucscToINSDC.bed | awk '{print length($0)}' | sort -n | tail -1
+# 12
+
+    # use the 12 in this sed:
+    sed -e "s/21/12/" $HOME/kent/src/hg/lib/ucscToINSDC.sql \
+        | hgLoadSqlTab eriEur2 ucscToINSDC stdin ucscToINSDC.bed
+    checkTableCoords eriEur2 ucscToINSDC
+    # should cover all bases
+    featureBits -countGaps eriEur2 ucscToINSDC
+    # 2715720925 bases of 2715720925 (100.000%) in intersection
+
+##############################################################################
+# construct download files (DONE - 2014-04-11 - Hiram)
+    # after db name has been added to all.joiner and
+    # joinerCheck -database=eriEur2 -keys all.joiner
+    # is clean
+
+    cd /hive/data/genomes/eriEur2
+    time makeDownloads.pl -workhorse=hgwdev -dbHost=hgwdev eriEur2 \
+       > downloads.log 2>&1
+    # real    22m58.066s
+
+##############################################################################
+# pushQ entry (DONE - 2014-04-11 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/pushQ
+    cd /hive/data/genomes/eriEur2/pushQ
+    # Mark says don't let the transMap track get there
+    time makePushQSql.pl eriEur2 2> stderr.txt | grep -v transMap > eriEur2.sql
+    #   real    1m55.792s
+
+    scp -p eriEur2.sql qateam@hgwbeta:/tmp
+    ssh qateam@hgwbeta './bin/x86_64/hgsql qapushq < /tmp/eriEur2.sql'
+
+###########################################################################
+# genscan track (DONE - 2013-09-12 - Hiram)
+
+    cd /hive/data/genomes/eriEur2/bed/genscan
+    doGenscan.pl -buildDir=/hive/data/genomes/eriEur2/bed/genscan \
+       -bigClusterHub=ku  -workhorse=hgwdev \
+           -dbHost=hgwdev eriEur2 > do.log 2>&1
+    #  Elapsed time: 65m12s
+
+    cat fb.eriEur2.genscan.txt
+    #  45444338 bases of 2333073535 (1.948%) in intersection
+    cat fb.eriEur2.genscanSubopt.txt
+    #  44934986 bases of 2333073535 (1.926%) in intersection
+
+#############################################################################
+# fixup search rule for assembly track/gold table (DONE - 2014-05-01 - Hiram)
+    hgsql -N -e "select frag from gold;" eriEur2 | sort | head -1
+AMDU01000001.1
+
+    hgsql -N -e "select frag from gold;" eriEur2 | sort | tail -2
+AMDU01225566.1
+NC_002080
+
+    # verify this rule will find them all or eliminate them all:
+    hgsql -N -e "select frag from gold;" eriEur2 | wc -l
+    # 225567
+
+    hgsql -N -e "select frag from gold;" eriEur2 | egrep -e '[AN][MC][D_][U0]0[0-9]+(\.1)?' | wc -l
+    # 225567
+
+    hgsql -N -e "select frag from gold;" eriEur2 | egrep -v -e '[AN][MC][D_][U0]0[0-9]+(\.1)?' | wc -l
+    # 0
+
+    # hence, add to trackDb/hedgehog/eriEur2/trackDb.ra
+searchTable gold
+shortCircuit 1
+termRegex [AN][MC][D_][U0]0[0-9]+(\.1)?
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+#########################################################################
+##############################################################################
+# TransMap V3 tracks. see makeDb/doc/transMapTracks.txt (2014-12-21 markd)
+##############################################################################
+
+##############################################################################
+# GENEID GENE PREDICTIONS (DONE - 2015-06-26 - Hiram)
+    ssh hgwdev
+    mkdir /hive/data/genomes/eriEur2/bed/geneid
+    cd /hive/data/genomes/eriEur2/bed/geneid
+    wget --timestamping \
+http://genome.crg.es/genepredictions/E.europaeus/EriEur2/geneid_v1.4/00README
+
+    wget --timestamping \
+http://genome.crg.es/genepredictions/E.europaeus/EriEur2/geneid_v1.4/eriEur2.geneid.gtf
+
+    ldHgGene -gtf -genePredExt eriEur2 geneid eriEur2.geneid.gtf
+    #  Read 30632 transcripts in 236791 lines in 1 files
+    #    30632 groups 5649 seqs 1 sources 3 feature types
+    #  30632 gene predictions
+
+    featureBits -enrichment eriEur2 augustusGene:CDS geneid
+# augustusGene:CDS 1.289%, geneid 1.393%, both 1.044%, cover 81.03%,
+#    enrich 58.19x
+
+##########################################################################
+# SGP GENES (DONE - 2015-07-30 - Hiram)
+    mkdir /hive/data/genomes/eriEur2/bed/sgpGene
+    cd /hive/data/genomes/eriEur2/bed/sgpGene
+    wget --timestamping \
+http://genome.crg.es/genepredictions/E.europaeus/EriEur2/SGP2/hg38/00README
+    wget --timestamping \
+http://genome.crg.es/genepredictions/E.europaeus/EriEur2/SGP2/hg38/eriEur2.sgp2.gtf
+    wget --timestamping \
+http://genome.crg.es/genepredictions/E.europaeus/EriEur2/SGP2/hg38/eriEur2.sgp2.gff3
+
+    ldHgGene -gtf -genePredExt eriEur2 sgpGene eriEur2.sgp2.gtf
+    # Read 28927 transcripts in 249483 lines in 1 files
+    #   28927 groups 2366 seqs 1 sources 3 feature types
+    # 28927 gene predictions
+
+    featureBits -enrichment eriEur2 augustusGene:CDS sgpGene
+# augustusGene:CDS 1.289%, sgpGene 1.359%, both 1.082%, cover 83.95%,
+#   enrich 61.78x
+
+###########################################################################

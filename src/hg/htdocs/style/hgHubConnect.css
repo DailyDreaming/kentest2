@@ -1,0 +1,123 @@
+/* 
+   Style Sheet for hgHubConnect
+*/
+
+ul {
+        margin: 4px;
+}
+
+#tabs {
+	font-size: 100%;
+	margin-top: 5px;
+}
+
+.tabSection {
+        /* background: #fffee8; */
+        padding-top: 10px;
+        padding-left: 8px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid grey;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button, button {
+        font-size: 80%;
+}
+
+/* not used, but suggested by QA, waiting for feedback */
+/*
+button.pressed {
+    background: #ebf0ff;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+} */
+
+h4 {
+        margin: 0px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+}
+
+
+
+.hubList table {
+    width: 1000px;
+    border-collapse: collapse;
+}
+
+/* Creating rounded corners at the tops of tables - works with all CSS3 supporting browsers, degrades gracefully */
+.hubList table tr:first-child th:first-child {-webkit-border-top-left-radius: 5px; -moz-border-radius-topleft: 5px; border-top-left-radius: 5px;}
+.hubList table tr:first-child th:last-child {-webkit-border-top-right-radius: 5px; -moz-border-radius-topright: 5px; border-top-right-radius: 5px;}
+
+/* Styling table cells */
+.hubList tbody 	{font-size: 0.9em;}
+.hubList table tr td:first-child {text-align: center;}
+.hubList table#unlistedHubsTable tr td:last-child {text-align: center;}
+.hubList th, .hubList td {padding: 2px 8px; text-align: left;}
+.hubList th {background-color: #e5dfb1; height: 1.6em; vertical-align: middle;}
+.hubList th .assemblyClickNote { font-size: 80%; font-weight: normal; display: block }
+
+.hubList table tbody tr {background-color: #fffef8;}
+.hubTdbTree {font-size: 0.9em;}
+.descriptionMatch {font-size: 0.9em;}
+.selectedRow {background-color: #99dd9a !important;}
+.hoverRow {background-color: #fdffb7 !important;}
+.hubList td {border-top: 1px solid #d5cd9e; border-bottom: 1px solid #d5cd9e;}
+.centeredCol {text-align: center;}
+#addHubBar {background-color: #bfbfb2; line-height: 2.3em;}
+#hubURL {line-height: 0.9em; color: #1c1d22;}
+.hubList input {margin: 3px; font-size: 0.8em;}
+.submitHub {margin: 10px;}
+
+.tabFooter {
+    font-size: 100%;
+    font-family: Verdana,Arial,sans-serif;
+}
+
+.tabFooter input {
+    font-size: 0.8em;
+    margin: 7px 0 7px 3px;
+}
+.tabFooter .small {margin: 2px 40px; font-size: 0.8em;}
+
+.hubError {color: #F00000;}
+
+// hub developer tab settings
+#hubDeveloper {
+    width: 1000px;
+}
+
+#hubDeveloperInstructions {
+    width: 1000px;
+    text-align: center;
+}
+
+
+.help {
+    /* font-size: 0.9em; */
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.addHubBar {
+    width: 1000px;
+    background-color: #bfbfb2;
+    line-height: 2.3em;
+    padding: 2px 8px;
+    text-align: left;
+    height: auto;
+}
+
+
+#extraSettingsContainer {
+    display: inline-block;
+    line-height: 1.5em;
+    position: relative;
+    vertical-align: middle;
+}
+
+#extraSettingsContainer > img {
+    vertical-align: middle;
+    height: 18;
+    cursor: pointer;
+}
+

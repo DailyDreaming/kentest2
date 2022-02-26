@@ -1,0 +1,2292 @@
+################################################################
+# panTro6 - chimp - Pan troglodytes - primate - taxId 9598
+################################################################
+track chainNetPanTro6
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro6
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro6Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro6
+    spectrum on
+
+        track chainPanTro6
+        parent chainNetPanTro6Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro6
+        html chainNet
+
+    track chainNetPanTro6Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro6
+
+        track netPanTro6
+        parent chainNetPanTro6Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro6 chainPanTro6
+        html chainNet
+
+################################################################
+# panTro5 - chimp - Pan troglodytes - primate
+################################################################
+track chainNetPanTro5
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro5
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro5Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro5
+    spectrum on
+
+        track chainPanTro5
+        parent chainNetPanTro5Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro5
+        html chainNet
+
+    track chainNetPanTro5Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro5
+
+        track netPanTro5
+        parent chainNetPanTro5Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro5 chainPanTro5
+        html chainNet
+
+################################################################
+# panTro4 - chimp - Pan troglodytes - primate
+################################################################
+track chainNetPanTro4
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro4
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro4Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro4
+    spectrum on
+
+        track chainPanTro4
+        parent chainNetPanTro4Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro4
+        html chainNet
+
+    track chainNetPanTro4Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro4
+
+        track netPanTro4
+        parent chainNetPanTro4Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro4 chainPanTro4
+        html chainNet
+
+################################################################
+# panTro3 - chimp - Pan troglodytes - primate
+################################################################
+track chainNetPanTro3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro3
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro3
+    spectrum on
+
+        track chainPanTro3
+        parent chainNetPanTro3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro3
+        html chainNet
+
+    track chainNetPanTro3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro3
+
+        track netPanTro3
+        parent chainNetPanTro3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro3 chainPanTro3
+        html chainNet
+
+################################################################
+# panTro2 - chimp - Pan troglodytes - primate
+################################################################
+track chainNetPanTro2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro2
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro2
+    spectrum on
+
+        track chainPanTro2
+        parent chainNetPanTro2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro2
+        html chainNet
+
+    track chainNetPanTro2Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro2
+
+        track netPanTro2
+        parent chainNetPanTro2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro2 chainPanTro2
+        html chainNet
+
+################################################################
+# panTro1 - chimp - Pan troglodytes - primate
+################################################################
+track chainNetPanTro1
+compositeTrack on
+shortLabel $o_db Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panTro1
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPanTro1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanTro1
+    spectrum on
+
+        track chainPanTro1
+        parent chainNetPanTro1Viewchain
+        subGroups view=chain
+        shortLabel $o_db Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panTro1
+        html chainNet
+
+    track chainNetPanTro1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPanTro1
+
+        track netPanTro1
+        parent chainNetPanTro1Viewnet
+        subGroups view=net
+        shortLabel $o_db Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign panTro1 chainPanTro1
+        html chainNet
+
+################################################################
+# macNem1 -  Pig-tailed macaque - Macaca nemestrina - primate - 9545
+################################################################
+track chainNetMacNem1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb macNem1
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetMacNem1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetMacNem1
+    spectrum on
+
+       track chainMacNem1
+        parent chainNetMacNem1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain macNem1
+        html chainNet
+
+    track chainNetMacNem1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetMacNem1
+
+        track netMacNem1
+        parent chainNetMacNem1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign macNem1 chainMacNem1
+        html chainNet
+
+################################################################
+# rheMac10 - Rhesus - Macaca mulatta - primate
+################################################################
+track chainNetRheMac10
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb rheMac10
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRheMac10Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRheMac10
+    spectrum on
+
+       track chainRheMac10
+        parent chainNetRheMac10Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rheMac10
+        html chainNet
+
+    track chainNetRheMac10Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRheMac10
+
+        track netRheMac10
+        parent chainNetRheMac10Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rheMac10 chainRheMac10
+        html chainNet
+
+################################################################
+# rheMac8 - Rhesus - Macaca mulatta - primate
+################################################################
+track chainNetRheMac8
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb rheMac8
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRheMac8Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRheMac8
+    spectrum on
+
+       track chainRheMac8
+        parent chainNetRheMac8Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rheMac8
+        html chainNet
+
+    track chainNetRheMac8Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRheMac8
+
+        track netRheMac8
+        parent chainNetRheMac8Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rheMac8 chainRheMac8
+        html chainNet
+
+################################################################
+# rheMac3 - Rhesus - Macaca mulatta - primate
+################################################################
+track chainNetRheMac3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb rheMac3
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRheMac3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRheMac3
+    spectrum on
+
+       track chainRheMac3
+        parent chainNetRheMac3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rheMac3
+        html chainNet
+
+    track chainNetRheMac3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRheMac3
+
+        track netRheMac3
+        parent chainNetRheMac3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rheMac3 chainRheMac3
+        html chainNet
+
+################################################################
+# rheMac2 - Rhesus - Macaca mulatta - primate
+################################################################
+track chainNetRheMac2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb rheMac2
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRheMac2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRheMac2
+    spectrum on
+
+        track chainRheMac2
+        parent chainNetRheMac2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rheMac2
+        html chainNet
+
+    track chainNetRheMac2Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRheMac2
+
+        track netRheMac2
+        parent chainNetRheMac2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rheMac2 chainRheMac2
+        html chainNet
+
+################################################################
+# rheMac1 - Rhesus - Macaca mulatta - primate
+################################################################
+track chainNetRheMac1
+compositeTrack on
+shortLabel $o_db Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb rheMac1
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRheMac1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRheMac1
+    spectrum on
+
+        track chainRheMac1
+        parent chainNetRheMac1Viewchain
+        subGroups view=chain
+        shortLabel $o_db Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rheMac1
+        html chainNet
+
+    track chainNetRheMac1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRheMac1
+
+        track netRheMac1
+        parent chainNetRheMac1Viewnet
+        subGroups view=net
+        shortLabel $o_db Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rheMac1 chainRheMac1
+        html chainNet
+
+################################################################
+# gorGor6 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor6
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 220.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrixHeader A, C, G, T
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 3000
+chainLinearGap medium
+otherDb gorGor6
+html chainNet
+
+    track chainNetGorGor6Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor6
+    spectrum on
+
+        track chainGorGor6
+        parent chainNetGorGor6Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor6
+        html chainNet
+
+    track chainNetGorGor6Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor6
+
+        track netGorGor6
+        parent chainNetGorGor6Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor6 chainGorGor6
+        html chainNet
+
+################################################################
+# gorGor5 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor5
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 220.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrixHeader A, C, G, T
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 3000
+chainLinearGap medium
+otherDb gorGor5
+html chainNet
+
+    track chainNetGorGor5Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor5
+    spectrum on
+
+        track chainGorGor5
+        parent chainNetGorGor5Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor5
+        html chainNet
+
+    track chainNetGorGor5Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor5
+
+        track netGorGor5
+        parent chainNetGorGor5Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor5 chainGorGor5
+        html chainNet
+
+################################################################
+# gorGor4 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor4
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 220.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb gorGor4
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetGorGor4Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor4
+    spectrum on
+
+        track chainGorGor4
+        parent chainNetGorGor4Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor4
+        html chainNet
+
+    track chainNetGorGor4Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor4
+
+        track netGorGor4
+        parent chainNetGorGor4Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor4 chainGorGor4
+        html chainNet
+
+################################################################
+# gorGor3 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 220.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb gorGor3
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetGorGor3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor3
+    spectrum on
+
+        track chainGorGor3
+        parent chainNetGorGor3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor3
+        html chainNet
+
+    track chainNetGorGor3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor3
+
+        track netGorGor3
+        parent chainNetGorGor3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor3 chainGorGor3
+        html chainNet
+
+################################################################
+# gorGor2 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 220.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb gorGor2
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetGorGor2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor2
+    spectrum on
+
+        track chainGorGor2
+        parent chainNetGorGor2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor2
+        html chainNet
+
+    track chainNetGorGor2Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor2
+
+        track netGorGor2
+        parent chainNetGorGor2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor2 chainGorGor2
+        html chainNet
+
+################################################################
+# gorGor1 - Gorilla - Gorilla gorilla - primate
+################################################################
+track chainNetGorGor1
+compositeTrack on
+shortLabel $o_db Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb gorGor1
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetGorGor1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetGorGor1
+    spectrum on
+
+        track chainGorGor1
+        parent chainNetGorGor1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain gorGor1
+        html chainNet
+
+    track chainNetGorGor1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetGorGor1
+
+        track netGorGor1
+        parent chainNetGorGor1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign gorGor1 chainGorGor1
+        html chainNet
+
+################################################################
+# ponAbe3 - Bonobo - Pongo pygmaeus abelii - primate - taxId 9601
+################################################################
+track chainNetPonAbe3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb ponAbe3
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPonAbe3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPonAbe3
+    spectrum on
+
+        track chainPonAbe3
+        parent chainNetPonAbe3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain ponAbe3
+        html chainNet
+
+    track chainNetPonAbe3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPonAbe3
+
+        track netPonAbe3
+        parent chainNetPonAbe3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign ponAbe3 chainPonAbe3
+        html chainNet
+
+################################################################
+# ponAbe2 - Bonobo - Pongo pygmaeus abelii - primate - taxId 9601
+################################################################
+track chainNetPonAbe2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb ponAbe2
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPonAbe2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPonAbe2
+    spectrum on
+
+        track chainPonAbe2
+        parent chainNetPonAbe2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain ponAbe2
+        html chainNet
+
+    track chainNetPonAbe2Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPonAbe2
+
+        track netPonAbe2
+        parent chainNetPonAbe2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign ponAbe2 chainPonAbe2
+        html chainNet
+
+################################################################
+# saiBol1 - Squirrel monkey - Saimiri boliviensis - primate - primate - 395
+################################################################
+track chainNetSaiBol1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 205.3
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 100,-179,-37,-144,-179,96,-195,-37,-37,-195,96,-179,-144,-37,-179,100
+matrixHeader A, C, G, T
+otherDb saiBol1
+chainMinScore 5000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetSaiBol1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetSaiBol1
+    spectrum on
+
+        track chainSaiBol1
+        parent chainNetSaiBol1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain saiBol1
+        html chainNet
+
+    track chainNetSaiBol1Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetSaiBol1
+
+        track netSaiBol1
+        parent chainNetSaiBol1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign saiBol1 chainSaiBol1
+        html chainNet
+
+################################################################
+# panPan3 - Bonobo - Pan paniscus - primate - GCF_013052645.1 Mhudiblu_PPA_v0
+################################################################
+track chainNetPanPan3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 215.30
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panPan3
+chainMinScore 3000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetPanPan3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanPan3
+    spectrum on
+
+        track chainPanPan3
+        parent chainNetPanPan3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panPan3
+        html chainNet
+
+    track chainNetPanPan3Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetPanPan3
+
+        track netPanPan3
+        parent chainNetPanPan3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign panPan3 chainPanPan3
+        html chainNet
+
+################################################################
+# panPan2 - Bonobo - Pan paniscus - primate - primate - 245
+################################################################
+track chainNetPanPan2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 215.30
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panPan2
+chainMinScore 3000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetPanPan2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanPan2
+    spectrum on
+
+        track chainPanPan2
+        parent chainNetPanPan2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panPan2
+        html chainNet
+
+    track chainNetPanPan2Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetPanPan2
+
+        track netPanPan2
+        parent chainNetPanPan2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign panPan2 chainPanPan2
+        html chainNet
+
+################################################################
+# panPan1 - Bonobo - Pan paniscus - primate - primate - 245
+################################################################
+track chainNetPanPan1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 215.30
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb panPan1
+chainMinScore 5000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetPanPan1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPanPan1
+    spectrum on
+
+        track chainPanPan1
+        parent chainNetPanPan1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain panPan1
+        html chainNet
+
+    track chainNetPanPan1Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetPanPan1
+
+        track netPanPan1
+        parent chainNetPanPan1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign panPan1 chainPanPan1
+        html chainNet
+
+################################################################
+# chlSab2 - Green monkey - Chlorocebus sabaeus - primate - primate - 340
+################################################################
+track chainNetChlSab2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 237.80
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb chlSab2
+chainMinScore 5000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetChlSab2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetChlSab2
+    spectrum on
+
+        track chainChlSab2
+        parent chainNetChlSab2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain chlSab2
+        html chainNet
+
+    track chainNetChlSab2Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetChlSab2
+
+        track netChlSab2
+        parent chainNetChlSab2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign chlSab2 chainChlSab2
+        html chainNet
+
+################################################################
+# chlSab1 - Green monkey - Chlorocebus sabaeus - primate - primate - 340
+################################################################
+track chainNetChlSab1
+release alpha
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 237.80
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb chlSab1
+chainMinScore 5000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetChlSab1Viewchain
+    release alpha
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetChlSab1
+    spectrum on
+
+        track chainChlSab1
+        release alpha
+        parent chainNetChlSab1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain chlSab1
+        html chainNet
+
+    track chainNetChlSab1Viewnet
+    release alpha
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetChlSab1
+
+        track netChlSab1
+        release alpha
+        parent chainNetChlSab1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign chlSab1 chainChlSab1
+        html chainNet
+
+################################################################
+# nasLar1 - Proboscis monkey - Nasalis larvatus - primate - primate - 392
+################################################################
+track chainNetNasLar1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 237.80
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 100,-177,-41,-145,-177,94,-181,-41,-41,-181,94,-177,-145,-41,-177,100
+matrixHeader A, C, G, T
+otherDb nasLar1
+chainMinScore 3000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetNasLar1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetNasLar1
+    spectrum on
+
+        track chainNasLar1
+        parent chainNetNasLar1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain nasLar1
+        html chainNet
+
+    track chainNetNasLar1Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetNasLar1
+
+        track netNasLar1
+        parent chainNetNasLar1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign nasLar1 chainNasLar1
+        html chainNet
+
+################################################################
+# rhiBie1 - Black snub-nosed monkey - Rhinopithecus bieti - primate - 61621
+################################################################
+track chainNetRhiBie1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb rhiBie1
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetRhiBie1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRhiBie1
+    spectrum on
+
+       track chainRhiBie1
+        parent chainNetRhiBie1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rhiBie1
+        html chainNet
+
+    track chainNetRhiBie1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetRhiBie1
+
+        track netRhiBie1
+        parent chainNetRhiBie1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign rhiBie1 chainRhiBie1
+        html chainNet
+
+################################################################
+# rhiRox1 - Proboscis monkey - Nasalis larvatus - primate - primate - 7608
+################################################################
+track chainNetRhiRox1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 237.80
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 100,-174,-41,-145,-174,94,-179,-41,-41,-179,94,-174,-145,-41,-174,100
+matrixHeader A, C, G, T
+otherDb rhiRox1
+chainMinScore 3000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetRhiRox1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetRhiRox1
+    spectrum on
+
+        track chainRhiRox1
+        parent chainNetRhiRox1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain rhiRox1
+        html chainNet
+
+    track chainNetRhiRox1Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetRhiRox1
+
+        track netRhiRox1
+        parent chainNetRhiRox1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign rhiRox1 chainRhiRox1
+        html chainNet
+
+################################################################
+# papAnu2 - Baboon - Papio anubis - primate - primate - 2050
+################################################################
+track chainNetPapAnu2
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 240.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 100,-173,-45,-144,-173,92,-175,-45,-45,-175,92,-173,-144,-45,-173,100
+matrixHeader A, C, G, T
+otherDb papAnu2
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetPapAnu2Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPapAnu2
+    spectrum on
+
+        track chainPapAnu2
+        parent chainNetPapAnu2Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain papAnu2
+        html chainNet
+
+    track chainNetPapAnu2Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPapAnu2
+
+        track netPapAnu2
+        parent chainNetPapAnu2Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign papAnu2 chainPapAnu2
+        html chainNet
+
+################################################################
+# macFas5 - Crab-eating macaque - Macaca fascicularis - primate - primate - 380
+################################################################
+track chainNetMacFas5
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 245.30
+color 0,0,0
+altColor 255,255,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb macFas5
+chainMinScore 5000
+chainLinearGap medium
+spectrum on
+html chainNet
+
+    track chainNetMacFas5Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetMacFas5
+    spectrum on
+
+        track chainMacFas5
+        parent chainNetMacFas5Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain macFas5
+        html chainNet
+
+    track chainNetMacFas5Viewnet
+    shortLabel Net
+    view net
+    visibility dense
+    parent chainNetMacFas5
+
+        track netMacFas5
+        parent chainNetMacFas5Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment Net
+        type netAlign macFas5 chainMacFas5
+        html chainNet
+
+################################################################
+# colAng1 - Angolan colobus - Colobus angolensis palliatus - primate - 336983
+################################################################
+track chainNetColAng1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb colAng1
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetColAng1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetColAng1
+    spectrum on
+
+       track chainColAng1
+        parent chainNetColAng1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain colAng1
+        html chainNet
+
+    track chainNetColAng1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetColAng1
+
+        track netColAng1
+        parent chainNetColAng1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign colAng1 chainColAng1
+        html chainNet
+
+##############################################################################
+# aotNan1 - Ma's night monkey - Aotus nancymaae - taxId: 37293
+##############################################################################
+track chainNetAotNan1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 241.97
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb aotNan1
+html chainNet
+
+    track chainNetAotNan1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetAotNan1
+    spectrum on
+
+        track chainAotNan1
+        parent chainNetAotNan1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain aotNan1
+        html chainNet
+
+    track chainNetAotNan1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetAotNan1
+
+        track netAotNan1
+        parent chainNetAotNan1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign aotNan1 chainAotNan1
+        html chainNet
+
+##############################################################################
+# cebCap1 - White-faced sapajou - Cebus capucinus imitator - taxId: 1737458
+##############################################################################
+track chainNetCebCap1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 243.64
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb cebCap1
+html chainNet
+
+    track chainNetCebCap1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetCebCap1
+    spectrum on
+
+        track chainCebCap1
+        parent chainNetCebCap1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain cebCap1
+        html chainNet
+
+    track chainNetCebCap1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetCebCap1
+
+        track netCebCap1
+        parent chainNetCebCap1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign cebCap1 chainCebCap1
+        html chainNet
+
+##############################################################################
+# cerAty1 - Sooty mangabey - Cercocebus atys - taxId: 9531
+##############################################################################
+track chainNetCerAty1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 238.90
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb cerAty1
+html chainNet
+
+    track chainNetCerAty1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetCerAty1
+    spectrum on
+
+        track chainCerAty1
+        parent chainNetCerAty1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain cerAty1
+        html chainNet
+
+    track chainNetCerAty1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetCerAty1
+
+        track netCerAty1
+        parent chainNetCerAty1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign cerAty1 chainCerAty1
+        html chainNet
+
+##############################################################################
+# eulFla1 - Sclater's lemur - Eulemur flavifrons - taxId: 87288
+##############################################################################
+track chainNetEulFla1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 272.80
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb eulFla1
+html chainNet
+
+    track chainNetEulFla1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetEulFla1
+    spectrum on
+
+        track chainEulFla1
+        parent chainNetEulFla1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain eulFla1
+        html chainNet
+
+    track chainNetEulFla1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetEulFla1
+
+        track netEulFla1
+        parent chainNetEulFla1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign eulFla1 chainEulFla1
+        html chainNet
+
+##############################################################################
+# eulMac1 - Black lemur - Eulemur macaco - taxId: 30602
+##############################################################################
+track chainNetEulMac1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 275.30
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb eulMac1
+html chainNet
+
+    track chainNetEulMac1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetEulMac1
+    spectrum on
+
+        track chainEulMac1
+        parent chainNetEulMac1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain eulMac1
+        html chainNet
+
+    track chainNetEulMac1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetEulMac1
+
+        track netEulMac1
+        parent chainNetEulMac1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign eulMac1 chainEulMac1
+        html chainNet
+
+##############################################################################
+# manLeu1 - Drill - Mandrillus leucophaeus - taxId: 9568
+##############################################################################
+track chainNetManLeu1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 237.55
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb manLeu1
+html chainNet
+
+    track chainNetManLeu1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetManLeu1
+    spectrum on
+
+        track chainManLeu1
+        parent chainNetManLeu1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain manLeu1
+        html chainNet
+
+    track chainNetManLeu1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetManLeu1
+
+        track netManLeu1
+        parent chainNetManLeu1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign manLeu1 chainManLeu1
+        html chainNet
+
+##############################################################################
+# papAnu3 - Baboon - Papio anubis - taxId: 9555
+##############################################################################
+track chainNetPapAnu3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 238.45
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+chainMinScore 3000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb papAnu3
+html chainNet
+
+    track chainNetPapAnu3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetPapAnu3
+    spectrum on
+
+        track chainPapAnu3
+        parent chainNetPapAnu3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain papAnu3
+        html chainNet
+
+    track chainNetPapAnu3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetPapAnu3
+
+        track netPapAnu3
+        parent chainNetPapAnu3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign papAnu3 chainPapAnu3
+        html chainNet
+
+##############################################################################
+# proCoq1 - Coquerel's sifaka - Propithecus coquereli - taxId: 379532
+##############################################################################
+track chainNetProCoq1
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 277.80
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+chainMinScore 5000
+chainLinearGap medium
+matrixHeader A, C, G, T
+otherDb proCoq1
+html chainNet
+
+    track chainNetProCoq1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetProCoq1
+    spectrum on
+
+        track chainProCoq1
+        parent chainNetProCoq1Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain proCoq1
+        html chainNet
+
+    track chainNetProCoq1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetProCoq1
+
+        track netProCoq1
+        parent chainNetProCoq1Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign proCoq1 chainProCoq1
+        html chainNet
+
+################################################################
+# calJac4 - marmoset - Callithrix jacchus - primate - taxId 9483
+################################################################
+track chainNetCalJac4
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 260.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb calJac4
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetCalJac4Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetCalJac4
+    spectrum on
+
+        track chainCalJac4
+        parent chainNetCalJac4Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain calJac4
+        html chainNet
+
+    track chainNetCalJac4Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetCalJac4
+
+        track netCalJac4
+        parent chainNetCalJac4Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign calJac4 chainCalJac4
+        html chainNet
+
+################################################################
+# calJac3 - marmoset - Callithrix jacchus - primate - taxId 9483
+################################################################
+track chainNetCalJac3
+compositeTrack on
+shortLabel $o_Organism Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 260.3
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 90,-330,-236,-356,-330,100,-318,-236,-236,-318,100,-330,-356,-236,-330,90
+matrixHeader A, C, G, T
+otherDb calJac3
+chainMinScore 5000
+chainLinearGap medium
+html chainNet
+
+    track chainNetCalJac3Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetCalJac3
+    spectrum on
+
+        track chainCalJac3
+        parent chainNetCalJac3Viewchain
+        subGroups view=chain
+        shortLabel $o_Organism Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain calJac3
+        html chainNet
+
+    track chainNetCalJac3Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetCalJac3
+
+        track netCalJac3
+        parent chainNetCalJac3Viewnet
+        subGroups view=net
+        shortLabel $o_Organism Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign calJac3 chainCalJac3
+        html chainNet
+
+################################################################
+# calJac1 - marmoset - Callithrix jacchus - primate - taxId 9483
+################################################################
+track chainNetCalJac1
+compositeTrack on
+shortLabel $o_db Chain/Net
+longLabel $o_Organism ($o_date), Chain and Net Alignments
+subGroup1 view Views chain=Chain net=Net
+dragAndDrop subTracks
+visibility hide
+group compGeno
+noInherit on
+priority 498
+color 0,0,0
+altColor 100,50,0
+type bed 3
+sortOrder view=+
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+matrixHeader A, C, G, T
+otherDb calJac1
+chainMinScore 3000
+chainLinearGap medium
+html chainNet
+
+    track chainNetCalJac1Viewchain
+    shortLabel Chain
+    view chain
+    visibility pack
+    parent chainNetCalJac1
+    spectrum on
+
+        track chainCalJac1
+        parent chainNetCalJac1Viewchain
+        subGroups view=chain
+        shortLabel $o_db Chain
+        longLabel $o_Organism ($o_date) Chained Alignments
+        type chain calJac1
+        html chainNet
+
+    track chainNetCalJac1Viewnet
+    shortLabel Net
+    view net
+    visibility full
+    parent chainNetCalJac1
+
+        track netCalJac1
+        parent chainNetCalJac1Viewnet
+        subGroups view=net
+        shortLabel $o_db Net
+        longLabel $o_Organism ($o_date) Alignment net
+        type netAlign calJac1 chainCalJac1
+        html chainNet

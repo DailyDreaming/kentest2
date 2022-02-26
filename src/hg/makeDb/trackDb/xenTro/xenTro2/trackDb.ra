@@ -1,0 +1,5 @@
+#	"$Id: trackDb.ra,v 1.28 2010/05/11 01:42:14 kent Exp $";
+
+include trackDb.chainNet.ra
+include trackDb.7way.ra
+

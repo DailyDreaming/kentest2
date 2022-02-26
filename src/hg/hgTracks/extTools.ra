@@ -1,0 +1,409 @@
+# accepted wildcards:
+# Existing URL replacement chars in trackDb, e.g.
+# $s - chrom name, stripping "chr"
+# $S - full chrom name, leaving "chr"
+# $[ - start position of window
+# $start1 - start position of window + 1
+# $] - end position of window
+# $n - current organism name, spaces replaced with underscores
+# $D - current database, like hg19
+
+# Additional ones:
+# $seq - current sequence in view
+# $taxId - taxon id of current db
+# $returnUrl - full URL of current hgTracks page
+# $position - current position, format chr:start-end
+# $halfLen - 1/2 of the current window size (for pointing external tools to the current center)
+# $ncbiGca - NCBI's GenBank Assembly version, e.g. GCA_000001405.15 for hg38
+# $ncbiGcf - NCBI's RefSeq Assembly (+ annotations) version, e.g. GCF_000001405.25 for hg19
+
+# If something doesn't work, Hit "Esc" when the redirection takes place and append 
+# &debug=1
+# to the URL shown in the browser (it has hgt.redirectTool=xxx in it)
+# This will show all parameters sent to the external site and lets you edit them.
+
+# Note that these configuration entries do not have to be created manually
+# We have a tool "extToolsChromeParse" that can parse the Chrome debug
+# trace to create them automatically from a traced click on a link in Chrome
+# Run the tool "extToolsChromeParse" and look at its help message for details
+
+tool GDV
+shortLabel NCBI GDV
+longLabel NCBI Genome Data Viewer
+url https://www.ncbi.nlm.nih.gov/genome/gdv/browser/
+email info@ncbi.nlm.nih.gov
+isHttpGet true
+param acc $ncbiGca
+param chr $s
+param from $start1
+param to $]
+param context genome
+
+tool ensemblHg19
+shortLabel Ensembl
+longLabel Ensembl Genome Browser
+url http://grch37.ensembl.org/$n/contigview
+onlyDbs hg19
+email helpdesk@ensembl.org
+isHttpGet true
+param chr $s
+param start $start1
+param end $]
+
+tool ensembl
+shortLabel Ensembl
+longLabel Ensembl Genome Browser
+url http://www.ensembl.org/$n/contigview
+email helpdesk@ensembl.org
+notDbs hg19,mm9
+isHttpGet true
+param chr $s
+param start $start1
+param end $]
+
+tool ensemblMm9
+shortLabel Ensembl
+longLabel Ensembl Genome Browser
+url http://may2012.archive.ensembl.org/$n/contigview
+email helpdesk@ensembl.org
+onlyDbs mm9
+isHttpGet true
+param chr $s
+param start $start1
+param end $]
+
+tool primer3Plus
+shortLabel Primer3Plus
+longLabel Updated interface of the popular primer designer. Primers flank the nucleotide in the center of the screen.
+url https://dev.primer3plus.com/primer3plus/api/v1/upload
+email server@untergasser.de <mailto:server@untergasser.de>
+maxSize 10000
+param P3P_GB_RETURN_PATH $returnUrl
+param P3P_GB_DB $db
+param P3P_GB_POSITION $position
+param SEQUENCE_TEMPLATE $seq
+
+tool primerBlast
+shortLabel Primer-BLAST
+longLabel Primer3-based primer designer that also checks matches via NCBI BLAST
+url https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi
+email info@ncbi.nlm.nih.gov
+maxSize 50000
+param EXCLUDED_REGIONS 
+param PRIMER_INTERNAL_OLIGO_MAX_GC 80.0
+param LOW_COMPLEXITY_FILTER on
+param SELF_ANY 8.00
+param SALT_FORMULAR 1
+param PRIMER_INTERNAL_OLIGO_OPT_TM 60.0
+param PRIMER_INTERNAL_OLIGO_MIN_SIZE 18
+param PRIMER_NUM_RETURN 10
+param OVERLAP_3END 4
+param HITSIZE 50000
+param PRIMER_PAIR_MAX_COMPL_ANY_TH 45.0
+param PRIMER_INTERNAL_OLIGO_OPT_GC_PERCENT 50
+param PRIMER_MAX_HAIRPIN_TH 24.0
+param SEARCHMODE 0
+param TM_METHOD 1
+param SEARCH_SPECIFIC_PRIMER on
+param EVALUE 30000
+param SELF_END 3.00
+param TOTAL_MISMATCH_IGNORE 6
+param DIVA_CATIONS 1.5
+param PRIMER_SPECIFICITY_DATABASE refseq_mrna
+param MAX_TARGET_PER_TEMPLATE 100
+param PRIMER5_START 
+param MAX_TARGET_SIZE 4000
+param CMD request
+param PRIMER_OPT_SIZE 20
+param PRIMER_MIN_TM 57.0
+param MAX_INTRON_SIZE 1000000
+param UNGAPPED_BLAST on
+param MIN_INTRON_SIZE 1000
+param PRIMER_INTERNAL_OLIGO_MAX_SIZE 27
+param PRIMER_MAX_END_GC 5
+param PRIMER3_START 
+param ORG_DBS 
+param PRIMER5_END 
+param OVERLAP_5END 7
+param PRIMER_PRODUCT_MIN 70
+param SPLICE_SITE_OVERLAP_3END 4
+param SVIEWER_DATA_KEY 
+param INPUT_SEQUENCE $seq
+param NUM_TARGETS_WITH_PRIMERS 1000
+param PRIMER_PRODUCT_MAX 1000
+param PRIMER_3END_SPECIFICITY_MISMATCH 1
+param SHOW_SVIEWER onon
+param PRIMER_OPT_TM 60.0
+param PRIMER_MIN_SIZE 15
+param NUM_DIFFS 0
+param ORGANISM Homo%20sapiens
+param PRIMER_MAX_TEMPLATE_MISPRIMING 12.00
+param MONO_CATIONS 50.0
+param PRIMER_MIN_GC 20.0
+param PRODUCT_OPT_TM 
+param PRIMER_ON_SPLICE_SITE 0
+param MISMATCH_REGION_LENGTH 5
+param PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH 70.00
+param PRIMER_MAX_SELF_ANY_TH 45.0
+param PRIMER_INTERNAL_OLIGO_MAX_TM 63.0
+param slctOrg 
+param CON_ANEAL_OLIGO 50.0
+param PRIMER_PAIR_MAX_COMPL_END 3.00
+param ENTREZ_QUERY 
+param PRIMER_MAX_GC 80.0
+param SEQFILE 
+param SPLICE_SITE_OVERLAP_5END 7
+param OVERLAP 
+param PRIMER_MAX_END_STABILITY 9
+param WORD_SIZE 7
+param PRODUCT_MAX_TM 
+param PRIMER_INTERNAL_OLIGO_MIN_TM 57.0
+param TOTAL_PRIMER_SPECIFICITY_MISMATCH 1
+param CON_DNTPS 0.6
+param PRIMER_MAX_SELF_END_TH 35.0
+param NUM_TARGETS 20
+param CUSTOMSEQFILE 
+param PRIMER_PAIR_MAX_COMPL_ANY 8.00
+param PRIMER_MISPRIMING_LIBRARY AUTO
+param PRIMER_MAX_SIZE 25
+param PRIMER_RIGHT_INPUT 
+param PRIMER_PAIR_MAX_COMPL_END_TH 35.0
+param LINK_LOC 
+param PRIMER_INTERNAL_OLIGO_OPT_SIZE 20
+param PRIMER_LEFT_INPUT 
+param PRODUCT_MIN_TM 
+param PRIMER_MAX_TEMPLATE_MISPRIMING_TH 40.00
+param PRIMER_MAX_TM 63.0
+param PRIMER3_END 
+param POLYX 5
+param PRIMER_INTERNAL_OLIGO_MIN_GC 20.0
+param NUM_OPTS_DIFFS 0
+param GC_CLAMP 0
+param PRIMER_MAX_DIFF_TM 3
+param MAX_CANDIDATE_PRIMER 500
+param CUSTOM_DB 
+param PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING 24.00
+param chrom $s
+param start $[
+param db $db
+
+tool nebcutter
+shortLabel NEBCutter
+longLabel New England Biolabs Restriction Enzyme Site Predictor (Note: the Browser also has a track with restriction sites.)
+#email NEEDTOFILLOUT
+maxSize 300000
+url http://nc2.neb.com/NEBcutter2/enzcut.php
+param no_dam 0
+param add_type13 0
+param add_nick 0
+param sequence $seq
+param no_ecobi 0
+param seqisfrag 0
+param no_ecoki 0
+param no_dcm 0
+param no_cpg 0
+param cut_to 0
+param gcode 11
+param min_orf 100
+param cut_from 0
+param circular 0
+param add_homing 0
+param enz_suppl 1
+param chrom $s
+param start $[
+param db $db
+
+tool regrna2
+shortLabel RegRNA 2
+longLabel Predicts pre-mRNA motifs, polyadenylation sites, splicing motifs, Ribosome binding sites, UTR motifs, RNA editing sites, Riboswitches, RNA regulatory elements and miRNA and ncRNA target sites
+email kevinchang1025@gmail.com
+url http://regrna2.mbc.nctu.edu.tw/detection_output.php
+onlyDbs hg17,hg18,hg19,hg38
+maxSize 2000
+param GeneSplicer_species Human
+param position_line_interval_len 100
+param S1 $faSeq
+param UTRsite ON
+param ncRNA_FE -20
+param SplicingMotif ON
+param Rfam ON
+param RBSfinder ON
+param ERPIN ON
+param ncRNA ON
+param fRNAdb ON
+param StartCodon 1
+param draw_dotline ON
+param score 170
+param matchscore 1
+param SplicingSite ON
+param GCratio_window_size 100
+param RadioGroup1 matrix
+param unpair_size 6
+param uploadfile 
+param SplicingMotif_species Homo sapiens
+param miRNA ON
+param ncRNA_length 20
+param Polya ON
+param miRNA_species Homo sapiens
+param tfbs_species human, Homo sapiens
+param RNAediting ON
+param miRNA_FE -25
+param ncRNA_species Homo_sapiens
+param LongStem ON
+param fRNAdb_match_len 30
+param fRNAdb_similarity 0.9
+param B1 Submit
+param AUrich ON
+param accessibility_window_size 100
+param LongStem_len 40
+param RiboSW ON
+param Size 950
+param chrom $s
+param start $[
+param db $db
+
+tool RnaFold
+shortLabel RNAfold
+longLabel RNA secondary structure prediction
+url http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi
+email rna@tbi.univie.ac.at
+maxSize 5000
+param SHAPEFILE 
+param reliability on
+param shape_beta 0.8
+param FILE 
+param EMAIL your e-mail
+param SHAPEDATA 
+param mountain on
+param Temp 37
+param shape_conv_linearlog_s 1.6
+param CONSTRAINT 
+param shapemethod deigan
+param param rna2004
+param shape_slope 1.9
+param shape_conv_linearlog_i -2.29
+param method p
+param shape_conv_linear_i 0.2
+param deigan_conversion linearlog
+param dangling d2
+param SCREEN $seq
+param shape_conv_linear_s 0.68
+param proceed 
+param svg on
+param noLP on
+param shape_conv_cutoff 0.25
+param shape_intercept -0.7
+param PAGE 2
+param chrom $s
+param start $[
+param db $db
+
+tool pfam
+shortLabel PFAM Search
+longLabel Annotation of protein domains by the EBI Pfam database
+email pfam-help@ebi.ac.uk
+url http://pfam.xfam.org/search/sequence
+param submit Submit
+param seq $seq
+maxSize 80000
+param chrom $s
+param start $[
+param db $db
+
+tool promoter2
+shortLabel Promoter 2
+longLabel Vertebrate Transcription Start Site Prediction
+url http://www.cbs.dtu.dk/cgi-bin/webface2.fcgi
+email rapacki@cbs.dtu.dk
+maxSize 50000
+param configfile /usr/opt/www/pub/CBS/services/Promoter-2.0/Promoter.cf
+param SEQPASTE $seq
+param SEQSUB 
+# these trigger error messages
+#param chrom $s
+#param start $[
+#param db $db
+
+tool rsatMeta
+shortLabel RSAT Metazoa
+longLabel Regulatory Sequence Analysis Tools for Metazoa. Can search for Transcription Factor binding sites and over-represented oligo-nucleotides.
+url http://rsat.sb-roscoff.fr/convert-seq.cgi 
+email Jacques.van-Helden@univ-amu.fr
+maxSize 50000
+param short_size 30 
+param line_width 60 
+param sequence $seq
+param output_format fasta 
+param mask non-dna 
+param .cgifields addrcoutput 
+param .submit GO 
+param short_action no treatment 
+param sequence_format raw 
+param output display 
+param uploaded_file  
+param user_email  
+
+## removed after request from Martha Bulyk. They plan to make their matrix search faster
+#tool uniprobe
+#shortLabel Uniprobe
+#longLabel Search for transcription factor binding sites
+#url http://the_brain.bwh.harvard.edu/uniprobe/browse.php
+#email uniprobe@genetics.med.harvard.edu
+#maxSize 80
+#param MAX_FILE_SIZE 2097152
+#param dnaSpeciesFormat all
+#param dnaThreshold 0.45
+#param dnaSpeciesTextArea             
+#param dnaSpeciesSingle Acanthamoeba castellanii
+#param dnaTextarea $seq
+#param searchParam 
+#param dnaSpeciesCategory Acanthamoeba castellanii,Allomyces macrogynus,Ashbya gossypii,Arabidopsis thaliana,Aspergillus nidulans,Caenorhabditis elegans,Cryptosporidium parvum,Drosophila melanogaster,Homo sapiens,Kluyveromyces lactis,Monosiga brevicollis,Mus musculus,Mycosphaerella graminicola,Nematostella vectensis,Patiria miniata,Plasmodium falciparum,Saccharomyces cerevisiae,Strongylocentrotus purpuratus,Trichoplax adhaerens,Tuber melanosporum
+#param dnaFile 
+#param dnaFormat textarea
+
+tool crispor
+url http://crispor.tefor.net/crispor.py
+email services@tefor.net
+shortLabel CRISPOR
+longLabel CRISPR/Cas9 target selector: off-target, activity predictions and primer design 
+param org $db
+param pos $position
+param pam NGG
+maxSize 2000
+onlyDbs hg19,hg38,ce10,dm3,mm10,oryLat2,rn5,rn6,sacCer3,xenTro3,galGal4,galGal5,danRer7,danRer10,ci2,ci3,equCab2,gasAcu1,loPe1,musFur1,oryLat2,panTro4,papAnu2,rheMac2,mm9,ce11
+
+tool chopchop
+url https://chopchop.rc.fas.harvard.edu/search.php
+email tessa.montague@gmail.com
+shortLabel CHOPCHOP
+longLabel CRISPR/Cas9 off-target predictions
+maxSize 1000
+onlyDbs anoGam1,ce10,dm3,hg19,hg38,danRer7,galGal4,gasAcu1,mm10,musFur1,rn6,oryLat2,sacCer3,xenTro3
+param organism $db
+param pasteSeq $seq
+param position $position
+param method CRISPR
+param target CODING
+param subsetExon 
+param padding 
+param enzyme N
+param minResSite 4
+param searchMethod hsu
+param 5prime GN,NG
+param PAM NGG
+param TALEdist 
+param TALEsize 
+param mismatches 2
+param gRVD NN
+param PRODUCT_SIZE_MIN 150
+param PRODUCT_SIZE_MAX 290
+param PRIMER_MIN_SIZE 18
+param PRIMER_MAX_SIZE 25
+param PRIMER_OPT_SIZE 22
+param PRIMER_MIN_TM 57
+param PRIMER_MAX_TM 63
+param PRIMER_OPT_TM 60
+param sitePadding 20
+param chrom $s
+param start $[
+param db $db

@@ -1,0 +1,85 @@
+<h2>Description</h2>
+
+<p>
+This track shows the NCBI clone end predictions from the
+<a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/"
+target="_blank">NCBI Clone DB</a> database.   Libraries with more than
+20,000 clones are included in this track display.
+</p>
+
+<p>
+Bacterial artificial chromosomes (BACs) are a key part of many
+large-scale sequencing projects.  A BAC typically consists of 50 - 300 kb of
+DNA.  During the early phase of a sequencing project, it is common
+to sequence a single read (approximately 500 bases) off each end of
+a large number of BACs.  Later on in the project, these BAC end reads
+can be mapped to the genome sequence.</p>
+<p>
+These BAC end pairs can be useful for validating the assembly over
+relatively long ranges.  In some cases, the BACs are useful biological
+reagents.  This track can also be used for determining which BAC
+contains a given gene, useful information for certain wet lab experiments.</p>
+<p>
+The scoring scheme used for this annotation assigns 1000 to an alignment
+when the BAC end pair aligns to only one location in the genome (after
+filtering).  When a BAC end pair or clone aligns to multiple locations, the
+score is calculated as 1500/(number of alignments).</p>
+
+<h2>Display Conventions and Configuration</h2>
+
+<p>
+Items in this track are colored according to their strand orientation. Blue indicates alignment to the forward strand, 
+and green indicates alignment to the negative strand.
+</p> 
+
+
+<h2>Methods</h2>
+<p>
+The mappings of these BAC end sequences are taken directly from the
+NCBI Clone DB FTP site
+<a href="ftp://ftp.ncbi.nih.gov/repository/clone/reports/Mus_musculus/"
+target=_blank>ftp.ncbi.nih.gov/repository/clone/reports/Mus_musculus/</A>
+*.GCF_000001635.22.103.*.gff files.</p>
+<p>
+UCSC filtered the NCBI Clone DB mapped ends to drop ends that mapped to a
+region that was three times longer than the median size of the clones in
+the library.  Only libraries with more than
+20,000 clones are included in this track display.</p>
+
+<p>
+Click through on displayed items to the Clone DB database information,
+including
+<a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/"
+target="_blank">Clone DB distributor</a> references.
+</p>
+
+<table BORDER=1>
+<tr><th>library<br>name</th>
+    <th>total<br>clones</th>
+    <th>total&nbsp;end<br>sequences</th>
+    <th>NCBI&nbsp;mapped<br>ends</th>
+    <th>UCSC&nbsp;filtered<br>ends</th>
+    <th>UCSC<br>dropped</th>
+    <th>percent<br>dropped</th>
+</tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">B6Ng01</A></th><td align=right>128,007</td><td align=right>253,638</td><td align=right>98,478</td><td align=right>95,837</td><td align=right>2,641</td><td align=right>2.68</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">bMQ</a></th><td align=right>129,826</td><td align=right>244,222</td><td align=right>75,671</td><td align=right>72,540</td><td align=right>3,131</td><td align=right>4.14</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">C3H</a></th><td align=right>86,696</td><td align=right>169,665</td><td align=right>43,690</td><td align=right>42,378</td><td align=right>1,312</td><td align=right>3.00</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">CH29</a></th><td align=right>93,023</td><td align=right>340,272</td><td align=right>52,320</td><td align=right>50,621</td><td align=right>1,699</td><td align=right>3.25</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">DN</a></th><td align=right>180,218</td><td align=right>665,070</td><td align=right>106,463</td><td align=right>100,472</td><td align=right>5,991</td><td align=right>5.63</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">MHPN</a></th><td align=right>118,658</td><td align=right>208,707</td><td align=right>61,942</td><td align=right>58,582</td><td align=right>3,360</td><td align=right>5.42</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">MHPP</a></th><td align=right>67,769</td><td align=right>112,081</td><td align=right>30,594</td><td align=right>28,550</td><td align=right>2,044</td><td align=right>6.68</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">MSMg01</a></th><td align=right>175,178</td><td align=right>337,471</td><td align=right>83,677</td><td align=right>78,772</td><td align=right>4,905</td><td align=right>5.86</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">RP23</a></th><td align=right>175,999</td><td align=right>553,274</td><td align=right>85,082</td><td align=right>83,062</td><td align=right>2,020</td><td align=right>2.37</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">RP24</a></th><td align=right>163,859</td><td align=right>294,217</td><td align=right>52,470</td><td align=right>50,849</td><td align=right>1,621</td><td align=right>3.09</td></tr>
+<tr><th align=left><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/" target="_blank">WI1</a></th><td align=right>907,213</td><td align=right>1,822,723</td><td align=right>337,591</td><td align=right>324,259</td><td align=right>13,332</td><td align=right>3.95</td></tr>
+</table>
+
+<h2>Credits</h2>
+<p>
+Additional information about the clone, including how it
+can be obtained, may be found at the
+<a href="https://ncbiinsights.ncbi.nlm.nih.gov/2019/05/01/clone-db-retirement/"
+target=_blank>NCBI Clone Registry</A>. To view the registry entry for a
+specific clone, open the details page for the clone and click on its name at
+the top of the page.</p>

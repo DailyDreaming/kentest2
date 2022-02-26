@@ -1,0 +1,245 @@
+track cloneEndSuper
+compositeTrack on
+shortLabel Clone Ends
+longLabel Mapping of clone libraries end placements
+group map
+visibility hide
+type bed 3
+noInherit on
+dragAndDrop on
+subGroup1 source Source bacLib=Bac_libraries fosmid=Fosmid_library micer=MICER placements=Placements
+dimensions dimensionX=source
+sortOrder source=+
+
+    track cloneEndB6Ng01
+    parent cloneEndSuper on
+    subGroups source=bacLib
+    shortLabel B6Ng01
+    longLabel C57BL/6N mouse BAC clone set
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility pack
+    priority 1
+
+    track cloneEndbMQ
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel bMQ
+    longLabel B94_mq1 129S7/SvEv ES cell BAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 2
+
+    track cloneEndC3H
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel C3H
+    longLabel C3H iBAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 3
+
+    track cloneEndCH29
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel CH29
+    longLabel CHORI-29 NOD/LtJ BAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 4
+
+    track cloneEndDN
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel DN
+    longLabel DIL (Diabetes and Inflammation Laboratory) NOD BAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 5
+
+    track cloneEndMHPN
+    parent cloneEndSuper off
+    subGroups source=micer
+    shortLabel MHPN
+    longLabel MICER 5'Hprt library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 6
+
+    track cloneEndMHPP
+    parent cloneEndSuper off
+    subGroups source=micer
+    shortLabel MHPP
+    longLabel MICER 3'Hprt library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 7
+
+    track cloneEndMSMg01
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel MSMg01
+    longLabel Mus musculus molossinus male BAC library 1
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 8
+
+    track cloneEndRP23
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel RP23
+    longLabel RPCI-23 C57BL/6J female BAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 9
+
+    track cloneEndRP24
+    parent cloneEndSuper off
+    subGroups source=bacLib
+    shortLabel RP24
+    longLabel RPCI-24 C57BL/6J male BAC library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 10
+
+    track cloneEndWI1
+    parent cloneEndSuper off
+    subGroups source=fosmid
+    shortLabel WI1
+    longLabel WIBR-1 fosmid library
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 11
+
+    track cloneEndmultipleMaps
+    parent cloneEndSuper off
+    subGroups source=placements
+    shortLabel Multiple mappings
+    longLabel Clone end placements that map to multiple locations in the genome
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 12
+
+    track cloneEndbadEnds
+    parent cloneEndSuper off
+    subGroups source=placements
+    shortLabel Bad end mappings
+    longLabel Clone end placements dropped at UCSC, map distance 3X median library size
+    colorByStrand 0,0,128 0,128,0
+    type bed 12
+    visibility hide
+    priority 13
+
+    track cloneEndcoverageForward
+    parent cloneEndSuper off
+    subGroups source=placements
+    shortLabel Coverage forward
+    longLabel Clone end placements overlap coverage on the forward strand
+    type bigWig 0 5377
+    visibility full
+    autoScale on
+    alwaysZero on
+    windowingFunction mean
+    priority 14
+
+    track cloneEndcoverageReverse
+    parent cloneEndSuper off
+    subGroups source=placements
+    shortLabel Coverage reverse
+    longLabel Clone end placements overlap coverage on the reverse strand
+    type bigWig 0 4112
+    visibility full
+    negateValues 1
+    alwaysZero on
+    windowingFunction mean
+    autoScale on
+    priority 15
+
+searchTable cloneEndB6Ng01
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex B6Ng01-([0-9A-Z])+
+
+searchTable cloneEndbMQ
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex [Bb]MQ-([0-9A-Z])+
+
+searchTable cloneEndC3H
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex C3H-([0-9A-Z])+
+
+searchTable cloneEndCH29
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex CH29-([0-9A-Z])+
+
+searchTable cloneEndDN
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex DN-([0-9A-Z])+
+
+searchTable cloneEndMHPN
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex MHPN-([0-9A-Z])+
+
+searchTable cloneEndMHPP
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex MHPP-([0-9A-Z])+
+
+searchTable cloneEndMSMg01
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex MSMg01-([0-9A-Z])+
+
+searchTable cloneEndRP23
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex RP23-([0-9A-Z])+
+
+searchTable cloneEndRP24
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex RP24-([0-9A-Z])+
+
+searchTable cloneEndWI1
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex [Ww][Ii]1-([0-9A-Z])+
+
+searchTable cloneEndmultipleMaps
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex [BCDMRW][HIMNPS36]([-0-9A-Zg])+
+
+searchTable cloneEndbadEnds
+searchType bed
+searchMethod prefix
+searchPriority 50
+termRegex [BCDMRWb][HIMNPS36]([-0-9A-Zg])+

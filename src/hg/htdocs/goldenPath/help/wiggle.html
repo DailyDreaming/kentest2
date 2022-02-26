@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser Wiggle Track Format" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Wiggle Track ASCII Text Format (.wig)</h1> 
+<p>
+<p>Wiggle files and its bedgraph variant allow you to plot quantitative data as either shades of
+color (dense mode) or bars of varying height (full and pack mode) on the
+genome. Both are text files that are easy to create, but need to be converted for actual use by the
+genome browser.</p>
+
+<p>The <a href="bedgraph.html">bedGraph</a> format is a very similar format for
+<a href="#sparse">sparse</a> data or data that contains elements of
+varying size. bedGraph can also be converted to compressed/indexed binary bigWig files.
+If you have other data to show in addition to the quantitative data, e.g. data you
+want to show on mouseover or when the user clicks the feature (like GWAS data),
+you should have a look at bigBed files with the "lollipop" type (contact us for more info).
+For a list of all possible formats for graphing, see the following 
+<a href="http://genomewiki.ucsc.edu/index.php/Selecting_a_graphing_track_data_format" 
+target="_blank">wiki page</a>.</p>
+<p>Text files in wiggle format can be uploaded as custom tracks as-is to UCSC 
+where they are compressed and stored for some time. But we recommand that you convert them 
+on your own computer to the binary bigWig storage format. You then copy bigWig files onto
+your own webserver and they are referenced in custom tracks or track hubs via their URL.</p>
+
+<p>
+Unlike bigWig binar files, wiggle ASCII text files can be uploaded as custom tracks onto our server.
+After the upload, wiggle data is compressed and stored
+internally in 128 unique bins. This compression means that there is a minor
+loss of precision when data is exported from a wiggle track 
+(<em>i.e.</em>, with output format &quot;data points&quot; or &quot;bed format&quot; within the 
+Table Browser). For custom tracks, use the <a href='bedgraph.html'>bedGraph</a>
+format if it is important to retain exact data when
+exporting. However, the size of all custom tracks is limited. For these reasons, we
+recommend always converting wiggle files to the <a href="bigWig.html">bigWig</a> storage format 
+and reference these from your custom tracks or track hubs via their URL.</p>
+
+<h2>General structure</h2>
+<p> 
+Wiggle format is line-oriented. For wiggle custom tracks, <strong>the first line must be a 
+<a href="customTrack.html#TRACK" target="_blank">track definition line</a>  (<em>i.e.</em>, track 
+type=wiggle_0)</strong>, which designates the track as a wiggle track and adds a number of options 
+for controlling the default display. For conversion to bigWig, the most common use case, 
+this line must not be present.</p>
+<p>
+Wiggle format is composed of declaration lines and data lines, and require a separate wiggle track 
+definition line. There are two options for formatting wiggle data: <strong>variableStep</strong> 
+and <strong>fixedStep</strong>. These formats were developed to allow the file to be written as 
+compactly as possible.</p>
+
+<h3>variableStep format</h3>
+<p>
+This format is used for data with irregular intervals between new data points, and is the more 
+commonly used wiggle format. After the wiggle track definition line, variableStep begins with a 
+declaration line and is followed by two columns containing chromosome positions and data values:
+<pre><code><strong>variableStep</strong>  <strong>chrom=</strong><em>chrN</em>
+<strong>[span=</strong><em>windowSize</em><strong>]</strong>
+  <em>chromStartA</em>  <em>dataValueA</em>
+  <em>chromStartB</em>  <em>dataValueB</em>
+  <em>... etc ...</em>  <em>... etc ...</em></code></pre>
+<p>
+The declaration line starts with the word <strong>variableStep</strong> and is followed by a 
+specification for a chromosome. The optional <strong>span</strong> parameter (default: span=1)
+allows data composed of contiguous runs of bases with the same data value to be specified more 
+succinctly. The span begins at each chromosome position specified and indicates the number of bases 
+that data value should cover. For example, this variableStep specification:</p> 
+<pre><code>variableStep chrom=chr2
+300701 12.5
+300702 12.5
+300703 12.5
+300704 12.5
+300705 12.5 </code></pre>
+<p>
+is equivalent to:</p>
+<pre><code>variableStep chrom=chr2 span=5
+300701 12.5
+</code></pre>
+<p>
+Both versions display a value of 12.5 at position 300701-300705 on chromosome 2.</p>
+
+<a name="sparse"></a>
+<p>
+<strong><em>Caution about sparse variableStep data: </em></strong> The wiggle format was designed for quickly 
+displaying data that is quite dense. The variableStep format, in particular, becomes very 
+inefficient when there are only a few data points per 1,024 bases. If variableStep data points 
+(<em>i.e.</em>, chromStarts) are greater than about 100 bases apart, it is advisable to use 
+<a href="bedgraph.html" target="_blank">BedGraph</a> format.</p>
+
+<h3>fixedStep format</h3>
+<p>
+This format is used for data with regular intervals between new data values and is the more compact 
+wiggle format. After the wiggle track definition line, fixedStep begins with a declaration line and 
+is followed by a single column of data values: 
+<pre><code><strong>fixedStep</strong>  <strong>chrom=</strong><em>chrN</em>
+<strong>start=</strong><em>position</em>  <strong>step=</strong><em>stepInterval</em>
+<strong>[span=</strong><em>windowSize</em><strong>]</strong>
+  <em>dataValue1</em>
+  <em>dataValue2</em>
+  <em>... etc ...</em></code></pre>
+<p>
+The declaration line starts with the word <strong>fixedStep</strong> and includes specifications for
+chromosome, start coordinate, and step size. The <strong>span</strong> specification has the same 
+meaning as in variableStep format. For example, this fixedStep specification:</p>
+<pre><code>fixedStep chrom=chr3 start=400601 step=100
+11
+22
+33
+</code></pre>
+<p>
+displays the values 11, 22, and 33 as single-base regions on chromosome 3 at positions 400601, 
+400701, and 400801, respectively. Adding span=5 to the declaration line:</p>
+<pre><code>fixedStep chrom=chr3 start=400601 step=100 span=5
+11
+22
+33 </code></pre>
+<p>
+causes the values 11, 22, and 33 to be displayed as 5-base regions on chromosome 3 at positions 
+400601-400605, 400701-400705, and 400801-400805, respectively.</p>
+<p>
+Note that for both variableStep and fixedStep formats, the same span must be used throughout the 
+dataset. If no span is specified, the default span of 1 is used. As the name suggests, fixedStep 
+wiggles require the same size step throughout the dataset. If not specified, a step size of 1 is 
+used.</p>
+
+<a name="data"></a>
+<h2>Data values</h2>
+<p>
+Wiggle track data values can be integer or real, positive or negative values. Only positions 
+specified have data. Positions not specified do not have data and will not be graphed. All positions
+specified in the input data must be in numerical order. NaN values are not supported by the browser 
+and, if included, may have unforeseen effects.</p>
+
+<h3>1-start coordinate system in use for variableStep and fixedStep</h3>
+<p>
+The bedGraph format, like all BED-based formats and most file formats used by UCSC, 
+use &quot;0-start, half-open&quot; coordinates, but
+the wiggle ASCII text format for variableStep and fixedStep data uses "1-start, fully-closed" coordinates. 
+Wiggle (variableStep and fixedStep) is the only format defined by UCSC that uses a 1-based
+format, for historical reasons. For example, for a chromosome of length N, the first 
+position is 1 and the last position is N. For more information, see:
+<ul>
+  <li>
+  <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/20639541/" target="_blank">BigWig and 
+  BigBed: enabling browsing of large distributed datasets</a> (<em>Bioinformatics</em>)</li>
+  <li>
+  <a href="../../FAQ/FAQtracks.html#tracks1">Database/browser start coordinates differ by 1
+  base</a> (Genome Browser FAQ)</li>
+  <li>
+  <a href="http://genome.ucsc.edu/blog/the-ucsc-genome-browser-coordinate-counting-systems/"
+  target="_blank">The UCSC Genome Browser Coordinate Counting Systems</a> (Genome Browser blog)</li>
+</ul>
+
+<h3>Parameters for custom wiggle track definition lines</h3>
+<p>
+All options are placed in a single line separated by spaces (line breaks are inserted in the
+following example to facilitate readability):</p> 
+<pre><code><strong>track type</strong>=wiggle_0 <strong>name</strong>=<em>track_label</em>
+<strong>description=</strong><em>center_label</em>
+<strong>visibility=</strong><em>display_mode</em> <strong>color=</strong><em>r,g,b</em>
+<strong>altColor=</strong><em>r,g,b</em> <strong>priority=</strong><em>priority</em>
+<strong>autoScale=</strong><em>on|off</em> <strong>alwaysZero=</strong><em>on|off</em>
+<strong>gridDefault=</strong><em>on|off</em>
+<strong>maxHeightPixels=</strong><em>max:default:min</em>
+<strong>graphType=</strong><em>bar|points</em>
+<strong>viewLimits=</strong><em>lower:upper</em>
+<strong>yLineMark=</strong><em>real-value</em> <strong>yLineOnOff=</strong><em>on|off</em>
+<strong>windowingFunction=</strong><em>mean+whiskers|maximum|mean|minimum</em>
+<strong>smoothingWindow=</strong>off|2-16</em></code></pre>
+<p>
+The track type with version is REQUIRED, and it currently must be <em>wiggle_0</em>:</p>
+<pre><code><strong>type wiggle_0</strong></code></pre>
+<p>
+The remaining values are OPTIONAL:</p>
+<pre><code><strong>name              </strong><em>&lt;trackLabel&gt;                        </em> # default is "User Track"
+<strong>description       </strong><em>&lt;centerLabel&gt;                       </em> # default is "User Supplied Track"
+<strong>visibility        </strong><em>&lt;full|dense|hide&gt;                   </em> # default is hide
+<strong>color             </strong><em>&lt;RRR,GGG,BBB&gt;                       </em> # default is 255,255,255
+<strong>altColor          </strong><em>&lt;RRR,GGG,BBB&gt;                       </em> # default is 128,128,128
+<strong>priority          </strong><em>&lt;N&gt;                                 </em> # default is 100</code></pre>
+<p>
+For a list of additional options, see the <a href="bigWig.html#optional">bigWig format</a> page.
+Note that bigWig files created from bedGraph cannot be converted to wiggle using <code>bigWigToWig</code>
+and instead will be reverted back to their original bedGraph format. Also, for tracks using <code>altColor</code>
+with the windowing function &quot;mean+whiskers&quot; the shading of colors will be impacted with lighter shades for values within
+a standard deviation around the mean, most noticeable when zoomed out and average calculations are taking place.</p>
+
+<h2>Examples</h2>
+<p>
+This example specifies 19 separate data points in <b>two tracks</b> (the first is <code>name="variableStep"</code>
+and the second is <code>name="fixedStep"</code> where <code>priority=</code> orders them) in the region 
+chr19:49,304,200-49,310,700. To view this example as a custom track in the Genome Browser, copy the 
+<a href="examples/wiggleExample.txt">text</a> and paste it into the &quot;Add Custom Tracks&quot; 
+text box.</p>
+<p>
+<pre><code>browser position chr19:49304200-49310700
+browser hide all
+#	150 base wide bar graph at arbitrarily spaced positions,
+#	threshold line drawn at y=11.76
+#	autoScale off viewing range set to [0:25]
+#	priority = 10 positions this as the first graph
+#	Note, one-relative coordinate system in use for this format
+track type=wiggle_0 name="variableStep" description="variableStep format" visibility=full autoScale=off viewLimits=0.0:25.0 color=50,150,255 yLineMark=11.76 yLineOnOff=on priority=10
+variableStep chrom=chr19 span=150
+49304701 10.0
+49304901 12.5
+49305401 15.0
+49305601 17.5
+49305901 20.0
+49306081 17.5
+49306301 15.0
+49306691 12.5
+49307871 10.0
+#	200 base wide points graph at every 300 bases, 50 pixel high graph
+#	autoScale off and viewing range set to [0:1000]
+#	priority = 20 positions this as the second graph
+#	Note, one-relative coordinate system in use for this format
+track type=wiggle_0 name="fixedStep" description="fixedStep format" visibility=full autoScale=off viewLimits=0:1000 color=0,200,100 maxHeightPixels=100:50:20 graphType=points priority=20
+fixedStep chrom=chr19 start=49307401 step=300 span=200
+1000
+ 900
+ 800
+ 700
+ 600
+ 500
+ 400
+ 300
+ 200
+ 100</code></Pre>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

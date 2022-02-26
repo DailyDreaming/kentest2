@@ -1,0 +1,106 @@
+track cons26way
+compositeTrack on
+shortLabel Conservation
+longLabel Nematode Multiz Alignment & Conservation (26 Species)
+subGroup1 view Views align=Multiz_Alignments  phyloP=Basewise_Conservation_(phyloP) phastcons=Element_Conservation_(phastCons) elements=Conserved_Elements 
+dragAndDrop subTracks
+visibility hide
+priority 1
+type bed 4
+group compGeno
+
+    track cons26wayViewalign
+    shortLabel Multiz Alignments
+    view align
+    visibility pack
+    viewUi on
+    subTrack cons26way
+
+        track multiz26way
+        subTrack cons26wayViewalign on
+        shortLabel Multiz Align
+        longLabel Multiz Alignments of 26 nematode assemblies
+        subGroups view=align
+        noInherit on
+        irows on
+	#snpTable mafSnp26way
+        summary multiz26waySummary
+        frames multiz26wayFrames
+        group compGeno
+        color 0, 10, 100
+        altColor 0,90,10
+        type wigMaf 0.0 1.0
+        speciesCodonDefault ce11
+        speciesGroups Caenorhabditis Others
+        sGroup_Caenorhabditis caeSp51 caePb3 caeRem4 cb4 caeSp111 caeJap4 caeAng2 
+        sGroup_Others priExs1 priPac3 burXyl1 ancCey1 haeCon2 necAme1 panRed1 hetBac1 ascSuu1 strRat2 triSpi1 triSui1 melInc2 melHap1 bruMal2 oncVol1 loaLoa1 dirImm1
+        itemFirstCharCase noChange
+        treeImage phylo/ce11_26way.png
+        priority 100
+
+    # PhyloP conservation
+    track cons26wayViewphyloP
+    shortLabel Basewise Conservation (phyloP)
+    view phyloP
+    visibility full
+    subTrack cons26way
+    viewLimits -1:4
+    viewLimitsMax -3.992:9.159
+
+        track phyloP26way
+        subTrack cons26wayViewphyloP on
+        subGroups view=phyloP
+        shortLabel 26 nematodes Cons
+        longLabel 26 nematodes Basewise Conservation by PhyloP
+        noInherit on
+        configurable on
+        type wig -3.992 9.159
+        maxHeightPixels 100:50:11
+        viewLimits -1:4
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 60,60,140
+        altColor 140,60,60
+        priority 4
+
+    # phastCons conservation
+    track cons26wayViewphastcons
+    shortLabel Element Conservation (phastCons)
+    view phastcons
+    visibility full
+    subTrack cons26way
+
+        track phastCons26way
+        subTrack cons26wayViewphastcons off
+        subGroups view=phastcons
+        shortLabel 26-way Cons
+        longLabel 26 nematodes conservation by PhastCons
+        noInherit on
+        configurable on
+        type wig 0 1
+        maxHeightPixels 100:40:11
+        autoScale off
+        spanList 1
+        windowingFunction mean
+        color 70,130,70
+        altColor 130,70,70
+        priority 13
+
+    # Conserved Elements (Most Conserved)
+    track cons26wayViewelements
+    shortLabel Conserved Elements
+    view elements
+    visibility dense
+    subTrack cons26way
+
+        track phastConsElements26way
+        subTrack cons26wayViewelements off
+        subGroups view=elements
+        shortLabel 26-way El
+        longLabel 26 nematodes Conserved Elements
+        noInherit on
+        color 110,10,40
+        type bed 5 .
+        priority 23
+

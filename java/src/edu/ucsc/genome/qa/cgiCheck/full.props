@@ -1,0 +1,6 @@
+machine hgwbeta.soe.ucsc.edu
+server hgwbeta.soe.ucsc.edu
+quick false
+dbSpec all
+table all
+zoomCount 3

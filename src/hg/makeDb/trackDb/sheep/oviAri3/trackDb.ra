@@ -1,0 +1,44 @@
+# Local declaration so that local gold.html is picked up.
+track gold override
+html gold
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+visibility hide
+html gap
+
+track gc5BaseBw override
+visibility full
+
+track xenoRefGene override
+visibility pack
+
+track genscan override
+visibility hide
+
+track mrna override
+visibility hide
+
+track chainNetHg19 override
+visibility dense
+
+track rmsk override
+visibility full
+
+track intronEst override
+visibility hide
+
+track ensGene override
+visibility pack
+
+searchTable gold
+shortCircuit 1
+termRegex [AN][CM][G_][L0]0[0-9]+(\.1)?
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+track animalQtl override
+url http://www.animalgenome.org/cgi-bin/QTLdb/OA/qdetails?QTL_ID=$p
+urlLabel Animal Genome QTL db:
+
+include ../../refSeqComposite.ra

@@ -1,0 +1,201 @@
+/* Style for ENCODE Project
+        (Mostly re-using Genome Browser styles)
+*/
+
+body {
+    font-family: arial,Geneva,Helvetica,sans-serif;
+    background-color: #fff;
+}
+
+.topBlueBar {
+    text-align: left;
+    background-color: #00457c;
+    position: relative;
+}
+
+.encodeHeader {
+    color: #00457c;
+    font-size: 30px;
+    margin-top: 15px;
+    height: 70px;
+}
+
+.encodeHeader img {
+    float: left;
+    height: 70px;
+    line-height:  70px;
+}
+
+.encodeHeaderDates {
+    font-size: 18px;
+    background-color: #efefef;
+    padding: 4px 5px;
+}
+
+/* image shown when ajax is loading data
+     normally displayed to right of header */
+
+#spinner {
+    position: absolute;
+    left: 50%;
+    height: 35px;
+}
+
+.encodeHeader span {
+    vertical-align: middle;
+    width: 30%;
+}
+
+#assemblyLabel {
+    font-size: medium;
+    font-style: italic;
+    color: grey;
+}
+
+#searchPanelInstructions {
+    font-style: italic;
+}
+
+a {
+    color: #003366;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 2px solid black;
+}
+
+.panel {
+    border: 2px solid #CCC;
+}
+
+.wrapper {
+    border: 1px solid gray;
+    padding:0px;
+    margin: 7px 0px 20px 0px;
+}
+
+.bar {
+    background-color: rgb(239,239,239);
+    color: rgb(85,85,85);
+    width: 100%;
+    margin: 0px;
+    padding: 3px 0px 3px 0px;
+    /* padding: 0 */
+    height: 27px;
+}
+
+/* styles for controlled vocabulary pages (hgEncodeVocab) */
+
+.vocabTable {
+    width: 100%;
+    border: none;
+    margin-top: 10px;
+}
+
+.vocabWrapper {
+    background-color: #fff9d2;
+    border: 2px solid black;
+}
+
+.vocabBar {
+    color: black;
+    background-color: #fff9d2;
+    width: 100%;
+    margin: 0px;
+    padding: 3px 0px 3px 0px;
+    height: 27px;
+}
+
+.topLink {
+    font-size: large;
+    font-weight: bold;
+}
+
+/* styles used on downloads (human and mouse) pages */
+
+.hd2 { 
+    font-size: 100%; 
+    text-align: left; 
+    font-weight:bold; 
+    text-indent:.1em;
+}
+
+.itemTbl { 
+    border: 1px solid #000088;
+}
+
+
+/**/
+
+.content {
+    margin: 0px;
+    padding: 0px 15px;
+}
+
+h4.title {
+    text-align: left;
+    margin: 0px;
+    padding: 3px 0px 0px 7px;
+}
+
+dt {
+    padding-bottom: 12px;
+}
+
+dd {
+    padding-bottom: 10px;
+}
+
+
+/*General styles*/
+
+.thick {
+    font-weight: bold;
+}
+
+.under {
+    text-decoration:underline
+}
+
+.undecoratedLink {
+    text-decoration: none;
+}
+
+.big {
+    font-size: 16pt;
+}
+
+.gold {
+    background-color: #f1b521;
+}
+
+.date {
+    font-size: 10pt;
+}
+
+.selectable:hover {
+    background-color: black;
+    color: white;
+}
+
+.selected {
+    background-color: #FFAB66;
+    color: white;
+}
+
+.selectable {
+    color: #00457c;
+}
+
+.floatHeader {
+    opacity: 1;
+}
+
+.ltGray { 
+    background-color: rgb(239,239,239); 
+}
+

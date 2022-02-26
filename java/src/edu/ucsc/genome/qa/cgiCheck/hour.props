@@ -1,0 +1,5 @@
+machine hgwbeta.soe.ucsc.edu
+quick true
+dbSpec all
+table all
+zoomCount 1

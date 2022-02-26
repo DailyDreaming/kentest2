@@ -1,0 +1,724 @@
+include ../../refSeqComposite.ra
+
+include barCharts.ra
+
+include hoffMap.ra
+
+include cancerExpr.ra
+
+include mane.alpha.ra alpha
+include mane.ra beta,public
+
+include gdcCancer.ra
+
+include cortexVelmeshev.ra
+include heartCellAtlas.ra
+include kidneyStewart.ra
+include muscleDeMicheli.ra
+#include lungVieiraBraga.ra
+include fetalGeneAtlas.ra 
+include bloodHao.ra 
+include lungTravaglini2020.ra
+include skinSoleBoldo.ra
+include liverMacParland.ra
+include pancreasBaron.ra 
+include ileumWang.ra
+include colonWang.ra
+include rectumWang.ra
+include placentaVentoTormo.ra 
+include singleCellMerged.ra
+#include lungMadissoon.ra
+#include spleenMadissoon.ra
+include tabulaSapiens.ra
+include toothKrivanek.ra
+include hippocampusAyhan.ra
+include brainDevRegions.ra
+include t2t.ra alpha
+
+include gtexEqtl.ra
+
+include liftOver.ra
+include exomeProbesets.ra
+
+track miRnaAtlas
+compositeTrack on
+shortLabel miRNA Tissue Atlas
+longLabel Tissue-Specific microRNA Expression from Two Individuals
+type bigBarChart
+group expression
+maxLimit 52000
+barChartLabel Tissue
+configurable off
+subGroup1 view View a_A=Sample1 b_B=Sample2
+
+    track miRnaAtlasSample1
+    type bigBarChart
+    visibility pack
+    parent miRnaAtlas
+    view a_A
+    configurable on
+
+        track miRnaAtlasSample1BarChart
+        url2 http://www.mirbase.org/cgi-bin/query.pl?terms=$$
+        url2Label miRBase v21 Precursor Accession:
+        parent miRnaAtlasSample1
+        visibility full
+        shortLabel Sample 1
+        longLabel miRNA Tissue Atlas microRna Expression
+        bigDataUrl /gbdb/hg38/bbi/miRnaAtlasSample1.bb
+        barChartMatrixUrl /gbdb/hgFixed/human/expMatrix/miRnaAtlasSample1Matrix.txt
+        barChartSampleUrl /gbdb/hgFixed/human/expMatrix/miRnaAtlasSample1.txt
+        barChartBars adipocyte artery colon dura_mater kidney liver lung muscle myocardium skin \
+            spleen stomach testis thyroid small_intestine bone gallbladder fascia bladder epididymis \
+            tunica_albuginea nerve_nervus_intercostalis arachnoid_mater brain
+        barChartColors #F7A028 #F73528 #DEBE98 #86BF80 #CDB79E #CDB79E #9ACD32 #7A67AE #9745AC #1E90FF \
+            \#CDB79E #FFD39B #A6A6A6 #008B45 #CDB79E #BD34D7 #CDA7FE #4C7CD7 #CBD79E #A6F6A1 \
+            \#A6CEA4 #FFD700 #86BF10 #EEEE00
+        group expression
+        maxLimit 52000
+        barChartLabel Tissue
+        barChartUnit Quantile_Normalized_Expression
+        html miRnaAtlas
+        configurable on
+        subGroups view=a_A
+        searchIndex name
+
+    track miRnaAtlasSample2
+    type bigBarChart
+    visibility pack
+    parent miRnaAtlas
+    view b_B
+    configurable on
+
+        track miRnaAtlasSample2BarChart
+        url2 http://www.mirbase.org/cgi-bin/query.pl?terms=$$
+        url2Label miRBase v21 Precursor Accession:
+        parent miRnaAtlasSample2
+        visibility full
+        shortLabel Sample 2
+        longLabel miRNA Tissue Atlas microRna Expression
+        bigDataUrl /gbdb/hg38/bbi/miRnaAtlasSample2.bb
+        barChartMatrixUrl /gbdb/hgFixed/human/expMatrix/miRnaAtlasSample2Matrix.txt
+        barChartSampleUrl /gbdb/hgFixed/human/expMatrix/miRnaAtlasSample2.txt
+        barChartBars adipocyte artery colon dura_mater kidney liver lung muscle myocardium skin \
+            spleen stomach testis thyroid small_intestine_duodenum small_intestine_jejunum pancreas \
+            kidney_glandula_suprarenalis kidney_cortex_renalis kidney_medulla_renalis esophagus prostate \
+            bone_marrow vein lymph_node nerve_not_specified pleura brain_pituitary_gland spinal_cord \
+            brain_thalamus brain_white_matter brain_nucleus_caudatus brain_gray_matter \
+            brain_cerebral_cortex_temporal brain_cerebral_cortex_frontal \
+            brain_cerebral_cortex_occipital brain_cerebellum
+        barChartColors #F7A028 #F73528 #DEBE98 #86BF80 #CDB79E #CDB79E #9ACD32 #7A67AE #9745AC #1E90FF \
+            \#CDB79E #FFD39B #A6A6A6 #008B45 #CDB79E #CDB79E #CD9B1D \
+            \#CDB79E #CDB79E #CDB79E #AC8F69 #D9D9D9 #BD3487 \
+            \#FF00FF #EE82EE #F7E300 #73A585 #B4EEB4 #EEEE00 \
+            \#EEEE00 #EEEE00 #EEEE00 #EEEE00 \
+            \#EEEE00 #EEEE00 \
+            \#EEEE00 #EEEE00
+        group expression
+        maxLimit 52000
+        barChartLabel Tissue
+        barChartUnit Quantile_Norm_Expr
+        html miRnaAtlas
+        configurable on
+        subGroups view=b_B
+        searchIndex name
+
+searchTable miRnaAtlasSample1BarChart
+searchType bigBed
+searchPriority 1
+searchDescription miRNA Tissue Atlas Sample 1
+searchMethod exact
+semiShortCircuit 1
+
+searchTable miRnaAtlasSample2BarChart
+searchType bigBed
+searchPriority 1
+searchDescription miRNA Tissue Atlas Sample 2
+searchMethod exact
+semiShortCircuit 1
+
+track cosmicRegions
+shortLabel COSMIC Regions
+longLabel Catalogue of Somatic Mutations in Cancer V82
+type bigBed 8 +
+bigDataUrl /gbdb/hg38/cosmic/cosMutHg38V82.bb
+labelFields cosmLabel
+group phenDis
+color 200, 0, 0
+url http://cancer.sanger.ac.uk/cosmic/mutation/overview?id=$$
+urlLabel COSMIC ID:
+searchIndex name,cosmLabel
+tableBrowser off
+mouseOverField _mouseOver
+html cosmicRegions
+noScoreFilter on
+
+searchTable cosmicRegions
+searchPriority 2.07207
+searchType bigBed
+searchDescription COSMIC Regions
+
+track coriellDelDup override
+origAssembly hg19 
+pennantIcon 19.jpg ../goldenPath/help/liftOver.html "lifted from hg19" 
+
+track revel override
+origAssembly hg19 
+pennantIcon 19.jpg ../goldenPath/help/liftOver.html "lifted from hg19"
+
+include nonCodingRNAs.ra
+
+#track wgRna override 
+#dataVersion miRBase Release 15.0 (April 2010) and snoRNABase Version 3
+#pennantIcon 19.jpg ../goldenPath/help/liftOver.html "lifted from hg19" 
+
+track hgIkmc override
+origAssembly hg19 
+pennantIcon 19.jpg ../goldenPath/help/liftOver.html "lifted from hg19" 
+
+track fishClones override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track fosEndPairs override
+origAssembly hg18
+pennantIcon 18.jpg ../goldenPath/help/liftOver.html "lifted from hg18"
+
+track interactions override
+directUrl hgGeneGraph?db=hg38&gene=%s
+
+track par override
+group x
+visibility hide
+
+track windowmaskerSdust override
+group rep
+priority 8
+
+track nestedRepeats override
+group rep
+priority 2
+
+track simpleRepeat override
+group rep
+priority 7
+
+track rmskJoinedBaseline override
+group rep
+priority 4
+visibility hide
+
+track stsMap override
+visibility hide
+
+searchName assemblyAcc
+searchTable gold
+searchMethod prefix
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 5
+shortCircuit 1
+termRegex [A-Z][A-Z0-9]+(\.[0-9]+)?
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+html gap
+visibility hide
+
+include rmskTracks.ra
+
+track ctgPos2
+shortLabel GRC Contigs
+longLabel Genome Reference Consortium Contigs
+group map
+visibility hide
+type ctgPos
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+chromosomes chr1,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr2,chr20,chr21,chr22,chrX,chrY
+
+searchTable ctgPos2
+searchMethod prefix
+shortCircuit 1
+termRegex [GK][LI][028][0-9]+(\.[0-9]+)?
+query select chrom,chromStart,chromEnd,contig from %s where contig like '%s%%'
+searchPriority 5
+
+track scaffolds
+shortLabel Scaffolds
+longLabel GRCh38 Defined Scaffold Identifiers
+group map
+visibility hide
+color 0,0,0
+type bed 4 .
+
+searchTable scaffolds
+searchMethod prefix
+searchType bed
+shortCircuit 1
+termRegex [1-9HMXY][0-9A-Z_]*
+searchPriority 18
+
+track analysisGap
+shortLabel Analysis Gap
+longLabel Extra Gap Locations in Analysis Set Sequence on chr5, 14, 19, 21, 22, Y
+group x
+visibility hide
+type bed 4 .
+chromosomes chr14,chr19,chr21,chr22,chr5,chrY
+
+track hg38ContigDiff
+shortLabel Hg19 Diff
+longLabel Contigs New to GRCh38/(hg38), Not Carried Forward from GRCh37/(hg19)
+visibility hide
+group map
+type bed 9 .
+scoreFilterByRange on
+itemRgb on
+color 0,0,0
+urlLabel Genbank accession:
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+
+track centromeres
+shortLabel Centromeres
+longLabel Centromere Locations
+group map
+visibility hide
+type bed 4 .
+chromosomes chr1,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr2,chr20,chr21,chr22,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chrX,chrY
+color 255,0,0
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+urlLabel NCBI accession record:
+
+include ../chainNetPrimate.ra
+include ../chainNetPlacental.ra
+include ../chainNetVertebrate.ra
+
+track contigAlignmentSegments
+shortLabel ContigSegments
+longLabel Non-bridged Contig Segments Used in lastz/chain/net Alignment Pipeline
+group x
+visibility hide
+type bed 4
+
+track chainSelf override
+longLabel $Organism Chained Self Alignments
+group rep
+priority 6
+chainColor Normalized Score
+matrixHeader A, C, G, T
+matrix 16 91,-114,-31,-123,-114,100,-125,-31,-31,-125,100,-114,-123,-31,-114,91
+type chain hg38
+otherDb hg38
+chainNormScoreAvailable yes
+scoreFilter 20000
+
+track multiz4way
+shortLabel Cons 4-way
+longLabel 4-Way Multiz Alignment & Conservation
+group compGeno
+visibility hide
+color 0, 10, 100
+altColor 0,90,10
+type wigMaf 0.0 1.0
+maxHeightPixels 100:40:11
+# wiggle phastCons4way
+# spanList 1
+pairwiseHeight 12
+yLineOnOff Off
+# frames multiz4wayFrames
+# irows on
+autoScale Off
+windowingFunction mean
+summary multiz4waySummary
+speciesCodonDefault hg38
+speciesGroups mammal
+sGroup_mammal rheMac3 mm10 canFam3
+treeImage phylo/hg38_4way.gif
+
+include defaultPriority.ra
+
+track altSeqLiftOverBigPsl
+#superTrack altSequence pack
+visibility hide
+shortLabel Big Alt Map
+longLabel Big GRCh38 Alignments to the Alternate Sequences/Haplotypes
+type bigPsl
+bigDataUrl http://hgwdev.soe.ucsc.edu/~braney/altSeqLiftOverPsl.bb
+html altSequence
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsMaxZoom 10000.0
+showCdsAllScales .
+baseColorDefault diffBases
+baseColorUseSequence lfExtra
+#baseColorUseSequence extFile seqNcbiAltSequence extNcbiAltSequence
+release alpha
+
+track altSequenceExp
+superTrack on
+shortLabel Exp Alt Map
+longLabel GRCh38 Haplotype to Reference Sequence Mapping Correspondence
+visibility hide
+group x
+
+    track ncbiAltMappingsChain
+    superTrack altSequenceExp pack
+    shortLabel Alt Map Chain
+    longLabel Chain Mappings to the Alternate Sequences/Haplotypes
+    type chain hg38
+    spectrum on
+    html altSequence
+
+    track ncbiAltMappingsMaf
+    superTrack altSequenceExp pack
+    shortLabel Alt Map Maf
+    longLabel Maf Mappings to the Alternate Sequences/Haplotypes
+    type maf
+    html altSequence
+
+include trackDb.4way.ra alpha
+include trackDb.5way.ra alpha
+include trackDb.7way.ra alpha
+include trackDb.17way.ra alpha
+include trackDb.20way.ra alpha
+include trackDb.27way.ra alpha
+include trackDb.30way.ra
+include trackDb.10way.ra
+include trackDb.mito204way.ra
+
+track ucscRetroAli8
+shortLabel Retroposed Genes 8.0
+longLabel Retroposed Genes V8, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo8
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds8
+baseColorUseSequence extFile ucscRetroSeq8 ucscRetroExtFile8
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+
+searchName ucscRetroInfoRefSeq8
+searchTable ucscRetroAli8
+searchDescription Retroposed GenesV8, Including Pseudogenes - 2014-07-08
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo8
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo8.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+track mrnaBig
+bigDataUrl http://hgwdev.soe.ucsc.edu/~braney/bigMrna.bb
+shortLabel Big $Organism mRNAs
+longLabel Big $Organism mRNAs from GenBank 
+group x
+visibility hide
+type bigPsl
+baseColorUseCds given
+#baseColorUseSequence genbank
+baseColorUseSequence lfExtra
+baseColorDefault diffCodons
+#baseColorDefault diffBases
+showDiffBasesAllScales .
+indelDoubleInsert on
+indelQueryInsert on
+indelPolyA on
+release alpha
+
+
+searchName ucscRetroInfoMrna8
+searchTable ucscRetroAli8
+searchDescription Retroposed GenesV8, Including Pseudogenes - 2014-07-08
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt8
+searchTable ucscRetroAli8
+searchDescription Retroposed GenesV8, Including Pseudogenes - 2014-07-08
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo8
+xrefQuery select ucscRetroInfo8.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene8
+searchTable ucscRetroAli8
+searchDescription Retroposed GenesV8, Including Pseudogenes - 2014-07-08
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo8
+xrefQuery select ucscRetroInfo8.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli9
+shortLabel RetroGenes V9
+longLabel Retroposed Genes V9, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo9
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds9
+baseColorUseSequence extFile ucscRetroSeq9 ucscRetroExtFile9
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Jan. 2015
+exonNumbers off
+
+searchName ucscRetroInfoRefSeq9
+searchTable ucscRetroAli9
+searchDescription Retroposed Genes V9, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo9
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo9.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna9
+searchTable ucscRetroAli9
+searchDescription Retroposed Genes V9, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt9
+searchTable ucscRetroAli9
+searchDescription Retroposed Genes V9, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo9
+xrefQuery select ucscRetroInfo9.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene9
+searchTable ucscRetroAli9
+searchDescription Retroposed Genes V9, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo9
+xrefQuery select ucscRetroInfo9.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+
+track genomicSuperDups override
+group rep
+priority 5
+
+track sibTxGraph override
+url http://ccg.vital-it.ch/cgi-bin/tromer/tromergraph2draw.pl?db=hg38&species=H.+sapiens&tromer=$$
+
+track gtexGene override
+pennantIcon 19.jpg ../goldenPath/help/liftOver.html "lifted from hg19"
+
+track ucscGenePfam override
+shortLabel Pfam in GENCODE
+longLabel Pfam Domains in GENCODE Genes
+html gencodePfam
+
+include trackDb.cloneEnd.ra
+
+include hg38Patch11.ra alpha
+
+include knownGene.ra
+#include knownGene.alpha.ra alpha
+include knownGeneArchive.ra alpha
+
+include trackDb.100way.ra
+include trackDb.145way.ra alpha
+
+include trackDb.241wayT.ra alpha
+include trackDb.241way.ra
+
+# track multiz145way
+# shortLabel 145way maf
+# longLabel 145-way MAF track
+# group compGeno
+# visibility hide
+# type maf
+
+track microsat override
+group rep
+priority 3
+
+searchTable sgpGene
+searchType genePred
+termRegex chr[0-9MUXYn]+[BGHIJKLv0-9_]+(alt_|random_)?[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchTable geneid
+searchType genePred
+searchMethod prefix
+termRegex chr[0-9MUXYn]+[BGHIJKLv0-9_]+(alt_|random_)?[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+track gwasCatalog override
+snpTable snp144
+snpVersion 144
+
+# override to use hg38 specific html page
+track crispr override
+html crispr
+
+track ncbiRefSeqRefGene
+compositeTrack on
+shortLabel refGeneRefSeq
+longLabel comparing gene tracks refGene with ncbiRefSeq
+visibility hide
+type bed 12
+group x
+
+    track lostRefGene
+    subTrack ncbiRefSeqRefGene
+    shortLabel lostRefGene
+    longLabel refGene predictions 'lost' in NCBI RefSeq track
+    color 155,0,0
+
+    track exactRefGene
+    subTrack ncbiRefSeqRefGene
+    shortLabel exactRefGene
+    longLabel refGene predictions 'exact' in NCBI RefSeq track
+    color 0,155,0
+
+    track compatibleRefGene
+    subTrack ncbiRefSeqRefGene
+    shortLabel compatibleRefGene
+    longLabel refGene predictions 'compatible' in NCBI RefSeq track
+    color 0,0,255
+
+track gtexBrain
+release alpha
+type barChart
+maxLimit 370000
+barChartUnit RPKM
+barChartLabel Brain Regions
+barChartMetric median
+barChartBars \
+    brainAmygdala brainAnCinCortex brainCaudate brainCerebelHemi brainCerebellum brainCortex \
+    brainFrontCortex brainHippocampus brainHypothalamus brainNucAccumbens brainPutamen \
+    brainSpinalcord brainSubstanNigra
+bedNameLabel Gene accession
+shortLabel GTEx Brain
+longLabel GTEx Brain Gene Expression in barChart track format
+group expression
+
+track dgvPlus override
+group varRep
+
+    track dgvMerged override
+    parent dgvPlus on
+    type bigBed 9 +
+    bigDataUrl /gbdb/hg38/dgv/dgvMerged.bb
+    filter._size 1:9734324
+    filterByRange._size on
+    filterLabel._size Genomic size of variant
+    filterValues.varType complex,deletion,duplication,gain,gain+loss,insertion,inversion,loss,mobile element insertion,novel sequence insertion,sequence alteration,tandem duplication
+
+    track dgvSupporting override
+    parent dgvPlus
+    type bigBed 9 +
+    bigDataUrl /gbdb/hg38/dgv/dgvSupporting.bb
+    filter._size 1:9320633
+    filterByRange._size on
+    filterLabel._size Genomic size of variant
+    filterValues.varType complex,deletion,duplication,gain,gain+loss,insertion,inversion,loss,mobile element insertion,novel sequence insertion,sequence alteration,tandem duplication
+
+track gtexTranscExpr override
+bigDataUrl /gbdb/hg38/gtex/gtexTranscExpr.bb
+
+# ENCODE tracks
+
+include trackDb.gencode.ra
+
+include wgEncodeReg.ra 
+
+include encode3.ra 
+
+include wgEncodeReg.dev.ra alpha
+
+include hic.ra
+
+include gnomad.ra
+
+include platinumGenomes.ra
+
+track epdNew
+compositeTrack on
+shortLabel EPDnew Promoters
+longLabel Promoters from EPDnew
+html ../../epdNewPromoter
+type bigBed 8
+group expression
+visibility hide
+urlLabel EPDnew link:
+bedNameLabel Promoter ID
+exonArrows on
+
+    track epdNewPromoter
+    shortLabel EPDnew v6
+    longLabel Promoters from EPDnew human version 006
+    parent epdNew on
+    bigDataUrl /gbdb/$D/bbi/epdNewHuman006.$D.bb
+    dataVersion EPDNew Human Version 006 (May 2018)
+    url https://epd.epfl.ch/cgi-bin/get_doc?db=hgEpdNew&format=genome&entry=$$
+    color 50,50,200
+    priority 1
+
+    track epdNewPromoterNonCoding
+    shortLabel EPDnew NC v1
+    longLabel ncRNA promoters from EPDnewNC human version 001
+    parent epdNew on
+    bigDataUrl /gbdb/$D/bbi/epdNewHumanNc001.$D.bb
+    dataVersion EPDNewNC Human Version 001 (April 2019)
+    url https://epd.epfl.ch/cgi-bin/get_doc?db=hsNCEpdNew&format=genome&entry=$$
+    color 180,0,134
+    priority 2
+
+#RefSeq Select is a subtrack part of the RefSeq Composite in ../../refSeqComposite.ra
+#For more information on this change, see RM#24787
+track ncbiRefSeqSelect
+parent refSeqComposite off
+priority 8
+type genePred
+shortLabel RefSeq Select and MANE
+longLabel NCBI RefSeq Select and MANE subset: A single representative transcript
+trackHandler ncbiRefSeq
+idXref ncbiRefSeqLink mrnaAcc name
+color 20,20,160
+baseColorUseCds given
+baseColorDefault genomicCodons
+
+track clinGenCnv override
+filter.size 773:11309456
+filterLimits.size 773:11309456
+
+track covidHct
+shortLabel Transcription response
+longLabel High-confidence SARS-CoV-2 infection transcriptional response target genes
+priority 100
+type bigBed 8 +
+color 150,20,20
+mouseOver $_mouseOver : $name - CQV: $cqv - Rank: $rank
+group covid
+bigDataUrl /gbdb/hg38/covidHct/covidHct.bb
+release alpha
+
+track orphadata override
+urls ensemblID="https://ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=$$" pmid="https://pubmed.ncbi.nlm.nih.gov/$$" orphaCode="http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=$$" omim="https://www.omim.org/entry/$$?search=$$&highlight=$$" hgnc="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:$$"
+
+
+include dbSnpArchiveHg38.ra
+include affyArchive.ra
+include genePredArchive.ra
+include tgpArchive.ra
+include spliceAi.ra

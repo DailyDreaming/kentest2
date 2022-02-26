@@ -1,0 +1,25 @@
+# hg38 link info.
+
+name exonPrimer
+shortLabel ExonPrimer
+tables kgXref
+idSql select kgID from kgXref where kgID = '%s'
+url https://ihg.helmholtz-muenchen.de/cgi-bin/primer/ExonPrimerUCSC.pl?db=hg38&acc=%s
+priority 10
+
+#name palTrack
+#shortLabel Protein FASTA
+#tables multiz46way
+#idSql select chrom,txStart+1,txEnd,name from knownGene where name = '%s'
+#url ../cgi-bin/hgPal?g=knownGene&c=%s&l=%s&r=%s&i=%s
+#hgsid on
+#dbInUrl on
+#priority 1
+
+name gencode
+shortLabel Gencode
+tables knownToGencodeV39
+idSql select value from knownToGencodeV39 where name = '%s';
+url http://www.ensembl.org/Homo_sapiens/Transcript/Summary?db=core;t=%s
+priority 10
+

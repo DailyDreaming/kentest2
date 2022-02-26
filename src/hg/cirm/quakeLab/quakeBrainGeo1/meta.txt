@@ -1,0 +1,3410 @@
+data_set_id quakeBrainGeo1
+meta	quakeBrainGeo1
+title A survey of human brain transcriptome diversity at the single cell level
+assay long-RNA-seq
+enriched_in exon
+access all
+lab quake
+cell_count 1
+pmid 26060301
+submitter spyros
+species Homo sapiens
+organ brain
+pipeline quakeRnaPipeline2.txt
+submission_date Apr 14 2015
+update_date Jul 02 2015
+geo_series GSE67835
+GEO_Series_summary We used single cell RNA sequencing on 466 cells to capture the cellular complexity of the adult and fetal human brain at a whole transcriptome level. Healthy adult temporal lobe tissue was obtained from epileptic patients during temporal lobectomy for medically refractory seizures. We were able to classify individual cells into all of the major neuronal, glial, and vascular cell types in the brain.
+ncbi_bio_project PRJNA281204
+sra_study SRP057196
+
+	lab_quake_fluidics_chip 1772078217
+	GEO_Sample_age postnatal 54 years
+	age 54
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S8
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1657871
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486326
+		seq_sample GSM1657871
+		geo_sample GSM1657871
+		lab_quake_cell 1772078217.C03
+
+		meta GSM1657872
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486327
+		seq_sample GSM1657872
+		geo_sample GSM1657872
+		lab_quake_cell 1772078217.C04
+
+		meta GSM1657873
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486328
+		seq_sample GSM1657873
+		geo_sample GSM1657873
+		lab_quake_cell 1772078217.C06
+
+		meta GSM1657874
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486329
+		seq_sample GSM1657874
+		geo_sample GSM1657874
+		lab_quake_cell 1772078217.C07
+
+		meta GSM1657875
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486330
+		seq_sample GSM1657875
+		geo_sample GSM1657875
+		lab_quake_cell 1772078217.C08
+
+		meta GSM1657876
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486331
+		seq_sample GSM1657876
+		geo_sample GSM1657876
+		lab_quake_cell 1772078217.C09
+
+		meta GSM1657877
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486332
+		seq_sample GSM1657877
+		geo_sample GSM1657877
+		lab_quake_cell 1772078217.C14
+
+		meta GSM1657878
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486333
+		seq_sample GSM1657878
+		geo_sample GSM1657878
+		lab_quake_cell 1772078217.C16
+
+		meta GSM1657879
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486334
+		seq_sample GSM1657879
+		geo_sample GSM1657879
+		lab_quake_cell 1772078217.C17
+
+		meta GSM1657880
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486335
+		seq_sample GSM1657880
+		geo_sample GSM1657880
+		lab_quake_cell 1772078217.C18
+
+		meta GSM1657881
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486336
+		seq_sample GSM1657881
+		geo_sample GSM1657881
+		lab_quake_cell 1772078217.C20
+
+		meta GSM1657882
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486337
+		seq_sample GSM1657882
+		geo_sample GSM1657882
+		lab_quake_cell 1772078217.C23
+
+		meta GSM1657883
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486338
+		seq_sample GSM1657883
+		geo_sample GSM1657883
+		lab_quake_cell 1772078217.C28
+
+		meta GSM1657884
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486339
+		seq_sample GSM1657884
+		geo_sample GSM1657884
+		lab_quake_cell 1772078217.C29
+
+		meta GSM1657885
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486340
+		seq_sample GSM1657885
+		geo_sample GSM1657885
+		lab_quake_cell 1772078217.C32
+
+		meta GSM1657886
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486341
+		seq_sample GSM1657886
+		geo_sample GSM1657886
+		lab_quake_cell 1772078217.C33
+
+		meta GSM1657887
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486342
+		seq_sample GSM1657887
+		geo_sample GSM1657887
+		lab_quake_cell 1772078217.C39
+
+		meta GSM1657888
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486343
+		seq_sample GSM1657888
+		geo_sample GSM1657888
+		lab_quake_cell 1772078217.C40
+
+		meta GSM1657889
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486344
+		seq_sample GSM1657889
+		geo_sample GSM1657889
+		lab_quake_cell 1772078217.C47
+
+		meta GSM1657890
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486358
+		seq_sample GSM1657890
+		geo_sample GSM1657890
+		lab_quake_cell 1772078217.C52
+
+		meta GSM1657891
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486355
+		seq_sample GSM1657891
+		geo_sample GSM1657891
+		lab_quake_cell 1772078217.C56
+
+		meta GSM1657892
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486356
+		seq_sample GSM1657892
+		geo_sample GSM1657892
+		lab_quake_cell 1772078217.C58
+
+		meta GSM1657893
+		cell_type OPC
+		ncbi_bio_sample SAMN03486357
+		seq_sample GSM1657893
+		geo_sample GSM1657893
+		lab_quake_cell 1772078217.C59
+
+		meta GSM1657894
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486345
+		seq_sample GSM1657894
+		geo_sample GSM1657894
+		lab_quake_cell 1772078217.C60
+
+		meta GSM1657895
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486346
+		seq_sample GSM1657895
+		geo_sample GSM1657895
+		lab_quake_cell 1772078217.C61
+
+		meta GSM1657896
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486347
+		seq_sample GSM1657896
+		geo_sample GSM1657896
+		lab_quake_cell 1772078217.C66
+
+		meta GSM1657897
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486348
+		seq_sample GSM1657897
+		geo_sample GSM1657897
+		lab_quake_cell 1772078217.C72
+
+		meta GSM1657898
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486349
+		seq_sample GSM1657898
+		geo_sample GSM1657898
+		lab_quake_cell 1772078217.C80
+
+		meta GSM1657899
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486350
+		seq_sample GSM1657899
+		geo_sample GSM1657899
+		lab_quake_cell 1772078217.C87
+
+		meta GSM1657900
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486351
+		seq_sample GSM1657900
+		geo_sample GSM1657900
+		lab_quake_cell 1772078217.C89
+
+		meta GSM1657901
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486352
+		seq_sample GSM1657901
+		geo_sample GSM1657901
+		lab_quake_cell 1772078217.C91
+
+		meta GSM1657902
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486353
+		seq_sample GSM1657902
+		geo_sample GSM1657902
+		lab_quake_cell 1772078217.C94
+
+		meta GSM1657903
+		cell_type OPC
+		ncbi_bio_sample SAMN03486296
+		seq_sample GSM1657903
+		geo_sample GSM1657903
+		lab_quake_cell 1772078217.C96
+
+	lab_quake_fluidics_chip 1772078218
+	GEO_Sample_age postnatal 54 years
+	age 54
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S8
+	body_part hippocampus - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1657904
+		cell_type OPC
+		ncbi_bio_sample SAMN03486297
+		seq_sample GSM1657904
+		geo_sample GSM1657904
+		lab_quake_cell 1772078218.C05
+
+		meta GSM1657905
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486298
+		seq_sample GSM1657905
+		geo_sample GSM1657905
+		lab_quake_cell 1772078218.C08
+
+		meta GSM1657906
+		cell_type OPC
+		ncbi_bio_sample SAMN03486299
+		seq_sample GSM1657906
+		geo_sample GSM1657906
+		lab_quake_cell 1772078218.C09
+
+		meta GSM1657907
+		cell_type OPC
+		ncbi_bio_sample SAMN03486300
+		seq_sample GSM1657907
+		geo_sample GSM1657907
+		lab_quake_cell 1772078218.C13
+
+		meta GSM1657908
+		cell_type OPC
+		ncbi_bio_sample SAMN03486301
+		seq_sample GSM1657908
+		geo_sample GSM1657908
+		lab_quake_cell 1772078218.C18
+
+		meta GSM1657909
+		cell_type OPC
+		ncbi_bio_sample SAMN03486302
+		seq_sample GSM1657909
+		geo_sample GSM1657909
+		lab_quake_cell 1772078218.C23
+
+		meta GSM1657910
+		cell_type microglia
+		ncbi_bio_sample SAMN03486303
+		seq_sample GSM1657910
+		geo_sample GSM1657910
+		lab_quake_cell 1772078218.C27
+
+		meta GSM1657911
+		cell_type OPC
+		ncbi_bio_sample SAMN03486304
+		seq_sample GSM1657911
+		geo_sample GSM1657911
+		lab_quake_cell 1772078218.C29
+
+		meta GSM1657912
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486305
+		seq_sample GSM1657912
+		geo_sample GSM1657912
+		lab_quake_cell 1772078218.C32
+
+		meta GSM1657913
+		cell_type OPC
+		ncbi_bio_sample SAMN03486306
+		seq_sample GSM1657913
+		geo_sample GSM1657913
+		lab_quake_cell 1772078218.C34
+
+		meta GSM1657914
+		cell_type OPC
+		ncbi_bio_sample SAMN03486307
+		seq_sample GSM1657914
+		geo_sample GSM1657914
+		lab_quake_cell 1772078218.C43
+
+		meta GSM1657915
+		cell_type OPC
+		ncbi_bio_sample SAMN03486308
+		seq_sample GSM1657915
+		geo_sample GSM1657915
+		lab_quake_cell 1772078218.C44
+
+		meta GSM1657916
+		cell_type OPC
+		ncbi_bio_sample SAMN03486309
+		seq_sample GSM1657916
+		geo_sample GSM1657916
+		lab_quake_cell 1772078218.C47
+
+		meta GSM1657917
+		cell_type OPC
+		ncbi_bio_sample SAMN03486310
+		seq_sample GSM1657917
+		geo_sample GSM1657917
+		lab_quake_cell 1772078218.C48
+
+		meta GSM1657918
+		cell_type microglia
+		ncbi_bio_sample SAMN03486311
+		seq_sample GSM1657918
+		geo_sample GSM1657918
+		lab_quake_cell 1772078218.C53
+
+		meta GSM1657919
+		cell_type microglia
+		ncbi_bio_sample SAMN03486312
+		seq_sample GSM1657919
+		geo_sample GSM1657919
+		lab_quake_cell 1772078218.C55
+
+		meta GSM1657920
+		cell_type OPC
+		ncbi_bio_sample SAMN03486313
+		seq_sample GSM1657920
+		geo_sample GSM1657920
+		lab_quake_cell 1772078218.C56
+
+		meta GSM1657921
+		cell_type OPC
+		ncbi_bio_sample SAMN03486314
+		seq_sample GSM1657921
+		geo_sample GSM1657921
+		lab_quake_cell 1772078218.C58
+
+		meta GSM1657922
+		cell_type OPC
+		ncbi_bio_sample SAMN03486315
+		seq_sample GSM1657922
+		geo_sample GSM1657922
+		lab_quake_cell 1772078218.C61
+
+		meta GSM1657923
+		cell_type microglia
+		ncbi_bio_sample SAMN03486316
+		seq_sample GSM1657923
+		geo_sample GSM1657923
+		lab_quake_cell 1772078218.C71
+
+		meta GSM1657924
+		cell_type OPC
+		ncbi_bio_sample SAMN03486317
+		seq_sample GSM1657924
+		geo_sample GSM1657924
+		lab_quake_cell 1772078218.C85
+
+		meta GSM1657925
+		cell_type microglia
+		ncbi_bio_sample SAMN03486318
+		seq_sample GSM1657925
+		geo_sample GSM1657925
+		lab_quake_cell 1772078218.C88
+
+		meta GSM1657926
+		cell_type microglia
+		ncbi_bio_sample SAMN03486319
+		seq_sample GSM1657926
+		geo_sample GSM1657926
+		lab_quake_cell 1772078218.C89
+
+		meta GSM1657927
+		cell_type microglia
+		ncbi_bio_sample SAMN03486320
+		seq_sample GSM1657927
+		geo_sample GSM1657927
+		lab_quake_cell 1772078218.C93
+
+		meta GSM1657928
+		cell_type OPC
+		ncbi_bio_sample SAMN03486321
+		seq_sample GSM1657928
+		geo_sample GSM1657928
+		lab_quake_cell 1772078218.C95
+
+	lab_quake_fluidics_chip 1772078236
+	GEO_Sample_age postnatal 37 years
+	age 37
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S11
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1657929
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486322
+		seq_sample GSM1657929
+		geo_sample GSM1657929
+		lab_quake_cell 1772078236.C11
+
+		meta GSM1657930
+		cell_type neurons
+		ncbi_bio_sample SAMN03486323
+		seq_sample GSM1657930
+		geo_sample GSM1657930
+		lab_quake_cell 1772078236.C12
+
+		meta GSM1657931
+		cell_type neurons
+		ncbi_bio_sample SAMN03486324
+		seq_sample GSM1657931
+		geo_sample GSM1657931
+		lab_quake_cell 1772078236.C16
+
+		meta GSM1657932
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486325
+		seq_sample GSM1657932
+		geo_sample GSM1657932
+		lab_quake_cell 1772078236.C17
+
+		meta GSM1657933
+		cell_type neurons
+		ncbi_bio_sample SAMN03486359
+		seq_sample GSM1657933
+		geo_sample GSM1657933
+		lab_quake_cell 1772078236.C19
+
+		meta GSM1657934
+		cell_type microglia
+		ncbi_bio_sample SAMN03486354
+		seq_sample GSM1657934
+		geo_sample GSM1657934
+		lab_quake_cell 1772078236.C25
+
+		meta GSM1657935
+		cell_type neurons
+		ncbi_bio_sample SAMN03486266
+		seq_sample GSM1657935
+		geo_sample GSM1657935
+		lab_quake_cell 1772078236.C26
+
+		meta GSM1657936
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486267
+		seq_sample GSM1657936
+		geo_sample GSM1657936
+		lab_quake_cell 1772078236.C27
+
+		meta GSM1657937
+		cell_type neurons
+		ncbi_bio_sample SAMN03486268
+		seq_sample GSM1657937
+		geo_sample GSM1657937
+		lab_quake_cell 1772078236.C28
+
+		meta GSM1657938
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486269
+		seq_sample GSM1657938
+		geo_sample GSM1657938
+		lab_quake_cell 1772078236.C30
+
+		meta GSM1657939
+		cell_type neurons
+		ncbi_bio_sample SAMN03486270
+		seq_sample GSM1657939
+		geo_sample GSM1657939
+		lab_quake_cell 1772078236.C31
+
+		meta GSM1657940
+		cell_type neurons
+		ncbi_bio_sample SAMN03486271
+		seq_sample GSM1657940
+		geo_sample GSM1657940
+		lab_quake_cell 1772078236.C32
+
+		meta GSM1657941
+		cell_type neurons
+		ncbi_bio_sample SAMN03486272
+		seq_sample GSM1657941
+		geo_sample GSM1657941
+		lab_quake_cell 1772078236.C33
+
+		meta GSM1657942
+		cell_type neurons
+		ncbi_bio_sample SAMN03486273
+		seq_sample GSM1657942
+		geo_sample GSM1657942
+		lab_quake_cell 1772078236.C34
+
+		meta GSM1657943
+		cell_type neurons
+		ncbi_bio_sample SAMN03486274
+		seq_sample GSM1657943
+		geo_sample GSM1657943
+		lab_quake_cell 1772078236.C36
+
+		meta GSM1657944
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486275
+		seq_sample GSM1657944
+		geo_sample GSM1657944
+		lab_quake_cell 1772078236.C38
+
+		meta GSM1657945
+		cell_type neurons
+		ncbi_bio_sample SAMN03486276
+		seq_sample GSM1657945
+		geo_sample GSM1657945
+		lab_quake_cell 1772078236.C40
+
+		meta GSM1657946
+		cell_type neurons
+		ncbi_bio_sample SAMN03486277
+		seq_sample GSM1657946
+		geo_sample GSM1657946
+		lab_quake_cell 1772078236.C41
+
+		meta GSM1657947
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486278
+		seq_sample GSM1657947
+		geo_sample GSM1657947
+		lab_quake_cell 1772078236.C45
+
+		meta GSM1657948
+		cell_type neurons
+		ncbi_bio_sample SAMN03486279
+		seq_sample GSM1657948
+		geo_sample GSM1657948
+		lab_quake_cell 1772078236.C46
+
+		meta GSM1657949
+		cell_type neurons
+		ncbi_bio_sample SAMN03486280
+		seq_sample GSM1657949
+		geo_sample GSM1657949
+		lab_quake_cell 1772078236.C47
+
+		meta GSM1657950
+		cell_type neurons
+		ncbi_bio_sample SAMN03486281
+		seq_sample GSM1657950
+		geo_sample GSM1657950
+		lab_quake_cell 1772078236.C49
+
+		meta GSM1657951
+		cell_type neurons
+		ncbi_bio_sample SAMN03486282
+		seq_sample GSM1657951
+		geo_sample GSM1657951
+		lab_quake_cell 1772078236.C54
+
+		meta GSM1657952
+		cell_type neurons
+		ncbi_bio_sample SAMN03486283
+		seq_sample GSM1657952
+		geo_sample GSM1657952
+		lab_quake_cell 1772078236.C56
+
+		meta GSM1657953
+		cell_type neurons
+		ncbi_bio_sample SAMN03486284
+		seq_sample GSM1657953
+		geo_sample GSM1657953
+		lab_quake_cell 1772078236.C57
+
+		meta GSM1657954
+		cell_type neurons
+		ncbi_bio_sample SAMN03486285
+		seq_sample GSM1657954
+		geo_sample GSM1657954
+		lab_quake_cell 1772078236.C61
+
+		meta GSM1657955
+		cell_type neurons
+		ncbi_bio_sample SAMN03486286
+		seq_sample GSM1657955
+		geo_sample GSM1657955
+		lab_quake_cell 1772078236.C65
+
+		meta GSM1657956
+		cell_type neurons
+		ncbi_bio_sample SAMN03486287
+		seq_sample GSM1657956
+		geo_sample GSM1657956
+		lab_quake_cell 1772078236.C66
+
+		meta GSM1657957
+		cell_type neurons
+		ncbi_bio_sample SAMN03486288
+		seq_sample GSM1657957
+		geo_sample GSM1657957
+		lab_quake_cell 1772078236.C70
+
+		meta GSM1657958
+		cell_type neurons
+		ncbi_bio_sample SAMN03486289
+		seq_sample GSM1657958
+		geo_sample GSM1657958
+		lab_quake_cell 1772078236.C74
+
+		meta GSM1657959
+		cell_type neurons
+		ncbi_bio_sample SAMN03486290
+		seq_sample GSM1657959
+		geo_sample GSM1657959
+		lab_quake_cell 1772078236.C77
+
+		meta GSM1657960
+		cell_type neurons
+		ncbi_bio_sample SAMN03486291
+		seq_sample GSM1657960
+		geo_sample GSM1657960
+		lab_quake_cell 1772078236.C89
+
+		meta GSM1657961
+		cell_type neurons
+		ncbi_bio_sample SAMN03486292
+		seq_sample GSM1657961
+		geo_sample GSM1657961
+		lab_quake_cell 1772078236.C90
+
+		meta GSM1657962
+		cell_type neurons
+		ncbi_bio_sample SAMN03486293
+		seq_sample GSM1657962
+		geo_sample GSM1657962
+		lab_quake_cell 1772078236.C93
+
+	lab_quake_fluidics_chip 1772078237
+	GEO_Sample_age postnatal 37 years
+	age 37
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S11
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1657963
+		cell_type neurons
+		ncbi_bio_sample SAMN03486294
+		seq_sample GSM1657963
+		geo_sample GSM1657963
+		lab_quake_cell 1772078237.C06
+
+		meta GSM1657964
+		cell_type neurons
+		ncbi_bio_sample SAMN03486295
+		seq_sample GSM1657964
+		geo_sample GSM1657964
+		lab_quake_cell 1772078237.C08
+
+		meta GSM1657965
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486236
+		seq_sample GSM1657965
+		geo_sample GSM1657965
+		lab_quake_cell 1772078237.C11
+
+		meta GSM1657966
+		cell_type neurons
+		ncbi_bio_sample SAMN03486237
+		seq_sample GSM1657966
+		geo_sample GSM1657966
+		lab_quake_cell 1772078237.C13
+
+		meta GSM1657967
+		cell_type neurons
+		ncbi_bio_sample SAMN03486238
+		seq_sample GSM1657967
+		geo_sample GSM1657967
+		lab_quake_cell 1772078237.C14
+
+		meta GSM1657968
+		cell_type neurons
+		ncbi_bio_sample SAMN03486239
+		seq_sample GSM1657968
+		geo_sample GSM1657968
+		lab_quake_cell 1772078237.C15
+
+		meta GSM1657969
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486240
+		seq_sample GSM1657969
+		geo_sample GSM1657969
+		lab_quake_cell 1772078237.C19
+
+		meta GSM1657970
+		cell_type neurons
+		ncbi_bio_sample SAMN03486241
+		seq_sample GSM1657970
+		geo_sample GSM1657970
+		lab_quake_cell 1772078237.C21
+
+		meta GSM1657971
+		cell_type neurons
+		ncbi_bio_sample SAMN03486242
+		seq_sample GSM1657971
+		geo_sample GSM1657971
+		lab_quake_cell 1772078237.C26
+
+		meta GSM1657972
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486243
+		seq_sample GSM1657972
+		geo_sample GSM1657972
+		lab_quake_cell 1772078237.C28
+
+		meta GSM1657973
+		cell_type neurons
+		ncbi_bio_sample SAMN03486244
+		seq_sample GSM1657973
+		geo_sample GSM1657973
+		lab_quake_cell 1772078237.C29
+
+		meta GSM1657974
+		cell_type neurons
+		ncbi_bio_sample SAMN03486245
+		seq_sample GSM1657974
+		geo_sample GSM1657974
+		lab_quake_cell 1772078237.C31
+
+		meta GSM1657975
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486246
+		seq_sample GSM1657975
+		geo_sample GSM1657975
+		lab_quake_cell 1772078237.C40
+
+		meta GSM1657976
+		cell_type neurons
+		ncbi_bio_sample SAMN03486247
+		seq_sample GSM1657976
+		geo_sample GSM1657976
+		lab_quake_cell 1772078237.C42
+
+		meta GSM1657977
+		cell_type neurons
+		ncbi_bio_sample SAMN03486248
+		seq_sample GSM1657977
+		geo_sample GSM1657977
+		lab_quake_cell 1772078237.C44
+
+		meta GSM1657978
+		cell_type neurons
+		ncbi_bio_sample SAMN03486249
+		seq_sample GSM1657978
+		geo_sample GSM1657978
+		lab_quake_cell 1772078237.C47
+
+		meta GSM1657979
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486250
+		seq_sample GSM1657979
+		geo_sample GSM1657979
+		lab_quake_cell 1772078237.C49
+
+		meta GSM1657980
+		cell_type neurons
+		ncbi_bio_sample SAMN03486251
+		seq_sample GSM1657980
+		geo_sample GSM1657980
+		lab_quake_cell 1772078237.C52
+
+		meta GSM1657981
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486252
+		seq_sample GSM1657981
+		geo_sample GSM1657981
+		lab_quake_cell 1772078237.C55
+
+		meta GSM1657982
+		cell_type neurons
+		ncbi_bio_sample SAMN03486253
+		seq_sample GSM1657982
+		geo_sample GSM1657982
+		lab_quake_cell 1772078237.C56
+
+		meta GSM1657983
+		cell_type neurons
+		ncbi_bio_sample SAMN03486254
+		seq_sample GSM1657983
+		geo_sample GSM1657983
+		lab_quake_cell 1772078237.C58
+
+		meta GSM1657984
+		cell_type neurons
+		ncbi_bio_sample SAMN03486255
+		seq_sample GSM1657984
+		geo_sample GSM1657984
+		lab_quake_cell 1772078237.C60
+
+		meta GSM1657985
+		cell_type neurons
+		ncbi_bio_sample SAMN03486256
+		seq_sample GSM1657985
+		geo_sample GSM1657985
+		lab_quake_cell 1772078237.C61
+
+		meta GSM1657986
+		cell_type neurons
+		ncbi_bio_sample SAMN03486257
+		seq_sample GSM1657986
+		geo_sample GSM1657986
+		lab_quake_cell 1772078237.C62
+
+		meta GSM1657987
+		cell_type neurons
+		ncbi_bio_sample SAMN03486258
+		seq_sample GSM1657987
+		geo_sample GSM1657987
+		lab_quake_cell 1772078237.C74
+
+		meta GSM1657988
+		cell_type neurons
+		ncbi_bio_sample SAMN03486259
+		seq_sample GSM1657988
+		geo_sample GSM1657988
+		lab_quake_cell 1772078237.C79
+
+		meta GSM1657989
+		cell_type neurons
+		ncbi_bio_sample SAMN03486260
+		seq_sample GSM1657989
+		geo_sample GSM1657989
+		lab_quake_cell 1772078237.C83
+
+		meta GSM1657990
+		cell_type neurons
+		ncbi_bio_sample SAMN03486261
+		seq_sample GSM1657990
+		geo_sample GSM1657990
+		lab_quake_cell 1772078237.C84
+
+		meta GSM1657991
+		cell_type neurons
+		ncbi_bio_sample SAMN03486262
+		seq_sample GSM1657991
+		geo_sample GSM1657991
+		lab_quake_cell 1772078237.C92
+
+	lab_quake_fluidics_chip nochipID12
+	GEO_Sample_age postnatal 47 years
+	age 47
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL15520
+	donor AB_S1
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina MiSeq
+
+		meta GSM1657992
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486263
+		seq_sample GSM1657992
+		geo_sample GSM1657992
+		lab_quake_cell nochipID12.C05
+
+		meta GSM1657993
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486264
+		seq_sample GSM1657993
+		geo_sample GSM1657993
+		lab_quake_cell nochipID12.C23
+
+		meta GSM1657994
+		cell_type microglia
+		ncbi_bio_sample SAMN03486265
+		seq_sample GSM1657994
+		geo_sample GSM1657994
+		lab_quake_cell nochipID12.C73
+
+		meta GSM1657995
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486206
+		seq_sample GSM1657995
+		geo_sample GSM1657995
+		lab_quake_cell nochipID12.C84
+
+		meta GSM1657996
+		cell_type microglia
+		ncbi_bio_sample SAMN03486207
+		seq_sample GSM1657996
+		geo_sample GSM1657996
+		lab_quake_cell nochipID12.C87
+
+	lab_quake_fluidics_chip nochipID14
+	GEO_Sample_age postnatal 63 years
+	age 63
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL15520
+	donor AB_S2
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina MiSeq
+
+		meta GSM1657997
+		cell_type microglia
+		ncbi_bio_sample SAMN03486208
+		seq_sample GSM1657997
+		geo_sample GSM1657997
+		lab_quake_cell nochipID14.C08
+
+		meta GSM1657998
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486209
+		seq_sample GSM1657998
+		geo_sample GSM1657998
+		lab_quake_cell nochipID14.C13
+
+		meta GSM1657999
+		cell_type microglia
+		ncbi_bio_sample SAMN03486210
+		seq_sample GSM1657999
+		geo_sample GSM1657999
+		lab_quake_cell nochipID14.C29
+
+		meta GSM1658000
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486211
+		seq_sample GSM1658000
+		geo_sample GSM1658000
+		lab_quake_cell nochipID14.C45
+
+		meta GSM1658001
+		cell_type neurons
+		ncbi_bio_sample SAMN03486212
+		seq_sample GSM1658001
+		geo_sample GSM1658001
+		lab_quake_cell nochipID14.C89
+
+	lab_quake_fluidics_chip nochipID15
+	GEO_Sample_age postnatal 22 years
+	age 22
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL15520
+	donor AB_S3
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina MiSeq
+
+		meta GSM1658002
+		cell_type neurons
+		ncbi_bio_sample SAMN03486213
+		seq_sample GSM1658002
+		geo_sample GSM1658002
+		lab_quake_cell nochipID15.C20
+
+		meta GSM1658003
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486214
+		seq_sample GSM1658003
+		geo_sample GSM1658003
+		lab_quake_cell nochipID15.C54
+
+		meta GSM1658004
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486215
+		seq_sample GSM1658004
+		geo_sample GSM1658004
+		lab_quake_cell nochipID15.C69
+
+		meta GSM1658005
+		cell_type neurons
+		ncbi_bio_sample SAMN03486216
+		seq_sample GSM1658005
+		geo_sample GSM1658005
+		lab_quake_cell nochipID15.C86
+
+	lab_quake_fluidics_chip nochipID2
+	GEO_Sample_age postnatal 50 years
+	age 50
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S4
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1658006
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486217
+		seq_sample GSM1658006
+		geo_sample GSM1658006
+		lab_quake_cell nochipID2.C01
+
+		meta GSM1658007
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486218
+		seq_sample GSM1658007
+		geo_sample GSM1658007
+		lab_quake_cell nochipID2.C02
+
+		meta GSM1658008
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486219
+		seq_sample GSM1658008
+		geo_sample GSM1658008
+		lab_quake_cell nochipID2.C03
+
+		meta GSM1658009
+		cell_type neurons
+		ncbi_bio_sample SAMN03486220
+		seq_sample GSM1658009
+		geo_sample GSM1658009
+		lab_quake_cell nochipID2.C07
+
+		meta GSM1658010
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486221
+		seq_sample GSM1658010
+		geo_sample GSM1658010
+		lab_quake_cell nochipID2.C08
+
+		meta GSM1658011
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486222
+		seq_sample GSM1658011
+		geo_sample GSM1658011
+		lab_quake_cell nochipID2.C09
+
+		meta GSM1658012
+		cell_type neurons
+		ncbi_bio_sample SAMN03486223
+		seq_sample GSM1658012
+		geo_sample GSM1658012
+		lab_quake_cell nochipID2.C10
+
+		meta GSM1658013
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486224
+		seq_sample GSM1658013
+		geo_sample GSM1658013
+		lab_quake_cell nochipID2.C11
+
+		meta GSM1658014
+		cell_type neurons
+		ncbi_bio_sample SAMN03486225
+		seq_sample GSM1658014
+		geo_sample GSM1658014
+		lab_quake_cell nochipID2.C12
+
+		meta GSM1658015
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486226
+		seq_sample GSM1658015
+		geo_sample GSM1658015
+		lab_quake_cell nochipID2.C13
+
+		meta GSM1658016
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486227
+		seq_sample GSM1658016
+		geo_sample GSM1658016
+		lab_quake_cell nochipID2.C14
+
+		meta GSM1658017
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486228
+		seq_sample GSM1658017
+		geo_sample GSM1658017
+		lab_quake_cell nochipID2.C15
+
+		meta GSM1658018
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486229
+		seq_sample GSM1658018
+		geo_sample GSM1658018
+		lab_quake_cell nochipID2.C16
+
+		meta GSM1658019
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486230
+		seq_sample GSM1658019
+		geo_sample GSM1658019
+		lab_quake_cell nochipID2.C17
+
+		meta GSM1658020
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486231
+		seq_sample GSM1658020
+		geo_sample GSM1658020
+		lab_quake_cell nochipID2.C18
+
+		meta GSM1658021
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486232
+		seq_sample GSM1658021
+		geo_sample GSM1658021
+		lab_quake_cell nochipID2.C19
+
+		meta GSM1658022
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486233
+		seq_sample GSM1658022
+		geo_sample GSM1658022
+		lab_quake_cell nochipID2.C21
+
+		meta GSM1658023
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486234
+		seq_sample GSM1658023
+		geo_sample GSM1658023
+		lab_quake_cell nochipID2.C22
+
+		meta GSM1658024
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486235
+		seq_sample GSM1658024
+		geo_sample GSM1658024
+		lab_quake_cell nochipID2.C24
+
+		meta GSM1658025
+		cell_type neurons
+		ncbi_bio_sample SAMN03486176
+		seq_sample GSM1658025
+		geo_sample GSM1658025
+		lab_quake_cell nochipID2.C26
+
+		meta GSM1658026
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486177
+		seq_sample GSM1658026
+		geo_sample GSM1658026
+		lab_quake_cell nochipID2.C27
+
+		meta GSM1658027
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486178
+		seq_sample GSM1658027
+		geo_sample GSM1658027
+		lab_quake_cell nochipID2.C28
+
+		meta GSM1658028
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486179
+		seq_sample GSM1658028
+		geo_sample GSM1658028
+		lab_quake_cell nochipID2.C29
+
+		meta GSM1658029
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486180
+		seq_sample GSM1658029
+		geo_sample GSM1658029
+		lab_quake_cell nochipID2.C30
+
+		meta GSM1658030
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486181
+		seq_sample GSM1658030
+		geo_sample GSM1658030
+		lab_quake_cell nochipID2.C31
+
+		meta GSM1658031
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486182
+		seq_sample GSM1658031
+		geo_sample GSM1658031
+		lab_quake_cell nochipID2.C32
+
+		meta GSM1658032
+		cell_type neurons
+		ncbi_bio_sample SAMN03486183
+		seq_sample GSM1658032
+		geo_sample GSM1658032
+		lab_quake_cell nochipID2.C33
+
+		meta GSM1658033
+		cell_type neurons
+		ncbi_bio_sample SAMN03486184
+		seq_sample GSM1658033
+		geo_sample GSM1658033
+		lab_quake_cell nochipID2.C34
+
+		meta GSM1658034
+		cell_type neurons
+		ncbi_bio_sample SAMN03486185
+		seq_sample GSM1658034
+		geo_sample GSM1658034
+		lab_quake_cell nochipID2.C36
+
+		meta GSM1658035
+		cell_type neurons
+		ncbi_bio_sample SAMN03486186
+		seq_sample GSM1658035
+		geo_sample GSM1658035
+		lab_quake_cell nochipID2.C38
+
+		meta GSM1658036
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486187
+		seq_sample GSM1658036
+		geo_sample GSM1658036
+		lab_quake_cell nochipID2.C39
+
+		meta GSM1658037
+		cell_type neurons
+		ncbi_bio_sample SAMN03486188
+		seq_sample GSM1658037
+		geo_sample GSM1658037
+		lab_quake_cell nochipID2.C40
+
+		meta GSM1658038
+		cell_type neurons
+		ncbi_bio_sample SAMN03486189
+		seq_sample GSM1658038
+		geo_sample GSM1658038
+		lab_quake_cell nochipID2.C41
+
+		meta GSM1658039
+		cell_type neurons
+		ncbi_bio_sample SAMN03486190
+		seq_sample GSM1658039
+		geo_sample GSM1658039
+		lab_quake_cell nochipID2.C42
+
+		meta GSM1658040
+		cell_type neurons
+		ncbi_bio_sample SAMN03486191
+		seq_sample GSM1658040
+		geo_sample GSM1658040
+		lab_quake_cell nochipID2.C43
+
+		meta GSM1658041
+		cell_type neurons
+		ncbi_bio_sample SAMN03486192
+		seq_sample GSM1658041
+		geo_sample GSM1658041
+		lab_quake_cell nochipID2.C44
+
+		meta GSM1658042
+		cell_type neurons
+		ncbi_bio_sample SAMN03486193
+		seq_sample GSM1658042
+		geo_sample GSM1658042
+		lab_quake_cell nochipID2.C45
+
+		meta GSM1658043
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486194
+		seq_sample GSM1658043
+		geo_sample GSM1658043
+		lab_quake_cell nochipID2.C46
+
+		meta GSM1658044
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486195
+		seq_sample GSM1658044
+		geo_sample GSM1658044
+		lab_quake_cell nochipID2.C47
+
+		meta GSM1658045
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486196
+		seq_sample GSM1658045
+		geo_sample GSM1658045
+		lab_quake_cell nochipID2.C48
+
+		meta GSM1658046
+		cell_type neurons
+		ncbi_bio_sample SAMN03486197
+		seq_sample GSM1658046
+		geo_sample GSM1658046
+		lab_quake_cell nochipID2.C49
+
+		meta GSM1658047
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486198
+		seq_sample GSM1658047
+		geo_sample GSM1658047
+		lab_quake_cell nochipID2.C50
+
+		meta GSM1658048
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486199
+		seq_sample GSM1658048
+		geo_sample GSM1658048
+		lab_quake_cell nochipID2.C51
+
+		meta GSM1658049
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486200
+		seq_sample GSM1658049
+		geo_sample GSM1658049
+		lab_quake_cell nochipID2.C52
+
+		meta GSM1658050
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486201
+		seq_sample GSM1658050
+		geo_sample GSM1658050
+		lab_quake_cell nochipID2.C56
+
+		meta GSM1658051
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486202
+		seq_sample GSM1658051
+		geo_sample GSM1658051
+		lab_quake_cell nochipID2.C57
+
+		meta GSM1658052
+		cell_type neurons
+		ncbi_bio_sample SAMN03486203
+		seq_sample GSM1658052
+		geo_sample GSM1658052
+		lab_quake_cell nochipID2.C58
+
+		meta GSM1658053
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486204
+		seq_sample GSM1658053
+		geo_sample GSM1658053
+		lab_quake_cell nochipID2.C59
+
+		meta GSM1658054
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486205
+		seq_sample GSM1658054
+		geo_sample GSM1658054
+		lab_quake_cell nochipID2.C60
+
+		meta GSM1658055
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486146
+		seq_sample GSM1658055
+		geo_sample GSM1658055
+		lab_quake_cell nochipID2.C61
+
+		meta GSM1658056
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486147
+		seq_sample GSM1658056
+		geo_sample GSM1658056
+		lab_quake_cell nochipID2.C62
+
+		meta GSM1658057
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486148
+		seq_sample GSM1658057
+		geo_sample GSM1658057
+		lab_quake_cell nochipID2.C63
+
+		meta GSM1658058
+		cell_type neurons
+		ncbi_bio_sample SAMN03486149
+		seq_sample GSM1658058
+		geo_sample GSM1658058
+		lab_quake_cell nochipID2.C64
+
+		meta GSM1658059
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486150
+		seq_sample GSM1658059
+		geo_sample GSM1658059
+		lab_quake_cell nochipID2.C65
+
+		meta GSM1658060
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486151
+		seq_sample GSM1658060
+		geo_sample GSM1658060
+		lab_quake_cell nochipID2.C66
+
+		meta GSM1658061
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486152
+		seq_sample GSM1658061
+		geo_sample GSM1658061
+		lab_quake_cell nochipID2.C67
+
+		meta GSM1658062
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486153
+		seq_sample GSM1658062
+		geo_sample GSM1658062
+		lab_quake_cell nochipID2.C68
+
+		meta GSM1658063
+		cell_type neurons
+		ncbi_bio_sample SAMN03486154
+		seq_sample GSM1658063
+		geo_sample GSM1658063
+		lab_quake_cell nochipID2.C69
+
+		meta GSM1658064
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486155
+		seq_sample GSM1658064
+		geo_sample GSM1658064
+		lab_quake_cell nochipID2.C71
+
+		meta GSM1658065
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486156
+		seq_sample GSM1658065
+		geo_sample GSM1658065
+		lab_quake_cell nochipID2.C73
+
+		meta GSM1658066
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486157
+		seq_sample GSM1658066
+		geo_sample GSM1658066
+		lab_quake_cell nochipID2.C75
+
+		meta GSM1658067
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486158
+		seq_sample GSM1658067
+		geo_sample GSM1658067
+		lab_quake_cell nochipID2.C76
+
+		meta GSM1658068
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486159
+		seq_sample GSM1658068
+		geo_sample GSM1658068
+		lab_quake_cell nochipID2.C77
+
+		meta GSM1658069
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486160
+		seq_sample GSM1658069
+		geo_sample GSM1658069
+		lab_quake_cell nochipID2.C78
+
+		meta GSM1658070
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486161
+		seq_sample GSM1658070
+		geo_sample GSM1658070
+		lab_quake_cell nochipID2.C79
+
+		meta GSM1658071
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486162
+		seq_sample GSM1658071
+		geo_sample GSM1658071
+		lab_quake_cell nochipID2.C80
+
+		meta GSM1658072
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486163
+		seq_sample GSM1658072
+		geo_sample GSM1658072
+		lab_quake_cell nochipID2.C81
+
+		meta GSM1658073
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486164
+		seq_sample GSM1658073
+		geo_sample GSM1658073
+		lab_quake_cell nochipID2.C82
+
+		meta GSM1658074
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486165
+		seq_sample GSM1658074
+		geo_sample GSM1658074
+		lab_quake_cell nochipID2.C83
+
+		meta GSM1658075
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486168
+		seq_sample GSM1658075
+		geo_sample GSM1658075
+		lab_quake_cell nochipID2.C84
+
+		meta GSM1658076
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486169
+		seq_sample GSM1658076
+		geo_sample GSM1658076
+		lab_quake_cell nochipID2.C85
+
+		meta GSM1658077
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486170
+		seq_sample GSM1658077
+		geo_sample GSM1658077
+		lab_quake_cell nochipID2.C86
+
+		meta GSM1658078
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486171
+		seq_sample GSM1658078
+		geo_sample GSM1658078
+		lab_quake_cell nochipID2.C87
+
+		meta GSM1658079
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486172
+		seq_sample GSM1658079
+		geo_sample GSM1658079
+		lab_quake_cell nochipID2.C89
+
+		meta GSM1658080
+		cell_type neurons
+		ncbi_bio_sample SAMN03486173
+		seq_sample GSM1658080
+		geo_sample GSM1658080
+		lab_quake_cell nochipID2.C90
+
+		meta GSM1658081
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486166
+		seq_sample GSM1658081
+		geo_sample GSM1658081
+		lab_quake_cell nochipID2.C92
+
+		meta GSM1658082
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486167
+		seq_sample GSM1658082
+		geo_sample GSM1658082
+		lab_quake_cell nochipID2.C93
+
+	lab_quake_fluidics_chip nochipID3
+	GEO_Sample_age postnatal 63 years
+	age 63
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S5
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1658083
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486174
+		seq_sample GSM1658083
+		geo_sample GSM1658083
+		lab_quake_cell nochipID3.C01
+
+		meta GSM1658084
+		cell_type neurons
+		ncbi_bio_sample SAMN03486175
+		seq_sample GSM1658084
+		geo_sample GSM1658084
+		lab_quake_cell nochipID3.C05
+
+		meta GSM1658085
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486116
+		seq_sample GSM1658085
+		geo_sample GSM1658085
+		lab_quake_cell nochipID3.C06
+
+		meta GSM1658086
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486117
+		seq_sample GSM1658086
+		geo_sample GSM1658086
+		lab_quake_cell nochipID3.C07
+
+		meta GSM1658087
+		cell_type neurons
+		ncbi_bio_sample SAMN03486118
+		seq_sample GSM1658087
+		geo_sample GSM1658087
+		lab_quake_cell nochipID3.C09
+
+		meta GSM1658088
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486119
+		seq_sample GSM1658088
+		geo_sample GSM1658088
+		lab_quake_cell nochipID3.C11
+
+		meta GSM1658089
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486120
+		seq_sample GSM1658089
+		geo_sample GSM1658089
+		lab_quake_cell nochipID3.C12
+
+		meta GSM1658090
+		cell_type neurons
+		ncbi_bio_sample SAMN03486121
+		seq_sample GSM1658090
+		geo_sample GSM1658090
+		lab_quake_cell nochipID3.C14
+
+		meta GSM1658091
+		cell_type neurons
+		ncbi_bio_sample SAMN03486122
+		seq_sample GSM1658091
+		geo_sample GSM1658091
+		lab_quake_cell nochipID3.C23
+
+		meta GSM1658092
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486123
+		seq_sample GSM1658092
+		geo_sample GSM1658092
+		lab_quake_cell nochipID3.C25
+
+		meta GSM1658093
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486124
+		seq_sample GSM1658093
+		geo_sample GSM1658093
+		lab_quake_cell nochipID3.C32
+
+		meta GSM1658094
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486125
+		seq_sample GSM1658094
+		geo_sample GSM1658094
+		lab_quake_cell nochipID3.C37
+
+		meta GSM1658095
+		cell_type neurons
+		ncbi_bio_sample SAMN03486126
+		seq_sample GSM1658095
+		geo_sample GSM1658095
+		lab_quake_cell nochipID3.C38
+
+		meta GSM1658096
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486127
+		seq_sample GSM1658096
+		geo_sample GSM1658096
+		lab_quake_cell nochipID3.C51
+
+		meta GSM1658097
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486128
+		seq_sample GSM1658097
+		geo_sample GSM1658097
+		lab_quake_cell nochipID3.C52
+
+		meta GSM1658098
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486129
+		seq_sample GSM1658098
+		geo_sample GSM1658098
+		lab_quake_cell nochipID3.C53
+
+		meta GSM1658099
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486130
+		seq_sample GSM1658099
+		geo_sample GSM1658099
+		lab_quake_cell nochipID3.C54
+
+		meta GSM1658100
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486131
+		seq_sample GSM1658100
+		geo_sample GSM1658100
+		lab_quake_cell nochipID3.C56
+
+		meta GSM1658101
+		cell_type neurons
+		ncbi_bio_sample SAMN03486132
+		seq_sample GSM1658101
+		geo_sample GSM1658101
+		lab_quake_cell nochipID3.C61
+
+		meta GSM1658102
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486133
+		seq_sample GSM1658102
+		geo_sample GSM1658102
+		lab_quake_cell nochipID3.C62
+
+		meta GSM1658103
+		cell_type neurons
+		ncbi_bio_sample SAMN03486134
+		seq_sample GSM1658103
+		geo_sample GSM1658103
+		lab_quake_cell nochipID3.C65
+
+		meta GSM1658104
+		cell_type neurons
+		ncbi_bio_sample SAMN03486135
+		seq_sample GSM1658104
+		geo_sample GSM1658104
+		lab_quake_cell nochipID3.C69
+
+		meta GSM1658105
+		cell_type neurons
+		ncbi_bio_sample SAMN03486136
+		seq_sample GSM1658105
+		geo_sample GSM1658105
+		lab_quake_cell nochipID3.C71
+
+		meta GSM1658106
+		cell_type neurons
+		ncbi_bio_sample SAMN03486137
+		seq_sample GSM1658106
+		geo_sample GSM1658106
+		lab_quake_cell nochipID3.C72
+
+		meta GSM1658107
+		cell_type neurons
+		ncbi_bio_sample SAMN03486138
+		seq_sample GSM1658107
+		geo_sample GSM1658107
+		lab_quake_cell nochipID3.C74
+
+		meta GSM1658108
+		cell_type neurons
+		ncbi_bio_sample SAMN03486139
+		seq_sample GSM1658108
+		geo_sample GSM1658108
+		lab_quake_cell nochipID3.C75
+
+		meta GSM1658109
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486140
+		seq_sample GSM1658109
+		geo_sample GSM1658109
+		lab_quake_cell nochipID3.C76
+
+		meta GSM1658110
+		cell_type neurons
+		ncbi_bio_sample SAMN03486141
+		seq_sample GSM1658110
+		geo_sample GSM1658110
+		lab_quake_cell nochipID3.C80
+
+		meta GSM1658111
+		cell_type neurons
+		ncbi_bio_sample SAMN03486142
+		seq_sample GSM1658111
+		geo_sample GSM1658111
+		lab_quake_cell nochipID3.C81
+
+		meta GSM1658112
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486143
+		seq_sample GSM1658112
+		geo_sample GSM1658112
+		lab_quake_cell nochipID3.C84
+
+		meta GSM1658113
+		cell_type neurons
+		ncbi_bio_sample SAMN03486144
+		seq_sample GSM1658113
+		geo_sample GSM1658113
+		lab_quake_cell nochipID3.C85
+
+		meta GSM1658114
+		cell_type neurons
+		ncbi_bio_sample SAMN03486145
+		seq_sample GSM1658114
+		geo_sample GSM1658114
+		lab_quake_cell nochipID3.C86
+
+		meta GSM1658115
+		cell_type neurons
+		ncbi_bio_sample SAMN03486086
+		seq_sample GSM1658115
+		geo_sample GSM1658115
+		lab_quake_cell nochipID3.C91
+
+	lab_quake_fluidics_chip nochipID5
+	GEO_Sample_age postnatal 63 years
+	age 63
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S5
+	body_part hippocampus - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1658116
+		cell_type microglia
+		ncbi_bio_sample SAMN03486087
+		seq_sample GSM1658116
+		geo_sample GSM1658116
+		lab_quake_cell nochipID5.C04
+
+		meta GSM1658117
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486088
+		seq_sample GSM1658117
+		geo_sample GSM1658117
+		lab_quake_cell nochipID5.C05
+
+		meta GSM1658118
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486089
+		seq_sample GSM1658118
+		geo_sample GSM1658118
+		lab_quake_cell nochipID5.C18
+
+		meta GSM1658119
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486090
+		seq_sample GSM1658119
+		geo_sample GSM1658119
+		lab_quake_cell nochipID5.C19
+
+		meta GSM1658120
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486091
+		seq_sample GSM1658120
+		geo_sample GSM1658120
+		lab_quake_cell nochipID5.C42
+
+		meta GSM1658121
+		cell_type neurons
+		ncbi_bio_sample SAMN03486092
+		seq_sample GSM1658121
+		geo_sample GSM1658121
+		lab_quake_cell nochipID5.C44
+
+		meta GSM1658122
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486093
+		seq_sample GSM1658122
+		geo_sample GSM1658122
+		lab_quake_cell nochipID5.C45
+
+		meta GSM1658123
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486094
+		seq_sample GSM1658123
+		geo_sample GSM1658123
+		lab_quake_cell nochipID5.C54
+
+		meta GSM1658124
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486095
+		seq_sample GSM1658124
+		geo_sample GSM1658124
+		lab_quake_cell nochipID5.C65
+
+		meta GSM1658125
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486096
+		seq_sample GSM1658125
+		geo_sample GSM1658125
+		lab_quake_cell nochipID5.C72
+
+		meta GSM1658126
+		cell_type endothelial
+		ncbi_bio_sample SAMN03486097
+		seq_sample GSM1658126
+		geo_sample GSM1658126
+		lab_quake_cell nochipID5.C91
+
+	lab_quake_fluidics_chip nochipID8
+	GEO_Sample_age postnatal 21 years
+	age 21
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL18573
+	donor AB_S7
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina NextSeq 500
+
+		meta GSM1658127
+		cell_type neurons
+		ncbi_bio_sample SAMN03486098
+		seq_sample GSM1658127
+		geo_sample GSM1658127
+		lab_quake_cell nochipID8.C01
+
+		meta GSM1658128
+		cell_type neurons
+		ncbi_bio_sample SAMN03486099
+		seq_sample GSM1658128
+		geo_sample GSM1658128
+		lab_quake_cell nochipID8.C02
+
+		meta GSM1658129
+		cell_type neurons
+		ncbi_bio_sample SAMN03486100
+		seq_sample GSM1658129
+		geo_sample GSM1658129
+		lab_quake_cell nochipID8.C05
+
+		meta GSM1658130
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486101
+		seq_sample GSM1658130
+		geo_sample GSM1658130
+		lab_quake_cell nochipID8.C06
+
+		meta GSM1658131
+		cell_type neurons
+		ncbi_bio_sample SAMN03486102
+		seq_sample GSM1658131
+		geo_sample GSM1658131
+		lab_quake_cell nochipID8.C08
+
+		meta GSM1658132
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486103
+		seq_sample GSM1658132
+		geo_sample GSM1658132
+		lab_quake_cell nochipID8.C11
+
+		meta GSM1658133
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486104
+		seq_sample GSM1658133
+		geo_sample GSM1658133
+		lab_quake_cell nochipID8.C12
+
+		meta GSM1658134
+		cell_type neurons
+		ncbi_bio_sample SAMN03486105
+		seq_sample GSM1658134
+		geo_sample GSM1658134
+		lab_quake_cell nochipID8.C13
+
+		meta GSM1658135
+		cell_type neurons
+		ncbi_bio_sample SAMN03486106
+		seq_sample GSM1658135
+		geo_sample GSM1658135
+		lab_quake_cell nochipID8.C14
+
+		meta GSM1658136
+		cell_type neurons
+		ncbi_bio_sample SAMN03486107
+		seq_sample GSM1658136
+		geo_sample GSM1658136
+		lab_quake_cell nochipID8.C17
+
+		meta GSM1658137
+		cell_type neurons
+		ncbi_bio_sample SAMN03486108
+		seq_sample GSM1658137
+		geo_sample GSM1658137
+		lab_quake_cell nochipID8.C19
+
+		meta GSM1658138
+		cell_type neurons
+		ncbi_bio_sample SAMN03486109
+		seq_sample GSM1658138
+		geo_sample GSM1658138
+		lab_quake_cell nochipID8.C20
+
+		meta GSM1658139
+		cell_type neurons
+		ncbi_bio_sample SAMN03486110
+		seq_sample GSM1658139
+		geo_sample GSM1658139
+		lab_quake_cell nochipID8.C22
+
+		meta GSM1658140
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486111
+		seq_sample GSM1658140
+		geo_sample GSM1658140
+		lab_quake_cell nochipID8.C23
+
+		meta GSM1658141
+		cell_type neurons
+		ncbi_bio_sample SAMN03486112
+		seq_sample GSM1658141
+		geo_sample GSM1658141
+		lab_quake_cell nochipID8.C25
+
+		meta GSM1658142
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486113
+		seq_sample GSM1658142
+		geo_sample GSM1658142
+		lab_quake_cell nochipID8.C28
+
+		meta GSM1658143
+		cell_type neurons
+		ncbi_bio_sample SAMN03486114
+		seq_sample GSM1658143
+		geo_sample GSM1658143
+		lab_quake_cell nochipID8.C29
+
+		meta GSM1658144
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486115
+		seq_sample GSM1658144
+		geo_sample GSM1658144
+		lab_quake_cell nochipID8.C30
+
+		meta GSM1658145
+		cell_type neurons
+		ncbi_bio_sample SAMN03486056
+		seq_sample GSM1658145
+		geo_sample GSM1658145
+		lab_quake_cell nochipID8.C32
+
+		meta GSM1658146
+		cell_type neurons
+		ncbi_bio_sample SAMN03486057
+		seq_sample GSM1658146
+		geo_sample GSM1658146
+		lab_quake_cell nochipID8.C36
+
+		meta GSM1658147
+		cell_type neurons
+		ncbi_bio_sample SAMN03486058
+		seq_sample GSM1658147
+		geo_sample GSM1658147
+		lab_quake_cell nochipID8.C37
+
+		meta GSM1658148
+		cell_type neurons
+		ncbi_bio_sample SAMN03486059
+		seq_sample GSM1658148
+		geo_sample GSM1658148
+		lab_quake_cell nochipID8.C39
+
+		meta GSM1658149
+		cell_type neurons
+		ncbi_bio_sample SAMN03486060
+		seq_sample GSM1658149
+		geo_sample GSM1658149
+		lab_quake_cell nochipID8.C40
+
+		meta GSM1658150
+		cell_type neurons
+		ncbi_bio_sample SAMN03486061
+		seq_sample GSM1658150
+		geo_sample GSM1658150
+		lab_quake_cell nochipID8.C41
+
+		meta GSM1658151
+		cell_type neurons
+		ncbi_bio_sample SAMN03486062
+		seq_sample GSM1658151
+		geo_sample GSM1658151
+		lab_quake_cell nochipID8.C42
+
+		meta GSM1658152
+		cell_type neurons
+		ncbi_bio_sample SAMN03486063
+		seq_sample GSM1658152
+		geo_sample GSM1658152
+		lab_quake_cell nochipID8.C43
+
+		meta GSM1658153
+		cell_type neurons
+		ncbi_bio_sample SAMN03486064
+		seq_sample GSM1658153
+		geo_sample GSM1658153
+		lab_quake_cell nochipID8.C45
+
+		meta GSM1658154
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486065
+		seq_sample GSM1658154
+		geo_sample GSM1658154
+		lab_quake_cell nochipID8.C48
+
+		meta GSM1658155
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486066
+		seq_sample GSM1658155
+		geo_sample GSM1658155
+		lab_quake_cell nochipID8.C49
+
+		meta GSM1658156
+		cell_type neurons
+		ncbi_bio_sample SAMN03486067
+		seq_sample GSM1658156
+		geo_sample GSM1658156
+		lab_quake_cell nochipID8.C50
+
+		meta GSM1658157
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486068
+		seq_sample GSM1658157
+		geo_sample GSM1658157
+		lab_quake_cell nochipID8.C52
+
+		meta GSM1658158
+		cell_type neurons
+		ncbi_bio_sample SAMN03486069
+		seq_sample GSM1658158
+		geo_sample GSM1658158
+		lab_quake_cell nochipID8.C53
+
+		meta GSM1658159
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486070
+		seq_sample GSM1658159
+		geo_sample GSM1658159
+		lab_quake_cell nochipID8.C54
+
+		meta GSM1658160
+		cell_type neurons
+		ncbi_bio_sample SAMN03486071
+		seq_sample GSM1658160
+		geo_sample GSM1658160
+		lab_quake_cell nochipID8.C55
+
+		meta GSM1658161
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486072
+		seq_sample GSM1658161
+		geo_sample GSM1658161
+		lab_quake_cell nochipID8.C56
+
+		meta GSM1658162
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486073
+		seq_sample GSM1658162
+		geo_sample GSM1658162
+		lab_quake_cell nochipID8.C57
+
+		meta GSM1658163
+		cell_type neurons
+		ncbi_bio_sample SAMN03486074
+		seq_sample GSM1658163
+		geo_sample GSM1658163
+		lab_quake_cell nochipID8.C60
+
+		meta GSM1658164
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486075
+		seq_sample GSM1658164
+		geo_sample GSM1658164
+		lab_quake_cell nochipID8.C61
+
+		meta GSM1658165
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486076
+		seq_sample GSM1658165
+		geo_sample GSM1658165
+		lab_quake_cell nochipID8.C64
+
+		meta GSM1658166
+		cell_type neurons
+		ncbi_bio_sample SAMN03486077
+		seq_sample GSM1658166
+		geo_sample GSM1658166
+		lab_quake_cell nochipID8.C65
+
+		meta GSM1658167
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486078
+		seq_sample GSM1658167
+		geo_sample GSM1658167
+		lab_quake_cell nochipID8.C66
+
+		meta GSM1658168
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486085
+		seq_sample GSM1658168
+		geo_sample GSM1658168
+		lab_quake_cell nochipID8.C67
+
+		meta GSM1658169
+		cell_type neurons
+		ncbi_bio_sample SAMN03486026
+		seq_sample GSM1658169
+		geo_sample GSM1658169
+		lab_quake_cell nochipID8.C70
+
+		meta GSM1658170
+		cell_type neurons
+		ncbi_bio_sample SAMN03486027
+		seq_sample GSM1658170
+		geo_sample GSM1658170
+		lab_quake_cell nochipID8.C75
+
+		meta GSM1658171
+		cell_type neurons
+		ncbi_bio_sample SAMN03486079
+		seq_sample GSM1658171
+		geo_sample GSM1658171
+		lab_quake_cell nochipID8.C77
+
+		meta GSM1658172
+		cell_type neurons
+		ncbi_bio_sample SAMN03486080
+		seq_sample GSM1658172
+		geo_sample GSM1658172
+		lab_quake_cell nochipID8.C78
+
+		meta GSM1658173
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486081
+		seq_sample GSM1658173
+		geo_sample GSM1658173
+		lab_quake_cell nochipID8.C79
+
+		meta GSM1658174
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486082
+		seq_sample GSM1658174
+		geo_sample GSM1658174
+		lab_quake_cell nochipID8.C81
+
+		meta GSM1658175
+		cell_type neurons
+		ncbi_bio_sample SAMN03486083
+		seq_sample GSM1658175
+		geo_sample GSM1658175
+		lab_quake_cell nochipID8.C82
+
+		meta GSM1658176
+		cell_type neurons
+		ncbi_bio_sample SAMN03486084
+		seq_sample GSM1658176
+		geo_sample GSM1658176
+		lab_quake_cell nochipID8.C84
+
+		meta GSM1658177
+		cell_type neurons
+		ncbi_bio_sample SAMN03486028
+		seq_sample GSM1658177
+		geo_sample GSM1658177
+		lab_quake_cell nochipID8.C85
+
+		meta GSM1658178
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486029
+		seq_sample GSM1658178
+		geo_sample GSM1658178
+		lab_quake_cell nochipID8.C87
+
+		meta GSM1658179
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486030
+		seq_sample GSM1658179
+		geo_sample GSM1658179
+		lab_quake_cell nochipID8.C88
+
+		meta GSM1658180
+		cell_type oligodendrocytes
+		ncbi_bio_sample SAMN03486031
+		seq_sample GSM1658180
+		geo_sample GSM1658180
+		lab_quake_cell nochipID8.C90
+
+		meta GSM1658181
+		cell_type neurons
+		ncbi_bio_sample SAMN03486032
+		seq_sample GSM1658181
+		geo_sample GSM1658181
+		lab_quake_cell nochipID8.C92
+
+		meta GSM1658182
+		cell_type neurons
+		ncbi_bio_sample SAMN03486033
+		seq_sample GSM1658182
+		geo_sample GSM1658182
+		lab_quake_cell nochipID8.C95
+
+		meta GSM1658183
+		cell_type hybrid
+		ncbi_bio_sample SAMN03486034
+		seq_sample GSM1658183
+		geo_sample GSM1658183
+		lab_quake_cell nochipID8.C96
+
+	lab_quake_fluidics_chip nochipID9
+	GEO_Sample_age postnatal 47 years
+	age 47
+	age_unit year
+	life_stage postpartum
+	GEO_Sample_platform_id GPL15520
+	donor AB_S1
+	body_part temporal lobe cortex - healthy tissue from epileptic patient
+	sequencer Illumina MiSeq
+
+		meta GSM1658184
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486035
+		seq_sample GSM1658184
+		geo_sample GSM1658184
+		lab_quake_cell nochipID9.C01
+
+		meta GSM1658185
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486036
+		seq_sample GSM1658185
+		geo_sample GSM1658185
+		lab_quake_cell nochipID9.C02
+
+		meta GSM1658186
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486037
+		seq_sample GSM1658186
+		geo_sample GSM1658186
+		lab_quake_cell nochipID9.C04
+
+		meta GSM1658187
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486038
+		seq_sample GSM1658187
+		geo_sample GSM1658187
+		lab_quake_cell nochipID9.C09
+
+		meta GSM1658188
+		cell_type microglia
+		ncbi_bio_sample SAMN03486039
+		seq_sample GSM1658188
+		geo_sample GSM1658188
+		lab_quake_cell nochipID9.C14
+
+		meta GSM1658189
+		cell_type microglia
+		ncbi_bio_sample SAMN03486040
+		seq_sample GSM1658189
+		geo_sample GSM1658189
+		lab_quake_cell nochipID9.C18
+
+		meta GSM1658190
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486041
+		seq_sample GSM1658190
+		geo_sample GSM1658190
+		lab_quake_cell nochipID9.C26
+
+		meta GSM1658191
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486042
+		seq_sample GSM1658191
+		geo_sample GSM1658191
+		lab_quake_cell nochipID9.C37
+
+		meta GSM1658192
+		cell_type neurons
+		ncbi_bio_sample SAMN03486043
+		seq_sample GSM1658192
+		geo_sample GSM1658192
+		lab_quake_cell nochipID9.C42
+
+		meta GSM1658193
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486045
+		seq_sample GSM1658193
+		geo_sample GSM1658193
+		lab_quake_cell nochipID9.C57
+
+		meta GSM1658194
+		cell_type neurons
+		ncbi_bio_sample SAMN03486046
+		seq_sample GSM1658194
+		geo_sample GSM1658194
+		lab_quake_cell nochipID9.C59
+
+		meta GSM1658195
+		cell_type neurons
+		ncbi_bio_sample SAMN03486047
+		seq_sample GSM1658195
+		geo_sample GSM1658195
+		lab_quake_cell nochipID9.C62
+
+		meta GSM1658196
+		cell_type microglia
+		ncbi_bio_sample SAMN03486048
+		seq_sample GSM1658196
+		geo_sample GSM1658196
+		lab_quake_cell nochipID9.C65
+
+		meta GSM1658197
+		cell_type neurons
+		ncbi_bio_sample SAMN03486049
+		seq_sample GSM1658197
+		geo_sample GSM1658197
+		lab_quake_cell nochipID9.C74
+
+		meta GSM1658198
+		cell_type neurons
+		ncbi_bio_sample SAMN03486050
+		seq_sample GSM1658198
+		geo_sample GSM1658198
+		lab_quake_cell nochipID9.C75
+
+		meta GSM1658199
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486051
+		seq_sample GSM1658199
+		geo_sample GSM1658199
+		lab_quake_cell nochipID9.C84
+
+		meta GSM1658200
+		cell_type neurons
+		ncbi_bio_sample SAMN03486052
+		seq_sample GSM1658200
+		geo_sample GSM1658200
+		lab_quake_cell nochipID9.C85
+
+		meta GSM1658201
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486044
+		seq_sample GSM1658201
+		geo_sample GSM1658201
+		lab_quake_cell nochipID9.C87
+
+		meta GSM1658202
+		cell_type astrocytes
+		ncbi_bio_sample SAMN03486053
+		seq_sample GSM1658202
+		geo_sample GSM1658202
+		lab_quake_cell nochipID9.C92
+
+	lab_quake_fluidics_chip nochipID10
+	GEO_Sample_age prenatal 16-18 W
+	age 17
+	age_unit week
+	life_stage embryo
+	GEO_Sample_platform_id GPL15520
+	donor FB_S1
+	body_part fetal brain cortex
+	sequencer Illumina MiSeq
+
+		meta GSM1658203
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486054
+		seq_sample GSM1658203
+		geo_sample GSM1658203
+		lab_quake_cell nochipID10.C02
+
+		meta GSM1658204
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486055
+		seq_sample GSM1658204
+		geo_sample GSM1658204
+		lab_quake_cell nochipID10.C03
+
+		meta GSM1658205
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485996
+		seq_sample GSM1658205
+		geo_sample GSM1658205
+		lab_quake_cell nochipID10.C05
+
+		meta GSM1658206
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485997
+		seq_sample GSM1658206
+		geo_sample GSM1658206
+		lab_quake_cell nochipID10.C07
+
+		meta GSM1658207
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485998
+		seq_sample GSM1658207
+		geo_sample GSM1658207
+		lab_quake_cell nochipID10.C11
+
+		meta GSM1658208
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485999
+		seq_sample GSM1658208
+		geo_sample GSM1658208
+		lab_quake_cell nochipID10.C16
+
+		meta GSM1658209
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486000
+		seq_sample GSM1658209
+		geo_sample GSM1658209
+		lab_quake_cell nochipID10.C17
+
+		meta GSM1658210
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486001
+		seq_sample GSM1658210
+		geo_sample GSM1658210
+		lab_quake_cell nochipID10.C19
+
+		meta GSM1658211
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486002
+		seq_sample GSM1658211
+		geo_sample GSM1658211
+		lab_quake_cell nochipID10.C25
+
+		meta GSM1658212
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486003
+		seq_sample GSM1658212
+		geo_sample GSM1658212
+		lab_quake_cell nochipID10.C26
+
+		meta GSM1658213
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486004
+		seq_sample GSM1658213
+		geo_sample GSM1658213
+		lab_quake_cell nochipID10.C37
+
+		meta GSM1658214
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486005
+		seq_sample GSM1658214
+		geo_sample GSM1658214
+		lab_quake_cell nochipID10.C39
+
+		meta GSM1658215
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486006
+		seq_sample GSM1658215
+		geo_sample GSM1658215
+		lab_quake_cell nochipID10.C42
+
+		meta GSM1658216
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486007
+		seq_sample GSM1658216
+		geo_sample GSM1658216
+		lab_quake_cell nochipID10.C44
+
+		meta GSM1658217
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486008
+		seq_sample GSM1658217
+		geo_sample GSM1658217
+		lab_quake_cell nochipID10.C47
+
+		meta GSM1658218
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486009
+		seq_sample GSM1658218
+		geo_sample GSM1658218
+		lab_quake_cell nochipID10.C49
+
+		meta GSM1658219
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486010
+		seq_sample GSM1658219
+		geo_sample GSM1658219
+		lab_quake_cell nochipID10.C50
+
+		meta GSM1658220
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486011
+		seq_sample GSM1658220
+		geo_sample GSM1658220
+		lab_quake_cell nochipID10.C53
+
+		meta GSM1658221
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486012
+		seq_sample GSM1658221
+		geo_sample GSM1658221
+		lab_quake_cell nochipID10.C58
+
+		meta GSM1658222
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486013
+		seq_sample GSM1658222
+		geo_sample GSM1658222
+		lab_quake_cell nochipID10.C65
+
+		meta GSM1658223
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486014
+		seq_sample GSM1658223
+		geo_sample GSM1658223
+		lab_quake_cell nochipID10.C74
+
+		meta GSM1658224
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486015
+		seq_sample GSM1658224
+		geo_sample GSM1658224
+		lab_quake_cell nochipID10.C75
+
+		meta GSM1658225
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486016
+		seq_sample GSM1658225
+		geo_sample GSM1658225
+		lab_quake_cell nochipID10.C85
+
+		meta GSM1658226
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486017
+		seq_sample GSM1658226
+		geo_sample GSM1658226
+		lab_quake_cell nochipID10.C88
+
+		meta GSM1658227
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486018
+		seq_sample GSM1658227
+		geo_sample GSM1658227
+		lab_quake_cell nochipID10.C93
+
+		meta GSM1658228
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03486019
+		seq_sample GSM1658228
+		geo_sample GSM1658228
+		lab_quake_cell nochipID10.C94
+
+	lab_quake_fluidics_chip nochipID11
+	GEO_Sample_age prenatal 16-18 W
+	age 17
+	age_unit week
+	life_stage embryo
+	GEO_Sample_platform_id GPL15520
+	donor FB_S2
+	body_part fetal brain cortex
+	sequencer Illumina MiSeq
+
+		meta GSM1658229
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485967
+		seq_sample GSM1658229
+		geo_sample GSM1658229
+		lab_quake_cell nochipID11.C02
+
+		meta GSM1658230
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485968
+		seq_sample GSM1658230
+		geo_sample GSM1658230
+		lab_quake_cell nochipID11.C03
+
+		meta GSM1658231
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486020
+		seq_sample GSM1658231
+		geo_sample GSM1658231
+		lab_quake_cell nochipID11.C06
+
+		meta GSM1658232
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486021
+		seq_sample GSM1658232
+		geo_sample GSM1658232
+		lab_quake_cell nochipID11.C07
+
+		meta GSM1658233
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486022
+		seq_sample GSM1658233
+		geo_sample GSM1658233
+		lab_quake_cell nochipID11.C08
+
+		meta GSM1658234
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486023
+		seq_sample GSM1658234
+		geo_sample GSM1658234
+		lab_quake_cell nochipID11.C10
+
+		meta GSM1658235
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486024
+		seq_sample GSM1658235
+		geo_sample GSM1658235
+		lab_quake_cell nochipID11.C15
+
+		meta GSM1658236
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03486025
+		seq_sample GSM1658236
+		geo_sample GSM1658236
+		lab_quake_cell nochipID11.C17
+
+		meta GSM1658237
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485966
+		seq_sample GSM1658237
+		geo_sample GSM1658237
+		lab_quake_cell nochipID11.C19
+
+		meta GSM1658238
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485969
+		seq_sample GSM1658238
+		geo_sample GSM1658238
+		lab_quake_cell nochipID11.C20
+
+		meta GSM1658239
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485970
+		seq_sample GSM1658239
+		geo_sample GSM1658239
+		lab_quake_cell nochipID11.C21
+
+		meta GSM1658240
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485971
+		seq_sample GSM1658240
+		geo_sample GSM1658240
+		lab_quake_cell nochipID11.C22
+
+		meta GSM1658241
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485972
+		seq_sample GSM1658241
+		geo_sample GSM1658241
+		lab_quake_cell nochipID11.C23
+
+		meta GSM1658242
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485973
+		seq_sample GSM1658242
+		geo_sample GSM1658242
+		lab_quake_cell nochipID11.C25
+
+		meta GSM1658243
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485974
+		seq_sample GSM1658243
+		geo_sample GSM1658243
+		lab_quake_cell nochipID11.C30
+
+		meta GSM1658244
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485975
+		seq_sample GSM1658244
+		geo_sample GSM1658244
+		lab_quake_cell nochipID11.C37
+
+		meta GSM1658245
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485976
+		seq_sample GSM1658245
+		geo_sample GSM1658245
+		lab_quake_cell nochipID11.C48
+
+		meta GSM1658246
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485977
+		seq_sample GSM1658246
+		geo_sample GSM1658246
+		lab_quake_cell nochipID11.C49
+
+		meta GSM1658247
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485978
+		seq_sample GSM1658247
+		geo_sample GSM1658247
+		lab_quake_cell nochipID11.C50
+
+		meta GSM1658248
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485979
+		seq_sample GSM1658248
+		geo_sample GSM1658248
+		lab_quake_cell nochipID11.C53
+
+		meta GSM1658249
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485980
+		seq_sample GSM1658249
+		geo_sample GSM1658249
+		lab_quake_cell nochipID11.C54
+
+		meta GSM1658251
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485981
+		seq_sample GSM1658251
+		geo_sample GSM1658251
+		lab_quake_cell nochipID11.C55
+
+		meta GSM1658253
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485982
+		seq_sample GSM1658253
+		geo_sample GSM1658253
+		lab_quake_cell nochipID11.C56
+
+		meta GSM1658255
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485983
+		seq_sample GSM1658255
+		geo_sample GSM1658255
+		lab_quake_cell nochipID11.C57
+
+		meta GSM1658257
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485984
+		seq_sample GSM1658257
+		geo_sample GSM1658257
+		lab_quake_cell nochipID11.C58
+
+		meta GSM1658259
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485985
+		seq_sample GSM1658259
+		geo_sample GSM1658259
+		lab_quake_cell nochipID11.C59
+
+		meta GSM1658262
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485986
+		seq_sample GSM1658262
+		geo_sample GSM1658262
+		lab_quake_cell nochipID11.C60
+
+		meta GSM1658264
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485987
+		seq_sample GSM1658264
+		geo_sample GSM1658264
+		lab_quake_cell nochipID11.C61
+
+		meta GSM1658266
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485988
+		seq_sample GSM1658266
+		geo_sample GSM1658266
+		lab_quake_cell nochipID11.C62
+
+		meta GSM1658268
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485989
+		seq_sample GSM1658268
+		geo_sample GSM1658268
+		lab_quake_cell nochipID11.C63
+
+		meta GSM1658270
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485990
+		seq_sample GSM1658270
+		geo_sample GSM1658270
+		lab_quake_cell nochipID11.C64
+
+		meta GSM1658272
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485991
+		seq_sample GSM1658272
+		geo_sample GSM1658272
+		lab_quake_cell nochipID11.C66
+
+		meta GSM1658275
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485992
+		seq_sample GSM1658275
+		geo_sample GSM1658275
+		lab_quake_cell nochipID11.C68
+
+		meta GSM1658277
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485993
+		seq_sample GSM1658277
+		geo_sample GSM1658277
+		lab_quake_cell nochipID11.C69
+
+		meta GSM1658279
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485994
+		seq_sample GSM1658279
+		geo_sample GSM1658279
+		lab_quake_cell nochipID11.C75
+
+		meta GSM1658281
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485995
+		seq_sample GSM1658281
+		geo_sample GSM1658281
+		lab_quake_cell nochipID11.C76
+
+		meta GSM1658284
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485936
+		seq_sample GSM1658284
+		geo_sample GSM1658284
+		lab_quake_cell nochipID11.C77
+
+		meta GSM1658286
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485937
+		seq_sample GSM1658286
+		geo_sample GSM1658286
+		lab_quake_cell nochipID11.C78
+
+		meta GSM1658288
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485938
+		seq_sample GSM1658288
+		geo_sample GSM1658288
+		lab_quake_cell nochipID11.C79
+
+		meta GSM1658290
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485939
+		seq_sample GSM1658290
+		geo_sample GSM1658290
+		lab_quake_cell nochipID11.C81
+
+		meta GSM1658292
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485940
+		seq_sample GSM1658292
+		geo_sample GSM1658292
+		lab_quake_cell nochipID11.C82
+
+		meta GSM1658294
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485941
+		seq_sample GSM1658294
+		geo_sample GSM1658294
+		lab_quake_cell nochipID11.C83
+
+		meta GSM1658297
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485942
+		seq_sample GSM1658297
+		geo_sample GSM1658297
+		lab_quake_cell nochipID11.C84
+
+		meta GSM1658299
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485943
+		seq_sample GSM1658299
+		geo_sample GSM1658299
+		lab_quake_cell nochipID11.C86
+
+		meta GSM1658301
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485944
+		seq_sample GSM1658301
+		geo_sample GSM1658301
+		lab_quake_cell nochipID11.C91
+
+		meta GSM1658304
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485945
+		seq_sample GSM1658304
+		geo_sample GSM1658304
+		lab_quake_cell nochipID11.C93
+
+	lab_quake_fluidics_chip nochipID13
+	GEO_Sample_age prenatal 16-18 W
+	age 17
+	age_unit week
+	life_stage embryo
+	GEO_Sample_platform_id GPL15520
+	donor FB_S3
+	body_part fetal brain cortex
+	cell_type nonreplicating fetal neuron
+	sequencer Illumina MiSeq
+
+		meta GSM1658305
+		ncbi_bio_sample SAMN03485946
+		seq_sample GSM1658305
+		geo_sample GSM1658305
+		lab_quake_cell nochipID13.C07
+
+		meta GSM1658306
+		ncbi_bio_sample SAMN03485947
+		seq_sample GSM1658306
+		geo_sample GSM1658306
+		lab_quake_cell nochipID13.C11
+
+		meta GSM1658307
+		ncbi_bio_sample SAMN03485948
+		seq_sample GSM1658307
+		geo_sample GSM1658307
+		lab_quake_cell nochipID13.C12
+
+		meta GSM1658308
+		ncbi_bio_sample SAMN03485949
+		seq_sample GSM1658308
+		geo_sample GSM1658308
+		lab_quake_cell nochipID13.C14
+
+		meta GSM1658309
+		ncbi_bio_sample SAMN03485950
+		seq_sample GSM1658309
+		geo_sample GSM1658309
+		lab_quake_cell nochipID13.C15
+
+		meta GSM1658310
+		ncbi_bio_sample SAMN03485951
+		seq_sample GSM1658310
+		geo_sample GSM1658310
+		lab_quake_cell nochipID13.C17
+
+		meta GSM1658311
+		ncbi_bio_sample SAMN03485952
+		seq_sample GSM1658311
+		geo_sample GSM1658311
+		lab_quake_cell nochipID13.C21
+
+		meta GSM1658312
+		ncbi_bio_sample SAMN03485953
+		seq_sample GSM1658312
+		geo_sample GSM1658312
+		lab_quake_cell nochipID13.C25
+
+		meta GSM1658313
+		ncbi_bio_sample SAMN03485954
+		seq_sample GSM1658313
+		geo_sample GSM1658313
+		lab_quake_cell nochipID13.C28
+
+		meta GSM1658314
+		ncbi_bio_sample SAMN03485955
+		seq_sample GSM1658314
+		geo_sample GSM1658314
+		lab_quake_cell nochipID13.C32
+
+		meta GSM1658315
+		ncbi_bio_sample SAMN03485956
+		seq_sample GSM1658315
+		geo_sample GSM1658315
+		lab_quake_cell nochipID13.C36
+
+		meta GSM1658316
+		ncbi_bio_sample SAMN03485957
+		seq_sample GSM1658316
+		geo_sample GSM1658316
+		lab_quake_cell nochipID13.C45
+
+		meta GSM1658317
+		ncbi_bio_sample SAMN03485958
+		seq_sample GSM1658317
+		geo_sample GSM1658317
+		lab_quake_cell nochipID13.C46
+
+		meta GSM1658318
+		ncbi_bio_sample SAMN03485959
+		seq_sample GSM1658318
+		geo_sample GSM1658318
+		lab_quake_cell nochipID13.C48
+
+		meta GSM1658319
+		ncbi_bio_sample SAMN03485960
+		seq_sample GSM1658319
+		geo_sample GSM1658319
+		lab_quake_cell nochipID13.C50
+
+		meta GSM1658320
+		ncbi_bio_sample SAMN03485961
+		seq_sample GSM1658320
+		geo_sample GSM1658320
+		lab_quake_cell nochipID13.C55
+
+		meta GSM1658321
+		ncbi_bio_sample SAMN03485962
+		seq_sample GSM1658321
+		geo_sample GSM1658321
+		lab_quake_cell nochipID13.C57
+
+		meta GSM1658322
+		ncbi_bio_sample SAMN03485963
+		seq_sample GSM1658322
+		geo_sample GSM1658322
+		lab_quake_cell nochipID13.C58
+
+		meta GSM1658323
+		ncbi_bio_sample SAMN03485964
+		seq_sample GSM1658323
+		geo_sample GSM1658323
+		lab_quake_cell nochipID13.C59
+
+		meta GSM1658324
+		ncbi_bio_sample SAMN03485965
+		seq_sample GSM1658324
+		geo_sample GSM1658324
+		lab_quake_cell nochipID13.C61
+
+		meta GSM1658325
+		ncbi_bio_sample SAMN03485906
+		seq_sample GSM1658325
+		geo_sample GSM1658325
+		lab_quake_cell nochipID13.C63
+
+		meta GSM1658326
+		ncbi_bio_sample SAMN03485907
+		seq_sample GSM1658326
+		geo_sample GSM1658326
+		lab_quake_cell nochipID13.C64
+
+		meta GSM1658327
+		ncbi_bio_sample SAMN03485908
+		seq_sample GSM1658327
+		geo_sample GSM1658327
+		lab_quake_cell nochipID13.C66
+
+		meta GSM1658328
+		ncbi_bio_sample SAMN03485909
+		seq_sample GSM1658328
+		geo_sample GSM1658328
+		lab_quake_cell nochipID13.C67
+
+		meta GSM1658329
+		ncbi_bio_sample SAMN03485910
+		seq_sample GSM1658329
+		geo_sample GSM1658329
+		lab_quake_cell nochipID13.C68
+
+		meta GSM1658330
+		ncbi_bio_sample SAMN03485911
+		seq_sample GSM1658330
+		geo_sample GSM1658330
+		lab_quake_cell nochipID13.C72
+
+		meta GSM1658331
+		ncbi_bio_sample SAMN03485912
+		seq_sample GSM1658331
+		geo_sample GSM1658331
+		lab_quake_cell nochipID13.C73
+
+		meta GSM1658332
+		ncbi_bio_sample SAMN03485913
+		seq_sample GSM1658332
+		geo_sample GSM1658332
+		lab_quake_cell nochipID13.C74
+
+		meta GSM1658333
+		ncbi_bio_sample SAMN03485914
+		seq_sample GSM1658333
+		geo_sample GSM1658333
+		lab_quake_cell nochipID13.C75
+
+		meta GSM1658334
+		ncbi_bio_sample SAMN03485915
+		seq_sample GSM1658334
+		geo_sample GSM1658334
+		lab_quake_cell nochipID13.C80
+
+		meta GSM1658335
+		ncbi_bio_sample SAMN03485916
+		seq_sample GSM1658335
+		geo_sample GSM1658335
+		lab_quake_cell nochipID13.C84
+
+		meta GSM1658336
+		ncbi_bio_sample SAMN03485917
+		seq_sample GSM1658336
+		geo_sample GSM1658336
+		lab_quake_cell nochipID13.C87
+
+		meta GSM1658337
+		ncbi_bio_sample SAMN03485918
+		seq_sample GSM1658337
+		geo_sample GSM1658337
+		lab_quake_cell nochipID13.C93
+
+	lab_quake_fluidics_chip nochipID4
+	GEO_Sample_age prenatal 16-18 W
+	age 17
+	age_unit week
+	life_stage embryo
+	GEO_Sample_platform_id GPL18573
+	donor FB_S6
+	body_part fetal brain cortex
+	sequencer Illumina NextSeq 500
+
+		meta GSM1658338
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485919
+		seq_sample GSM1658338
+		geo_sample GSM1658338
+		lab_quake_cell nochipID4.C03
+
+		meta GSM1658339
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485920
+		seq_sample GSM1658339
+		geo_sample GSM1658339
+		lab_quake_cell nochipID4.C04
+
+		meta GSM1658340
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485921
+		seq_sample GSM1658340
+		geo_sample GSM1658340
+		lab_quake_cell nochipID4.C10
+
+		meta GSM1658341
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485922
+		seq_sample GSM1658341
+		geo_sample GSM1658341
+		lab_quake_cell nochipID4.C14
+
+		meta GSM1658342
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485923
+		seq_sample GSM1658342
+		geo_sample GSM1658342
+		lab_quake_cell nochipID4.C18
+
+		meta GSM1658343
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485924
+		seq_sample GSM1658343
+		geo_sample GSM1658343
+		lab_quake_cell nochipID4.C19
+
+		meta GSM1658344
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485925
+		seq_sample GSM1658344
+		geo_sample GSM1658344
+		lab_quake_cell nochipID4.C20
+
+		meta GSM1658345
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485929
+		seq_sample GSM1658345
+		geo_sample GSM1658345
+		lab_quake_cell nochipID4.C21
+
+		meta GSM1658346
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485930
+		seq_sample GSM1658346
+		geo_sample GSM1658346
+		lab_quake_cell nochipID4.C33
+
+		meta GSM1658347
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485931
+		seq_sample GSM1658347
+		geo_sample GSM1658347
+		lab_quake_cell nochipID4.C34
+
+		meta GSM1658348
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485932
+		seq_sample GSM1658348
+		geo_sample GSM1658348
+		lab_quake_cell nochipID4.C38
+
+		meta GSM1658349
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485933
+		seq_sample GSM1658349
+		geo_sample GSM1658349
+		lab_quake_cell nochipID4.C39
+
+		meta GSM1658350
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485934
+		seq_sample GSM1658350
+		geo_sample GSM1658350
+		lab_quake_cell nochipID4.C41
+
+		meta GSM1658351
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485926
+		seq_sample GSM1658351
+		geo_sample GSM1658351
+		lab_quake_cell nochipID4.C42
+
+		meta GSM1658352
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485927
+		seq_sample GSM1658352
+		geo_sample GSM1658352
+		lab_quake_cell nochipID4.C44
+
+		meta GSM1658353
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485928
+		seq_sample GSM1658353
+		geo_sample GSM1658353
+		lab_quake_cell nochipID4.C49
+
+		meta GSM1658354
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485935
+		seq_sample GSM1658354
+		geo_sample GSM1658354
+		lab_quake_cell nochipID4.C52
+
+		meta GSM1658355
+		cell_type replicating fetal neuron
+		ncbi_bio_sample SAMN03485894
+		seq_sample GSM1658355
+		geo_sample GSM1658355
+		lab_quake_cell nochipID4.C53
+
+		meta GSM1658356
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485895
+		seq_sample GSM1658356
+		geo_sample GSM1658356
+		lab_quake_cell nochipID4.C59
+
+		meta GSM1658357
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485896
+		seq_sample GSM1658357
+		geo_sample GSM1658357
+		lab_quake_cell nochipID4.C62
+
+		meta GSM1658358
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485897
+		seq_sample GSM1658358
+		geo_sample GSM1658358
+		lab_quake_cell nochipID4.C63
+
+		meta GSM1658359
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485898
+		seq_sample GSM1658359
+		geo_sample GSM1658359
+		lab_quake_cell nochipID4.C66
+
+		meta GSM1658360
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485899
+		seq_sample GSM1658360
+		geo_sample GSM1658360
+		lab_quake_cell nochipID4.C74
+
+		meta GSM1658361
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485900
+		seq_sample GSM1658361
+		geo_sample GSM1658361
+		lab_quake_cell nochipID4.C77
+
+		meta GSM1658362
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485901
+		seq_sample GSM1658362
+		geo_sample GSM1658362
+		lab_quake_cell nochipID4.C78
+
+		meta GSM1658363
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485902
+		seq_sample GSM1658363
+		geo_sample GSM1658363
+		lab_quake_cell nochipID4.C84
+
+		meta GSM1658364
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485903
+		seq_sample GSM1658364
+		geo_sample GSM1658364
+		lab_quake_cell nochipID4.C89
+
+		meta GSM1658365
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485904
+		seq_sample GSM1658365
+		geo_sample GSM1658365
+		lab_quake_cell nochipID4.C95
+
+		meta GSM1658366
+		cell_type nonreplicating fetal neuron
+		ncbi_bio_sample SAMN03485905
+		seq_sample GSM1658366
+		geo_sample GSM1658366
+		lab_quake_cell nochipID4.C96
+

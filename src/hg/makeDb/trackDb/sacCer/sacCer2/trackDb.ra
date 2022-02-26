@@ -1,0 +1,33 @@
+include trackDb.7way.ra
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+visibility hide
+chromosomes none
+
+track testSgdGene
+shortLabel test SGD Gene
+longLabel tesging SGD Gene track
+group genes
+priority 40
+visibility hide
+color 150,0,0
+type genePred .
+
+track transRegCode override
+visibility hide
+
+track sgdOther override
+noScoreFilter .
+
+searchName ensGeneGtpProtein
+searchTable ensGene
+searchType genePred
+searchMethod prefix
+shortCircuit 1
+xrefTable ensGtp
+xrefQuery select transcript,protein from %s where protein like '%s%%'
+termRegex [A-Z12][-A-Z0-9_)(]+
+
+track oreganno override
+pennantIcon 1.jpg ../goldenPath/help/liftOver.html "lifted from sacCer1"

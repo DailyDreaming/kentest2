@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Assembly Hub Quick Start" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Quick Start Guide to Assembly Hubs</h1> 
+<p>
+Assembly Hubs allow researchers to create Track Data Hubs on assemblies that are not in the UCSC 
+Browser. By including the underlying reference sequence in UCSC <a href="twoBit.html" 
+target="_blank">twoBit</a> format, as well as data tracks, researchers can browse and annotate any 
+genome. For more information please refer to the 
+<a href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs" target="_blank">Assembly Hub Wiki</a>. 
+Below is also a section about starting <a href="#blatGbib">GBiB Assembly Hubs</a>.</p>
+<p>
+<strong>STEP 1:</strong> In a publicly accessible directory, copy this <em>Arabidopsis thaliana</em>
+plant assembly hub, which includes an araTha1.2bit file, using the following wget command:</p>
+<pre><code>wget -r --no-parent --reject "index.html*" -nH --cut-dirs=3 http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/</code></pre>
+<p>
+Alternatively, <strong>if you do not have wget installed,</strong> you can curl these files 
+individually.  Perform the curl -O option in the location you wish to copy the files:</p>
+<pre><code>curl -O http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/hub.txt</code></pre>
+<p>
+<em>If you use curl</eM>, be sure to recreate the structure with matching araTha1 and araTha1/bbi 
+directories. Double check you have all the files by looking here: 
+<pre><code><a href="http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/" 
+target="_blank">http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/</a> </code></pre>
+<p>
+<strong>STEP 2:</strong> Paste your hub.txt link (<code>http://yourURL/hub.txt</code>) into the
+<a href="../../cgi-bin/hgHubConnect" target="_blank">My Hubs</a> tab of the Track Data Hubs page, 
+click the &quot;Add Hub&quot; button, and then click the &quot;Genome Browser&quot; link from the 
+top bar.</p>
+<p>
+Alternatively build a URL that will directly load your assembly hub and display it
+on hgGateway. Then click the &quot;Genome Browser&quot; link from the top bar to view your assembly 
+hub:</p>
+<p>
+<code>
+http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&<strong>hubUrl=http://yourURL/hub.txt</strong>
+</code>
+<p>
+This URL should work the same as using the original data just copied:</p>
+<pre><code><a href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/hub.txt"
+target="_blank">http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&<strong>hubUrl=http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/hub.txt</strong></a> </code></pre>
+<p>
+<strong>STEP 3:</strong> Congratulations! Your assembly hub should display!</p>
+<p>
+If you are having problems, be sure all your files and the directories are publicly accessible. You 
+may also wish to <a href="../../cgi-bin/cartReset" target="_blank">reset</a> the browser 
+occasionally to clear all existing data. For hubs to work, your server must also accept 
+byte-ranges. You can check using the following command to verify &quot;Accept-Ranges: bytes&quot;
+displays: <pre><code>curl -I http://yourURL/hub.txt</code></pre></p>
+<p>
+Now that you have the assembly hub copied from above, you can copy the directory and start to edit 
+some of the documents such as genomes.txt, groups.txt, and trackDb.txt to understand how they work. 
+Refer to the <a href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs" target="_blank">Assembly 
+Hub Wiki</a> to understand how to build a <a href="twoBit.html" target="_blank">twoBit</a> file for 
+your own original fasta files. Read more about <a href="trackDb/trackDbHub.html"
+target="_blank">trackDb settings</a> in the definition document.</p>
+<p>
+This assembly hub is a an abbreviated version of a larger plant assembly Public Hub.  You can 
+explore the larger hub structure <a href="http://genome-test.soe.ucsc.edu/~hiram/hubs/Plants/" 
+target="_blank">here</a>.</p>
+<p>
+Please note that the Browser waits 5 minutes before checking for any changes to these files. 
+<strong>When editing hub.txt, genomes.txt, trackDb.txt, and related hub files, shorten this delay by
+adding <code>udcTimeout=1</code> to your URL.</strong> For more information, please see the 
+<a href="hgTrackHubHelp.html#Debug" target="_blank">Debugging and Updating Track Hubs</a> section of
+the <a href="hgTrackHubHelp.html" target="_blank">Track Hub User Guide</a>. Also, for more detailed 
+instructions on setting up a regular hub, please see the <a href="hgTrackHubHelp.html#Setup" 
+target="_blank">Setting Up Your Own Track Hub</a> section of the Track Hub User Guide.</p> 
+
+<h2>Setting up Blat and In-Silico PCR for an Assembly Hub</h2>
+<p>
+By running gfServers from your institution, you can enable blat on your assembly hubs. See
+<a href="#blat">Starting Blat and In-Silico PCR for an Assembly Hub</a> for details.</p>
+
+<h2>Setting up an Assembly Hub on GBiB with Blat and In-Silico PCR included</h2>
+<p>
+With an operational installation of Genome Browser in a Box (GBiB), you can quickly and easily 
+acquire an example assembly hub and run gfServers locally on the GBiB to enable Blat and In-Silico PCR. See the 
+section <a href="#blatGbib">Starting a Blat and In-Silico PCR enabled Assembly Hub on GBiB</a> for more 
+information.</p>
+
+<h2>Resources</h2>
+<ul>
+  <li>
+  <strong><a href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs" target="_blank">Assembly Hubs
+  Wiki</a></strong></li>
+  <li>
+  <strong><a href="hgTrackHubHelp.html" target="_blank">Track Hub User Guide</a></strong></li> 
+  <li>
+  <strong><a href="trackDb/trackDbHub.html" target="_blank">Track Database (trackDb) Definition 
+  Document</a></strong></li>
+  <li>
+  <strong><a href="http://genomewiki.ucsc.edu/index.php/Public_Hub_Guidelines"
+  target="_blank">Public Hub Guidelines Wiki</a></strong></li>
+  <li>
+  <strong><a href="hubQuickStart.html" target="_blank">Quick Start Guide to a Basic 
+  Hub</a></strong></li>
+  <li>
+  <strong><a href="hubQuickStartGroups.html" target="_blank">Quick Start Guide to Organizing 
+  Hubs</a></strong></li>
+</ul>
+
+<!-- ========= assembly blat ============================== -->
+
+<a name="blat"></a>
+<h2>Starting Blat and In-Silico PCR for an Assembly Hub</h2>
+<p>
+From the location of yourAssembly.2bit file,
+<code>http://yourURL/yourAssembly/yourAssembly.2bit</code>, you can start two gfServers, specifying 
+a port for the assembly hub to access amino acid sequence, <code>17777 -trans</code>, or DNA 
+sequence, <code>17779</code>, in this example:</p>
+<pre><code>gfServer start localhost 17777 -trans -mask yourAssembly.2bit &
+gfServer start localhost 17779 -stepSize=5 yourAssembly.2bit &</code></pre>
+<p>
+Then you can edit the genomes.txt file of your assembly hub to include three lines in the stanza 
+referring to yourAssembly, that would have matching port numbers:</p>
+<pre>
+   transBlat yourLab.yourInstitution.edu 17777
+   blat yourLab.yourInstitution.edu 17779
+   isPcr yourLab.yourInstitution.edu 17779 </code></pre>
+</pre>
+<p>
+The assembly hub can be configured to talk to a dynamic BLAT server that loads
+a pre-built index when started by an <code>xinetd</code> super-server.  This
+allows genomes to have a blat server without needing it to be resident in
+memory at all times.  See
+<a href="http://genomewiki.ucsc.edu/index.php/Running_your_own_gfServer">Running your own gfServer</a>
+and
+<a href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs#Adding_BLAT_servers">Adding BLAT servers</a>
+for details on how to setup dynamic BLAT servers
+<p>
+See an example genomes.txt with commented out lines 
+<a href="http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/genomes.txt"
+target="_blank">here</a>, and please note the uppercase &quot;B&quot; in transBlat. For more 
+information, see the &quot;Adding BLAT servers&quot; section of the 
+<a href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs#Adding_BLAT_servers" 
+target="_blank">Assembly Hub Wiki</a>. The 
+<a href="http://hgdownload.soe.ucsc.edu/downloads.html#source_downloads" target="_blank">Source 
+Downloads</a> page offers access to utilities with pre-compiled binaries such as gfServer found in 
+a blat/ directory for your machine type <a href="http://hgdownload.soe.ucsc.edu/admin/exe/" 
+target="_blank">here</a> and further <a href="blatSpec.html" target="_blank">blat documentation 
+here</a>. Please note that because the <code>-mask</code> option in the above <code>17777 
+-trans</code> gfServer option will mask all lower-case sequence from being matched, you may not 
+wish to include it. See the above blat links and gfServer usage statement for more information.</p>
+<p>
+If you have trouble connecting your blat servers with the browser or if the browser cannot access 
+your files, check if your institution has a firewall that prevents the browser from sending 
+multiple inquiries. If this is the case, ask your systems administrator to add the following 
+IP addresses as exceptions so that access is not limited.
+<pre><code>128.114.119.*
+129.70.40.99
+134.160.84.67
+128.114.198.32</code></pre>
+<p>
+This will allow connections with the U.S.-based genome.ucsc.edu site, the Europe-based mirror, 
+the Asia-based mirror, and the UCSC development server.</p>
+
+<!-- ========== blat assembly hub GBiB ============================== -->
+
+<a name="blatGbib"></a>
+<h2>Starting a Blat and In-Silico PCR enabled Assembly Hub on GBiB</h2>
+<p>
+<strong>STEP 1.</strong> Acquire and install Genome Browser in a Box: 
+<a href="gbib.html" target="_blank">http://genome.ucsc.edu/goldenPath/help/gbib.html</a>.
+You may also wish to read this UCSC <a href="../../blog/genome-browser-in-a-box-gbib-origins/"
+target="_blank">blog post</a>.</p>
+<p>
+<strong>STEP 2.</strong> With your GBiB operational, use your computer's terminal program to ssh 
+into your GBiB: 
+<code>ssh browser@localhost -p 1235</code>, using <code>browser</code> for the password.</p>
+<p>
+<strong>STEP 3.</strong> Navigate to the GBiB's <code>/folders</code> directory and use sudo to wget this assembly
+hub:</p>
+<pre><code>cd /folders
+sudo wget -r --no-parent --reject "index.html*" -nH --cut-dirs=3 http://genome.ucsc.edu/goldenPath/help/examples/hubExamples/hubAssembly/plantAraTha1/</code></pre>
+<p>
+<strong>STEP 4.</strong> You now have all the required files on your local machine and can load this
+plant assembly hub by using this URL and selecting it under the &quot;group&quot; category where
+&quot;Plant araTha1&quot; displays:</p>
+<pre><code><a href="http://127.0.0.1:1234/cgi-bin/hgGateway?genome=araTha1&hubUrl=http://127.0.0.1:1234/folders/hubExamples/hubAssembly/plantAraTha1/hub.txt"
+target="_blank">http://127.0.0.1:1234/cgi-bin/hgGateway?genome=araTha1&amp;hubUrl=http://127.0.0.1:1234/folders/hubExamples/hubAssembly/plantAraTha1/hub.txt</a></code></pre>
+<p>
+<strong>STEP 5.</strong> To enable blat you must acquire the gfServer utility. The UCSC Genome 
+Browser and Blat software are free for academic, nonprofit, and personal use. Commercial download 
+and installation of the Blat and In-Silico PCR software may be licensed through 
+<a href="http://www.kentinformatics.com">Kent Informatics</a>.</p>
+<p>
+You can obtain just the gfServer utility on your GBiB with either of the following commands that
+will create a bin directory and install the tool. The commands use the North American and the
+European download servers respectively.</p>
+<pre><code>mkdir ~/bin -p; rsync -avP hgdownload.soe.ucsc.edu::genome/admin/exe/linux.x86_64/blat/gfServer ~/bin/</code></pre>
+<pre><code>mkdir ~/bin -p; rsync -avP hgdownload-euro.soe.ucsc.edu::genome/admin/exe/linux.x86_64/blat/gfServer ~/bin/</code></pre>
+<p>
+The GBiB also includes a tool you can run on the command line to download an entire suite of tools 
+including gfServer: <code>gbibAddTools</code></p>
+<p>
+<strong>STEP 6.</strong> Navigate to the genomes.txt file of this assembly hub:</p> 
+<pre><code>cd /folders/hubExamples/hubAssembly/plantAraTha1/</code></pre>
+<p>
+Edit the currently commented-out blat lines with <code>sudo vi genomes.txt</code> and
+use &quot;x&quot; when the cursor is over the <code>#</code> at the start of the line to remove it 
+and <code>:w!</code> to save the changes and <code>:q</code> to quit. </p>
+<pre><code>blat localhost 17779
+transBlat localhost 17777
+isPcr yourLab.yourInstitution.edu 17779 </code></pre>
+<p>
+Please note that if you loaded your hub earlier, it will take five minutes (300 seconds)
+for the browser to check for any changes to genomes.txt, and that this delay can be
+shortened temporarily by adding <code>&udcTimeout=10</code> to the URL. See more information in the
+<a href="hgTrackHubHelp.html#Debug" target="_blank">Debugging and Updating</a> section of the
+Track Hub User Guide.</p>
+<p>
+<strong>STEP 7.</strong> Change directories to the 2bit file:</p>
+<pre><code>cd /folders/hubExamples/hubAssembly/plantAraTha1/araTha1</code></pre> 
+<p>
+Run the two gfServer commands to start the blat servers:</p>
+<pre><code>gfServer start localhost 17777 -trans -mask araTha1.2bit &
+gfServer start localhost 17779 -stepSize=5 araTha1.2bit & </code></pre>
+<p>
+<strong>STEP 8.</strong> Load this plant assembly hub by using this URL and selecting it under the 
+&quot;group&quot; category where &quot;Plant araTha1&quot; displays:</p>
+<pre><code><a href="http://127.0.0.1:1234/cgi-bin/hgGateway?genome=araTha1&hubUrl=http://127.0.0.1:1234/folders/hubExamples/hubAssembly/plantAraTha1/hub.txt"
+target="_blank">http://127.0.0.1:1234/cgi-bin/hgGateway?genome=araTha1&amp;hubUrl=http://127.0.0.1:1234/folders/hubExamples/hubAssembly/plantAraTha1/hub.txt</a></code></pre>
+<p>
+On the blat page, <code><a href="http://127.0.0.1:1234/cgi-bin/hgBlat" 
+target="_blank">http://127.0.0.1:1234/cgi-bin/hgBlat</a></code>, you can now select the 
+<em>Arabidopsis thaliana</em> assembly and blat plant amino acid sequences, such as
+<code>IYQTRENKYIIGEIQITESERDRRRSSLPGNH</code>
+or DNA sequences, such as <code>TAAGTAAAAAATAATATGATTAAGACTAATAAATCTTAATAGTTAATACT</code>.
+</p>
+<p>On the PCR page, <code><a href="http://127.0.0.1:1234/cgi-bin/hgPcr"
+target="_blank">http://127.0.0.1:1234/cgi-bin/hgPcr</a></code>, you can now select the
+<em>Arabidopsis thaliana</em> genome and enter a forward primer such as
+<code>TAGGTCTGCACCTGTGGTTCAAAATTTT</code> and a reverse primer such as
+<code>CAATACAAGTCAACATTTTAGCGCCGAGA</code> and click the &quot;Flip Reverse Primer&quot;
+box and then click submit to find matches on the assembly.</p>
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

@@ -1,0 +1,34 @@
+# Local declaration so that local gold.html is picked up.
+track gold override
+html gold
+
+track quality override
+type wig 0 68
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+html gap
+visibility hide
+
+# track refGene override
+# visibility pack
+
+track xenoRefGene override
+visibility hide
+
+track nscanGene override
+informant Rabbit N-SCAN used human (hg19) as the informant for conservation.
+
+track chainNetMm10 override
+shortLabel $o_db ChainNet
+
+track chainNetHg19 override
+shortLabel $o_db ChainNet
+
+searchTable geneid
+searchType genePred
+searchMethod prefix
+termRegex chr[0-9MUXn]+[0-9_]+(\.[0-9]+)?
+searchPriority 50
+
+include ../../refSeqComposite.ra

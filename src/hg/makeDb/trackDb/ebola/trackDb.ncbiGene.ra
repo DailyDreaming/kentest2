@@ -1,0 +1,13 @@
+track ncbiGene
+shortLabel NCBI Genes
+longLabel NCBI Genes from Genbank Record
+group genes
+visibility pack
+priority 1
+color 12,12,120
+type genePred 
+baseColorUseCds given
+baseColorDefault genomicCodons
+itemDetailsHtmlTable geneDesc
+url http://mupit-ebola.icm.jhu.edu/ResidueFileUpload?residues=chr1%20%[
+urlLabel muPIT protein structures

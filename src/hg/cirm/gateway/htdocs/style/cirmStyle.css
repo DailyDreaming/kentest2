@@ -1,0 +1,459 @@
+/* CSS Specific to the CIRM website
+ *
+ * Copyright (C) 2017 The Regents of the University of California
+ */
+
+input.form-control { width: 300px; }
+textarea.form-control { width: 500px; height: 200px;}
+
+/* Generic background coloring */
+.back-orange
+{
+    /* orange */
+    background-color: #FF8C00
+}
+
+.back-dark-blue
+{
+    /* gray blue */
+    background-color: #4682B4
+}
+
+.back-dark-pink
+{
+    /* magenta */
+    background-color: #C71585
+}
+
+.back-light-blue
+{
+    /* smurf blue */
+    background-color: #1E90FF
+}
+
+.back-light-green
+{
+    /* lime green */
+    background-color: #5cb85c
+}
+
+.back-gray
+{
+    /* light gray */
+    background-color: #aaaaaa
+}
+.back-dark-red
+{
+    /* dark red */
+    background-color: #ff3333
+}
+
+/* Generic text coloring */
+.text-pink
+{
+    /*formerly .singlecell*/
+    color: #ed217c;
+}
+.text-light-blue
+{
+    /*formerly .transcriptome*/
+    color: #1E90FF;
+}
+.text-dark-pink
+{
+    /*formerly .genome*/
+    color: #C71585;
+}
+.text-light-green
+{
+    /*formerly .epigenome*/
+    color: #5cb85c;
+}
+.text-orange
+{
+    /*formerly .otherome*/
+    color: #FF8C00;
+}
+.text-dark-blue
+{
+    /* gray blue */
+    color: #4682B4
+}
+
+/* Styling for parts of page body */
+div.card.facet-card
+{
+    margin-bottom:5px
+}
+
+span.card.facet-card
+{
+    margin-top:5px;
+    padding-top: 10px;
+}   
+
+.cirm-banner
+{
+    width: 100%;
+    background-color: #4682B4;
+    height: 20px;
+
+}
+
+.badge
+{
+    color: white;
+}
+
+.cirm-page-title
+{
+    padding-left: 5px;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.title-bottom-pad
+{
+    margin-bottom: 10px;
+}
+
+.cirm-page-title-text
+{
+    color: #ffffff;
+    padding: 5px;
+}
+
+.cirm-page-body
+{
+    font-size:14px;
+    width: 90%;
+    margin: 0% 5%;
+}
+
+.footer
+{
+    font-size:14px;
+    margin: 0% 5%;
+    background-color: #eaeaea;
+}
+
+.footer a
+{
+    color: #337ab7;
+}
+
+.topbar
+{
+    font-weight:bold;
+}
+
+a.btn,input.btn
+{
+    padding: 0rem 0.3rem;
+    line-height: 1.2rem;
+}
+
+.icon-sm
+{
+    font-size: 0.75rem !important;
+}
+
+.padded-deck
+{
+    padding: 0px 15px !important;
+}
+
+/* Styling for secure site banner */
+.securesite-banner
+{
+    width: 100%;
+    background-color: #ff3333;
+    min-height: 26px;
+}
+
+.securesite-text
+{
+    color:#ffb3b3;
+    width: 95%;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.securesite:hover
+{
+    color: #ff3333;
+    text-decoration: none !important;
+    background-color: #ffb3b3;
+}
+
+.securesite:active
+{
+    color: #ff3333;
+    text-decoration: none !important;
+    background-color: #ffb3b3;
+}
+
+.securesite:link,
+.securesite:visited
+{
+    color: #ffffff !important;
+    text-decoration: underline;
+    background-color: none;
+}
+
+
+/* Styling for text + links */
+.a-unstyled,
+.a-unstyled:link,
+.a-unstyled:visited
+{
+    color: inherit;
+}
+.a-unstyled:hover,
+.a-unstyled:active
+{
+    color: inherit;
+    text-decoration: none;
+}
+
+.standsout
+{
+    color: #ffffff;
+    background-color: #1E90FF;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.standsout:link,
+.standsout:visited
+{
+    color: #ffffff !important;
+    background-color: #1E90FF;
+}
+
+.standsout:hover
+{
+    color: #cccccc;
+    text-decoration: none !important;
+    background-color: #C71585;
+}
+
+.standsout:active
+{
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: #1E90FF;
+}
+
+.centered-text
+{
+    text-align: center;
+}
+
+.white-link
+{
+    color: white;
+}
+
+.navbar-nav>li>a
+{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.nav>li>a:focus,
+.nav>li>a:hover
+{
+    color: white;
+    text-decoration: none;
+    background-color: transparent !important;
+}
+
+nav
+{
+    margin-bottom: 10px;
+}
+
+.nav
+{
+    border-radius: 0.25em;
+}
+
+.padded-nav-link
+{
+    padding: 2px 6px !important;
+}
+
+.nav-button
+{
+    font-weight: 600;
+    margin: 0px;
+}
+
+
+.nopadding
+{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.infoboxpadding
+{
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+
+.imagebox
+{
+    text-align: right;
+}
+
+.padded
+{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.padded-top-img
+{
+    display: block;
+    padding-top: 15px;
+}
+
+.btnexpand:after
+{
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+    float: right;
+    margin-left: 15px;
+}
+
+.btnexpand.collapsed:after
+{
+    content: "\e080";
+}
+
+/*.verticaltext { width: 20px; transform: rotate(-90deg); transform-origin: right, top; -ms-transform: rotate(-90deg); -ms-transform-origin:right, top; -webkit-transform: rotate(-90deg); -webkit-transform-origin:right, top; color: #ed217c; position: relative; }
+
+.verticaltext {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  left: -40px;
+  top: 35px;
+  position: absolute;
+  color: #FFF;
+  text-transform: uppercase;
+  font-size:26px;
+  font-weight:bold;
+}
+*/
+
+/*Styling for Projects page table*/
+.table-header-rotated th.row-header
+{
+    width: auto;
+}
+
+.table-header-rotated td
+{
+    width: 40px;
+    border-top: 1px solid #dddddd; /* light gray */
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    vertical-align: middle;
+}
+
+.table-header-rotated th.rotate-45
+{
+    height: 90px;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    position: relative;
+    vertical-align: bottom;
+    padding: 0;
+    font-size: 11px;
+    line-height: 0.8;
+}
+
+.table-header-rotated th.rotate-45 > div
+{
+    position: relative;
+    top: 0px;
+    left: 40px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+    height: 100%;
+    -ms-transform:skew(-45deg,0deg);
+    -moz-transform:skew(-45deg,0deg);
+    -webkit-transform:skew(-45deg,0deg);
+    -o-transform:skew(-45deg,0deg);
+    transform:skew(-45deg,0deg);
+    overflow: hidden;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+}
+
+.table-header-rotated th.rotate-45 span
+{
+    -ms-transform:skew(45deg,0deg) rotate(315deg);
+    -moz-transform:skew(45deg,0deg) rotate(315deg);
+    -webkit-transform:skew(45deg,0deg) rotate(315deg);
+    -o-transform:skew(45deg,0deg) rotate(315deg);
+    transform:skew(45deg,0deg) rotate(315deg);
+    position: absolute;
+    bottom: 30px; /* 40 cos(45) = 28 with an additional 2px margin*/
+    left: -25px; /*Because it looked good, but there is probably a mathematical link here as well*/
+    display: inline-block;
+    /* width: 100%;*/
+    width: 85px; /* 80 / cos(45) - 40 cos (45) = 85 where 80 is the height of the cell, 40 the width of the cell and 45 the transform angle*/
+    text-align: left;
+    /* white-space: nowrap;*/ /*whether to display in one line or not*/
+}
+
+
+.hideOverflow
+{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100%;
+    display:block;
+}
+
+.popover
+{
+    max-width:800px;
+    /*
+    left: 10px !important;
+    margin-right: 10px;
+    */
+}
+
+.popoveradjust
+{
+    padding: 5px 0;
+    margin-top: -3px;
+}
+
+.last-row
+{
+    border-bottom: 1pt solid #dddddd;
+}
+
+.label
+{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}

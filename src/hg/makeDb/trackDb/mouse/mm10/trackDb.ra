@@ -1,0 +1,406 @@
+
+include ../../refSeqComposite.ra
+
+include ../../crispr10K.ra
+
+include knownGene.ra
+
+# chainNet tracks
+include trackDb.gliresChainNet.ra
+include trackDb.euarchontoglireChainNet.ra
+include trackDb.placentalsChainNet.ra
+include trackDb.vertebrateChainNet.ra
+include trackDb.previousVersionsChainNet.ra alpha
+include tabulaMurisSenis.ra
+include tabulamuris.ra
+
+# Local declaration so that local gold.html is picked up.
+track gold override
+html gold
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+html gap
+
+# Local declaration so that patents are in the right group
+track patSeq override
+group pub
+
+track patNonBulk override
+group pub
+
+track patBulk override
+group pub
+
+track assemblyFrags
+shortLabel Contigs
+longLabel Contig fragments used in the assembly
+group map
+visibility hide
+colorByStrand 150,100,30 100,50,0
+type bed 6
+urlLabel NCBI Nucleotide:
+url https://www.ncbi.nlm.nih.gov/nuccore/$$
+
+# different type of gold search here so the fragments can be found with
+#	or without their trailing .1
+searchTable gold
+searchMethod prefix
+searchType bed
+shortCircuit 1
+termRegex [ACGJ][ACLHRTY][A0-9]+(\.[0-9]+)?
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s%%'
+searchPriority 8
+
+include trackDb.60way.ra
+include trackDb.4way.ra alpha
+
+track mm9UcscGenes
+shortLabel mm9 Ucsc Genes
+longLabel  mm9 Ucsc Genes
+group genes
+visibility hide
+color 20,20,170
+type bed 12
+
+track xenoClinvar
+shortLabel Human Variants
+longLabel ClinVar Variants mapped to Mouse
+type bigBed 9 +
+itemRgb on
+bigDataUrl /gbdb/mm10/bbi/xenoClinvar.bb
+group x
+mouseOverField _mouseOver
+urls rcvAcc="https://www.ncbi.nlm.nih.gov/clinvar/$$/" geneId="https://www.ncbi.nlm.nih.gov/gene/$$" snpId="https://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=$$" nsvId="https://www.ncbi.nlm.nih.gov/dbvar/variants/$$/" origName="https://www.ncbi.nlm.nih.gov/clinvar/variation/$$/"
+release alpha
+
+include mm10Strains1SuperTrack.ra
+
+track qPcrPrimers override
+group regulation
+url http://www.weizmann.ac.il/cgi-bin/USERcompphys/primers/mouse/extract_primer_by_line.cgi?$$
+urlLabel Click here for primer details:
+
+track ucscRetroAli2
+shortLabel Retroposed Genes
+longLabel Retroposed Genes V2, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo2
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds2
+baseColorUseSequence extFile ucscRetroSeq2 ucscRetroExtFile2
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Apr. 2013
+
+searchName ucscRetroInfoRefSeq2
+searchTable ucscRetroAli2
+searchDescription Retroposed Genes V2, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo2
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo2.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna2
+searchTable ucscRetroAli2
+searchDescription Retroposed Genes V2, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt2
+searchTable ucscRetroAli2
+searchDescription Retroposed Genes V2, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo2
+xrefQuery select ucscRetroInfo2.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene2
+searchTable ucscRetroAli2
+searchDescription Retroposed Genes V2, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo2
+xrefQuery select ucscRetroInfo2.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli4
+shortLabel Retroposed Genes 4.0
+longLabel Retroposed Genes V4, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo4
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds4
+baseColorUseSequence extFile ucscRetroSeq4 ucscRetroExtFile4
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Feb. 2014
+
+searchName ucscRetroInfoRefSeq4
+searchTable ucscRetroAli4
+searchDescription Retroposed GenesV4, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo4
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo4.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna4
+searchTable ucscRetroAli4
+searchDescription Retroposed GenesV4, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt4
+searchTable ucscRetroAli4
+searchDescription Retroposed GenesV4, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo4
+xrefQuery select ucscRetroInfo4.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene4
+searchTable ucscRetroAli4
+searchDescription Retroposed GenesV4, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo4
+xrefQuery select ucscRetroInfo4.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli5
+shortLabel Retroposed Genes 5.0
+longLabel Retroposed Genes V5, Including Pseudogens
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo5
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds5
+baseColorUseSequence extFile ucscRetroSeq5 ucscRetroExtFile5
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Jul. 2014
+
+searchName ucscRetroInfoRefSeq5
+searchTable ucscRetroAli5
+searchDescription Retroposed GenesV5, Including Pseudogenes - 2014-07-22
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo5
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo5.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna5
+searchTable ucscRetroAli5
+searchDescription Retroposed GenesV5, Including Pseudogenes - 2014-07-22
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt5
+searchTable ucscRetroAli5
+searchDescription Retroposed GenesV5, Including Pseudogenes - 2014-07-22
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo5
+xrefQuery select ucscRetroInfo5.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene5
+searchTable ucscRetroAli5
+searchDescription Retroposed GenesV5, Including Pseudogenes - 2014-07-22
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo5
+xrefQuery select ucscRetroInfo5.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track ucscRetroAli6
+shortLabel RetroGenes V6
+longLabel Retroposed Genes V6, Including Pseudogenes
+group genes
+type psl
+color 20,0,250
+visibility hide
+ucscRetroInfo ucscRetroInfo6
+baseColorDefault diffCodons
+baseColorUseCds table ucscRetroCds6
+baseColorUseSequence extFile ucscRetroSeq6 ucscRetroExtFile6
+indelDoubleInsert on
+indelQueryInsert on
+showDiffBasesAllScales .
+showDiffBasesMaxZoom 10000.0
+showCdsAllScales .
+showCdsMaxZoom 10000.0
+dataVersion Jan. 2015
+exonNumbers off
+
+searchName ucscRetroInfoRefSeq6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogene
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+xrefTable hgFixed.refLink, ucscRetroInfo6
+dontCheckXrefQueryFormat 1
+xrefQuery select ucscRetroInfo6.name, hgFixed.refLink.name from %s where hgFixed.refLink.name like '%s%%' and refSeq = mrnaAcc 
+searchPriority 3.52
+
+searchName ucscRetroInfoMrna6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+searchPriority 3.55
+
+searchName ucscRetroUniProt6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo6
+xrefQuery select ucscRetroInfo6.name, spDisplayID from %s where spDisplayID like '%s%%' and kgName = kgID 
+searchPriority 3.54
+
+searchName ucscRetroKnownGene6
+searchTable ucscRetroAli6
+searchDescription Retroposed Genes V6, Including Pseudogenes
+query select tName, tStart,tEnd, qName from %s where qName like '%s%%'
+dontCheckXrefQueryFormat 1
+xrefTable kgXref, ucscRetroInfo6
+xrefQuery select ucscRetroInfo6.name, geneSymbol from %s where geneSymbol like '%s%%' and kgName = kgID 
+searchPriority 3.53
+
+track jaxQtl override
+shortLabel MGI QTL 
+longLabel Mouse Genome Informatics Quantitative Trait Loci ***Lifted from NCBI 37 (mm9)***
+origAssembly mm9 
+pennantIcon 9.jpg ../goldenPath/help/liftOver.html "These data were converted via liftOver from the July 2007 (NCBI37/mm9) version of the track"
+
+track FaceBase24SampleTypesAvg override
+origAssembly mm9
+pennantIcon 9.jpg ../goldenPath/help/liftOver.html "These data were converted via liftOver from the July 2007 (NCBI37/mm9) version of the track"
+
+track rmskJoinedBaseline override
+group varRep
+
+include trackDb.gencode.ra
+
+include defaultPriority.ra
+
+searchTable sgpGene
+searchType genePred
+termRegex chr[0-9MUXYn]+[GHJLv0-9_]+(alt_|random_)?[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchTable geneid
+searchType genePred
+searchMethod prefix
+termRegex chr[0-9MUXYn]+[GHJLv0-9_]+(alt_|random_)?[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+track strainSNPs
+shortLabel Mouse SNPs
+longLabel Annotated SNPs from mouse strain comparison analysis
+group varRep
+type vcfTabix
+visibility hide
+priority 11.5
+hapClusterHeight 360
+hapClusterEnabled on
+hapClusterMethod fileOrder
+maxWindowToDraw 1000000
+
+track nestedRepeats override
+group varRep
+priority 10
+
+track microsat override
+group varRep
+priority 11
+
+track genomicSuperDups override
+group varRep
+
+track simpleRepeat override
+group varRep
+
+track windowmaskerSdust override
+group varRep
+
+track spMut override
+group pub
+bigDataUrl /gbdb/$D/uniprot/unipMut.bb
+
+#######################3
+# regulation tracks
+
+include trackDb.encode3.ra
+include encode3RenEnhancerGene.ra
+
+track epdNew
+compositeTrack on
+shortLabel EPDnew Promoters
+longLabel Promoters from EPDnew
+html ../../epdNewPromoter
+type bigBed 8
+group regulation
+visibility hide
+urlLabel EPDnew link:
+bedNameLabel Promoter ID
+exonArrows on
+
+    track epdNewPromoter
+    shortLabel EPDnew v6
+    longLabel Promoters from EPDnew mouse version 003
+    parent epdNew on
+    bigDataUrl /gbdb/$D/bbi/epdNewMouse003.$D.bb
+    dataVersion EPDNew Mouse Version 003 (June 2018)
+    url https://epd.epfl.ch/cgi-bin/get_doc?db=mmEpdNew&format=genome&entry=$$
+    color 50,50,200
+    priority 1
+
+    track epdNewPromoterNonCoding
+    shortLabel EPDnew NC v1
+    longLabel ncRNA promoters from EPDnewNC mouse version 001
+    parent epdNew on
+    bigDataUrl /gbdb/$D/bbi/epdNewMouseNc001.$D.bb
+    dataVersion EPDNewNC Mouse Version 001 (August 2019)
+    url https://epd.epfl.ch/cgi-bin/get_doc?db=mmNCEpdNew&format=genome&entry=$$
+    color 180,0,134
+    priority 2
+
+include dbSnpArchiveMm10.ra 
+
+# TOGA default annotation for hg38
+track HLTOGAannotvsHg38v1
+shortLabel TOGA hg38 annotations
+longLabel TOGA annotations using human hg38 as reference
+group genes
+priority 2
+visibility pack
+itemRgb on
+type bed 12
+
+searchTable HLTOGAannotvsHg38v1
+searchType bed
+searchMethod fuzzy

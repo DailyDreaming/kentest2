@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser Session Help" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Sessions User's Guide</h1> 
+
+<h2>Contents</h2> 
+
+<h6><a href="#Introduction">Introduction</a></h6> 
+<h6><a href="#Example">Some simple examples</a></h6> 
+<h6><a href="#Create">Creating a session</a></h6>
+<h6><a href="#CreateVid">Creating a session &mdash; video demonstration</a></h6>
+<h6><a href="#Details">Session details</a></h6>     
+<h6><a href="#Share">Sharing a session</a></h6>
+<!--
+  <ul>
+    <li><a class="toc" href="#ShareOrNot">Shared vs. non-shared data</a></li>
+    <li><a class="toc" href="#HowToShare">Sharing your session with others</a></li>
+    <li><a class="toc" href="#Open">Opening a shared session</a></li>
+  </ul>
+-->
+<h6><a href="#Edit">Editing an existing session</a></h6>
+<h6><a href="#CTs">Displaying your own tracks in a session</a></h6>
+<h6><a href="#Delete">Deleting a session</a></h6>
+<h6><a href="#Lifespan">Lifespan of a session</a></h6>
+<h6><a href="#Gallery">Session gallery</a></h6> 
+<h6><a href="#NAR">Help for Nucleic Acids Research submitters</a></h6>
+<hr>
+<p>
+<a href="../../contacts.html">Questions and feedback on this User's Guide are welcome.</a></p>
+<p>
+User questions and answers on Sessions and other topics are available in the 
+<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!forum/genome" target="_blank">Genome 
+Browser mailing list</a>.</p>
+
+<!-- ====Introduction======================== -->
+<a name="Introduction"></a> 
+<h2>Introduction</h2>
+<p>
+The <a href="../../cgi-bin/hgSession" target="_blank">Session</a> tool allows you to configure your 
+browser with specific track combinations, including <a href="hgTracksHelp.html#CustomTracks">custom 
+tracks</a>, and save the configuration options. Multiple sessions may be saved for future reference,
+for comparing different data sets, or for sharing with your colleagues. Saved sessions 
+<A href="#Lifespan">will not be expired</a>, however we still recommend that you keep local
+back-ups of your session contents and any associated custom tracks. <a href="#CTs">BLAT result 
+tracks persist</a> for at least 48 hours after the last time they are viewed. The creation date 
+of a session can be viewed in the Session Management menu. This date only reflects the initial 
+creation of the Session and is not updated when sessions are edited. Descriptive text can also be 
+added to a session in the <A href="#Details">Session Details</a> menu.</p> 
+<p>
+This feature may be accessed via the <strong>Session</strong> link in the top blue navigation bar in
+any assembly. To ensure privacy and security, you must <a href="../../cgi-bin/hgSession" 
+target="_blank">create an account</a> and <a href="../../cgi-bin/hgSession" target="_blank">log 
+in</a> before using the session manager.</p> 
+<p>
+Individual sessions may be designated as either <a href="#ShareOrNot"><em>shared</em> or 
+<em>non-shared</em></a> to protect the privacy of confidential data. To avoid having a new shared 
+session from someone else override your existing Genome Browser settings, you are encouraged to open
+a new web-browser instance or to save existing settings in a session before 
+<a href="#Open">loading</a> a new shared session.</p>
+<p>
+Note that not all of the Genome Browser <a href="../../mirror.html">mirror sites</a> have all of the
+session features enabled.</p> 
+<p>
+This User's Guide provides a few examples that introduce the features of the Session tool, followed 
+by detailed directions on creating, saving, modifying and sharing sessions.</p>
+<p>
+You may also wish to reivew two blog posts,
+<a href="http://genome.ucsc.edu/blog/how-to-share-your-ucsc-screenthoughts/"
+target="_blank">How to share your UCSC screenthoughts</a> and
+<a href="http://genome.ucsc.edu/blog/sharing-data-with-sessions-and-urls/"
+target="_blank">Sharing Data with Sessions and URLs</a> for more discussions about sessions.</p>
+
+<!-- ====Example======================== -->
+<a name="Example"></a>
+<h2>Some simple examples</h2> 
+<p>
+This section contains some example sessions that demonstrate the use of the Session tool. To enable 
+you to view these sessions, we have <a href="../../cgi-bin/hgSession" target="_blank">created a user
+account</a> with the name <em>Example</em>.  </P>
+
+<!-- =====Example 1======================= -->
+<a name="Example1"></a> 
+<h3>Example 1</h3> 
+<p>
+This example shows the primate (chimp and rhesus) nets for chromosome 2 in the hg17 human assembly 
+&mdash; the primate chromosome that fused in humans. We first configured our browser view with the 
+desired settings, and then saved the session so that we could share it. We named our session 
+<code>hg17_chr2_primate</code>.</p> 
+<p>
+There are several ways for you to view this session:</p> 
+<uL> 
+  <li>
+  <strong>Manually load and open the session.</strong> Open the <A href="../../cgi-bin/hgSession" 
+  target="_blank">Session</a> tool. In the <code>Session Management</code> section under the 
+  <em>Load Settings</em> heading, enter this information:</p>
+<pre><code>user: Example
+session name: hg17_chr2_primate </code></pre>
+  <p> 
+  Click the <button>submit</button> button next to the session name box to load the session. To view 
+  the session in the Genome Browser, click the <code>Genome Browser</code> link in the top blue 
+  navigation bar.</li> 
+  <li>
+  <strong>Open a session link sent by email.</strong> After we created and saved this session, we 
+  could have clicked the <em>Email</em> link to automatically send a message to one or more 
+  recipients with the following contents and clickable link:</p>
+  <pre><code>Here is a UCSC browser session I'd like to share with you: 
+<a href="http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=Examples&hgS_otherUserSessionName=hg17_chr2_primate"
+target="_blank">http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=Examples&hgS_otherUserSessionName=hg17_chr2_primate</a></code>. </pre>
+  <p>
+  By clicking this link, you can open the session in your browser.</li> 
+  <li>
+  <strong>Open a session from a local file.</strong> Alternatively, if we had saved the browser 
+  settings to a local file, we could have simply provided the location of that file for you to load 
+  into your browser to view our session. Click <A href="examples/session_example1.txt">here</a> to 
+  see such a settings file. This method works best when the file is in a location that you can 
+  access from your own computer or network. For this example, you can copy this file and paste it 
+  into a file on your own machine, then load it into the Session tool.</li> 
+  <li>
+  <strong>Open a session from a URL.</strong> Because you do not have access to our file system 
+  where this session file resides, it will be easier for you to load it using a URL. To do this, 
+  open the <a href="../../cgi-bin/hgSession" target="_blank">Session</a> tool. In the <code>Session 
+  Management</code> section under the <em>Load Settings</em> header, enter the URL where this file 
+  is located:</p> 
+  <pre><code>http://genome.ucsc.edu/goldenPath/help/examples/session_example1.txt</code></pre>
+  <br>
+  Then, click the <button>submit</button> button to load the session settings. To view the session in 
+  the Genome Browser, press the <em>Browser</em> link in the <code>Updated Session</code> 
+  section.</li> 
+</ul>
+
+<!-- =====Example 2======================= -->
+<a name="Example2"></a> 
+<h3>Example 2</h3> 
+<p>
+This example shows the Human Accelerated Region (HAR1) in the hg18 assembly. Eighteen differences 
+exist in a region of 118 bases between human and all other mammals extending back to the chicken. 
+The two sessions in this example show the same browser position at two levels of detail: Example 2a 
+is zoomed out; Example 2b is zoomed in.</p> 
+<p>
+To view these sessions in your browser, you can use any of the methods described in Example 1:</p> 
+<ul>
+  <li>
+  <strong>Manually load and open the session.</strong><br>
+  <em>Example 2a:</em>
+  <pre><code><strong>user:</strong> Example
+<strong>session name:</strong> hg18_HAR1</code></pre>
+  <em>Example 2b:</em>
+  <pre><code><strong>user:</strong> Example
+<strong>session name:</strong> hg18_HAR1_zoom </code></pre></li>
+  <li>
+  <strong>Open a session link sent by email.</strong><br>
+  <em>Example 2a:</em> 
+  <pre><code><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=Example&hgS_otherUserSessionName=hg18_HAR1" 
+  target="_blank">http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&<br>hgS_otherUserName=Example&hgS_otherUserSessionName=hg18_HAR1</a></code></pre>
+  <em>Example 2b:</em> 
+  <pre><code><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=Example&hgS_otherUserSessionName=hg18_HAR1_zoom" 
+  target="_blank">http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&<br>hgS_otherUserName=Example&hgS_otherUserSessionName=hg18_HAR1_zoom</a>.</code></pre></li>
+  <li>
+  <strong>Open a session from a local file.</strong><br> 
+  <em>Example 2a:</em> Copy the contents of this <a href="examples/session_example2a.txt">file</a> 
+  to a file on your own machine, then load it into the Session tool.<br> 
+  <em>Example 2b:</em> Copy the contents of this <a href="examples/session_example2b.txt">file</a> 
+  to a file on your own machine, then load it into the Session tool.</li></br>
+  <li>
+  <strong>Open a session from a URL.</strong><br> 
+  <em>Example 2a:</em> Paste this URL into the Session tool: 
+  <pre><code>http://genome.ucsc.edu/goldenPath/help/examples/session_example2a.txt</code></pre>
+  <em>Example 2b:</em> Paste this URL into the Session tool: 
+  <pre><code>http://genome.ucsc.edu/goldenPath/help/examples/session_example2b.txt</code></pre> 
+</ul>
+
+<!-- === Creating a Session ================ -->
+<a name="Create"></a>
+<h2>Creating a session</h2> 
+<p>
+It is easy to create a session to save or share. Simply configure the Genome Browser as you wish, 
+then navigate to the Session tool by clicking on the <strong>My Data</strong> pulldown in the top 
+blue navigation bar. Follow these steps to save your session:</p> 
+<ul> 
+  <li>
+  <strong>Log in to the Genome Browser.</strong> To ensure privacy and security, you must 
+  <a href="../../cgi-bin/hgSession" target="_blank">create an account</a> and/or 
+  <a href="../../cgi-bin/hgSession" target="_blank">log in</a> to use the Session tool. You will not
+  have to repeat the login step unless you sign off from the Session tool or close your Genome 
+  Browser.</li> 
+  <li>
+  <strong>Create a named session.</strong> Scroll down to the <code>Save Settings</code> section of
+  the page. Type a name into the <code>Save current settings as named session</code> box. Choose
+  whether or not you would like to <a href="#Share">share</a> your sessions with others. If the
+  <code>allow this session to be loaded by others</code> box is checked, anyone will be able to view
+  your Genome Browser settings (including your custom tracks) if you provide them with your user and
+  session name. Note that your session is <em>not</em> automatically available to the general public
+  if you choose this option: you must provide the user and session name to other individuals for
+  them to view it. This helps to ensure the confidentiality of your private data. After naming the
+  session and choosing your sharing option, click the <button>submit</button> button. Your session will
+  then be listed by name under <em>My Sessions</em>.</li>
+  <li>
+  <strong>Save session settings to a file.</strong> Alternatively, you can create a file from your
+  session settings that can be saved to your local machine or posted to a URL for
+  <a href="#Open">access or sharing</a>. To do this, go to the <code>Save Settings</code> section.
+  Type a name into the <code>Save current settings to a local file</code> box. Click the
+  <button>submit</button> button to save or display the file. The session will be saved in plain text
+  (ascii) format by default. To select a compressed format, select one of the options from the
+  <code>file type returned</code> menu before clicking <button>submit</button>. If you simply wish to
+  preview the contents of the file in your browser window, leave the file name blank and click
+  <button>submit</button>.</li>
+  </ul>
+  <h3>How to back up text-based Custom Track data to a file</h3>
+  <ul>
+  <li>
+  <strong>Save Custom Tracks.</strong>   Save a backup of your current browser sessions's custom
+  tracks to your local machine. This backup is intended to be used to restore uploaded text-based
+  custom tracks that would otherwise be lost in case of an
+  unexpected system failure at UCSC. Saving your data is easy and ensures that your hard work
+  is safe and recoverable. To download your custom track data, navigate to the <code>Save
+  Settings</code> section. Click the <button>submit</button> button to the right of "back up custom
+  tracks archive .tar.gz". For each genome assembly, the custom track names will be shown along
+  with individual and total file size. To proceed, click the <button>create custom track backup
+  archive</button> button. All of the custom track data for the active session will be archived and
+  compressed. Large custom tracks may take several minutes to finish. To download the archive to
+  your computer, type in a name for the downloaded archive file and click the <button>download
+  backup archive</button> button. The file will have a ".tar.gz" extension. Note that Safari
+  browsers will unzip the archive leaving you with a .tar file in your Downloads directory. Click
+  the <button>return</button> button to return to the Session Management page. To save viewing
+  settings like track visibilities, highlighting, and sequence positions, use the "Save session
+  settings to a local file" feature mentioned above.</li>
+  <li>
+  <strong>Restore a Custom Track.</strong>
+  The downloaded archive file cannot be directly reloaded into the system because it is compressed.
+  To reload custom tracks, untar the downloaded .tar.gz file. The following example assumes you
+  named your archive file 'someproject'. From the command-line, change into your Downloads
+  directory, make a directory for your session, and uncompress your custom track archive.
+  <pre><code>cd Downloads
+mkdir someproject
+cd someproject
+tar -xzf ../someproject.tar.gz</code></pre>
+  If you use the Safari browser, your file will have been uncompressed automatically, leaving just
+  .tar. If this is the case, use this command instead:<br>
+  <pre><code>tar -xf ../someproject.tar</code></pre>
+  The assembly directory contains .ct files, one for each custom track.
+  To restore a single custom track, go to the <a href=../../cgi-bin/hgCustom>Custom Tracks tool</a>,
+  select the correct genome database, and click the <button>add custom track</button> button.
+  If you already have existing custom tracks, click the <button>add custom track</button> button, then
+  click the <button>Choose File</button> button next to the top window near the
+  "Paste URLs or data" text. A file selection box will open. Navigate to the directory where
+  the desired custom track .ct file is, choose it, and click the <button>Submit</button> button.<br>
+  <br>
+  If an optional help text or HTML page was saved with the custom track, you will see a
+  corresponding custom track .html file. You can restore this by selecting the <button>Choose
+  File</button> button near the "Optional track documentation" text. A file selection box will
+  open. Navigate to the directory where the .html file is located, choose it, and click the <button>
+  Submit</button> button.</li>
+  <li>
+  <strong>Restore Multiple Custom Tracks.</strong> Restore all the custom tracks in an assembly
+  directory by concatenating the .ct files together. From the command-line, change
+  directory to your genome assembly and concatenate all of the .ct files into on hg38_all.ct
+  file:
+  <pre><code>cd hg38
+cat *.ct > hg38_all.ct</code></pre>
+  Compress the concatenated file for faster upload, creating hg38_all.ct.gz with the following
+  command:
+  <pre><code>gzip hg38_all.ct</code></pre>
+  Navigate to the <a href=../../cgi-bin/hgCustom>Custom Tracks tool </a> and select the big 
+  concatenated compressed file (hg38_all.ct.gz in our example). Note that large custom track sets 
+  may require a long time to upload. Once uploaded, click the <button>Go</button> button on the next page to view
+  your custom tracks in the Browser. You will still be able to save and share your Sessions 
+  online, which will include your Browser Settings and Custom Tracks. This feature is solely for 
+  backing up Custom Tracks as files. 
+  </li>
+</ul> 
+
+<!-- === Creating a session - Video Demonstration================ -->
+
+<a name="CreateVid"></a>
+<h2>Creating a session &mdash; video demonstration</h2>
+<p>
+<iframe width="560" height="350" src="https://www.youtube.com/embed/d5rHBLXwraM?rel=0" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe> </p>
+<p> Visit our <a href="https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos"
+target="_blank">YouTube channel</a> for more videos.
+</p>
+
+
+
+<!-- =====Opening a Saved Session======================== -->
+<a name="Create"></a>
+<h2>Opening a saved session</h2> 
+<p>
+When you save a session, it is added to the <em>My Sessions</em> list on the Session page. Each 
+session entry is listed by name and offers the following options to open, share, and manipulate it: 
+<ul> 
+  <li>
+  <strong>Session name.</strong> Click the session name to view it in the Genome Browser.</li>  
+  <li>
+  <strong>View/edit details.</strong> Click the <button>details</button> button to edit the session
+  description and view session details such as creation date/time, assemblies with custom tracks and
+  more.</li> 
+  <li>
+  <strong>Delete the session.</strong> Click the <button>delete</button> button to permanently remove 
+  this session from the list.</li>  
+  <li>
+  <strong>Share with others</strong>: Check this box to allow others to access this session. By 
+  default, this option is unchecked, which limits access to only the session owner.</li> 
+  <li>
+  <strong>Post in public listing</strong>: Check this box to add your session to the list of 
+  <a href="../../../cgi-bin/hgPublicSessions">Public Sessions</a>. Sessions in the listing will be 
+  available to be loaded and viewed by the world.</li>  
+  <li>
+  <strong>Email.</strong> Click this link to <A href="#Share">email</a> this session to a 
+  colleague.</li> 
+</ul>
+
+<!-- == Details ====================== -->
+<a name="Details"></a>
+<h2>Session details</h2>
+<p>
+Each session has an associated details page that you can click into from the 
+<a href="../../cgi-bin/hgSession" target="_blank">Session Management</a> menu. The Session Details 
+menu allows you to edit the Session Name, to add descriptive text and to change whether or not the 
+session is shared with others. Like the Session Management menu, if you click &quot;use&quot; that 
+session will be loaded as the current session and if you click &quot;delete&quot; the session will 
+be deleted. The &quot;Created on&quot; date reflects the date that the session was originally 
+created and will not be updated to reflect any edits.</p>
+
+<!-- ======Sharing a Session======================== -->
+<a name="Share"></a>
+<h2>Sharing a session</h2>
+
+<!-- =====Shared vs. Non-shared Data======================= -->
+<a name="ShareOrNot"></a>
+<h3>Shared vs. non-shared data</h3> 
+<p>
+When you create a session using the Session tool, you may designate it as either <em>shared</em> or 
+<em>non-shared</em>. By default, new sessions are created as shared and must be explicitly changed 
+to non-shared status.</p> 
+<p>
+Shared sessions can be opened by other Genome Browser users to whom you've provided one of the 
+following:</p> 
+<ul>
+  <li>
+  the user name and session name of the saved session</li>
+  <li>
+  access privileges to a local file that contains the saved session information</li>
+  <li>
+  the URL of a web-accessible session settings file</li>
+</ul>
+<p> 
+Sessions which you've added to the list of <a href="../../../cgi-bin/hgPublicSessions">Public 
+Sessions</a> will available to the world. Note that unless you've added them to this list of Public 
+Sessions, your shared sessions will not be available in a general way to other Genome Browser users;
+they will need at least one of these access methods.</p> 
+<p>
+If you choose to keep your session private, other users of the Genome Browser will not be able to 
+access your data or browser configuration. Any confidential data or locations of interest that you 
+are working with will be safe from viewing by others.</p> 
+<p>
+The most secure way to control your session is to save the settings to a local file, then deny 
+access to that file by others.</p>
+
+<!-- =====Sharing a Session with Others======================= -->
+<a name="HowToShare"></a>
+<h3>Sharing your session with others</h3> 
+<p>
+There are five ways to let others know about your saved sessions: 
+<ul> 
+  <li>
+  <strong>Save the session URL.</strong> Immediately upon saving a new session, the top of the page 
+  offers a <code><strong>Browser</strong></code> hyperlink. Additionally, each session entry in the 
+  <em>My Sessions</em> list has a <code>Browser</code> hyperlink. Click either <code>Browser</code>
+  link to open the Genome Browser with the session loaded. You can obtain the URL of the Genome 
+  Browser page by capturing the <code>Browser</code> hyperlink via right-click before you proceed 
+  to the Browser graphical view. You can then store the URL, create a bookmark or share the link 
+  with others.
+  <p>The UCSC site and supported mirrors display short session links similar to the following:
+  <code>http://genome.ucsc.edu/s/YourUserName/YourSessionName</code></p>
+  <p>Previously, longer links were used:
+  <code>http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=YourUserName&hgS_otherUserSessionName=YourSessionName</code></p>
+  <p>System administrators of mirrors can introduce Apache redirects from the shorter links
+  that will redirect to the longer links and enable the links to display for new sessions by
+  setting <code>hgSession.shortLink=on</code> in the mirror's configuration files. Both links
+  can be modified to include <a href=../../FAQ/FAQlink.html#trackViz>URL parameters</a>, such as 
+  <code>position=chr10:69,644,222-69,644,999</code> in these examples:
+  <pre><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=view&hgS_otherUserSessionName=clinicalzoom&position=chr10:69,644,222-69,644,999"
+  target="_blank">http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doOtherUser=submit&hgS_otherUserName=view&hgS_otherUserSessionName=clinicalzoom&position=chr10:69,644,222-69,644,999</a></pre>
+<pre><a href="http://genome.ucsc.edu/s/view/clinicalzoom?position=chr10:69,644,222-69,644,999"
+  target="_blank">http://genome.ucsc.edu/s/view/clinicalzoom?position=chr10:69,644,222-69,644,999</a></pre>
+</p></li>
+  <li>
+  <strong>Email a session link.</strong> Each session entry in the <em>My Sessions</em> list also 
+  has an <code>Email</code> link. Click this link to automatically invoke your email tool with a 
+  message containing the Genome Browser URL, which you can then send to others.</li>   
+  <li>
+  <strong>Share a session settings file.</strong> If you have saved your settings to a local file, 
+  you can give others access to the file, or email the file to them as an attachment and instruct 
+  them to load it using the Session tool.</li> 
+  <li>
+  <strong>Share a web URL.</strong> If you have saved your settings to a file on a web server, you 
+  can provide a link like this to others: 
+  <pre><code>http://genome.ucsc.edu/cgi-bin/hgSession?hgS_doLoadUrl=submit&hgS_loadUrlName=<em>MyUrl</em></code></pre>
+  <p> 
+  where <code><em>MyUrl</em></code> is the URL of your settings file, e.g., 
+  <code>http://www.mysite.edu/~me/mySession.txt</code>. In this type of link, you may replace 
+  &quot;<code>hgSession</code>&quot; with &quot;<code>hgTracks</code>&quot; to proceed directly to 
+  the Genome Browser.</li> 
+  <li>
+  <strong>List it on the Public Sessions page.</strong> The 
+  &quot;<a href="../../../cgi-bin/hgPublicSessions">Public Sessions</a>&quot; tool allows you to 
+  post and share your exciting and interesting Browser snapshots with the world. After having saved 
+  your session, you can add it to this public listing by checking the box in the column under 
+  &quot;post in public listing?&quot;.</li>
+</ul>
+
+<!-- =====Opening a Shared Session======================= -->
+<a name="Open"></a>
+<h3>Opening a shared session</h3>
+<p>
+If you open a shared session while viewing the Genome Browser, it is possible to lose all of your 
+own browser settings. That is, the settings for the newly-opened session will take precedence over 
+your existing settings and will replace them. If you wish to preserve your original settings, you 
+should first save your own settings as a session before opening a new session, or open a new tab or 
+window in your internet browser before loading the new session.</p> 
+<p>
+There are four ways to open a shared session, depending on what information you have about the 
+session. The instructions below assume that you want to replace your current session the new 
+session. Be sure to preserve your original session first if you don't want to overwrite it.</p>
+<ul>
+  <li>
+  <strong>Open a session from an email link.</strong> If you receive an email message with a link to
+  a colleague's shared session, simply click on the link to view the Genome Browser with the session
+  settings.</li>
+  <li>
+  <strong>Open another user's session.</strong> If you know the name of another user's shared 
+  session you can type in the user and session name in the &quot;Restore Settings&quot;
+  section and click &quot;submit&quot; This will generate an &quot;Updated Session&quot; message and
+  you can click on the Browser link to load the browser with the settings saved in this 
+  session.</li>
+  <li>
+  <strong>Open a session from a settings file.</strong> Open the Session tool, then scroll down to 
+  <em>Restore Settings</em> in the <em>Session Management</em> section.  
+  Click <button>Choose File</button> to find the file on your computer. Click 
+  <button>submit</button> to display the Genome Browser using these session settings.</li> 
+  <li>
+  <strong>Open a session specified by a URL.</strong> Open the Session tool, then scroll down to 
+  <em>Restore Settings</em> in the <em>Session Management</em> section. Type in the URL in the 
+  <code>Use settings from a URL</code> box, then click <button>submit</button> to display the Genome 
+  Browser using the new session settings. 
+  </li>
+</ul>
+
+<!-- =====Editing an Existing Session======================== -->
+<a name="Edit"></a>
+<h2>Editing an existing session</h2> 
+<p>
+It's easy to make changes to an existing session. Reconfigure the Genome Browser as you wish, then 
+resave the session with the same name. The Session tool will warn you that you are about to 
+overwrite an existing session.</p> 
+<p>
+You can also edit any descriptive text associated with your session as well as whether or not the 
+session can be shared in the <a href="#Details">Session Details</a> menu. Note that editing a 
+session will not alter the creation date listed in the <a href="../../cgi-bin/hgSession" 
+target="_blank">Session Management</a> menu.</p> 
+<p>
+If you previously shared this session with others, they will not see the changes until they 
+<a href="#Open">reload</a> your newly-edited session.</p> 
+
+<!-- =====Displaying Your Own Tracks in a Session======================== -->
+<a name="CTs"></a>
+<h2>Displaying your own tracks in a session</h2>
+<p> 
+In addition to displaying standard UCSC tracks in your session, you can also display the following 
+user-generated tracks:</p> 
+<ul> 
+  <li>
+  <a href="hgTracksHelp.html#CustomTracks">Custom Tracks</a></li> 
+  <li>
+  <a href="hgTracksHelp.html#GenomeGraphs">Genome Graph</a> tracks</li> 
+</ul> 
+<p>
+Before you create and save your session, be sure to upload your 
+<a href="../../cgi-bin/hgCustom" target="_blank">Custom Track</a> or 
+<a href="../../cgi-bin/hgGenome" target="_blank">Genome Graph</a> track. These user-generated tracks
+associated with a saved session will not expire. BLAT results always have a lifespan of 48 
+hours, even if they are part of a session. However, if you
+ <a href="http://genome.ucsc.edu/goldenPath/newsarch.html#050417" target ="_blank">
+generate a custom track from your BLAT results</a>, they will be saved in your session. </p> 
+
+<!-- =====Deleting a Session======================== -->
+<a name="Delete"></a>
+<h2>Deleting a session</h2> 
+<p>
+In the <strong>Session Management</strong> section under <em>My Sessions</em>, press the 
+<button>delete</button> button next to the session name you would like to delete. This will permanently 
+delete all details of the session from the UCSC server. Any saved links to that session will no 
+longer work.</p> 
+<p>
+No other user can delete your saved sessions, even if you have provided access to your sessions to 
+them. Other users simply have a <em>copy</em> of your session.</p> 
+<p>
+Unlike most other browser preferences, the session settings are not saved in your Genome Browser 
+&quot;cart&quot;. Therefore, if you choose to reset the Genome Browser, it will <em>not</em> delete 
+your saved sessions.</p>
+
+<!-- =====Lifespan of a Session======================== -->
+<a name="Lifespan"></a>
+<h2>Lifespan of a session</h2> 
+<p> 
+Your saved sessions will not be expired and will available you (and others if you 
+<a href="#Share">share</a> them) until you <a href="#Delete">delete</a> them. We have discontinued 
+our previous policy of removing saved sessions and associated custom track data after four months. 
+However, note that the UCSC Genome Browser is not a data storage service; please keep a local backup
+of your session contents and custom track data.</p>
+
+<!-- =====Session Gallery======================== -->
+<a name="Gallery"></a>
+<h2>Session gallery</h2> 
+<p> 
+The <a href="sessions.html" target="_blank">Session Gallery</a> is a collection of track views that 
+help highlight viewing different topics in the browser. The sessions in the Session Gallery were 
+created in the browser and then saved to a local file, which was then uploaded to an online 
+location. This allows creating a single link, such as 
+http://genome.ucsc.edu/cgi-bin/hgTracks?hgS_doLoadUrl=submit&hgS_loadUrlName=U, where 
+<strong>U</strong> is the URL of the session file, e.g., http://www.mysite.edu/~me/mySession.txt, 
+enabling users to maintain external control of the content file for easy update.</p>
+
+<!-- ====NAR Session Help================================ -->
+<a name="NAR"></a>
+<h2>Help for Nucleic Acids Research submitters</h2>
+<p>
+The Nucleic Acids Research (NAR) journal now
+<a href = "https://academic.oup.com/nar//pages/data_deposition_and_standardization"
+target = _blank>requires</a> manuscript submissions to contain a private
+Session link to your data in the UCSC Genome Browser that allows reviewers to access data. These
+instructions will show you how to upload, view, and share your data.</p>
+
+<!-- ====Uploading custom data=================== -->
+<a name="custom_data"></a>
+<h3>Viewing your data on the Genome Browser</h3>
+<p>
+You can view your own private data by uploading your annotation files to the Genome Browser as
+<em>custom tracks</em>; visit our <a href="customTrack.html">custom track help page</a> to learn
+more. To summarize the steps to upload your data, you will need to:</p>
+
+<ol>
+  <li>
+    Ensure the data file is <a href="customTrack.html#format">formatted correctly.</a></li>
+  <li>
+    Create a <a href="customTrack.html#TRACK">track line</a> for your custom track.</li>
+  <li>
+    <a href="customTrack.html#ADD_CT">Load the custom track</a> by adding your track line to our
+    <a href="../../cgi-bin/hgCustom">Custom Tracks</a> page.</li>
+  <li>
+    View the data in the Genome Browser.</li>
+</ol>
+<!-- ====Custom track examples=================== -->
+<a name="custom_examples"></a>
+<h3>Custom track examples</h3>
+<p>
+Creating the track line may be the most challenging step since many configuration options exist. The
+track line begins with the <strong>track</strong> keyword, followed by one or more
+<a href="customTrack.html#TRACK">attribute=value</a> pairs where the order of the attributes does
+not matter. Here are some examples:</p>
+
+<h6>BAM custom track</h6>
+<p>
+The simplest example of a BAM custom track is the following track line:
+<pre><code>track name="My BAM" type=bam bigDataUrl=http://www.mysite.edu/~me/my_sorted.bam</code></pre></p>
+
+<p>
+In the example above, the <strong>name</strong> attribute defines the name of your custom track.
+The second attribute, <strong>type</strong>, is required for some data types, but not limited
+to: <a href="/FAQ/FAQformat.html#format5.1" target="_blank">BAM</a>, 
+<a href="/FAQ/FAQformat.html#format1.5" target="_blank">bigBed</a>, 
+<a href="/FAQ/FAQformat.html#format6" target="_blank">WIG</a>,
+<a href="/FAQ/FAQformat.html#format6.1" target="_blank">bigWig</a>, and
+<a href="/FAQ/FAQformat.html#format10.1" target="_blank">VCF</a> data types.
+The last attribute, <strong>bigDataUrl</strong>, is required for remotely hosted data types such
+as <a href="../help/bam.html" target="_blank">BAM</a>, 
+<a href="../help/cram.html" target="_blank">CRAM</a>,
+<a href="../help/bigBed.html" target="_blank">bigBed</a>,
+<a href="../help/bigWig.html" target="_blank">bigWig</a>, and
+<a href="../help/vcf.html" target="_blank">VCF</a>.</p>
+
+<p>
+Adding more <a href="customTrack.html#TRACK">attribute=value</a> pairs can further customize the
+display. Here is a custom track that uses the <strong>visibility</strong> and 
+<strong>description</strong> atrributes:
+<pre><code>track type=bam visibility=dense name="My BAM" description="Example from the ENCODE RNA-seq CSHL track" bigDataUrl=http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeCshlLongRnaSeq/wgEncodeCshlLongRnaSeqA549CellPapAlnRep1.bam</code></pre></p>
+
+<p>
+There are also options to <a href="hgBamTrackHelp.html">configure the display</a> of your
+BAM files, such as a <em>density plot feature</em> that will dynamically process the underlying
+BAM into a wiggle signal.</p>
+
+<hr>
+
+<h6>bigWig custom track</h6>
+<p>
+A bigWig file is useful when trying to display dense, continuous data. Read more on the 
+<a href="bigWig.html">bigWig track format</a> help page. Here is an example bigWig track that is
+colored red, instead of the default black color, that can be pasted directly into  the
+<a href="../../cgi-bin/hgCustom">Custom Tracks Page</a>:
+<pre><code>track color=255,0,0 name="HeLa-S3 nucleus minus signal" description="RNA Subcellular CAGE Localization from ENCODE/RIKEN" type=bigWig visibility=full bigDataUrl=http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeRikenCage/wgEncodeRikenCageHelas3NucleusPapMinusSignalRep1.bigWig</code></pre></p>
+
+<p>
+There are also options to <a href="hgWiggleTrackHelp.html">configure the display</a> of your wiggle
+tracks, such as changing the track height or type of graph.</p>
+
+<!-- ====Creating a session====================== -->
+<a name="NAR_session"></a>
+<h3>Creating a session for NAR publications</h3>
+<p>
+  After creating your custom tracks and viewing your data on the Genome Browser, you can save all of
+  your tracks and settings to a snapshot of the Genome Browser called a <em>session</em>. You can
+  easily save a session by following these five steps:</p>
+<ol>
+  <li>
+    <strong>Configure the Genome Browser to your preference</strong><br>
+    Make sure the display of your custom tracks is to your liking on the Genome Browser.</li>
+  <li>
+    <strong>Navigate to the sessions page</strong><br>
+    Once you are satisfied with the display, go to the 
+    <a href="../../cgi-bin/hgSession">My Sessions</a> page by either:
+    <ul>
+      <li>
+        Going to <em><strong>My Data</strong></em> -&gt; <em><strong>My Sessions</strong></em> from
+        the navigation bar.</li>
+      <li>
+        Using the &quot;<em><strong>s</strong> then <strong>s</strong></em>&quot; keyboard shortcut
+        when viewing the main page of the <a href="../../cgi-bin/hgTracks">Genome Browser</a>.</li>
+    </ul></li>
+  <li>
+    <strong>Login to the UCSC Genome Browser</strong><br>
+    You must sign in to be able to save named sessions which will then be displayed with Browser
+    and Email links.</li>
+  <li>
+    <strong>Save your session</strong><br>
+    Go to the <strong>Save Settings</strong> section and in the
+    <em>Save current settings as named session</em> text box, enter a name for your session. When
+    saving the session, be sure to have the
+    &quot;<em>allow this session to be loaded by others</em>&quot; option checked and then click
+    <em><strong>submit</strong></em>.</li>
+  <li>
+    <strong>Edit the session description</strong><br>
+    Once the session is created, you can click the <em><strong>details</strong></em> button to add
+    a description to the session. If you eventually make a Public Session, and provide a detailed
+    description, anyone can find it by searching for terms you share. For example, navigate to the
+    <a href="../../cgi-bin/hgPublicSessions">Public Sessions</a> page and search &quot;NAR&quot; to
+    see some example sessions.</li>
+</ol>
+
+<!-- ====Sharing the session===================== -->
+<a name="NAR_sharing"></a>
+<h3>Sharing your session link</h3>
+<p>
+After saving your session, you will now be able to share your session link with others. There are
+three different ways that you can share your session: </p>
+
+<ol>
+  <li>
+    Immediately after creating a new session, the top of the page offers a <em>Browser</em>
+    hyperlink that will allow you to view the newly saved session. You can right-click the
+    <em><strong>Browser</strong></em> link to save the URL.</li>
+  <li>
+    Alternatively, you can right-click the session name and then click <em>Copy Link Address</em> to
+    save the session URL.</li>
+  <li>
+    Adding your session to the <a href="../../cgi-bin/hgPublicSessions">Public Sessions</a> page
+    will provide a useful way of sharing your session with the world in the long run. You can add
+    your session to our Public Sessions by selecting the
+    &quot;<em>post in public listing?</em>&quot; checkbox.</li>
+</ol>
+
+<h6>Editing the session URL</h6>
+<p>
+You can edit URLs to directly go to different parts of the Genome Browser such as by changing
+<strong>hgSession</strong> to <strong>hgTracks</strong>, e.g.,
+<pre><code>http://genome.ucsc.edu/cgi-bin/<strong>hgTracks</strong>?hgS_doOtherUser=submit&hgS_otherUserName=brianlee&hgS_otherUserSessionName=hg19.rela</code></pre></p>
+
+<p>
+Having <strong>hgTracks</strong> in the session URL will take the viewer to the main page of the 
+Genome Browser instead of the sessions page.</p>
+
+<!-- ====Creating a hub========================== -->
+<a name="NAR_hub"></a>
+<h3>Using track hubs to organize custom tracks</h3>
+<p>
+Creating a track hub allows you to group and organize your annotation tracks, but is limited to
+<a href="hgTrackHubHelp.html#Setup">compressed binary indexed formats</a> that can be remotely
+hosted. This will require the use of a web-accessible location to load the track hub in the UCSC
+Genome Browser. If your institution does not provide web space for you, you can look into hosting
+your binary files at a couple different web hosting services, such as
+<a href="http://www.cyverse.org/">CyVerse</a> or <a href="https://figshare.com/">figshare</a>. If
+you would like to learn more about using track hubs, please read our
+<a href="hgTrackHubHelp.html">Track Hub help page</a>.</p>
+
+<!-- ====Genome Browser inquiries================ --> 
+<h3>Genome Browser inquiries</h3> 
+<p>
+If you have any questions regarding the creation of your custom track or session, please feel free
+to <a href="../../contacts.html">contact us</a>. Before submitting a question, we strongly encourage
+you to search our
+<a href="https://groups.google.com/a/soe.ucsc.edu/forum/#!forum/genome">mailing list archives</a>,
+our <a href="../../FAQ">website</a>, and our 
+<a href="http://genomewiki.soe.ucsc.edu/index.php/Main_Page">wiki</a> for the answer. 
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

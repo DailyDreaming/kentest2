@@ -1,0 +1,5 @@
+include trackDb.6way.ra
+
+track quality override
+type wig 0 97
+

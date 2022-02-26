@@ -1,0 +1,38 @@
+# Local declaration so that local gold.html is picked up.
+track gold override
+visibility pack
+html gold
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+html gap
+
+track gc5BaseBw override
+visibility full
+
+track xenoRefGene override
+visibility pack
+
+track genscan override
+priority 4 # xenoRefGene has a default priority of 3
+visibility pack
+
+track mrna override
+visibility hide
+
+track intronEst override
+visibility hide
+
+track rmsk override
+visibility full
+
+track nestedRepeats override
+visibility dense
+
+track windowmaskerSdust override
+visibility dense
+
+track simpleRepeat override
+visibility dense
+
+include ../../refSeqComposite.ra

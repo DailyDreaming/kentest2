@@ -1,0 +1,29 @@
+include trackDb.7way.ra
+include strainAlignments.ra
+
+# Local declaration so that local gold.html is picked up.
+track gold override
+html gold
+
+# Local declaration so that local gap.html is picked up.
+track gap override
+visibility hide
+html gap
+chromosomes none
+
+track transRegCode override
+visibility hide
+
+track sgdOther override
+noScoreFilter .
+
+track blastHg18KG override
+visibility hide
+
+track oreganno override
+pennantIcon 1.jpg ../goldenPath/help/liftOver.html "lifted from sacCer1"
+
+track spMut override
+group varRep
+
+include ../../refSeqComposite.ra

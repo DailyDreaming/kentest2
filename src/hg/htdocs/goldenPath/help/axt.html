@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser axt Alignment Format" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>axt Alignment Format</h1> 
+<p> 
+<em>axt</em> alignment files are produced from Blastz, an alignment tool available from 
+<a href="http://www.bx.psu.edu/miller_lab/" target="_blank">Webb Miller's lab</a> at Penn State 
+University. The axtNet and axtChain alignments are produced by processing the alignment files with 
+additional utilities written by Jim Kent at UCSC.</p>
+<p>
+<strong><em>Example:</em></strong><br> 
+The following segment from an axt file shows the first 2 sets of alignments of the human assembly 
+(the aligning assembly) to mouse chromosome 19 (the primary assembly). 
+<pre><code>0 chr19 3001012 3001075 chr11 70568380 70568443 - 3500
+TCAGCTCATAAATCACCTCCTGCCACAAGCCTGGCCTGGTCCCAGGAGAGTGTCCAGGCTCAGA
+TCTGTTCATAAACCACCTGCCATGACAAGCCTGGCCTGTTCCCAAGACAATGTCCAGGCTCAGA
+
+chr19 3008279 3008357 chr11 70573976 70574054 - 3900
+CACAATCTTCACATTGAGATCCTGAGTTGCTGATCAGAATGGAAGGCTGAGCTAAGATGAGCGACGAGGCAATGTCACA
+CACAGTCTTCACATTGAGGTACCAAGTTGTGGATCAGAATGGAAAGCTAGGCTATGATGAGGGACAGTGCGCTGTCACA</code></pre>
+
+<p>
+<strong>Structure</strong></p> 
+<p>
+Each alignment block in an axt file contains three lines: a summary line and 2 sequence lines. 
+Blocks are separated from one another by blank lines.</p> 
+<p>
+<strong>Summary line</strong><pre><code> 0 chr19 3001012 3001075 chr11 70568380 70568443 - 3500</code></pre> 
+The summary line contains chromosomal position and size information about the alignment. It consists
+of 9 required fields: 
+<ul> 
+  <li> 
+  <strong><em>Alignment number</em></strong> -- The alignment numbering starts with 0 and increments
+   by 1, i.e. the first alignment in a file is numbered 0,  the next 1, etc.</li> 
+  <Li> 
+  <strong><em>Chromosome</em></strong> (primary organism)</li>
+  <li> <strong><em>Alignment start</em></strong> (primary organism) -- The first base is numbered 
+  1</li> 
+  <li> 
+  <strong><em>Alignment end</em></strong> (primary organism) -- The end base is included.</li> 
+  <li> 
+  <strong><em>Chromosome</em></strong> (aligning organism)</li> 
+  <li> 
+  <strong><em>Alignment start</em></strong> (aligning organism)</li> 
+  <li> 
+  <strong><em>Alignment end</em></strong> (aligning organism)</li> 
+  <li> 
+  <strong><em>Strand</em></strong> (aligning organism) -- If the strand value is &quot;-&quot;, the 
+  values of the aligning organism's start and end fields are relative to the reverse-complemented 
+  coordinates of its chromosome.</li> 
+  <li> 
+  <strong><em>Blastz score</em></strong> -- Different blastz scoring matrices are used for different
+  organisms.See the README.txt file in the alignments directory for scoring information specific to 
+  a pair of alignments.</li> 
+</ul> 
+<p><strong>Sequence lines</strong><pre><code>TCAGCTCATAAATCACCTCCTGCCACAAGCCTGGCCTGGTCCCAGGAGAGTGTCCAGGCTCAGA
+TCTGTTCATAAACCACCTGCCATGACAAGCCTGGCCTGTTCCCAAGACAATGTCCAGGCTCAGA</code></pre> 
+<p>
+The sequence lines contain the sequence of the primary assembly (line 2) and aligning assembly 
+(line 3) with inserts. Repeats are indicated by lower-case letters.</p>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

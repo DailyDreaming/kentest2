@@ -1,0 +1,92 @@
+<h2>Description</h2>
+
+<div class="warn-note" style="border: 2px solid #9e5900; padding: 5px 20px; background-color: #ffe9cc;">
+<p><span style="font-weight: bold; color: #c70000;">NOTE:</span><br> 
+HGMD public is intended for use primarily by physicians and other
+professionals concerned with genetic disorders, by genetics researchers, and
+by advanced students in science and medicine. While the HGMD public database is
+open to all academic users, users seeking information about a personal medical
+or genetic condition are urged to consult with a qualified physician for
+diagnosis and for answers to personal questions.</p>
+<p><span style="font-weight: bold; color: #c70000;">DOWNLOADS:</span><br>
+As requested by Qiagen, this track is not available for download or mirroring but only for limited API queries, see below.
+</p></div>
+
+<p>
+This track shows the genomic positions of variants in the public version of the
+Human Gene Mutation Database (<a href="http://www.hgmd.cf.ac.uk/ac/index.php"
+target="_blank">HGMD</a>).  
+UCSC does not host any further information and provides only the coordinates of
+mutations.
+</p>
+
+<p>
+To get details on a mutation (bibliographic reference, phenotype,
+disease, nucleotide change, etc.), follow the &quot;Link to HGMD&quot; at the top
+of the details page. Mouse over to show the type of variant (substitution, insertion,
+deletion, regulatory or splice variant). For deletions, only start coordinates are shown
+as the end coordinates have not been provided by HGMD. Insertions are located between the two
+annotated nucleic acids.
+</p>
+
+<p>
+The HGMD public database is produced at Cardiff University, but is free only
+for academic use.  Academic users can register for a free account at the
+<a href="http://www.hgmd.cf.ac.uk/docs/register.html" target=_"blank">HGMD
+User Registration</a> page. Download and commercial use requires a license for the <a href="https://www.qiagenbioinformatics.com/products/human-gene-mutation-database/" target="_blank">HGMD Professional</a>
+database, which also contains many mutations not yet added to the public version of HGMD public.
+The public version is usually 1-2 years behind the professional version.
+</p>
+
+<p>The HGMD database itself does not come with a mapping to genome coordinates,
+but there is a related product called "GenomeTrax" which includes HGMD in the
+UCSC Custom Track format. Contact Qiagen for more information.</p>
+
+<h2>Batch queries</h2>
+<p>Due to license restrictions, the HGMD data is not available for download or for batch queries in the Table Browser. 
+However, it is available for programmatic access via the <a href="https://ga4gh.org/#/beacon">Global
+Alliance Beacon API</a>, a web service that accepts queries in the form
+(genome, chromosome, position, allele) and returns "true" or "false" depending on whether there
+is information about this allele in the database. For more details see our 
+<a href="hgBeacon">Beacon Server</a>. </p>
+<p>Subscribers of the HGMD database can also download the full database or use the HGMD API to retrieve full details, please contact Qiagen support
+for further information. Academic or non-profit users may be able to obtain a
+limited version of HGMD public from Qiagen.</p>
+
+<h2>Display Conventions and Configuration</h2>
+
+<p>
+Genomic locations of HGMD variants are labeled with the gene symbol
+and the accession of the mutation, separated by a colon. All other information
+is shown on the respective HGMD variation page, accessible via the
+&quot;Link to HGMD&quot; at the top of the details page.
+</p>
+
+<p>HGMD variants are originally annotated on RefSeq transcripts. You can show
+all and only those transcripts annotated by HGMD by activating the HGMD
+subtrack of the track "NCBI RefSeq".</p>
+
+<h2>Methods</h2>
+
+<p>
+The mappings displayed on this track were obtained from Qiagen
+and reformatted at UCSC as a <a href="../goldenPath/help/bigBed.html">bigBed</a> file.
+</p>
+
+<h2>Credits</h2>
+
+<p>
+Thanks to HGMD, Frank Schacherer and Rupert Yip from Qiagen for making these data available.
+</p>
+
+<h2>References</h2>
+
+<p>
+Stenson PD, Mort M, Ball EV, Shaw K, Phillips A, Cooper DN.
+<a href="https://dx.doi.org/10.1007/s00439-013-1358-4" target="_blank">
+The Human Gene Mutation Database: building a comprehensive mutation repository for clinical and
+molecular genetics, diagnostic testing and personalized genomic medicine</a>.
+<em>Hum Genet</em>. 2014 Jan;133(1):1-9.
+PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/24077912" target="_blank">24077912</a>; PMC: <a
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3898141/" target="_blank">PMC3898141</a>
+</p>

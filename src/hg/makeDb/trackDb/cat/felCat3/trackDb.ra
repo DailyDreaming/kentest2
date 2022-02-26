@@ -1,0 +1,37 @@
+include trackDb.4way.ra
+
+track quality override
+type wig 0 68
+
+# Jim thought we should hide this
+track xenoRefGene override
+visibility hide
+
+track mrna override
+visibility hide
+
+track nscanGene override
+informant Cat N-SCAN uses human (hg18) as the informant and iterative pseudogene masking.
+
+searchTable nscanGene
+searchType genePred
+termRegex scaffold_[0-9]+\.[0-9]+\.[0-9]
+searchPriority 50
+
+searchTable gold
+searchMethod exact
+query select chrom,chromStart,chromEnd,frag from %s where frag like '%s'
+shortCircuit 1
+termRegex (contig_)[0-9]+
+searchPriority 8
+
+searchTable geneid
+searchType genePred
+searchMethod prefix
+termRegex scaffold_[0-9]+_[0-9]+(\.[0-9]+)?
+searchPriority 50
+
+searchTable sgpGene
+searchType genePred
+termRegex scaffold_[0-9]+_[0-9]+(.[0-9])*
+searchPriority 50

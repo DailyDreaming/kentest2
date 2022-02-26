@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser Q-Value" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>Q-Value</h1>
+<p>
+For any genome-wide analysis, reporting individual p-values can be misleading, 
+because the p-value does not correct for the large number of tests performed. 
+The q-value is an analog of the p-value that incorporates multiple testing correction. 
+The q-value is defined as the minimum false discovery rate at which an observed 
+score is deemed significant. Thus, the q-value attempts to control the percentage 
+of false positives among a collection of scores. This contrasts with a traditional 
+Bonferroni correction (or E-value), which controls the probability of one or more 
+false positives in a collection of scores.</p>
+<p>
+Software for computing q-values from a collection of p-values is available at:
+<a href="https://github.com/StoreyLab/qvalue" 
+target="_blank">https://github.com/StoreyLab/qvalue</a></p>
+<p>
+For a good introduction to false discovery rate estimation and the q-value see: Storey JD, 
+Tibshirani R. <a href="http://www.pnas.org/content/100/16/9440.abstract" 
+target="_blank">Statistical significance for genomewide studies</a>. <em>Proc Natl Acad Sci</em>. 
+2003 Aug 5;100(16):9440-5.</p>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->

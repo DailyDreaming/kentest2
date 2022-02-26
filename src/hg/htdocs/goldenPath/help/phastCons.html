@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--#set var="TITLE" value="Genome Browser phastCons Format" -->
+<!--#set var="ROOT" value="../.." -->
+
+<!-- Relative paths to support mirror sites with non-standard GB docs install -->
+<!--#include virtual="$ROOT/inc/gbPageStart.html" -->
+
+<h1>phastCons File Format</h1> 
+<p> 
+<em>phastCons</em> data files contain the compressed conservation scores that underlie the 
+Conservation annotation track and the phastCons table. For a detailed description of the algorithm 
+used to produce the scores, see the Genome Browser description page associated with the 
+Conservation track.</p> 
+<p> 
+<strong>File Format</strong> (assemblies released Nov. 2004 and later)</p> 
+<p> 
+When uncompressed, the file contains a declaration line and one column of data in wiggle table 
+fixed-step format: <pre><code>  fixedStep chrom=scaffold_1 start=3462 step=1
+  0.0978 
+  0.1588
+  0.1919
+  0.1948 
+  0.1684 </code></pre> 
+<p> 
+The <strong>declaration line</strong> specifies the starting point of the data in the assembly. It 
+consists of the following fields: 
+<ul> 
+  <li> 
+  <em><strong>fixedStep</strong></em> -- keyword indicating the wiggle track format used to write 
+  the data. In <em>fixed step</em> format, the data is single-column with a fixed interval between  
+  values.</li> 
+  <li> 
+  <em><strong>chrom</strong></em> --  chromosome or scaffold on which first value is located.</li> 
+  <li> 
+  <em><strong>start</strong></em> -- position of first value on chromosome or scaffold specified by 
+  <em>chrom</em>. NOTE: Unlike most Genome Browser coordinates, these are one-based.</li> 
+  <li> 
+  <em><strong>step</strong></em> -- size of the interval (in bases) between values.</li>
+</ul> 
+<p>
+A new declaration line is inserted in the file when the <em>chrom</em> value changes, when a gap is 
+encountered (requiring a new <em>start</em> value), or when the <em>step</em> interval changes.</p>
+<p> 
+<strong>Data lines</strong> The first data value below the header shows the score corresponding 
+to the position specified in the header. Subsequent score values step along the assembly in 
+one-base intervals. The score shows the posterior probability that the phylogenetic hidden 
+Markov model (HMM) of phastCons is in its most-conserved state at that base position.</p> 
+<p> 
+<hr> 
+<strong>File Format</strong> (assemblies prior to Nov. 2004) 
+<p> 
+When uncompressed, the data file contains two columns: <pre><code>    294	0.0953	
+    295	0.0948	
+    296	0.0943	
+    297	0.0936	
+    298	0.0929	
+    299	0.0921</code></pre></p>
+<p> 
+Column #1 contains a one-based position coordinate. Column #2 contains a score showing the posterior
+probability that the phylogenetic hidden Markov model (HMM) of phastCons is in its most conserved 
+state at that base position.</p>
+<hr> 
+<p> 
+<strong>References for phastCons</strong>
+<p> 
+Siepel A and Haussler D (2005). Phylogenetic hidden Markov models. In R. Nielsen, ed., 
+<em>Statistical Methods in Molecular Evolution</em>, pp. 325-351, Springer, New York. </p> 
+<p> 
+Siepel, A., Bejerano, G., Pedersen, J.S., Hinrichs, A., Hou, M., Rosenbloom, K., Clawson, H., 
+Spieth, J., Hillier, L.W., Richards, S., Weinstock, G.M., Wilson, R. K., Gibbs, R.A., Kent, W.J., 
+Miller, W., and Haussler, D. <a href="http://www.genome.org/cgi/doi/10.1101/gr.3715005" 
+target="_blank">Evolutionarily conserved elements in vertebrate, insect, worm, and yeast 
+genomes</a>. <em>Genome Res.</em> <strong>15</strong>, 1034-1050 (2005).</p> 
+<p> 
+For a discussion of the methods used to calculate the phastCons scores, see the description page 
+for the hg17 Conservation track in the Genome Browser.</p>
+
+<!--#include virtual="$ROOT/inc/gbPageEnd.html" -->
