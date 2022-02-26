@@ -149,6 +149,46 @@ puts(" Data must be formatted in\n"
 );
 }
 
+
+
+char* concatenate(char * dest, char * source) {
+    char * out = (char *)malloc(strlen(source) + strlen(dest) + 1);
+    if (out != NULL) {
+            strcat(out, dest);
+            strcat(out, source);
+    }
+
+    return out;
+}
+
+char * drs_check(char * uri) {
+    FILE *fp;
+
+    int BUFF_SIZE = 16384;
+
+    int size_line;
+    char line[BUFF_SIZE];
+
+    char* cmd = concatenate("bog -i '", uri);
+    cmd = concatenate(cmd, "'");
+
+    char* results = (char*) malloc(BUFF_SIZE * sizeof(char));
+
+    setenv("GOOGLE_PROJECT", "anvil-stage-demo", 1);
+    setenv("WORKSPACE_NAME", "scratch-lon", 1);
+    fp = popen(cmd, "r");
+    if (fp != NULL) {
+
+    /* Read the output a line at a time - output it. */
+    while (fgets(line, size_line = sizeof(line), fp) != NULL) {
+          results = concatenate(results, line);
+      }
+    }
+    pclose(fp);
+
+    return results;
+}
+
 void addCustomForm(struct customTrack *ct, char *err, boolean warnOnly)
 /* display UI for adding custom tracks by URL or pasting data */
 {
@@ -1266,6 +1306,7 @@ else
     boolean warnOnly = FALSE;
 
     char *customText = fixNewData(cart);
+    customText = drs_check(customText)
     /* save input so we can display if there's an error */
     char *savedCustomText = saveLines(cloneString(customText),
                                 SAVED_LINE_COUNT);
