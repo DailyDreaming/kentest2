@@ -53,6 +53,29 @@ if (cpp)
     }
 }
 
+char *resolveURI(char *url)
+{
+char *cmd[] = {"bog", url, NULL};
+char * fixedurl = url;
+struct errCatch *errCatch = errCatchNew();
+if (errCatchStart(errCatch))
+    {
+    struct pipeline *pl = pipelineOpen1(cmd, pipelineRead, NULL, NULL, 0);
+    struct lineFile *lf = pipelineLineFile(pl);
+    char *line;
+    while (lineFileNext(lf, &line, NULL))
+        fixedurl = line;
+    pipelineClose(&pl);
+    }
+errCatchEnd(errCatch);
+if (errCatch->gotError || errCatch->gotWarning)
+    {
+    warn("URL resolution did not work.");
+    }
+errCatchFree(&errCatch);
+return fixedurl;
+}
+
 static char* bigUrlToTrackLine(char *url)
 /* given the URL to a big file, create a custom track
  * line for it, has to be freed. Return NULL
@@ -115,6 +138,10 @@ while ((lf = cpp->fileStack) != NULL)
         // if user pastes just a URL, create a track line automatically
         // also allow a filename from a local directory if it has been allowed via udc.localDir in hg.conf
         bool isLocalFile = cfgOption("udc.localDir")!=NULL && startsWith(cfgOption("udc.localDir"), line);
+  if startswith("drs://", line)
+      {
+      line = resolveURI(line)
+      }
 	if (startsWith("http://", line) || startsWith("https://", line) || startsWith("ftp://", line) ||
             isLocalFile)
 	    {
